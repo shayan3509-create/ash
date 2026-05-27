@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0d47a1">
+    <title>ورود | نیوشاپ</title>
+    
+    <link rel="stylesheet" href="../assets/css/fonts.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <style>
+        /* استایل اختصاصی صفحه ورود */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #0d47a1, #00bcd4);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        body.dark {
+            background: linear-gradient(135deg, #0a0f1a, #0d2b4a);
+        }
+        
+        .login-card {
+            max-width: 420px;
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 28px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 1px solid rgba(0,212,255,0.3);
+            transition: all var(--transition);
+            position: relative;
+        }
+        
+        /* دکمه بازگشت به صفحه اصلی (سمت راست داخل کارت) */
+        .back-home-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 6px 12px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            z-index: 10;
+        }
+        .back-home-btn:hover {
+            background: rgba(0, 0, 0, 0.6);
+            transform: scale(1.02);
+            border-color: rgba(255,255,255,0.5);
+        }
+        body.dark .back-home-btn {
+            background: rgba(255,255,255,0.1);
+        }
+        body.dark .back-home-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .card-header {
+            padding: 30px 25px 15px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+        
+        .tabs {
+            display: flex;
+            padding: 0 20px;
+            gap: 10px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .tab {
+            flex: 1;
+            padding: 12px 0;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            position: relative;
+            font-family: 'Vazir', sans-serif;
+        }
+        .tab.active {
+            color: var(--primary);
+        }
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .form-container {
+            padding: 25px 25px 30px;
+        }
+        .login-form { display: none; }
+        .login-form.active-form { display: block; }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            font-size: 14px;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            transition: 0.2s;
+            font-family: 'Vazir', sans-serif;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13,71,161,0.1);
+        }
+        
+        .password-wrapper {
+            position: relative;
+        }
+        .password-wrapper input {
+            padding-left: 45px;
+            padding-right: 14px;
+        }
+        .toggle-password {
+            position: absolute;
+            left: 14px;
+            right: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Vazir', sans-serif;
+        }
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-neon);
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        .forgot-link {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .otp-timer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .resend-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'Vazir', sans-serif;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .register-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            left: auto;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            padding: 12px 18px;
+            border-radius: 14px;
+            text-align: center;
+            animation: fadeUp 0.3s ease;
+            z-index: 200;
+            max-width: 350px;
+            font-family: 'Vazir', sans-serif;
+            border-right: 3px solid var(--success);
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 480px) {
+            .login-card { margin: 10px; }
+            .toast { right: 10px; left: 10px; max-width: none; }
+            .back-home-btn { top: 12px; right: 12px; padding: 4px 10px; font-size: 11px; }
+            .card-header { margin-top: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <!-- دکمه بازگشت به صفحه اصلی (سمت راست داخل کارت) -->
+    <a href="../shop/home/index.html" class="back-home-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        خانه
+    </a>
+    
+    <div class="card-header">
+        <h1>نیوشاپ</h1>
+        <div class="subtitle">به فروشگاه ما خوش آمدید</div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" data-tab="password">ورود با رمز عبور</button>
+        <button class="tab" data-tab="otp">ورود با کد یکبارمصرف</button>
+    </div>
+    
+    <div class="form-container">
+        <!-- فرم ورود با رمز -->
+        <div id="passwordForm" class="login-form active-form">
+            <div class="input-group">
+                <label>ایمیل یا شماره موبایل</label>
+                <input type="text" id="identifier" placeholder="example@mail.com یا 09123456789">
+            </div>
+            <div class="input-group">
+                <label>رمز عبور</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="********">
+                    <button type="button" id="togglePasswordBtn" class="toggle-password">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="form-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="rememberMe"> مرا به خاطر بسپار
+                </label>
+                <a href="forgot-password.html" id="forgotLink" class="forgot-link">فراموشی رمز عبور؟</a>
+            </div>
+            <button id="loginBtn" class="btn">ورود</button>
+        </div>
+        
+        <!-- فرم ورود با کد یکبارمصرف -->
+        <div id="otpForm" class="login-form">
+            <div class="input-group">
+                <label>شماره موبایل</label>
+                <input type="tel" id="otpPhone" placeholder="09xxxxxxxxx">
+            </div>
+            <div id="otpCodeGroup" style="display: none;">
+                <div class="input-group">
+                    <label>کد تایید ۶ رقمی</label>
+                    <input type="text" id="otpCode" placeholder="123456" maxlength="6">
+                </div>
+            </div>
+            <button id="sendOtpBtn" class="btn" style="background: #00bcd4;">ارسال کد</button>
+            <div id="otpTimerArea" class="otp-timer" style="display: none;">
+                <div id="timerText"></div>
+                <button id="resendOtpBtn" class="resend-btn" disabled>ارسال مجدد کد</button>
+            </div>
+            <button id="verifyOtpBtn" class="btn" style="display: none; margin-top: 15px;">تایید و ورود</button>
+        </div>
+        
+        <div class="register-link">
+            حساب ندارید؟ <a href="register.html">ثبت‌نام کنید</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============================================
+    // منطق لاگین (بدون وابستگی به ترجمه)
+    // ============================================
+    let otpTimerInterval = null;
+    let timeLeft = 0;
+    let generatedOtp = null;
+    
+    let users = JSON.parse(localStorage.getItem('niushop_users')) || [];
+    
+    function showMessage(msg, isError = false) {
+        let existing = document.querySelector('.toast');
+        if(existing) existing.remove();
+        let toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerText = (isError ? '❌ ' : '✅ ') + msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    function isValidPhone(phone) {
+        return /^09[0-9]{9}$/.test(phone);
+    }
+    
+    function startOtpTimer(seconds = 90) {
+        if(otpTimerInterval) clearInterval(otpTimerInterval);
+        timeLeft = seconds;
+        let timerDiv = document.getElementById('timerText');
+        let resendBtn = document.getElementById('resendOtpBtn');
+        otpTimerInterval = setInterval(function() {
+            if(timeLeft <= 0) {
+                clearInterval(otpTimerInterval);
+                timerDiv.innerText = '';
+                resendBtn.disabled = false;
+                resendBtn.style.opacity = '1';
+                resendBtn.innerText = 'ارسال مجدد کد';
+            } else {
+                let mins = Math.floor(timeLeft / 60);
+                let secs = timeLeft % 60;
+                timerDiv.innerText = 'زمان باقیمانده: ' + mins + ':' + (secs < 10 ? '0' + secs : secs);
+                timeLeft--;
+            }
+        }, 1000);
+    }
+    
+    document.getElementById('loginBtn').onclick = function() {
+        let identifier = document.getElementById('identifier').value.trim();
+        let password = document.getElementById('password').value;
+        let remember = document.getElementById('rememberMe').checked;
+        
+        if(identifier === "") {
+            showMessage("لطفا ایمیل یا شماره موبایل را وارد کنید", true);
+            return;
+        }
+        if(password === "") {
+            showMessage("لطفا رمز عبور را وارد کنید", true);
+            return;
+        }
+        
+        let user = users.find(u => (u.email === identifier || u.phone === identifier) && u.password === password);
+        if(user) {
+            let session = { name: user.fullname, email: user.email, phone: user.phone };
+            if(remember) localStorage.setItem('niushop_user', JSON.stringify(session));
+            else sessionStorage.setItem('niushop_user', JSON.stringify(session));
+            showMessage("خوش آمدید " + user.fullname);
+            setTimeout(() => window.location.href = '../shop/home/index.html', 1500);
+        } else {
+            showMessage("ایمیل یا شماره موبایل یا رمز عبور اشتباه است", true);
+        }
+    };
+    
+    document.getElementById('sendOtpBtn').onclick = function() {
+        let phone = document.getElementById('otpPhone').value.trim();
+        if(phone === "") {
+            showMessage("لطفا شماره موبایل را وارد کنید", true);
+            return;
+        }
+        if(!isValidPhone(phone)) {
+            showMessage("شماره موبایل نامعتبر است (09xxxxxxxxx)", true);
+            return;
+        }
+        let userExists = users.some(u => u.phone === phone);
+        if(!userExists) {
+            showMessage("این شماره موبایل ثبت نام نشده است", true);
+            return;
+        }
+        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log("OTP:", generatedOtp);
+        showMessage("کد تایید به شماره " + phone + " ارسال شد");
+        document.getElementById('otpCodeGroup').style.display = "block";
+        document.getElementById('verifyOtpBtn').style.display = "block";
+        document.getElementById('sendOtpBtn').disabled = true;
+        document.getElementById('sendOtpBtn').style.opacity = "0.6";
+        document.getElementById('otpTimerArea').style.display = "block";
+        startOtpTimer(90);
+    };
+    
+    document.getElementById('resendOtpBtn').onclick = function() {
+        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log("New OTP:", generatedOtp);
+        showMessage("کد جدید ارسال شد");
+        startOtpTimer(90);
+        this.disabled = true;
+    };
+    
+    document.getElementById('verifyOtpBtn').onclick = function(e) {
+        e.preventDefault();
+        let code = document.getElementById('otpCode').value.trim();
+        if(code === "") {
+            showMessage("لطفا کد تایید را وارد کنید", true);
+            return;
+        }
+        if(code !== generatedOtp) {
+            showMessage("کد تایید اشتباه است", true);
+            return;
+        }
+        showMessage("ورود با موفقیت انجام شد");
+        setTimeout(() => window.location.href = '../shop/home/index.html', 1000);
+    };
+    
+    let tabs = document.querySelectorAll('.tab');
+    for(let i = 0; i < tabs.length; i++) {
+        tabs[i].addEventListener('click', function() {
+            for(let j = 0; j < tabs.length; j++) tabs[j].classList.remove('active');
+            this.classList.add('active');
+            let type = this.getAttribute('data-tab');
+            if(type === 'password') {
+                document.getElementById('passwordForm').classList.add('active-form');
+                document.getElementById('otpForm').classList.remove('active-form');
+            } else {
+                document.getElementById('otpForm').classList.add('active-form');
+                document.getElementById('passwordForm').classList.remove('active-form');
+            }
+        });
+    }
+    
+    let toggleBtn = document.getElementById('togglePasswordBtn');
+    let passInput = document.getElementById('password');
+    if(toggleBtn && passInput) {
+        toggleBtn.onclick = function() {
+            let svg = this.querySelector('svg');
+            if(passInput.type === 'password') {
+                passInput.type = 'text';
+                svg.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+            } else {
+                passInput.type = 'password';
+                svg.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+            }
+        };
+    }
+    
+    // لینک فراموشی رمز به صفحه forgot-password.html هدایت می‌کند (رویداد جاوااسکریپت حذف شد)
+    // نیازی به کد جداگانه نیست چون href مستقیم است
+    
+    if(localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+    }
+    window.addEventListener('storage', function(e) {
+        if(e.key === 'theme') {
+            if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+            else document.body.classList.remove('dark');
+        }
+    });
+</script>
+
+</body>
+</html>

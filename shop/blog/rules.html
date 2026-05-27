@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="قوانین و مقررات نیوشاپ – شرایط استفاده، قوانین خرید، بازگشت کالا و حریم خصوصی">
+    <meta name="theme-color" content="#0d47a1">
+    <title>قوانین و مقررات | نیوشاپ</title>
+    
+    <link rel="stylesheet" href="../../assets/css/fonts.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    
+    <style>
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .page-header {
+            background: var(--bg-header);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo a {
+            font-size: 28px;
+            font-weight: 800;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,212,255,0.12);
+            backdrop-filter: blur(8px);
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            border: 1px solid var(--border-color);
+        }
+        .back-home:hover {
+            background: rgba(0,212,255,0.25);
+            transform: translateX(-4px);
+        }
+        .hero-static {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+        .hero-static h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+            animation: fadeUp 0.6s ease;
+        }
+        .hero-static p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeUp 0.6s 0.1s both;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-card {
+            background: var(--bg-card);
+            border-radius: 32px;
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            margin: 40px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: var(--shadow-sm);
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            position: relative;
+            display: inline-block;
+            color: var(--text-primary);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        .rules-list {
+            list-style: none;
+            padding: 0;
+        }
+        .rules-list li {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            align-items: flex-start;
+        }
+        .rule-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .rule-content {
+            flex: 1;
+        }
+        .rule-content h3 {
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .rule-content p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .sub-section {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+        .sub-section h3 {
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        .main-footer {
+            background: var(--bg-footer);
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0 24px;
+            margin-top: 60px;
+        }
+        .footer-bottom {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            box-shadow: var(--shadow-neon);
+            z-index: 99;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.7s ease;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            .hero-static h1 { font-size: 2rem; }
+            .section-card { padding: 24px; }
+            .container { padding: 0 16px; }
+            .rules-list li { flex-direction: column; gap: 8px; }
+            .rule-number { margin-bottom: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="page-header">
+    <div class="container">
+        <div class="header-flex">
+            <div class="logo">
+                <a href="../home/index.html">نیو<span class="text-primary">شاپ</span></a>
+            </div>
+            <a href="../home/index.html" class="back-home">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                بازگشت به خانه
+            </a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="hero-static animate-on-scroll">
+            <h1>قوانین و مقررات</h1>
+            <p>لطفاً قبل از استفاده از خدمات نیوشاپ، این قوانین را به دقت مطالعه فرمایید.</p>
+        </div>
+
+        <div class="section-card animate-on-scroll">
+            <h2 class="section-title">شرایط عمومی</h2>
+            <ul class="rules-list">
+                <li>
+                    <div class="rule-number">1</div>
+                    <div class="rule-content">
+                        <h3>پذیرش قوانین</h3>
+                        <p>استفاده از وب‌سایت نیوشاپ به منزله پذیرش کامل تمامی قوانین و مقررات جاری است. در صورت عدم پذیرش هر یک از مواد، لطفاً از این وب‌سایت استفاده نکنید.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">2</div>
+                    <div class="rule-content">
+                        <h3>تغییرات در قوانین</h3>
+                        <p>نیوشاپ این حق را برای خود محفوظ می‌دارد که در هر زمان بدون اطلاع قبلی، قوانین و مقررات را تغییر دهد. آخرین نسخه قوانین همواره در این صفحه منتشر می‌شود.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">3</div>
+                    <div class="rule-content">
+                        <h3>حساب کاربری</h3>
+                        <p>کاربران مسئول حفظ امنیت اطلاعات حساب کاربری خود هستند. نیوشاپ هیچ‌گونه مسئولیتی در قبال سوءاستفاده از حساب کاربری دیگران ندارد.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card animate-on-scroll">
+            <h2 class="section-title">قوانین خرید</h2>
+            <ul class="rules-list">
+                <li>
+                    <div class="rule-number">1</div>
+                    <div class="rule-content">
+                        <h3>ثبت سفارش</h3>
+                        <p>پس از ثبت سفارش، نیوشاپ حداکثر ظرف ۲۴ ساعت آن را پردازش کرده و تأیید سفارش از طریق ایمیل و پیامک برای شما ارسال می‌شود.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">2</div>
+                    <div class="rule-content">
+                        <h3>پرداخت</h3>
+                        <p>کلیه پرداخت‌ها از طریق درگاه بانکی امن انجام می‌شود. اطلاعات کارت بانکی شما در سیستم ذخیره نمی‌گردد.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">3</div>
+                    <div class="rule-content">
+                        <h3>لغو سفارش</h3>
+                        <p>پیش از تأیید نهایی سفارش، کاربر می‌تواند سفارش خود را لغو کند. پس از تأیید، لغو سفارش تنها با هماهنگی پشتیبانی امکان‌پذیر است.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">4</div>
+                    <div class="rule-content">
+                        <h3>قیمت‌ها</h3>
+                        <p>کلیه قیمت‌ها به تومان بوده و شامل مالیات بر ارزش افزوده می‌باشد. نیوشاپ حق تغییر قیمت‌ها را بدون اطلاع قبلی دارد.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card animate-on-scroll">
+            <h2 class="section-title">رویه‌های بازگشت کالا</h2>
+            <ul class="rules-list">
+                <li>
+                    <div class="rule-number">1</div>
+                    <div class="rule-content">
+                        <h3>شرایط مرجوعی</h3>
+                        <p>در صورت وجود هرگونه نقص فنی یا مغایرت با مشخصات فنی، تا ۷ روز پس از تحویل کالا، امکان بازگشت کالا وجود دارد.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">2</div>
+                    <div class="rule-content">
+                        <h3>بسته‌بندی اصلی</h3>
+                        <p>کالا باید همراه با کلیه اقلام و بسته‌بندی اصلی خود عودت داده شود. در غیر این صورت، درخواست مرجوعی قابل قبول نیست.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">3</div>
+                    <div class="rule-content">
+                        <h3>هزینه بازگشت</h3>
+                        <p>هزینه ارسال برای بازگشت کالا در صورت نقص فنی به عهده نیوشاپ است. در صورت انصراف مشتری، هزینه به عهده خریدار خواهد بود.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card animate-on-scroll">
+            <h2 class="section-title">حریم خصوصی</h2>
+            <ul class="rules-list">
+                <li>
+                    <div class="rule-number">1</div>
+                    <div class="rule-content">
+                        <h3>جمع‌آوری اطلاعات</h3>
+                        <p>نیوشاپ اطلاعات شخصی شما را برای بهبود تجربه خرید و ارائه خدمات بهتر جمع‌آوری می‌کند.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">2</div>
+                    <div class="rule-content">
+                        <h3>امنیت اطلاعات</h3>
+                        <p>تمام اطلاعات کاربران با بالاترین سطح امنیت ذخیره شده و در اختیار اشخاص ثالث قرار نمی‌گیرد.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">3</div>
+                    <div class="rule-content">
+                        <h3>استفاده از کوکی‌ها</h3>
+                        <p>نیوشاپ از کوکی‌ها برای شخصی‌سازی محتوا و بهبود تجربه کاربری استفاده می‌کند. شما می‌توانید کوکی‌ها را از مرورگر خود غیرفعال کنید.</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="sub-section">
+                <h3>حقوق مالکیت فکری</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7;">کلیه محتواهای موجود در وب‌سایت نیوشاپ از جمله متن، تصاویر، لوگوها، و کدها متعلق به نیوشاپ بوده و هرگونه کپی‌برداری بدون مجوز کتبی ممنوع است.</p>
+            </div>
+        </div>
+
+        <div class="section-card animate-on-scroll">
+            <h2 class="section-title">باشگاه مشتریان</h2>
+            <ul class="rules-list">
+                <li>
+                    <div class="rule-number">1</div>
+                    <div class="rule-content">
+                        <h3>امتیازدهی</h3>
+                        <p>به ازای هر ۱۰,۰۰۰ تومان خرید، ۱ امتیاز تعلق می‌گیرد. هر ۱۰۰ امتیاز معادل ۱۰,۰۰۰ تومان اعتبار است.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">2</div>
+                    <div class="rule-content">
+                        <h3>سطح‌بندی</h3>
+                        <p>باشگاه مشتریان نیوشاپ دارای سه سطح نقرهای، طلایی و الماسی است که هر سطح مزایای ویژه خود را دارد.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">3</div>
+                    <div class="rule-content">
+                        <h3>انقضای امتیازات</h3>
+                        <p>امتیازات باشگاه مشتریان یک سال اعتبار داشته و پس از آن منقضی می‌شوند.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card animate-on-scroll">
+            <h2 class="section-title">شرایط ارسال</h2>
+            <ul class="rules-list">
+                <li>
+                    <div class="rule-number">1</div>
+                    <div class="rule-content">
+                        <h3>زمان تحویل</h3>
+                        <p>سفارشات شهر تهران طی ۲۴ تا ۴۸ ساعت کاری و سایر شهرها طی ۳ تا ۵ روز کاری تحویل داده می‌شوند.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">2</div>
+                    <div class="rule-content">
+                        <h3>هزینه ارسال</h3>
+                        <p>هزینه ارسال برای خریدهای بالای ۵,۰۰۰,۰۰۰ تومان رایگان است. در غیر این صورت هزینه ارسال بر اساس تعرفه پستی محاسبه می‌شود.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">3</div>
+                    <div class="rule-content">
+                        <h3>آدرس نامعتبر</h3>
+                        <p>مسئولیت وارد کردن آدرس صحیح بر عهده کاربر است. در صورت عدم دسترسی به آدرس، کالا به آدرس برگشت خورده و هزینه آن به عهده خریدار خواهد بود.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card animate-on-scroll">
+            <h2 class="section-title">قوانین ثبت‌نام و احراز هویت</h2>
+            <ul class="rules-list">
+                <li>
+                    <div class="rule-number">1</div>
+                    <div class="rule-content">
+                        <h3>اطلاعات دقیق</h3>
+                        <p>کاربران موظف به ارائه اطلاعات دقیق و صحیح در هنگام ثبت‌نام هستند. هرگونه اطلاعات نادرست منجر به لغو حساب کاربری خواهد شد.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">2</div>
+                    <div class="rule-content">
+                        <h3>حداقل سن</h3>
+                        <p>شرایط استفاده از خدمات نیوشاپ برای افراد زیر ۱۸ سال با مسئولیت والدین یا قیم قانونی امکان‌پذیر است.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="rule-number">3</div>
+                    <div class="rule-content">
+                        <h3>حذف حساب کاربری</h3>
+                        <p>نیوشاپ این حق را دارد در صورت نقض قوانین، حساب کاربری را بدون اطلاع قبلی مسدود کند.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <p>تمامی حقوق متعلق به نیوشاپ است. ۱۴۰۴</p>
+        </div>
+    </div>
+</footer>
+
+<div class="back-to-top" id="backToTop">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+</div>
+
+<script>
+    // انیمیشن اسکرول
+    const animated = document.querySelectorAll('.animate-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    animated.forEach(el => observer.observe(el));
+
+    // دکمه بازگشت به بالا
+    const backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) backBtn.classList.add('show');
+        else backBtn.classList.remove('show');
+    });
+    backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // دارک مود – هماهنگ با localStorage
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+    }
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'theme') {
+            if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+            else document.body.classList.remove('dark');
+        }
+    });
+</script>
+
+</body>
+</html>
