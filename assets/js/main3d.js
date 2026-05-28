@@ -18,17 +18,15 @@ window.innerWidth / window.innerHeight,
 1000
 );
 
-camera.position.set(0,0,7);
+camera.position.set(0, 0, 7);
 
 /* =========================
    RENDERER
 ========================= */
 
 const renderer = new THREE.WebGLRenderer({
-
-alpha:true,
-antialias:true
-
+alpha: true,
+antialias: true
 });
 
 renderer.setSize(
@@ -40,9 +38,12 @@ renderer.setPixelRatio(
 window.devicePixelRatio
 );
 
-document
-.getElementById('iphone-canvas')
-.appendChild(renderer.domElement);
+const canvasContainer =
+document.getElementById('iphone-canvas');
+
+canvasContainer.appendChild(
+renderer.domElement
+);
 
 /* =========================
    LIGHTS
@@ -56,53 +57,85 @@ new THREE.AmbientLight(
 
 scene.add(ambient);
 
-/* BLUE LIGHT */
+/* BLUE */
 
 const blueLight =
 new THREE.PointLight(
 0x00d4ff,
-15
+20
 );
 
-blueLight.position.set(
-5,
-5,
-5
-);
+blueLight.position.set(5,5,5);
 
 scene.add(blueLight);
 
-/* PURPLE LIGHT */
+/* PURPLE */
 
 const purpleLight =
 new THREE.PointLight(
 0x7000ff,
-12
+15
 );
 
-purpleLight.position.set(
--5,
--5,
-5
-);
+purpleLight.position.set(-5,-5,5);
 
 scene.add(purpleLight);
 
-/* TOP LIGHT */
+/* TOP */
 
 const topLight =
 new THREE.PointLight(
 0xffffff,
-8
+10
 );
 
-topLight.position.set(
-0,
-5,
-5
-);
+topLight.position.set(0,5,5);
 
 scene.add(topLight);
+
+/* =========================
+   PARTICLES
+========================= */
+
+const particlesGeometry =
+new THREE.BufferGeometry();
+
+const particlesCount = 1000;
+
+const posArray =
+new Float32Array(
+particlesCount * 3
+);
+
+for(let i = 0; i < particlesCount * 3; i++){
+
+posArray[i] =
+(Math.random() - 0.5) * 30;
+
+}
+
+particlesGeometry.setAttribute(
+'position',
+new THREE.BufferAttribute(posArray,3)
+);
+
+const particlesMaterial =
+new THREE.PointsMaterial({
+
+size:0.025,
+color:0x00d4ff,
+transparent:true,
+opacity:0.7
+
+});
+
+const particlesMesh =
+new THREE.Points(
+particlesGeometry,
+particlesMaterial
+);
+
+scene.add(particlesMesh);
 
 /* =========================
    LOAD MODEL
@@ -121,9 +154,7 @@ loader.load(
 
 phone = gltf.scene;
 
-/* =========================
-   CENTER MODEL
-========================= */
+/* CENTER MODEL */
 
 const box =
 new THREE.Box3()
@@ -136,9 +167,7 @@ new THREE.Vector3()
 
 phone.position.sub(center);
 
-/* =========================
-   AUTO SCALE
-========================= */
+/* AUTO SCALE */
 
 const size =
 box.getSize(
@@ -157,21 +186,16 @@ const scale =
 
 phone.scale.setScalar(scale);
 
-/* =========================
-   POSITION
-========================= */
+/* POSITION */
 
-phone.position.x = 1.8;
+phone.position.x = 2;
+phone.position.y = 0;
 
-/* =========================
-   ROTATION
-========================= */
+/* START ROTATION */
 
-phone.rotation.y = 2.5;
+phone.rotation.y = -6;
 
-/* =========================
-   SHADOW / MATERIAL BOOST
-========================= */
+/* MATERIAL BOOST */
 
 phone.traverse((child)=>{
 
@@ -182,7 +206,7 @@ child.receiveShadow = true;
 
 if(child.material){
 
-child.material.envMapIntensity = 2;
+child.material.envMapIntensity = 3;
 
 }
 
@@ -192,15 +216,84 @@ child.material.envMapIntensity = 2;
 
 scene.add(phone);
 
+/* =========================
+   INTRO ANIMATION
+========================= */
+
+/* گوشی از راست میاد */
+
+gsap.from(phone.position,{
+
+x:10,
+duration:2.5,
+ease:'power4.out'
+
+});
+
+/* چرخش 360 */
+
+gsap.to(phone.rotation,{
+
+y:Math.PI * 2,
+
+duration:3.5,
+
+ease:'power3.out'
+
+});
+
+/* متن */
+
+gsap.from('.hero-left .iphone-badge',{
+
+x:-100,
+opacity:0,
+duration:1,
+delay:1
+
+});
+
+gsap.from('.hero-left h1',{
+
+x:-150,
+opacity:0,
+duration:1.5,
+delay:1.3
+
+});
+
+gsap.from('.hero-left p',{
+
+x:-120,
+opacity:0,
+duration:1.5,
+delay:1.6
+
+});
+
+gsap.from('.hero-btn',{
+
+y:80,
+opacity:0,
+duration:1,
+delay:2
+
+});
+
+const loaderOverlay = document.getElementById('loader');
+if(loaderOverlay){
+    loaderOverlay.style.opacity = '0';
+    loaderOverlay.style.pointerEvents = 'none';
+    setTimeout(()=> loaderOverlay.style.display = 'none', 1000);
+}
+
 },
 
 (xhr)=>{
 
 console.log(
-
 (xhr.loaded / xhr.total * 100)
 + '% loaded'
-
 );
 
 },
@@ -217,7 +310,7 @@ error
 );
 
 /* =========================
-   MOUSE INTERACTION
+   MOUSE
 ========================= */
 
 let mouseX = 0;
@@ -242,30 +335,42 @@ window.innerHeight - 0.5);
 );
 
 /* =========================
-   ANIMATION
+   ANIMATE
 ========================= */
 
 function animate(){
 
 requestAnimationFrame(animate);
 
+/* PHONE */
+
 if(phone){
 
-/* ROTATION */
-
-phone.rotation.y = Math.PI / 9;
+phone.rotation.y +=
+(
+(mouseX * 0.5)
+-
+phone.rotation.y
++
+0.4
+)
+* 0.03;
 
 phone.rotation.x =
 mouseY * 0.15;
 
-/* FLOATING EFFECT */
+/* FLOAT */
 
 phone.position.y =
 Math.sin(
 Date.now() * 0.0015
-) * 0.2;
+) * 0.15;
 
 }
+
+/* PARTICLES */
+
+particlesMesh.rotation.y += 0.0007;
 
 /* RENDER */
 
@@ -303,10 +408,34 @@ window.innerHeight
 
 );
 
-/* =========================
-   DEBUG
-========================= */
 
-console.log(renderer);
-console.log(scene);
-console.log(camera);
+gsap.from('.hero-left h1',{
+
+    y:120,
+    opacity:0,
+    duration:1.5,
+    ease:'power4.out'
+
+});
+
+gsap.from('.hero-left p',{
+
+    y:80,
+    opacity:0,
+    duration:1.5,
+    delay:0.2,
+    ease:'power4.out'
+
+});
+
+gsap.from('.hero-btn',{
+
+    scale:0.7,
+    opacity:0,
+    duration:1.2,
+    delay:0.5,
+    ease:'back.out(1.7)'
+
+});
+
+
