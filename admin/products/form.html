@@ -260,6 +260,17 @@
     </div>
 
     <script>
+
+        // توی <script> - اول کار
+if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+
+// تابع toggleDarkMode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+
         let selectedImage = '', selectedColor = '#0d47a1', selectedColorName = 'سرمه‌ای';
         let cp = { h: 220, s: 1.0, v: 0.33 };
 
@@ -522,6 +533,20 @@
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
         function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('show'); }
         function toggleDarkMode() { document.body.classList.toggle('dark'); }
+
+
+                // ذخیره موقعیت اسکرول سایدبار قبل از ترک صفحه
+window.addEventListener('beforeunload', () => {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) localStorage.setItem('sidebarScroll', sidebar.scrollTop);
+});
+
+// برگردوندن موقعیت اسکرول موقع لود
+window.addEventListener('load', () => {
+    const sidebar = document.getElementById('sidebar');
+    const saved = localStorage.getItem('sidebarScroll');
+    if (sidebar && saved) sidebar.scrollTop = parseInt(saved);
+});
     </script>
 </body>
 </html>

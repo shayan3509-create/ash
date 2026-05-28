@@ -7,4 +7,4 @@ git pull
 
 Ash team
 
-add Brand.html and categories.html check Beshe Moshkelat Neveshte Beshe Dark Mod Ok Mikonam
+add Brand.html categories.html list.html delete.html and form.html
