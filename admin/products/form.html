@@ -119,7 +119,6 @@
         .color-preview { width: 64px; height: 64px; border-radius: 14px; border: 3px solid var(--border); cursor: pointer; flex-shrink: 0; transition: 0.2s; }
         .color-preview:hover { transform: scale(1.05); border-color: #0d47a1; }
 
-        /* COLOR PICKER */
         .color-picker-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 200; opacity: 0; visibility: hidden; transition: 0.2s; }
         .color-picker-modal.show { opacity: 1; visibility: visible; }
         .color-picker-box { background: var(--bg-card); border-radius: 24px; padding: 24px; width: 520px; max-width: 94%; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
@@ -163,7 +162,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-logo"><h2>نیو<span>شاپ</span></h2></div>
         <nav class="sidebar-nav">
-            <div class="nav-section"><div class="nav-section-title">اصلی</div><a href="../dashboard/index.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>داشبورد</a></div>
+            <div class="nav-section"><div class="nav-section-title">اصلی</div><a href="../dashboard/admin_dashboard.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>داشبورد</a></div>
             <div class="nav-section"><div class="nav-section-title">کاربران</div><a href="../users/list.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>لیست کاربران</a><a href="../users/reviews.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/></svg>نظرات</a><a href="../users/roles.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>نقش‌ها</a><a href="../users/tickets.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>تیکت‌ها</a></div>
             <div class="nav-section"><div class="nav-section-title">محصولات</div><a href="list.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>لیست محصولات</a><a href="form.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>افزودن محصول</a><a href="categories.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>دسته‌بندی‌ها</a><a href="brands.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/></svg>برندها</a><a href="delete.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/></svg>حذف محصولات</a></div>
             <div class="nav-section"><div class="nav-section-title">سفارشات</div><a href="../orders/list.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>لیست سفارشات</a><a href="../orders/detail.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>جزئیات سفارش</a><a href="../orders/returns.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>مرجوعی‌ها</a><a href="../orders/sales-stats.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>آمار فروش</a></div>
@@ -260,16 +259,7 @@
     </div>
 
     <script>
-
-        // توی <script> - اول کار
-if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
-
-// تابع toggleDarkMode
-function toggleDarkMode() {
-    document.body.classList.toggle('dark');
-    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-}
-
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 
         let selectedImage = '', selectedColor = '#0d47a1', selectedColorName = 'سرمه‌ای';
         let cp = { h: 220, s: 1.0, v: 0.33 };
@@ -326,7 +316,6 @@ function toggleDarkMode() {
             reader.readAsDataURL(file);
         }
 
-        // ==================== COLOR PICKER (HSV) ====================
         function hsv2hex(h, s, v) {
             let i = Math.floor(h / 60), f = h/60 - i;
             let p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
@@ -359,55 +348,25 @@ function toggleDarkMode() {
             const canvas = document.getElementById('slCanvas');
             const wrap = canvas.parentElement;
             const w = wrap.clientWidth, h = wrap.clientHeight;
-            const dpr = 1;
-            canvas.width = w;
-            canvas.height = h;
-            canvas.style.width = w + 'px';
-            canvas.style.height = h + 'px';
+            canvas.width = w; canvas.height = h;
+            canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
             const ctx = canvas.getContext('2d');
-
-            // پایه: رنگ خالص با hue فعلی
-            ctx.fillStyle = `hsl(${cp.h}, 100%, 50%)`;
-            ctx.fillRect(0, 0, w, h);
-
-            // گرادیان افقی: سفید (s=0) → شفاف (s=1)
-            const sg = ctx.createLinearGradient(0, 0, w, 0);
-            sg.addColorStop(0, 'white');
-            sg.addColorStop(1, 'rgba(255,255,255,0)');
-            ctx.fillStyle = sg;
-            ctx.fillRect(0, 0, w, h);
-
-            // گرادیان عمودی: شفاف (v=1) → مشکی (v=0)
-            const lg = ctx.createLinearGradient(0, 0, 0, h);
-            lg.addColorStop(0, 'rgba(0,0,0,0)');
-            lg.addColorStop(1, 'black');
-            ctx.fillStyle = lg;
-            ctx.fillRect(0, 0, w, h);
-
+            ctx.fillStyle = `hsl(${cp.h}, 100%, 50%)`; ctx.fillRect(0, 0, w, h);
+            const sg = ctx.createLinearGradient(0, 0, w, 0); sg.addColorStop(0, 'white'); sg.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.fillStyle = sg; ctx.fillRect(0, 0, w, h);
+            const lg = ctx.createLinearGradient(0, 0, 0, h); lg.addColorStop(0, 'rgba(0,0,0,0)'); lg.addColorStop(1, 'black');
+            ctx.fillStyle = lg; ctx.fillRect(0, 0, w, h);
             updateSLCursor();
         }
 
         function updateSLCursor() {
-            const wrap = document.getElementById('slPicker');
-            const w = wrap.clientWidth, h = wrap.clientHeight;
-            const x = cp.s * w;
-            const y = (1 - cp.v) * h;
-            const c = document.getElementById('slCursor');
-            c.style.left = x + 'px';
-            c.style.top = y + 'px';
+            const wrap = document.getElementById('slPicker'), w = wrap.clientWidth, h = wrap.clientHeight;
+            document.getElementById('slCursor').style.left = (cp.s * w) + 'px';
+            document.getElementById('slCursor').style.top = ((1 - cp.v) * h) + 'px';
         }
 
-        function updateHueThumb() {
-            const slider = document.getElementById('hueSlider');
-            const w = slider.clientWidth;
-            document.getElementById('hueThumb').style.left = (cp.h / 360) * w + 'px';
-        }
-
-        function updateCPPreview() {
-            const hex = hsv2hex(cp.h, cp.s, cp.v);
-            document.getElementById('cpPreviewNew').style.background = hex;
-            document.getElementById('cpHex').value = hex;
-        }
+        function updateHueThumb() { document.getElementById('hueThumb').style.left = ((cp.h / 360) * document.getElementById('hueSlider').clientWidth) + 'px'; }
+        function updateCPPreview() { const hex = hsv2hex(cp.h, cp.s, cp.v); document.getElementById('cpPreviewNew').style.background = hex; document.getElementById('cpHex').value = hex; }
 
         function openColorPicker() {
             cp = hex2hsv(selectedColor);
@@ -425,37 +384,23 @@ function toggleDarkMode() {
             closeColorPicker();
         }
 
-        const slPicker = document.getElementById('slPicker');
-        function pickSL(e) {
-            const rect = slPicker.getBoundingClientRect();
-            cp.s = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-            cp.v = 1 - Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
-            updateSLCursor();
-            updateCPPreview();
-        }
-        slPicker.addEventListener('mousedown', e => { pickSL(e); document.addEventListener('mousemove', pickSL); });
+        const slP = document.getElementById('slPicker');
+        function pickSL(e) { const r = slP.getBoundingClientRect(); cp.s = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)); cp.v = 1 - Math.max(0, Math.min(1, (e.clientY - r.top) / r.height)); updateSLCursor(); updateCPPreview(); }
+        slP.addEventListener('mousedown', e => { pickSL(e); document.addEventListener('mousemove', pickSL); });
         document.addEventListener('mouseup', () => document.removeEventListener('mousemove', pickSL));
-        slPicker.addEventListener('touchstart', e => { e.preventDefault(); pickSL(e.touches[0]); document.addEventListener('touchmove', tPickSL); });
+        slP.addEventListener('touchstart', e => { e.preventDefault(); pickSL(e.touches[0]); document.addEventListener('touchmove', tPickSL); });
         document.addEventListener('touchend', () => document.removeEventListener('touchmove', tPickSL));
         function tPickSL(e) { e.preventDefault(); pickSL(e.touches[0]); }
 
-        const hueSlider = document.getElementById('hueSlider');
-        function pickHue(e) {
-            const rect = hueSlider.getBoundingClientRect();
-            cp.h = Math.round(Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)) * 360);
-            updateHueThumb();
-            drawSLPicker();
-            updateCPPreview();
-        }
-        hueSlider.addEventListener('mousedown', e => { pickHue(e); document.addEventListener('mousemove', pickHue); });
+        const hS = document.getElementById('hueSlider');
+        function pickHue(e) { const r = hS.getBoundingClientRect(); cp.h = Math.round(Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * 360); updateHueThumb(); drawSLPicker(); updateCPPreview(); }
+        hS.addEventListener('mousedown', e => { pickHue(e); document.addEventListener('mousemove', pickHue); });
         document.addEventListener('mouseup', () => document.removeEventListener('mousemove', pickHue));
-        hueSlider.addEventListener('touchstart', e => { e.preventDefault(); pickHue(e.touches[0]); document.addEventListener('touchmove', tPickHue); });
+        hS.addEventListener('touchstart', e => { e.preventDefault(); pickHue(e.touches[0]); document.addEventListener('touchmove', tPickHue); });
         document.addEventListener('touchend', () => document.removeEventListener('touchmove', tPickHue));
         function tPickHue(e) { e.preventDefault(); pickHue(e.touches[0]); }
-
         window.addEventListener('resize', () => { if (document.getElementById('colorPickerModal').classList.contains('show')) { drawSLPicker(); updateHueThumb(); } });
 
-        // ==================== CATEGORY ====================
         function onCategoryChange() { updateSpecsAndGuide(); }
 
         function updateSpecsAndGuide() {
@@ -478,7 +423,6 @@ function toggleDarkMode() {
             } else { guideCard.style.display = 'none'; }
         }
 
-        // ==================== SAVE ====================
         function saveProduct() {
             const name = document.getElementById('productName').value.trim();
             const category = document.getElementById('productCategory').value;
@@ -528,25 +472,14 @@ function toggleDarkMode() {
             document.getElementById('guideCard').style.display = 'none';
         }
 
-        function showToast(msg) { let existing = document.querySelector('.toast'); if (existing) existing.remove(); const toast = document.createElement('div'); toast.className = 'toast'; toast.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>' + msg; document.body.appendChild(toast); setTimeout(() => toast.remove(), 3000); }
+        function showToast(msg) { let t = document.querySelector('.toast'); if (t) t.remove(); const d = document.createElement('div'); d.className = 'toast'; d.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>' + msg; document.body.appendChild(d); setTimeout(() => d.remove(), 3000); }
 
+        function toggleDarkMode() { document.body.classList.toggle('dark'); localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light'); }
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
         function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('show'); }
-        function toggleDarkMode() { document.body.classList.toggle('dark'); }
 
-
-                // ذخیره موقعیت اسکرول سایدبار قبل از ترک صفحه
-window.addEventListener('beforeunload', () => {
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) localStorage.setItem('sidebarScroll', sidebar.scrollTop);
-});
-
-// برگردوندن موقعیت اسکرول موقع لود
-window.addEventListener('load', () => {
-    const sidebar = document.getElementById('sidebar');
-    const saved = localStorage.getItem('sidebarScroll');
-    if (sidebar && saved) sidebar.scrollTop = parseInt(saved);
-});
+        window.addEventListener('beforeunload', () => { const s = document.getElementById('sidebar'); if (s) localStorage.setItem('sidebarScroll', s.scrollTop); });
+        window.addEventListener('load', () => { const s = document.getElementById('sidebar'); const sc = localStorage.getItem('sidebarScroll'); if (s && sc) s.scrollTop = parseInt(sc); });
     </script>
 </body>
 </html>
