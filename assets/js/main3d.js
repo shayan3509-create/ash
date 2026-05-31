@@ -1,441 +1,217 @@
-import * as THREE from './three/three.module.js';
-import { GLTFLoader } from './three/GLTFLoader.js';
+// ============================================
+// main3d.js - نسخه سینمایی: وسط‌چین -> چرخش -> بازگشت به چپ
+// ============================================
 
-/* =========================
-   SCENE
-========================= */
+const CONFIG = {
+    colors: { beam: '#0088ff', glow: '#00aaff' },
+    timing: { arrival: 3.2, beam: 0.7, emergence: 2.0, textReveal: 1.0 },
+    positions: {
+        shipStart: { x: 4, y: 1.5, z: -15 },
+        shipFinal: { x: -6.5, y: 4.5, z: 7 },   // سفینه سمت چپ-بالا
+        phoneCenter: { x: 0, y: 0, z: 6 },      // دقیقاً وسط بنر
+        phoneFinal: { x: -6.5, y: 1.5, z: 6 }   // برگشت به زیر سفینه
+    },
+    scale: { phoneStart: 0.0003, phoneFinal: 150 },
+    lighting: {
+        exposure: 1.6, keyLightIntensity: 60,
+        rimLightIntensity: 15, ambientIntensity: 0.6
+    }
+};
 
-const scene = new THREE.Scene();
-
-/* =========================
-   CAMERA
-========================= */
-
-const camera = new THREE.PerspectiveCamera(
-45,
-window.innerWidth / window.innerHeight,
-0.1,
-1000
-);
-
-camera.position.set(0, 0, 7);
-
-/* =========================
-   RENDERER
-========================= */
-
-const renderer = new THREE.WebGLRenderer({
-alpha: true,
-antialias: true
-});
-
-renderer.setSize(
-window.innerWidth,
-window.innerHeight
-);
-
-renderer.setPixelRatio(
-window.devicePixelRatio
-);
-
-const canvasContainer =
-document.getElementById('iphone-canvas');
-
-canvasContainer.appendChild(
-renderer.domElement
-);
-
-/* =========================
-   LIGHTS
-========================= */
-
-const ambient =
-new THREE.AmbientLight(
-0xffffff,
-3
-);
-
-scene.add(ambient);
-
-/* BLUE */
-
-const blueLight =
-new THREE.PointLight(
-0x00d4ff,
-20
-);
-
-blueLight.position.set(5,5,5);
-
-scene.add(blueLight);
-
-/* PURPLE */
-
-const purpleLight =
-new THREE.PointLight(
-0x7000ff,
-15
-);
-
-purpleLight.position.set(-5,-5,5);
-
-scene.add(purpleLight);
-
-/* TOP */
-
-const topLight =
-new THREE.PointLight(
-0xffffff,
-10
-);
-
-topLight.position.set(0,5,5);
-
-scene.add(topLight);
-
-/* =========================
-   PARTICLES
-========================= */
-
-const particlesGeometry =
-new THREE.BufferGeometry();
-
-const particlesCount = 1000;
-
-const posArray =
-new Float32Array(
-particlesCount * 3
-);
-
-for(let i = 0; i < particlesCount * 3; i++){
-
-posArray[i] =
-(Math.random() - 0.5) * 30;
-
+function hideLoader() {
+    const loader = document.getElementById('loader');
+    if (loader) {
+        loader.classList.add('hidden');
+        setTimeout(() => { loader.style.display = 'none'; }, 300);
+    }
 }
 
-particlesGeometry.setAttribute(
-'position',
-new THREE.BufferAttribute(posArray,3)
-);
+const container = document.getElementById('iphone-canvas');
+let scene, camera, renderer, iphoneModel, ufoGroup, beamMesh;
+let isDragging = false, prevMouse = { x: 0, y: 0 }, animDone = false;
+let animStarted = false;
 
-const particlesMaterial =
-new THREE.PointsMaterial({
-
-size:0.025,
-color:0x00d4ff,
-transparent:true,
-opacity:0.7
-
-});
-
-const particlesMesh =
-new THREE.Points(
-particlesGeometry,
-particlesMaterial
-);
-
-scene.add(particlesMesh);
-
-/* =========================
-   LOAD MODEL
-========================= */
-
-const loader =
-new GLTFLoader();
-
-let phone;
-
-loader.load(
-
-'../../assets/models/iphone15.glb',
-
-(gltf)=>{
-
-phone = gltf.scene;
-
-/* CENTER MODEL */
-
-const box =
-new THREE.Box3()
-.setFromObject(phone);
-
-const center =
-box.getCenter(
-new THREE.Vector3()
-);
-
-phone.position.sub(center);
-
-/* AUTO SCALE */
-
-const size =
-box.getSize(
-new THREE.Vector3()
-);
-
-const maxDim =
-Math.max(
-size.x,
-size.y,
-size.z
-);
-
-const scale =
-5 / maxDim;
-
-phone.scale.setScalar(scale);
-
-/* POSITION */
-
-phone.position.x = 2;
-phone.position.y = 0;
-
-/* START ROTATION */
-
-phone.rotation.y = -6;
-
-/* MATERIAL BOOST */
-
-phone.traverse((child)=>{
-
-if(child.isMesh){
-
-child.castShadow = true;
-child.receiveShadow = true;
-
-if(child.material){
-
-child.material.envMapIntensity = 3;
-
+if (!container) {
+    hideLoader();
+} else {
+    Promise.all([
+        import('./three/three.module.js'),
+        import('./three/GLTFLoader.js')
+    ])
+    .then(([THREE, { GLTFLoader }]) => {
+        window.THREE = THREE; 
+        initScene(THREE, GLTFLoader);
+    })
+    .catch(err => { console.error('Init failed:', err); hideLoader(); });
 }
 
+function initScene(THREE, GLTFLoader) {
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 1.5, 22);
+
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = CONFIG.lighting.exposure;
+    container.appendChild(renderer.domElement);
+
+    // Environment Map
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+    const neutralScene = new THREE.Scene();
+    neutralScene.background = new THREE.Color(0x808080);
+    const envMap = pmremGenerator.fromScene(neutralScene, 0).texture;
+    scene.environment = envMap;
+    pmremGenerator.dispose();
+
+    // نورپردازی
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, CONFIG.lighting.ambientIntensity));
+    const spotLight = new THREE.SpotLight(0xeef6ff, CONFIG.lighting.keyLightIntensity);
+    spotLight.position.set(0, 10, 15);
+    spotLight.angle = Math.PI / 6; spotLight.penumbra = 0.5;
+    spotLight.decay = 2; spotLight.distance = 50;
+    spotLight.target.position.set(0, 0, 5);
+    scene.add(spotLight); scene.add(spotLight.target);
+    scene.add(new THREE.PointLight(CONFIG.colors.glow, CONFIG.lighting.rimLightIntensity, 25).translateX(-5).translateY(2).translateZ(10));
+
+    createUFO(THREE);
+    createBeam(THREE);
+    loadIPhone(GLTFLoader);
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+    animate();
 }
 
-});
-
-scene.add(phone);
-
-/* =========================
-   INTRO ANIMATION
-========================= */
-
-/* گوشی از راست میاد */
-
-gsap.from(phone.position,{
-
-x:10,
-duration:2.5,
-ease:'power4.out'
-
-});
-
-/* چرخش 360 */
-
-gsap.to(phone.rotation,{
-
-y:Math.PI * 2,
-
-duration:3.5,
-
-ease:'power3.out'
-
-});
-
-/* متن */
-
-gsap.from('.hero-left .iphone-badge',{
-
-x:-100,
-opacity:0,
-duration:1,
-delay:1
-
-});
-
-gsap.from('.hero-left h1',{
-
-x:-150,
-opacity:0,
-duration:1.5,
-delay:1.3
-
-});
-
-gsap.from('.hero-left p',{
-
-x:-120,
-opacity:0,
-duration:1.5,
-delay:1.6
-
-});
-
-gsap.from('.hero-btn',{
-
-y:80,
-opacity:0,
-duration:1,
-delay:2
-
-});
-
-const loaderOverlay = document.getElementById('loader');
-if(loaderOverlay){
-    loaderOverlay.style.opacity = '0';
-    loaderOverlay.style.pointerEvents = 'none';
-    setTimeout(()=> loaderOverlay.style.display = 'none', 1000);
+function createUFO(THREE) {
+    ufoGroup = new THREE.Group();
+    const bodyMat = new THREE.MeshStandardMaterial({ color: '#1a2a3a', emissive: '#0a1520', emissiveIntensity: 0.5, metalness: 0.8, roughness: 0.2 });
+    ufoGroup.add(new THREE.Mesh(new THREE.CylinderGeometry(1.2, 2.8, 0.4, 32), bodyMat));
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(1.1, 32, 16, 0, Math.PI*2, 0, Math.PI/2), new THREE.MeshPhysicalMaterial({ color: '#0088ff', transmission: 0.85, opacity: 0.25, transparent: true }));
+    dome.position.y = 0.2; ufoGroup.add(dome);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(2.4, 0.08, 16, 32), new THREE.MeshBasicMaterial({ color: '#00ffaa' }));
+    ring.rotation.x = Math.PI / 2; ufoGroup.add(ring);
+    ufoGroup.position.set(CONFIG.positions.shipStart.x, CONFIG.positions.shipStart.y, CONFIG.positions.shipStart.z);
+    ufoGroup.scale.set(0.8, 0.8, 0.8);
+    scene.add(ufoGroup);
 }
 
-},
-
-(xhr)=>{
-
-console.log(
-(xhr.loaded / xhr.total * 100)
-+ '% loaded'
-);
-
-},
-
-(error)=>{
-
-console.error(
-'GLB ERROR:',
-error
-);
-
+function createBeam(THREE) {
+    const geo = new THREE.CylinderGeometry(2.2, 0.3, 20, 32, 1, true);
+    const mat = new THREE.MeshBasicMaterial({ color: CONFIG.colors.beam, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, depthWrite: false });
+    beamMesh = new THREE.Mesh(geo, mat);
+    beamMesh.rotation.x = Math.PI; beamMesh.position.y = -10; beamMesh.scale.y = 0.05;
+    ufoGroup.add(beamMesh);
 }
 
-);
+function loadIPhone(GLTFLoader) {
+    new GLTFLoader().load('../../assets/models/iphone15.glb', (gltf) => {
+        iphoneModel = gltf.scene;
+        iphoneModel.position.set(CONFIG.positions.shipFinal.x, CONFIG.positions.shipFinal.y, CONFIG.positions.shipFinal.z);
+        iphoneModel.scale.setScalar(CONFIG.scale.phoneStart);
+        iphoneModel.rotation.set(0, 0, 0); // شروع رو به دوربین
 
-/* =========================
-   MOUSE
-========================= */
-
-let mouseX = 0;
-let mouseY = 0;
-
-document.addEventListener(
-
-'mousemove',
-
-(e)=>{
-
-mouseX =
-(e.clientX /
-window.innerWidth - 0.5);
-
-mouseY =
-(e.clientY /
-window.innerHeight - 0.5);
-
+        iphoneModel.traverse(child => {
+            if (child.isMesh) {
+                child.material.envMapIntensity = 1.5;
+                child.material.metalness = 0.95; child.material.roughness = 0.1;
+            }
+        });
+        scene.add(iphoneModel);
+        startSequence();
+    }, undefined, (err) => console.error('iPhone load failed:', err));
 }
 
-);
+function startSequence() {
+    if (animStarted) return;
+    animStarted = true;
+    hideLoader();
 
-/* =========================
-   ANIMATE
-========================= */
+    if (typeof gsap !== 'undefined') {
+        const tl = gsap.timeline({ defaults: { ease: "power3.inOut" } });
 
-function animate(){
+        // 1. سفینه می‌آید و می‌ایستد
+        tl.to(ufoGroup.position, { x: -6.5, y: 5.5, z: 7, duration: 3.2 }, 0);
+        tl.to(ufoGroup.scale, { x: 2.2, y: 2.2, z: 2.2, duration: 3.2 }, 0);
 
-requestAnimationFrame(animate);
+        // 2. نور سفینه باز می‌شود
+        tl.to(beamMesh.material, { opacity: 0.4, duration: 0.7 }, "-=0.6");
+        tl.to(beamMesh.scale, { y: 1, duration: 0.7, ease: "elastic.out(1, 0.5)" }, "<");
 
-/* PHONE */
+        // 3. آیفون بزرگ می‌شود (داخل/نزدیک سفینه)
+        tl.to(iphoneModel.scale, { x: 38, y: 38, z: 38, duration: 0.9, ease: "back.out(1.4)" }, "-=0.2");
 
-if(phone){
+        // ✅ 4. فاز سقوط: آیفون فقط عمودی (Y) از سفینه پایین می‌آید
+        tl.to(iphoneModel.position, { y: -1.5, duration: 0.8, ease: "power2.in" }, "-=0.2");
 
-phone.rotation.y +=
-(
-(mouseX * 0.5)
--
-phone.rotation.y
-+
-0.4
-)
-* 0.03;
+        // ✅ 5. فاز حرکت: آیفون افقی (X/Z) به وسط بنر می‌رود
+        tl.to(iphoneModel.position, { x: 0, y: 0.5, z: 6, duration: 1.2, ease: "power3.out" }, "-=0.1");
 
-phone.rotation.x =
-mouseY * 0.15;
+        // 6. چرخش ۳۶۰ درجه در وسط
+        tl.to(iphoneModel.rotation, { y: Math.PI * 2, duration: 0.7, ease: "power2.inOut" }, "-=0.5");
 
-/* FLOAT */
+        // ✅ 7. متن واقعاً از پشت آیفون بیرون می‌آید (بازگشت Z به صفر)
+        // ✅ 7. متن از پایین (زیر آیفون) ظاهر شده و به جایگاه نهایی می‌آید
+        // ✅ 7. متن با تأخیر و از پایین ظاهر می‌شود (حس پشت سر)
+        tl.to(".cinematic-text", {
+            opacity: 1,
+            x: 0,          // حرکت به راست
+            y: 20,         // حرکت به بالا (از 80px به 20px)
+            scale: 1,      // بزرگ شدن به اندازه واقعی
+            duration: 1.0, // زمان کمی طولانی‌تر برای نرم‌تر شدن
+            ease: "power2.out"
+        }, "-=0.2"); // ✅ شروع دقیقاً وقتی آیفون کمی از مرکز فاصله گرفت
 
-phone.position.y =
-Math.sin(
-Date.now() * 0.0015
-) * 0.15;
+        // ✅ 8. حرکت معکوس: آیفون به چپ، متن به راست
+        tl.to(iphoneModel.position, { x: -6.5, y: 1.5, z: 6, duration: 1.5, ease: "power2.inOut" }, "-=0.4");
+        tl.to(".cinematic-text", { x: 40, duration: 1.5, ease: "power2.inOut" }, "<");
 
+        // 9. نور خاموش، سفینه بالاتر می‌رود و ثابت می‌ماند
+        tl.to(beamMesh.material, { opacity: 0, duration: 0.8 }, "-=0.8");
+        tl.to(ufoGroup.position, { y: 6.8, duration: 1.5 }, "<");
+
+        tl.call(() => { animDone = true; enableDrag(); });
+    } else {
+        // فال‌بک
+        ufoGroup.position.set(-6.5, 5.5, 7); ufoGroup.scale.set(2.2, 2.2, 2.2);
+        beamMesh.material.opacity = 0.4; beamMesh.scale.y = 1;
+        iphoneModel.scale.setScalar(38); iphoneModel.position.set(-6.5, 1.5, 6);
+        document.querySelector('.cinematic-text').style.opacity = 1;
+        animDone = true; enableDrag();
+    }
+}
+function enableDrag() {
+    container.addEventListener('mousedown', e => {
+        isDragging = true;
+        prevMouse = { x: e.clientX, y: e.clientY };
+        container.classList.add('dragging');
+    });
+    window.addEventListener('mouseup', () => { isDragging = false; container.classList.remove('dragging'); });
+    window.addEventListener('mousemove', e => {
+        if (!isDragging || !animDone || !iphoneModel) return;
+        const dx = e.clientX - prevMouse.x, dy = e.clientY - prevMouse.y;
+        iphoneModel.rotation.y += dx * 0.005;
+        iphoneModel.rotation.x += dy * 0.004;
+        iphoneModel.rotation.x = Math.max(-0.5, Math.min(0.5, iphoneModel.rotation.x));
+        prevMouse = { x: e.clientX, y: e.clientY };
+    });
 }
 
-/* PARTICLES */
-
-particlesMesh.rotation.y += 0.0007;
-
-/* RENDER */
-
-renderer.render(
-scene,
-camera
-);
-
+function animate() {
+    requestAnimationFrame(animate);
+    if (ufoGroup) {
+        ufoGroup.rotation.y += 0.003;
+        ufoGroup.position.y += Math.sin(Date.now() * 0.001) * 0.002;
+    }
+    if (animDone && iphoneModel && !isDragging) {
+        iphoneModel.rotation.y += 0.001;
+        iphoneModel.position.y = CONFIG.positions.phoneFinal.y + Math.sin(Date.now() * 0.001) * 0.03;
+    }
+    renderer.render(scene, camera);
 }
-
-animate();
-
-/* =========================
-   RESIZE
-========================= */
-
-window.addEventListener(
-
-'resize',
-
-()=>{
-
-camera.aspect =
-window.innerWidth /
-window.innerHeight;
-
-camera.updateProjectionMatrix();
-
-renderer.setSize(
-window.innerWidth,
-window.innerHeight
-);
-
-}
-
-);
-
-
-gsap.from('.hero-left h1',{
-
-    y:120,
-    opacity:0,
-    duration:1.5,
-    ease:'power4.out'
-
-});
-
-gsap.from('.hero-left p',{
-
-    y:80,
-    opacity:0,
-    duration:1.5,
-    delay:0.2,
-    ease:'power4.out'
-
-});
-
-gsap.from('.hero-btn',{
-
-    scale:0.7,
-    opacity:0,
-    duration:1.2,
-    delay:0.5,
-    ease:'back.out(1.7)'
-
-});
-
-
