@@ -216,24 +216,23 @@
         <div class="page-content">
             <!-- Stats -->
             <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background:#0d47a1;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-                    <div class="stat-info"><div class="stat-value" id="statTotal">0</div><div class="stat-label">کل کاربران</div></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background:#10b981;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
-                    <div class="stat-info"><div class="stat-value" id="statActive">0</div><div class="stat-label">فعال</div></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background:#ef4444;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                    <div class="stat-info"><div class="stat-value" id="statBanned">0</div><div class="stat-label">مسدود</div></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background:#f59e0b;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
-                    <div class="stat-info"><div class="stat-value" id="statNew">0</div><div class="stat-label">ثبت نام این ماه</div></div>
-                </div>
-            </div>
-
+    <div class="stat-card">
+        <div class="stat-icon" style="background:#0d47a1;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="stat-info"><div class="stat-value" id="statTotal">0</div><div class="stat-label">کل کاربران</div></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:#10b981;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div class="stat-info"><div class="stat-value" id="statActive">0</div><div class="stat-label">فعال</div></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:#64748b;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+        <div class="stat-info"><div class="stat-value" id="statInactive">0</div><div class="stat-label">غیرفعال</div></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:#ef4444;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+        <div class="stat-info"><div class="stat-value" id="statBanned">0</div><div class="stat-label">مسدود</div></div>
+    </div>
+</div>
             <!-- Main Table -->
             <div class="card">
                 <div class="card-header">
@@ -392,12 +391,9 @@
             document.getElementById('statTotal').textContent = users.length;
             document.getElementById('statActive').textContent = users.filter(u => u.status === 'active').length;
             document.getElementById('statBanned').textContent = users.filter(u => u.status === 'banned').length;
-            const now = new Date(), thisMonth = now.getMonth(), thisYear = now.getFullYear();
-            document.getElementById('statNew').textContent = users.filter(u => {
-                const d = new Date(u.joinDate);
-                return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
-            }).length;
+            document.getElementById('statInactive').textContent = users.filter(u => u.status === 'inactive').length;
         }
+        
 
         function render() {
             const start = (page - 1) * perPage;
