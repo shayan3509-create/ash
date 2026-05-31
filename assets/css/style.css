@@ -1,6 +1,59 @@
 /* ============================================
-   تم نهایی فروشگاه نیوشاپ - نسخه سنگ تمام
-   با افکت‌های پیشرفته، گرادیان متحرک و بک‌گراند خفن
+   تم نهایی فروشگاه نیوشاپ - نسخه پایدار و کامل
+   ✅ رفع خطای لود نشدن سایت
+   ✅ اسکرول بار کاملاً حذف شد
+   ✅ هدر چسبیده به لبه‌های چپ و راست
+   ✅ دکمه جستجو کاملاً دایره‌ای
+   ✅ تمام المان‌های بیضی -> مستطیل گرد یا دایره
+   ✅ هیرو سه‌بعدی: تمام‌عرض + اسکرول فعال
+   ✅ بک‌گراند تصویری خالص (بدون افکت اضافه)
+============================================ */
+
+/* @import "tailwindcss"; */
+
+/* ============================================
+   1️⃣ ریست پایه و اسکرول‌بار
+============================================ */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================================
+   ✅ مخفی کردن اسکرول‌بار بدون قفل کردن اسکرول
+============================================ */
+
+/* برای فایرفاکس */
+* {
+    scrollbar-width: none;
+}
+
+/* برای کروم، سافاری، اج */
+*::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: transparent !important;
+}
+
+/* ✅ اصلاح خطای سینتکس - اسکرول عملکردی فعال */
+html, body {
+    overflow-y: scroll !important;
+    overflow-x: hidden;
+    overscroll-behavior-y: auto !important;
+    -ms-overflow-style: none;
+}
+
+/* ============================================
+   2️⃣ متغیرهای اصلی
 ============================================ */
 :root {
     --primary: #00d4ff;
@@ -12,4982 +65,773 @@
     --danger: #ff3366;
     --warning: #ffaa00;
     --info: #00ffff;
+    
     --bg-body: #f0f4f8;
     --bg-surface: #ffffff;
     --bg-card: rgba(255, 255, 255, 0.95);
     --bg-header: rgba(255, 255, 255, 0.95);
     --bg-footer: #ffffff;
+    
     --text-primary: #1a1a2e;
     --text-secondary: #4a4a6a;
-    --text-muted: #8a8aaa;
+    --text-muted: #5a5a7a;
+    
     --border-color: rgba(0, 212, 255, 0.3);
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
     --shadow-neon: 0 0 20px rgba(0, 212, 255, 0.5);
     --shadow-neon-strong: 0 0 30px rgba(0, 212, 255, 0.7), 0 0 15px rgba(112, 0, 255, 0.5);
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-    --radius-xl: 28px;
-    --radius-2xl: 36px;
-    --radius-full: 9999px;
+    
+    --radius-card: 1rem;
+    --radius-button: 2.5rem;
+    --radius-circle: 50%;
+    --radius-timer: 0.75rem;
+    
     --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 0.6s ease;
-    --font-xs: 12px;
-    --font-sm: 14px;
-    --font-base: 16px;
-    --font-lg: 18px;
-    --font-xl: 20px;
-    --font-2xl: 26px;
-
-    --font-3xl: 34px;
-
-    --font-4xl: 44px;
-
-    --font-5xl: 58px;
-
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-base: 1rem;
+    --font-lg: 1.125rem;
+    --font-xl: 1.25rem;
+    --font-2xl: 1.625rem;
+    --font-3xl: 2.125rem;
+    --font-4xl: 2.75rem;
+    --font-5xl: 3.625rem;
+    
+    --z-base: 1;
+    --z-sticky: 200;
+    --z-header: 1000;
+    --z-drawer: 2000;
+    --z-modal: 3000;
+    --z-loader: 9999;
 }
-
-
-
-/* تم تاریک */
 
 body.dark {
-
     --bg-body: #0a0a0f;
-
     --bg-surface: #0f0f1a;
-
     --bg-card: rgba(15, 15, 26, 0.95);
-
     --bg-header: rgba(10, 10, 15, 0.95);
-
     --bg-footer: #0a0a0f;
-
     --text-primary: #ffffff;
-
     --text-secondary: #b0b0c0;
-
-    --text-muted: #6a6a7a;
-
-    --bg-body-gradient-start: #0a0a0f;
-
-    --bg-body-gradient-end: #1a0a2e;
-
+    --text-muted: #7a7a9a;
 }
-
-
 
 /* ============================================
-
-   بک‌گراند متحرک خفن برای کل سایت
-
+   3️⃣ استایل‌های پایه
 ============================================ */
-
 body {
-
-    font-family: 'Vazir', 'Segoe UI', system-ui, sans-serif;
-
+    font-family: 'Vazir', 'Vazirmatn', 'Segoe UI', system-ui, sans-serif;
     background-color: var(--bg-body);
-
     color: var(--text-primary);
-
     transition: background-color var(--transition), color var(--transition);
-
     direction: rtl;
-
     position: relative;
-
-    overflow-x: hidden;
-
+    font-size: var(--font-base);
+    line-height: 1.6;
+    overscroll-behavior-y: auto !important;
+    -webkit-overflow-scrolling: touch;
 }
 
-
-
-/* بک‌گراند متحرک حرفه‌ای */
-
-body::before {
-
-    content: '';
-
-    position: fixed;
-
-    top: 0;
-
-    left: 0;
-
-    right: 0;
-
-    bottom: 0;
-
-    background: 
-
-        radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 40%),
-
-        radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
-
-        radial-gradient(circle at 40% 80%, rgba(255, 0, 212, 0.08) 0%, transparent 35%),
-
-        repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(0, 212, 255, 0.02) 40px, rgba(0, 212, 255, 0.02) 80px);
-
-    pointer-events: none;
-
-    z-index: 0;
-
-    animation: backgroundPulse 8s ease-in-out infinite;
-
+*:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    box-shadow: var(--shadow-neon);
 }
-
-
-
-@keyframes backgroundPulse {
-
-    0%, 100% {
-
-        opacity: 0.7;
-
-    }
-
-    50% {
-
-        opacity: 1;
-
-    }
-
-}
-
-
-
-/* ذرات متحرک در پس‌زمینه */
-
-body::after {
-
-    content: '';
-
-    position: fixed;
-
-    top: 0;
-
-    left: 0;
-
-    right: 0;
-
-    bottom: 0;
-
-    background-image: 
-
-        radial-gradient(2px 2px at 10% 20%, rgba(0, 212, 255, 0.3) 100%, transparent),
-
-        radial-gradient(3px 3px at 85% 45%, rgba(112, 0, 255, 0.3) 100%, transparent),
-
-        radial-gradient(1px 1px at 50% 70%, rgba(255, 0, 212, 0.3) 100%, transparent),
-
-        radial-gradient(2px 2px at 90% 85%, rgba(0, 212, 255, 0.2) 100%, transparent),
-
-        radial-gradient(1px 1px at 30% 50%, rgba(112, 0, 255, 0.2) 100%, transparent);
-
-    background-size: 200px 200px;
-
-    background-repeat: no-repeat;
-
-    pointer-events: none;
-
-    z-index: 0;
-
-    animation: particlesFloat 15s ease-in-out infinite;
-
-}
-
-
-
-@keyframes particlesFloat {
-
-    0%, 100% {
-
-        transform: translateY(0) translateX(0);
-
-    }
-
-    25% {
-
-        transform: translateY(-20px) translateX(10px);
-
-    }
-
-    50% {
-
-        transform: translateY(10px) translateX(-15px);
-
-    }
-
-    75% {
-
-        transform: translateY(-10px) translateX(5px);
-
-    }
-
-}
-
-
 
 .container {
-
     max-width: 1280px;
-
     margin: 0 auto;
-
-    padding: 0 24px;
-
+    padding: 0 1.5rem;
     position: relative;
-
-    z-index: 1;
-
+    z-index: var(--z-base);
 }
 
-
-
-/* ---------- دکمه دارک مود ---------- */
-
-.theme-toggle {
-
-    background: none;
-
-    border: none;
-
-    cursor: pointer;
-
-    padding: 8px;
-
-    border-radius: 50%;
-
-    transition: all var(--transition);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-}
-
-
-
-.theme-toggle:hover {
-
-    transform: scale(1.1);
-
-    background: rgba(0, 212, 255, 0.15);
-
-}
-
-
-
-/* ---------- هدر ---------- */
-
+/* ============================================
+   4️⃣ هدر (چسبیده به لبه‌ها)
+============================================ */
 .main-header {
-
-    background: var(--bg-header);
-
-    backdrop-filter: blur(20px);
-
-    border-bottom: 1px solid var(--border-color);
-
     position: sticky;
-
     top: 0;
-
-    z-index: 1000;
-
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0.625rem 0;
+    background: var(--bg-header);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: var(--z-header);
+    transform: translateZ(0);
 }
 
-
+@media (max-width: 1023px) {
+    .main-header { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
 
 .header-wrapper {
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
-    padding: 16px 0;
-
-    gap: 32px;
-
+    gap: 1rem;
     flex-wrap: wrap;
-
 }
-
-
 
 .logo a {
-
-    font-size: 28px;
-
+    font-size: var(--font-2xl);
     font-weight: 800;
-
     text-decoration: none;
-
     background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-
     -webkit-background-clip: text;
-
     background-clip: text;
-
     color: transparent;
-
+    display: inline-block;
 }
-
-
 
 .search-form {
-
     flex: 1;
-
     max-width: 450px;
-
     display: flex;
-
-    gap: 8px;
-
+    gap: 0.75rem;
+    align-items: center;
 }
-
-
 
 .search-form input {
-
     flex: 1;
-
-    padding: 12px 20px;
-
+    padding: 0.75rem 1.25rem;
     border: 1px solid var(--border-color);
-
-    border-radius: var(--radius-full);
-
+    border-radius: var(--radius-button);
     background: var(--bg-surface);
-
     color: var(--text-primary);
-
     font-family: inherit;
-
+    font-size: var(--font-base);
+    transition: border-color var(--transition), box-shadow var(--transition);
 }
-
-
-
-.search-form input:focus {
-
-    outline: none;
-
-    border-color: var(--primary);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
+.search-form input:focus { outline: none; border-color: var(--primary); box-shadow: var(--shadow-neon); }
+.search-form input::placeholder { color: var(--text-muted); }
 
 .search-form button {
-
-    padding: 12px 24px;
-
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    min-width: unset;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
-
     border: none;
-
-    border-radius: var(--radius-full);
-
+    border-radius: var(--radius-circle);
     cursor: pointer;
-
     color: white;
-
-    transition: var(--transition);
-
-}
-
-
-
-.search-form button:hover {
-
-    transform: scale(1.05);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-.user-actions {
-
+    transition: all var(--transition);
     display: flex;
-
-    gap: 20px;
-
     align-items: center;
-
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
 }
+.search-form button:hover { transform: scale(1.1); box-shadow: var(--shadow-neon); }
+.search-form button:active { transform: scale(0.95); }
 
-
-
+.user-actions { display: flex; gap: 1rem; align-items: center; }
 .icon-btn {
-
-    background: none;
-
-    border: none;
-
-    cursor: pointer;
-
-    color: var(--text-secondary);
-
-    transition: var(--transition);
-
-    display: flex;
-
-    align-items: center;
-
-    padding: 8px;
-
-    border-radius: 50%;
-
+    background: none; border: none; cursor: pointer; color: var(--text-secondary);
+    transition: all var(--transition); display: flex; align-items: center; justify-content: center;
+    padding: 0.5rem; border-radius: var(--radius-circle);
+    min-width: 2.75rem; min-height: 2.75rem;
 }
+.icon-btn:hover { color: var(--primary); transform: scale(1.1); background: rgba(0, 212, 255, 0.1); }
+.icon-btn:active { transform: scale(0.95); }
 
-
-
-.icon-btn:hover {
-
-    color: var(--primary);
-
-    transform: scale(1.1);
-
-    background: rgba(0, 212, 255, 0.1);
-
-}
-
-
-
-.cart-icon {
-
-    position: relative;
-
-}
-
-
-
+.cart-icon { position: relative; }
 .cart-badge {
-
-    position: absolute;
-
-    top: -5px;
-
-    right: -5px;
-
-    background: linear-gradient(135deg, var(--danger), var(--accent));
-
-    color: white;
-
-    font-size: 10px;
-
-    width: 18px;
-
-    height: 18px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
+    position: absolute; top: -0.25rem; right: -0.25rem;
+    background: linear-gradient(135deg, var(--danger), var(--accent)); color: white;
+    font-size: 0.625rem; width: 1.25rem; height: 1.25rem;
+    border-radius: var(--radius-circle);
+    display: flex; align-items: center; justify-content: center; font-weight: 600;
 }
 
-
-
-.main-nav {
-
-    border-top: 1px solid var(--border-color);
-
-    padding: 12px 0;
-
-}
-
-
-
-.nav-list {
-
-    display: flex;
-
-    list-style: none;
-
-    gap: 32px;
-
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-}
-
-
-
+.main-nav { border-top: 1px solid var(--border-color); padding: 0.75rem 0; }
+.nav-list { display: flex; list-style: none; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin: 0; padding: 0; }
 .nav-list a {
-
-    text-decoration: none;
-
-    color: var(--text-secondary);
-
-    font-weight: 500;
-
-    transition: var(--transition);
-
-    padding: 8px 0;
-
-    position: relative;
-
+    text-decoration: none; color: var(--text-secondary); font-weight: 500; font-size: var(--font-base);
+    transition: color var(--transition); padding: 0.5rem 0; position: relative; display: inline-block;
 }
-
-
-
 .nav-list a::after {
-
-    content: '';
-
-    position: absolute;
-
-    bottom: 0;
-
-    right: 0;
-
-    width: 0;
-
-    height: 2px;
-
+    content: ''; position: absolute; bottom: 0; right: 0; width: 0; height: 2px;
     background: linear-gradient(90deg, var(--primary), var(--secondary));
-
-    transition: width var(--transition);
-
+    transition: width var(--transition); border-radius: 99px;
 }
-
-
-
-.nav-list a:hover::after {
-
-    width: 100%;
-
-}
-
-
-
-.nav-list a:hover {
-
-    color: var(--primary);
-
-}
-
-
+.nav-list a:hover::after, .nav-list a:focus-visible::after { width: 100%; }
+.nav-list a:hover, .nav-list a:focus-visible { color: var(--primary); }
 
 /* ============================================
-
-   Hero Section (رفع ناخوانایی در حالت روز)
-
+   5️⃣ بخش‌های عمومی
 ============================================ */
-
 .hero-section {
-
     background: linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 50%, #0a0a0f 100%);
-
-    border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
-
-    padding: 100px 20px;
-
-    text-align: center;
-
-    position: relative;
-
-    overflow: hidden;
-
-    margin-bottom: 60px;
-
-    border: 1px solid rgba(0, 212, 255, 0.3);
-
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-
+    border-radius: 0 0 var(--radius-card) var(--radius-card);
+    padding: 6.25rem 1.25rem 2.5rem; text-align: center; position: relative; overflow: hidden;
+    margin-bottom: 3.75rem; border: 1px solid rgba(0, 212, 255, 0.3); box-shadow: var(--shadow-lg);
 }
-
-
-
-/* حالت روز برای هیرو */
-
-body:not(.dark) .hero-section {
-
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-
-    border: none;
-
-}
-
-
-
-body:not(.dark) .hero-badge {
-
-    background: rgba(255, 255, 255, 0.25);
-
-    color: #fff;
-
-    border-color: rgba(255, 255, 255, 0.5);
-
-}
-
-
-
-body:not(.dark) .hero-title {
-
-    background: linear-gradient(135deg, #fff, #ffe0f0, #fff);
-
-    -webkit-background-clip: text;
-
-    background-clip: text;
-
-    color: transparent;
-
-    text-shadow: none;
-
-}
-
-
-
-body:not(.dark) .hero-subtitle {
-
-    color: rgba(255, 255, 255, 0.95);
-
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-}
-
-
-
-body:not(.dark) .btn-outline {
-
-    color: #fff;
-
-    border-color: #fff;
-
-}
-
-
-
-body:not(.dark) .btn-outline:hover {
-
-    background: rgba(255, 255, 255, 0.2);
-
-}
-
-
-
+body:not(.dark) .hero-section { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); border: none; }
 .hero-section::before {
-
-    content: '';
-
-    position: absolute;
-
-    top: -50%;
-
-    left: -50%;
-
-    width: 200%;
-
-    height: 200%;
-
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
     background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
-
-    animation: rotateSlow 20s linear infinite;
-
+    animation: rotateSlow 20s linear infinite; pointer-events: none;
 }
+@keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@media (max-width: 768px) { .hero-section::before { animation: none; } }
 
-
-
-@keyframes rotateSlow {
-
-    from { transform: rotate(0deg); }
-
-    to { transform: rotate(360deg); }
-
-}
-
-
-
-.hero-content {
-
-    position: relative;
-
-    z-index: 2;
-
-}
-
-
-
+.hero-content { position: relative; z-index: 2; }
 .hero-badge {
-
-    display: inline-block;
-
-    background: rgba(0, 212, 255, 0.15);
-
-    padding: 8px 24px;
-
-    border-radius: var(--radius-full);
-
-    font-size: var(--font-sm);
-
-    color: var(--primary);
-
-    margin-bottom: 24px;
-
-    border: 1px solid var(--primary);
-
-    backdrop-filter: blur(5px);
-
+    display: inline-block; background: rgba(0, 212, 255, 0.15);
+    padding: 0.5rem 1.5rem; border-radius: var(--radius-button);
+    font-size: var(--font-sm); color: var(--primary); margin-bottom: 1.5rem; border: 1px solid var(--primary);
 }
-
-
-
 .hero-title {
-
-    font-size: var(--font-5xl);
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-
-    -webkit-background-clip: text;
-
-    background-clip: text;
-
-    color: transparent;
-
-    margin-bottom: 16px;
-
+    font-size: var(--font-5xl); background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; line-height: 1.2;
 }
-
-
-
-.hero-subtitle {
-
-    font-size: var(--font-lg);
-
-    color: var(--text-secondary);
-
-    margin-bottom: 32px;
-
-}
-
-
-
-.hero-buttons {
-
-    display: flex;
-
-    gap: 16px;
-
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-}
-
-
-
-/* ---------- دکمه‌ها ---------- */
+.hero-subtitle { font-size: var(--font-lg); color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+.hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
 .btn {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 8px;
-
-    padding: 12px 32px;
-
-    border-radius: var(--radius-full);
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: transform var(--transition), box-shadow var(--transition);
-
-    border: none;
-
-    font-family: inherit;
-
-    text-decoration: none;
-
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.75rem 2rem; border-radius: var(--radius-button);
+    font-weight: 600; cursor: pointer; transition: transform var(--transition), box-shadow var(--transition);
+    border: none; font-family: inherit; text-decoration: none; font-size: var(--font-base); white-space: nowrap;
 }
+.btn:active { transform: scale(0.98) !important; }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+.btn-primary:hover { transform: scale(1.05); box-shadow: var(--shadow-neon-strong); }
+.btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+.btn-outline:hover { transform: scale(1.05); background: rgba(0, 212, 255, 0.1); box-shadow: var(--shadow-neon); }
 
-
-
-.btn-primary {
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-
-    color: white;
-
-}
-
-
-
-.btn-primary:hover {
-
-    transform: scale(1.05);
-
-    box-shadow: var(--shadow-neon-strong);
-
-}
-
-
-
-.btn-outline {
-
-    background: transparent;
-
-    color: var(--primary);
-
-    border: 1px solid var(--primary);
-
-}
-
-
-
-.btn-outline:hover {
-
-    transform: scale(1.05);
-
-    background: rgba(0, 212, 255, 0.1);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-.btn-add-cart {
-
-    width: 100%;
-
-    padding: 12px;
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-
-    color: white;
-
-    border: none;
-
-    border-radius: var(--radius-md);
-
-    cursor: pointer;
-
-    transition: transform var(--transition), box-shadow var(--transition);
-
-    font-family: inherit;
-
-    font-weight: 500;
-
-}
-
-
-
-.btn-add-cart:hover {
-
-    transform: scale(1.02);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-/* ---------- کارت دسته‌بندی ---------- */
-
-.categories-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-
-    gap: 24px;
-
-}
-
-
-
+/* ============================================
+   6️⃣ کارت‌ها و گریدها
+============================================ */
+.categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.25rem; }
 .category-card {
-
-    background: var(--bg-card);
-
-    backdrop-filter: blur(10px);
-
-    border-radius: var(--radius-lg);
-
-    padding: 28px 20px;
-
-    text-align: center;
-
-    transition: all var(--transition);
-
-    cursor: pointer;
-
-    border: 1px solid var(--border-color);
-
-    box-shadow: var(--shadow-sm);
-
+    background: var(--bg-card); border-radius: var(--radius-card);
+    padding: 1.5rem 1rem; text-align: center; transition: all var(--transition);
+    cursor: pointer; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
 }
-
-
-
-.category-card:hover {
-
-    transform: translateY(-8px) scale(1.02);
-
-    border-color: var(--primary);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
+.category-card:hover { transform: translateY(-0.5rem) scale(1.02); border-color: var(--primary); box-shadow: var(--shadow-neon); }
+.category-card:active { transform: scale(0.98) !important; }
 .category-icon {
-
-    width: 70px;
-
-    height: 70px;
-
-    margin: 0 auto 16px;
-
+    width: 4rem; height: 4rem; margin: 0 auto 1rem;
     background: linear-gradient(135deg, var(--primary-light), var(--primary));
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    color: white;
-
-    transition: all var(--transition);
-
+    border-radius: var(--radius-circle);
+    display: flex; align-items: center; justify-content: center; color: white; transition: all var(--transition);
 }
-
-
-
-.category-card:hover .category-icon {
-
-    transform: scale(1.1) rotate(360deg);
-
-}
-
-
-
-.category-name {
-
-    font-size: var(--font-lg);
-
-    font-weight: 700;
-
-    margin-bottom: 8px;
-
-    color: var(--text-primary);
-
-}
-
-
-
-.category-count {
-
-    font-size: var(--font-sm);
-
-    color: var(--primary);
-
-    font-weight: 600;
-
-}
-
-
-
-/* ---------- محصولات ---------- */
-
-.products-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-
-    gap: 24px;
-
-}
-
-
+.category-card:hover .category-icon { transform: scale(1.1) rotate(360deg); }
+.category-name { font-size: var(--font-base); font-weight: 700; margin-bottom: 0.375rem; color: var(--text-primary); }
+.category-count { font-size: var(--font-xs); color: var(--primary); font-weight: 600; }
 
 .product-card {
-
-    background: var(--bg-card);
-
-    backdrop-filter: blur(10px);
-
-    border-radius: var(--radius-lg);
-
-    overflow: hidden;
-
-    transition: all var(--transition);
-
-    border: 1px solid var(--border-color);
-
-    box-shadow: var(--shadow-sm);
-
-}
-
-
-
-.product-card:hover {
-
-    transform: translateY(-8px) scale(1.02);
-
-    border-color: var(--primary);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-.product-image {
-
-    position: relative;
-
-    aspect-ratio: 1;
-
-    background: linear-gradient(135deg, #1a1a2e, #0a0a0f);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-}
-
-
-
-.discount-badge {
-
-    position: absolute;
-
-    top: 12px;
-
-    right: 12px;
-
-    background: linear-gradient(135deg, var(--danger), var(--accent));
-
-    color: white;
-
-    padding: 6px 14px;
-
-    border-radius: var(--radius-full);
-
-    font-size: var(--font-sm);
-
-    font-weight: bold;
-
-    z-index: 2;
-
-}
-
-
-
-.product-info {
-
-    padding: 20px;
-
-}
-
-
-
-.product-title {
-
-    font-size: var(--font-base);
-
-    font-weight: 600;
-
-    margin-bottom: 8px;
-
-    color: var(--text-primary);
-
-}
-
-
-
-/* قیمت جدید - نئون و درشت */
-
-.product-price {
-
-    font-size: 24px;
-
-    font-weight: 800;
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-
-    -webkit-background-clip: text;
-
-    background-clip: text;
-
-    color: transparent;
-
-    text-shadow: 0 0 15px rgba(0,212,255,0.3);
-
-    letter-spacing: -0.5px;
-
-    margin-bottom: 8px;
-
-    display: inline-block;
-
-}
-
-
-
-/* ردیف قیمت */
-
-.price-row {
-
-    display: flex;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 8px;
-
-    margin-bottom: 12px;
-
-}
-
-
-
-/* قیمت قدیم - خط خوردگی ظریف */
-
-.product-old-price {
-
-    font-size: 14px;
-
-    color: var(--text-muted);
-
-    position: relative;
-
-    display: inline-block;
-
-}
-
-
-
-.product-old-price::before {
-
-    content: '';
-
-    position: absolute;
-
-    top: 50%;
-
-    left: -5px;
-
-    right: -5px;
-
-    height: 1.5px;
-
-    background: linear-gradient(90deg, var(--danger), var(--accent));
-
-    transform: translateY(-50%) rotate(-3deg);
-
-    border-radius: 2px;
-
-}
-
-
-
-/* برچسب درصد تخفیف - فقط در کنار قیمت */
-
-.discount-percent {
-
-    display: inline-block;
-
-    background: linear-gradient(135deg, var(--danger), var(--accent));
-
-    color: white;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    padding: 3px 10px;
-
-    border-radius: 50px;
-
-    box-shadow: 0 0 10px rgba(255,51,102,0.4);
-
-}
-
-
-
-/* اقساط - با پس‌زمینه نیمه شفاف برای خوانایی بهتر */
-
-.installment {
-
-    font-size: 12px;
-
-    margin-top: 8px;
-
-    margin-bottom: 12px;
-
-    padding: 6px 10px;
-
-    background: rgb(0, 213, 255);
-
-    border-radius: var(--radius-md);
-
-    display: inline-block;
-
-    width: auto;
-
-}
-
-
-
-body.dark .installment {
-
-    background: rgba(0, 212, 255, 0.15);
-
-}
-
-
-
-.installment span {
-
-    color: var(--success);
-
-    font-weight: bold;
-
-}
-
-
-
-.installment span:first-child {
-
-    color: var(--text-secondary);
-
-}
-
-/* ---------- ویژگی‌ها ---------- */
-
-.features-section {
-
-    margin: 60px 0;
-
-}
-
-
-
-.features-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
-    gap: 32px;
-
-}
-
-
-
-.feature-card {
-
-    background: var(--bg-card);
-
-    backdrop-filter: blur(10px);
-
-    border-radius: var(--radius-lg);
-
-    padding: 32px 24px;
-
-    text-align: center;
-
-    transition: all var(--transition);
-
-    border: 1px solid var(--border-color);
-
-    box-shadow: var(--shadow-sm);
-
-}
-
-
-
-.feature-card:hover {
-
-    transform: translateY(-8px) scale(1.02);
-
-    border-color: var(--primary);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-.feature-icon {
-
-    width: 80px;
-
-    height: 80px;
-
-    margin: 0 auto 20px;
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    transition: all var(--transition);
-
-}
-
-
-
-.feature-card:hover .feature-icon {
-
-    transform: scale(1.15);
-
-}
-
-
-
-.feature-title {
-
-    font-size: var(--font-lg);
-
-    font-weight: 700;
-
-    margin-bottom: 8px;
-
-    color: var(--text-primary);
-
-}
-
-
-
-.feature-desc {
-
-    color: var(--text-secondary);
-
-    font-size: var(--font-sm);
-
-}
-
-
-
-/* ============================================
-
-   بنر تخفیف (رفع ناخوانایی در حالت روز)
-
-============================================ */
-
-.offer-banner {
-
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-
-    border-radius: var(--radius-2xl);
-
-    padding: 60px 40px;
-
-    text-align: center;
-
-    margin: 60px 0;
-
-    position: relative;
-
-    overflow: hidden;
-
-    border: 1px solid rgba(0, 212, 255, 0.5);
-
-    box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
-
-}
-
-
-
-/* حالت روز برای بنر تخفیف - خوانا و شفاف */
-
-body:not(.dark) .offer-banner {
-
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-
-    border: none;
-
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-
-}
-
-
-
-body:not(.dark) .offer-content {
-
-    color: #ffffff;
-
-}
-
-
-
-body:not(.dark) .offer-title {
-
-    color: #ffffff;
-
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-
-}
-
-
-
-body:not(.dark) .offer-content p {
-
-    color: rgba(255, 255, 255, 0.95);
-
-}
-
-
-
-body:not(.dark) .timer-box {
-
-    background: rgba(255, 255, 255, 0.2);
-
-    border-color: rgba(255, 255, 255, 0.5);
-
-}
-
-
-
-body:not(.dark) .timer-number {
-
-    color: #ffffff;
-
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-
-}
-
-
-
-body:not(.dark) .timer-label {
-
-    color: rgba(255, 255, 255, 0.9);
-
-}
-
-
-
-.offer-banner::before {
-
-    content: '';
-
-    position: absolute;
-
-    top: 0;
-
-    left: -100%;
-
-    width: 100%;
-
-    height: 100%;
-
-    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
-
-    animation: scanLight 3s linear infinite;
-
-}
-
-
-
-@keyframes scanLight {
-
-    0% { left: -100%; }
-
-    100% { left: 100%; }
-
-}
-
-
-
-.offer-content {
-
-    position: relative;
-
-    z-index: 2;
-
-    color: white;
-
-}
-
-
-
-.offer-title {
-
-    font-size: var(--font-3xl);
-
-    margin-bottom: 16px;
-
-}
-
-
-
-/* تایمر بزرگ و خوانا */
-
-.timer {
-
-    display: flex;
-
-    gap: 25px;
-
-    justify-content: center;
-
-    margin: 40px 0;
-
-    flex-wrap: wrap;
-
-}
-
-
-
-.timer-box {
-
-    background: rgba(0, 212, 255, 0.15);
-
-    backdrop-filter: blur(10px);
-
-    padding: 20px 35px;
-
-    border-radius: var(--radius-lg);
-
-    text-align: center;
-
-    border: 1px solid var(--primary);
-
-    transition: all var(--transition);
-
-}
-
-
-
-.timer-box:hover {
-
-    transform: scale(1.05) translateY(-5px);
-
-    box-shadow: var(--shadow-neon-strong);
-
-}
-
-
-
-.timer-number {
-
-    font-size: 52px;
-
-    font-weight: bold;
-
-    color: var(--primary);
-
-    text-shadow: 0 0 20px var(--primary);
-
-    font-family: 'Courier New', monospace;
-
-    line-height: 1;
-
-}
-
-
-
-.timer-label {
-
-    font-size: var(--font-sm);
-
-    margin-top: 12px;
-
-    color: var(--text-primary);
-
-    font-weight: 600;
-
-    letter-spacing: 1px;
-
-}
-
-
-
-body.dark .timer-label {
-
-    color: rgba(255, 255, 255, 0.9);
-
-}
-
-
-
-/* ---------- آمار ---------- */
-
-.stats-section {
-
-    margin: 60px 0;
-
-}
-
-
-
-.stats-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
-    gap: 24px;
-
-}
-
-
-
-.stat-card {
-
-    background: var(--bg-card);
-
-    backdrop-filter: blur(10px);
-
-    border-radius: var(--radius-lg);
-
-    padding: 32px;
-
-    text-align: center;
-
-    transition: all var(--transition);
-
-    border: 1px solid var(--border-color);
-
-    box-shadow: var(--shadow-sm);
-
-}
-
-
-
-.stat-card:hover {
-
-    transform: translateY(-5px) scale(1.02);
-
-    border-color: var(--primary);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-.counter-number {
-
-    font-size: var(--font-4xl);
-
-    font-weight: bold;
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-
-    -webkit-background-clip: text;
-
-    background-clip: text;
-
-    color: transparent;
-
-    margin-bottom: 8px;
-
-    font-family: 'Courier New', monospace;
-
-}
-
-
-
-/* ---------- بخش‌های عمومی ---------- */
-
-.section {
-
-    margin: 60px 0;
-
-}
-
-
-
-.section-header {
-
-    text-align: center;
-
-    margin-bottom: 48px;
-
-}
-
-
-
-.section-title {
-
-    font-size: var(--font-3xl);
-
-    margin-bottom: 12px;
-
-    color: var(--text-primary);
-
-    position: relative;
-
-    display: inline-block;
-
-}
-
-
-
-.section-title::after {
-
-    content: '';
-
-    position: absolute;
-
-    bottom: -12px;
-
-    right: 50%;
-
-    transform: translateX(50%);
-
-    width: 80px;
-
-    height: 4px;
-
-    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-
-    border-radius: var(--radius-full);
-
-}
-
-
-
-.section-desc {
-
-    color: var(--text-secondary);
-
-    margin-top: 20px;
-
-}
-
-
-
-/* ---------- فوتر ---------- */
-
-.main-footer {
-
-    background: var(--bg-footer);
-
-    border-top: 1px solid var(--border-color);
-
-    padding: 60px 0 30px;
-
-    margin-top: 60px;
-
-}
-
-
-
-.footer-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
-    gap: 40px;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.footer-col a {
-
-    color: var(--text-secondary);
-
-    text-decoration: none;
-
-    transition: var(--transition);
-
-}
-
-
-
-.footer-col a:hover {
-
-    color: var(--primary);
-
-    padding-right: 8px;
-
-}
-
-
-
-.footer-bottom {
-
-    text-align: center;
-
-    padding-top: 30px;
-
-    border-top: 1px solid var(--border-color);
-
-    color: var(--text-muted);
-
-    font-size: var(--font-sm);
-
-}
-
-
-
-/* ---------- انیمیشن اسکرول ---------- */
-
-.animate-on-scroll {
-
-    opacity: 0;
-
-    transform: translateY(30px);
-
-    transition: all 0.7s ease;
-
-}
-
-
-
-.animate-on-scroll.visible {
-
-    opacity: 1;
-
-    transform: translateY(0);
-
-}
-
-
-
-/* ---------- دکمه بازگشت به بالا ---------- */
-
-.back-to-top {
-
-    position: fixed;
-
-    bottom: 24px;
-
-    right: 24px;
-
-    width: 50px;
-
-    height: 50px;
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-
-    color: white;
-
-    border: none;
-
-    border-radius: 50%;
-
-    cursor: pointer;
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    z-index: 99;
-
-    transition: all var(--transition);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-.back-to-top:hover {
-
-    transform: scale(1.1);
-
-}
-
-
-
-/* ---------- اسکرول بار ---------- */
-
-::-webkit-scrollbar {
-
-    width: 8px;
-
-}
-
-
-
-::-webkit-scrollbar-track {
-
-    background: var(--bg-surface);
-
-}
-
-
-
-::-webkit-scrollbar-thumb {
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-
-    border-radius: var(--radius-full);
-
-}
-
-
-
-/* ---------- واکنش‌گرایی ---------- */
-
-@media (max-width: 768px) {
-
-    .hero-title { font-size: var(--font-3xl); }
-
-    .section-title { font-size: var(--font-xl); }
-
-    .counter-number { font-size: var(--font-2xl); }
-
-    .timer-number { font-size: 36px; }
-
-    .timer-box { padding: 15px 20px; }
-
-    .header-wrapper { flex-direction: column; }
-
-    .search-form { max-width: 100%; width: 100%; }
-
-    .nav-list { gap: 16px; }
-
-    .container { padding: 0 16px; }
-
-    .products-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-
-    .categories-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-
-    .offer-banner { padding: 40px 20px; }
-
-}
-
-
-
-@media (max-width: 480px) {
-
-    .timer { gap: 12px; }
-
-    .timer-box { padding: 10px 15px; }
-
-    .timer-number { font-size: 28px; }
-
-    .hero-section { padding: 60px 16px; }
-
-    .btn { padding: 10px 20px; }
-
-}
-
-
-
-/* ============================================
-
-   شبکه‌های اجتماعی - نسخه نهایی با گوشه‌های گرد ثابت
-
-============================================ */
-
-
-
-.social-section {
-
-    margin: 50px 0 30px;
-
-    text-align: center;
-
-    position: relative;
-
-}
-
-
-
-.social-title {
-
-    font-size: 24px;
-
-    font-weight: 800;
-
-    margin-bottom: 35px;
-
-    color: var(--text-primary);
-
-    position: relative;
-
-    display: inline-block;
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-
-    -webkit-background-clip: text;
-
-    background-clip: text;
-
-    color: transparent;
-
-}
-
-
-
-.social-title::after {
-
-    content: '';
-
-    position: absolute;
-
-    bottom: -12px;
-
-    right: 50%;
-
-    transform: translateX(50%);
-
-    width: 70px;
-
-    height: 3px;
-
-    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-
-    border-radius: 3px;
-
-}
-
-
-
-.social-grid {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    justify-content: center;
-
-    gap: 22px;
-
-    margin-top: 35px;
-
-}
-
-
-
-.social-card {
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 12px;
-
-    text-decoration: none;
-
-    padding: 18px 24px;
-
-    background: var(--bg-card);
-
-    backdrop-filter: blur(12px);
-
-    border-radius: 32px;
-
-    transition: all 0.3s ease;
-
-    min-width: 100px;
-
-    position: relative;
-
-    border: none;
-
-}
-
-
-
-/* پس‌زمینه داخلی کارت */
-
-.social-card::after {
-
-    content: '';
-
-    position: absolute;
-
-    inset: 2px;
-
-    background: var(--bg-card);
-
-    border-radius: 30px;
-
-    z-index: 0;
-
-}
-
-
-
-/* محتوای داخل کارت باید بالاتر از پس‌زمینه باشه */
-
-.social-logo,
-
-.social-name {
-
-    position: relative;
-
-    z-index: 2;
-
-}
-
-
-
-/* اینستاگرام - گرادیان دور کارت با گوشه گرد */
-
-.social-card.instagram::before {
-
-    content: '';
-
-    position: absolute;
-
-    inset: -2px;
-
-    background: linear-gradient(135deg, #f09433, #d62976, #962fbf, #4f5bd5);
-
-    border-radius: 34px;
-
-    z-index: -1;
-
-}
-
-
-
-/* روبیکا - رنگین‌کمانی دور کارت با گوشه گرد */
-
-.social-card.rubika::before {
-
-    content: '';
-
-    position: absolute;
-
-    inset: -2px;
-
-    background: linear-gradient(135deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-
-    border-radius: 34px;
-
-    z-index: -1;
-
-}
-
-
-
-/* ایتا - نارنجی */
-
-.social-card.eitaa {
-
-    border: none;
-
-}
-
-.social-card.eitaa::before {
-
-    content: '';
-
-    position: absolute;
-
-    inset: -2px;
-
-    background: #FF7139;
-
-    border-radius: 34px;
-
-    z-index: -1;
-
-}
-
-
-
-/* بله - سبز */
-
-.social-card.bale {
-
-    border: none;
-
-}
-
-.social-card.bale::before {
-
-    content: '';
-
-    position: absolute;
-
-    inset: -2px;
-
-    background: #2E8B57;
-
-    border-radius: 34px;
-
-    z-index: -1;
-
-}
-
-
-
-/* تلگرام - آبی */
-
-.social-card.telegram {
-
-    border: none;
-
-}
-
-.social-card.telegram::before {
-
-    content: '';
-
-    position: absolute;
-
-    inset: -2px;
-
-    background: #26A5E4;
-
-    border-radius: 34px;
-
-    z-index: -1;
-
-}
-
-
-
-/* واتساپ - سبز */
-
-.social-card.whatsapp {
-
-    border: none;
-
-}
-
-.social-card.whatsapp::before {
-
-    content: '';
-
-    position: absolute;
-
-    inset: -2px;
-
-    background: #25D366;
-
-    border-radius: 34px;
-
-    z-index: -1;
-
-}
-
-/* کانال */
-
-.social-card.sorayesh {
-
-    border: 2px solid #00d4ff;
-
-}
-
-.social-card.sorayesh::before {
-
-    display: none;
-
-}
-
-
-
-.social-card:hover {
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 20px 30px -15px rgba(0,0,0,0.3);
-
-}
-
-
-
-.social-logo {
-
-    width: 55px;
-
-    height: 55px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    transition: transform 0.3s ease;
-
-    background: rgba(255,255,255,0.08);
-
-    border-radius: 50%;
-
-    padding: 10px;
-
-}
-
-
-
-.social-logo img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: contain;
-
-}
-
-
-
-.social-card:hover .social-logo {
-
-    transform: scale(1.1);
-
-    background: rgba(0,212,255,0.15);
-
-}
-
-
-
-.social-name {
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    color: var(--text-secondary);
-
-    transition: color 0.3s;
-
-}
-
-
-
-.social-card:hover .social-name {
-
-    color: var(--primary);
-
-}
-
-
-
-/* ریسپانسیو */
-
-@media (max-width: 768px) {
-
-    .social-section {
-
-        margin: 40px 0 25px;
-
-    }
-
-    .social-title {
-
-        font-size: 20px;
-
-    }
-
-    .social-grid {
-
-        gap: 15px;
-
-    }
-
-    .social-card {
-
-        padding: 12px 16px;
-
-        min-width: 80px;
-
-        border-radius: 28px;
-
-    }
-
-    .social-card::before {
-
-        border-radius: 30px;
-
-    }
-
-    .social-logo {
-
-        width: 42px;
-
-        height: 42px;
-
-        padding: 8px;
-
-    }
-
-    .social-name {
-
-        font-size: 12px;
-
-    }
-
-}
-
-
-
-@media (max-width: 550px) {
-
-    .social-grid {
-
-        gap: 12px;
-
-    }
-
-    .social-card {
-
-        padding: 10px 12px;
-
-        min-width: 68px;
-
-        border-radius: 24px;
-
-    }
-
-    .social-card::before {
-
-        border-radius: 26px;
-
-    }
-
-    .social-logo {
-
-        width: 36px;
-
-        height: 36px;
-
-        padding: 6px;
-
-    }
-
-    .social-name {
-
-        font-size: 11px;
-
-    }
-
-    .social-title {
-
-        font-size: 18px;
-
-    }
-
-}
-
-
-
-/* دارک مود */
-
-body.dark .social-card {
-
-    background: rgba(15, 15, 26, 0.9);
-
-}
-
-
-
-body.dark .social-card::after {
-
-    background: rgba(15, 15, 26, 0.9);
-
-}
-
-
-
-body.dark .social-card:hover {
-
-    background: rgba(15, 15, 26, 0.98);
-
-}
-
-
-
-body.dark .social-card:hover::after {
-
-    background: rgba(15, 15, 26, 0.98);
-
-}
-
-
-
-body.dark .social-logo {
-
-    background: rgba(255,255,255,0.05);
-
-}
-
-
-
-body.dark .social-card:hover .social-logo {
-
-    background: rgba(0,212,255,0.1);
-
-}
-
-
-
-/* دکمه‌های دوگانه در کارت محصول */
-
-.product-buttons {
-
-    display: flex;
-
-    gap: 10px;
-
-    margin-top: 16px;
-
-}
-
-
-
-.btn-details,
-
-.btn-buy {
-
-    flex: 1;
-
-    padding: 10px 0;
-
-    border-radius: var(--radius-md);
-
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: all var(--transition);
-
-    text-align: center;
-
-    font-size: 14px;
-
-}
-
-
-
-.btn-details {
-
-    background: transparent;
-
-    color: var(--primary);
-
-    border: 1px solid var(--primary);
-
-    text-decoration: none;
-
-    display: inline-block;
-
-}
-
-
-
-.btn-details:hover {
-
-    background: var(--primary);
-
-    color: white;
-
-    transform: translateY(-2px);
-
-}
-
-
-
-.btn-buy {
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-
-    color: white;
-
-    border: none;
-
-}
-
-
-
-.btn-buy:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-/* در موبایل: دکمه‌ها زیر هم */
-
-@media (max-width: 480px) {
-
-    .product-buttons {
-
-        flex-direction: column;
-
-        gap: 8px;
-
-    }
-
-    .btn-details, .btn-buy {
-
-        width: 100%;
-
-    }
-
-}
-
-
-
-
-
-/* دکمه یکپارچه خرید و مشاهده جزئیات */
-
-.btn-buy-details {
-
-    display: block;           /* ← اضافه کن */
-
-    width: 100%;
-
-    padding: 12px 16px;
-
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-
-    color: white;
-
-    border: none;
-
-    border-radius: var(--radius-md);
-
-    cursor: pointer;
-
-    transition: all var(--transition);
-
-    font-family: inherit;
-
-    font-weight: 600;         /* ← یه کم پررنگ‌تر */
-
-    font-size: 14px;
-
-    text-align: center;
-
-    text-decoration: none;    /* ← اضافه کن (برای لینک) */
-
-    box-sizing: border-box;   /* ← اضافه کن */
-
-    white-space: nowrap;      /* ← اضافه کن - جلوی دو خطی شدن رو میگیره */
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-}
-
-
-
-.btn-buy-details:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-.btn-buy-details:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow: var(--shadow-neon);
-
-}
-
-
-
-
-
-.social-links {
-
-  display: flex;
-
-  gap: 20px;
-
-  justify-content: center;
-
-  margin-top: 30px;
-
-}
-
-
-
-.social-icon {
-
-  width: 50px;
-
-  height: 50px;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  transition: all 0.3s ease;
-
-  cursor: pointer;
-
-}
-
-
-
-.social-icon:hover {
-
-  transform: translateY(-5px);
-
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-
-}
-
-
-
-/* رنگ‌های اختصاصی */
-
-.social-bale { background-color: rgb(251, 82, 50); }
-
-.social-instagram { background: linear-gradient(135deg, rgb(225,48,108), rgb(111,29,120)); }
-
-.social-telegram { background-color: rgb(40, 159, 217); }
-
-
-
-
-
-
-
-
-
-/* اقساط - با متن سبز و حاشیه مشکی */
-
-.installment {
-
-    font-size: 12px;
-
-    margin-top: 8px;
-
-    margin-bottom: 12px;
-
-    padding: 6px 10px;
-
-    background: rgba(0, 212, 255, 0.1);
-
-    border-radius: var(--radius-md);
-
-    display: inline-block;
-
-    width: auto;
-
-}
-
-
-
-.installment span:first-child {
-
-    color: var(--text-secondary);
-
-}
-
-
-
-.installment span:last-child {
-
-    color: #10b981;  /* رنگ سبز زنده */
-
-    
-
-    font-weight: bold;
-
-    font-size: 20px;
-
-}
-
-/* ==========================================================================
-
-   طراحی خفن و مدرن کارت‌های محصولات (Product Cards) - اختصاصی نیوشاپ
-
-   ========================================================================== */
-
-
-
-/* کانتینر اصلی کارت محصول */
-
-.product-card {
-
-    background: #ffffff;
-
-    border-radius: 20px;
-
-    overflow: hidden;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-
-    border: 1px solid rgba(0, 0, 0, 0.05);
-
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-
-    position: relative;
-
-    display: flex;
-
-    flex-direction: column;
-
-    height: 100%;
-
-}
-
-
-
-/* افکت فوق‌العاده هنگام شناور شدن ماوس (Hover) */
-
-.product-card:hover {
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-
-    border-color: rgba(59, 130, 246, 0.3);
-
-}
-
-
-
-/* بخش تصویر محصول با نسبت مساوی ۱:۱ */
-
-.product-image-wrapper {
-
-    position: relative;
-
-    width: 100%;
-
-    padding-top: 100%; 
-
-    overflow: hidden;
-
-    background: #f8fafc;
-
-}
-
-
-
-/* افکت زوم نرم تصویر در زمان هوور */
-
-.product-img {
-
-    position: absolute;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-
-}
-
-
-
-.product-card:hover .product-img {
-
-    transform: scale(1.06);
-
-}
-
-
-
-/* پلیس‌هولدر شیک برای محصولاتی که عکس ندارند */
-
+    background: var(--bg-card); border-radius: var(--radius-card);
+    overflow: hidden; transition: all var(--transition); border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; height: 100%;
+}
+.product-card:hover { transform: translateY(-0.5rem) scale(1.02); border-color: var(--primary); box-shadow: var(--shadow-neon); }
+.product-card:active { transform: scale(0.98) !important; }
+
+.product-image-wrapper { position: relative; width: 100%; padding-top: 100%; overflow: hidden; background: var(--bg-surface); }
+.product-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.product-card:hover .product-img { transform: scale(1.06); }
 .product-img-placeholder {
-
-    position: absolute;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-
-    color: #64748b;
-
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--bg-surface), var(--bg-card)); color: var(--text-muted);
 }
-
-
-
-/* نشان تخفیف گرادینت دار و متحرک */
 
 .discount-badge {
-
-    position: absolute;
-
-    top: 14px;
-
-    right: 14px;
-
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-
-    color: #ffffff;
-
-    font-weight: 700;
-
-    font-size: 0.85rem;
-
-    padding: 5px 11px;
-
-    border-radius: 30px;
-
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
-
-    z-index: 2;
-
-    direction: ltr;
-
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    background: linear-gradient(135deg, var(--danger), var(--accent)); color: white;
+    font-weight: 700; font-size: var(--font-sm); padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-button); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25); z-index: 2; direction: ltr;
 }
-
-
-
-/* دکمه شیشه‌ای و بسیار باحال علاقه‌مندی‌ها (Wishlist) */
 
 .wishlist-btn {
-
-    position: absolute;
-
-    top: 14px;
-
-    left: 14px;
-
-    background: rgba(255, 255, 255, 0.8);
-
-    backdrop-filter: blur(8px);
-
-    -webkit-backdrop-filter: blur(8px);
-
-    border: 1px solid rgba(255, 255, 255, 0.4);
-
-    color: #64748b;
-
-    width: 36px;
-
-    height: 36px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    cursor: pointer;
-
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    z-index: 2;
-
+    position: absolute; top: 0.75rem; left: 0.75rem;
+    background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(255, 255, 255, 0.4);
+    color: var(--text-muted); width: 2.25rem; height: 2.25rem;
+    border-radius: var(--radius-circle);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2;
 }
+.wishlist-btn:hover { background: var(--bg-surface); color: var(--danger); transform: scale(1.1); }
+.wishlist-btn.active { background: var(--danger); color: white; border-color: var(--danger); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
 
-
-
-.wishlist-btn:hover {
-
-    background: #ffffff;
-
-    color: #ef4444;
-
-    transform: scale(1.1);
-
-}
-
-
-
-.wishlist-btn.active {
-
-    background: #ef4444;
-
-    color: #ffffff;
-
-    border-color: #ef4444;
-
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-
-}
-
-
-
-/* بدنه محتوای کارت */
-
-.product-content {
-
-    padding: 18px;
-
-    flex-grow: 1;
-
-    display: flex;
-
-    flex-direction: column;
-
-}
-
-
-
-/* عنوان محصول با ایجاد محدودیت برای زیبایی چیدمان */
-
+.product-content { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; }
 .product-title {
-
-    font-size: 1.02rem;
-
-    font-weight: 700;
-
-    color: #1e293b;
-
-    margin: 0 0 12px 0;
-
-    line-height: 1.5;
-
-    height: 46px; 
-
-    overflow: hidden;
-
-    display: -webkit-box;
-
-    -webkit-line-clamp: 2;
-
-    -webkit-box-orient: vertical;
-
-    transition: color 0.3s;
-
+    font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.625rem 0;
+    line-height: 1.5; height: 2.75rem; overflow: hidden; display: -webkit-box;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical; transition: color 0.3s;
 }
+.product-card:hover .product-title { color: var(--primary); }
 
-
-
-.product-card:hover .product-title {
-
-    color: #2563eb;
-
-}
-
-
-
-/* بخش هوشمند قیمت‌ها */
-
-.price-container {
-
-    margin-top: auto;
-
-    margin-bottom: 12px;
-
-}
-
-
-
-.price-row {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    flex-wrap: wrap;
-
-    gap: 6px;
-
-}
-
-
-
+.price-container { margin-top: auto; margin-bottom: 0.625rem; }
+.price-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.375rem; }
 .product-price {
-
-    font-size: 1.2rem;
-
-    font-weight: 800;
-
-    color: #0f172a;
-
-    letter-spacing: -0.5px;
-
+    font-size: 1.125rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: -0.5px;
 }
-
-
-
-.currency-text {
-
-    font-size: 0.8rem;
-
-    font-weight: 500;
-
-    color: #64748b;
-
-    margin-right: 2px;
-
+.currency-text { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-right: 0.125rem; }
+.product-old-price { font-size: 0.8125rem; color: var(--text-muted); position: relative; display: inline-block; }
+.product-old-price::before {
+    content: ''; position: absolute; top: 50%; left: -0.25rem; right: -0.25rem; height: 1.5px;
+    background: linear-gradient(90deg, var(--danger), var(--accent)); transform: translateY(-50%) rotate(-3deg); border-radius: 2px;
 }
-
-
-
-.product-old-price {
-
-    font-size: 0.9rem;
-
-    color: #94a3b8;
-
-    text-decoration: line-through;
-
-    font-weight: 500;
-
+.discount-percent {
+    display: inline-block; background: linear-gradient(135deg, var(--danger), var(--accent)); color: white;
+    font-size: 0.6875rem; font-weight: bold; padding: 0.1875rem 0.5rem;
+    border-radius: var(--radius-button); box-shadow: 0 0 10px rgba(255,51,102,0.4);
 }
-
-
-
-/* باکس اقساط خط‌چین دار جذاب */
 
 .installment-badge {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 6px;
-
-    background: #f0fdf4;
-
-    border: 1px dashed #bbf7d0;
-
-    color: #166534;
-
-    padding: 7px 10px;
-
-    border-radius: 10px;
-
-    font-size: 0.78rem;
-
-    margin-top: 4px;
-
+    display: flex; align-items: center; gap: 0.375rem; background: rgba(0, 212, 255, 0.1);
+    border: 1px dashed var(--primary); color: var(--success); padding: 0.375rem 0.625rem;
+    border-radius: var(--radius-card); font-size: 0.6875rem; margin-bottom: 0.625rem;
 }
+.installment-badge svg { color: var(--success); flex-shrink: 0; width: 0.875rem; height: 0.875rem; }
 
-
-
-.installment-badge svg {
-
-    color: #15803d;
-
-    flex-shrink: 0;
-
-}
-
-
-
-/* بخش انتهایی کارت (دکمه‌ها) */
-
-.product-card-footer {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    padding: 0 18px 18px 18px;
-
-}
-
-
-
-/* دکمه خرید پویا و اصلی با افکت انیمیشن فلش */
-
+.product-card-footer { display: flex; align-items: center; gap: 0.5rem; padding: 0 1rem 1rem 1rem; }
 .btn-buy-details {
-
-    flex-grow: 1;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 6px;
-
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    font-weight: 600;
-
-    font-size: 0.88rem;
-
-    padding: 11px 14px;
-
-    border-radius: 12px;
-
-    transition: all 0.3s ease;
-
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-
+    flex-grow: 1; display: flex; align-items: center; justify-content: center; gap: 0.375rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white;
+    text-decoration: none; font-weight: 600; font-size: 0.8125rem; padding: 0.625rem 0.75rem;
+    border-radius: var(--radius-button); transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); border: none; cursor: pointer; font-family: inherit;
 }
-
-
-
-.btn-buy-details:hover {
-
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
-
-}
-
-
-
-.btn-buy-details svg {
-
-    transition: transform 0.3s ease;
-
-}
-
-
-
-/* تنظیم جهت فلش بر اساس راست‌چین یا چپ‌چین بودن وب‌سایت */
-
-[dir="rtl"] .btn-buy-details svg {
-
-    transform: scaleX(-1);
-
-}
-
-[dir="rtl"] .btn-buy-details:hover svg {
-
-    transform: scaleX(-1) translateX(4px);
-
-}
-
-.btn-buy-details:hover svg {
-
-    transform: translateX(4px);
-
-}
-
-
-
-/* دکمه خرید سریع نمادین سبد خرید */
+.btn-buy-details:hover { background: linear-gradient(135deg, var(--primary-dark), var(--secondary)); box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35); transform: translateY(-2px); }
+.btn-buy-details svg { transition: transform 0.3s ease; width: 1rem; height: 1rem; }
+[dir="rtl"] .btn-buy-details svg { transform: scaleX(-1); }
+[dir="rtl"] .btn-buy-details:hover svg { transform: scaleX(-1) translateX(4px); }
+.btn-buy-details:hover svg { transform: translateX(4px); }
 
 .quick-add-cart {
+    background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-secondary);
+    width: 2.5rem; height: 2.5rem; border-radius: var(--radius-button);
+    display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;
+}
+.quick-add-cart:hover { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.05); }
 
-    background: #f1f5f9;
+body.dark .product-card { background: var(--bg-card); border-color: rgba(255, 255, 255, 0.05); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+body.dark .product-card:hover { border-color: var(--primary); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); }
+body.dark .wishlist-btn { background: rgba(30, 41, 59, 0.7); border-color: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
+body.dark .wishlist-btn:hover { background: var(--bg-surface); color: var(--danger); }
+body.dark .quick-add-cart { background: var(--bg-surface); color: var(--text-secondary); border-color: var(--border-color); }
+body.dark .quick-add-cart:hover { background: var(--primary); color: white; border-color: var(--primary); }
+body.dark .installment-badge { background: rgba(22, 101, 52, 0.15); border-color: rgba(34, 197, 94, 0.2); color: #4ade80; }
 
-    border: none;
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
 
-    color: #334155;
+.features-section { margin: 3.75rem 0; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+.feature-card {
+    background: var(--bg-card); border-radius: var(--radius-card);
+    padding: 1.75rem 1.25rem; text-align: center; transition: all var(--transition);
+    border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+}
+.feature-card:hover { transform: translateY(-0.5rem) scale(1.02); border-color: var(--primary); box-shadow: var(--shadow-neon); }
+.feature-icon {
+    width: 4.5rem; height: 4.5rem; margin: 0 auto 1rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: var(--radius-circle);
+    display: flex; align-items: center; justify-content: center; transition: all var(--transition);
+}
+.feature-card:hover .feature-icon { transform: scale(1.15); }
+.feature-title { font-size: var(--font-lg); font-weight: 700; margin-bottom: 0.375rem; color: var(--text-primary); }
+.feature-desc { color: var(--text-secondary); font-size: var(--font-sm); }
 
-    width: 42px;
+.stats-section { margin: 3.75rem 0; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; }
+.stat-card {
+    background: var(--bg-card); border-radius: var(--radius-card);
+    padding: 1.75rem 1rem; text-align: center; transition: all var(--transition);
+    border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+}
+.stat-card:hover { transform: translateY(-0.3125rem) scale(1.02); border-color: var(--primary); box-shadow: var(--shadow-neon); }
+.counter-number {
+    font-size: var(--font-3xl); font-weight: bold; background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.375rem; font-family: 'Courier New', monospace;
+}
 
-    height: 42px;
+.offer-banner {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); border-radius: var(--radius-card);
+    padding: 3.75rem 2.5rem; text-align: center; margin: 3.75rem 0; position: relative; overflow: hidden;
+    border: 1px solid rgba(0, 212, 255, 0.5); box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+}
+body:not(.dark) .offer-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); border: none; box-shadow: var(--shadow-lg); }
+.offer-banner::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+    animation: scanLight 3s linear infinite; pointer-events: none;
+}
+@keyframes scanLight { 0% { left: -100%; } 100% { left: 100%; } }
+@media (max-width: 768px) { .offer-banner::before { animation: none; } }
+.offer-content { position: relative; z-index: 2; color: white; }
+.offer-title { font-size: var(--font-3xl); margin-bottom: 1rem; }
 
-    border-radius: 12px;
+.timer { display: flex; gap: 1.25rem; justify-content: center; margin: 2.5rem 0; flex-wrap: wrap; }
+.timer-box {
+    background: rgba(0, 212, 255, 0.15); padding: 1rem 1.75rem;
+    border-radius: var(--radius-card); text-align: center; border: 1px solid var(--primary); transition: all var(--transition);
+}
+.timer-box:hover { transform: scale(1.05) translateY(-5px); box-shadow: var(--shadow-neon-strong); }
+.timer-number { font-size: 2.75rem; font-weight: bold; color: var(--primary); text-shadow: 0 0 20px var(--primary); font-family: 'Courier New', monospace; line-height: 1; }
+.timer-label { font-size: var(--font-sm); margin-top: 0.5rem; color: var(--text-primary); font-weight: 600; letter-spacing: 1px; }
+body.dark .timer-label { color: rgba(255, 255, 255, 0.9); }
 
+/* ============================================
+   7️⃣ فوتر و شبکه‌های اجتماعی
+============================================ */
+.section { margin: 3.75rem 0; }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-title { font-size: var(--font-3xl); margin-bottom: 0.75rem; color: var(--text-primary); position: relative; display: inline-block; }
+.section-title::after {
+    content: ''; position: absolute; bottom: -0.75rem; right: 50%; transform: translateX(50%);
+    width: 5rem; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent)); border-radius: 99px;
+}
+.section-desc { color: var(--text-secondary); margin-top: 1.25rem; }
+
+.main-footer { background: var(--bg-footer); border-top: 1px solid var(--border-color); padding: 3.75rem 0 1.875rem; margin-top: 3.75rem; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 2.5rem; }
+.footer-col h5, .footer-col h6 { font-size: var(--font-lg); font-weight: 700; margin-bottom: 1rem; color: var(--text-primary); }
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col li { margin-bottom: 0.5rem; }
+.footer-col a { color: var(--text-secondary); text-decoration: none; transition: var(--transition); font-size: var(--font-base); display: inline-block; }
+.footer-col a:hover, .footer-col a:focus-visible { color: var(--primary); padding-right: 0.5rem; }
+.footer-bottom { text-align: center; padding-top: 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: var(--font-sm); }
+
+.animate-on-scroll { opacity: 0; transform: translateY(1.875rem); transition: all 0.7s ease; }
+.animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+.back-to-top {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; width: 3rem; height: 3rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none;
+    border-radius: var(--radius-circle); cursor: pointer; display: none;
+    align-items: center; justify-content: center; z-index: var(--z-sticky);
+    transition: all var(--transition); box-shadow: var(--shadow-neon);
+}
+.back-to-top:hover { transform: scale(1.1); box-shadow: var(--shadow-neon-strong); }
+.back-to-top:active { transform: scale(0.95); }
+
+.social-section { margin: 3.125rem 0 1.875rem; text-align: center; position: relative; }
+.social-title {
+    font-size: 1.5rem; font-weight: 800; margin-bottom: 2.1875rem; color: var(--text-primary);
+    position: relative; display: inline-block; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.social-title::after {
+    content: ''; position: absolute; bottom: -0.75rem; right: 50%; transform: translateX(50%);
+    width: 4.375rem; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent)); border-radius: 3px;
+}
+.social-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; margin-top: 2rem; }
+.social-card {
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem; text-decoration: none;
+    padding: 1rem 1.25rem; background: var(--bg-card); border-radius: var(--radius-card);
+    transition: all 0.3s ease; min-width: 6rem; position: relative; border: none;
+}
+.social-card:hover { transform: translateY(-0.5rem); box-shadow: 0 20px 30px -15px rgba(0,0,0,0.3); }
+.social-card.instagram::before { content: ''; position: absolute; inset: -2px; background: linear-gradient(135deg, #f09433, #d62976, #962fbf, #4f5bd5); border-radius: var(--radius-card); z-index: -1; }
+.social-card.rubika::before { content: ''; position: absolute; inset: -2px; background: linear-gradient(135deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3); border-radius: var(--radius-card); z-index: -1; }
+.social-card.eitaa::before { content: ''; position: absolute; inset: -2px; background: #FF7139; border-radius: var(--radius-card); z-index: -1; }
+.social-card.bale::before { content: ''; position: absolute; inset: -2px; background: #2E8B57; border-radius: var(--radius-card); z-index: -1; }
+.social-card.telegram::before { content: ''; position: absolute; inset: -2px; background: #26A5E4; border-radius: var(--radius-card); z-index: -1; }
+.social-card.whatsapp::before { content: ''; position: absolute; inset: -2px; background: #25D366; border-radius: var(--radius-card); z-index: -1; }
+.social-card.sorayesh { border: 2px solid var(--primary); }
+.social-card.sorayesh::before { display: none; }
+.social-logo {
+    width: 3.25rem; height: 3.25rem; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s ease; background: rgba(255,255,255,0.08); border-radius: var(--radius-circle); padding: 0.5rem;
+}
+.social-logo img { width: 100%; height: 100%; object-fit: contain; }
+.social-card:hover .social-logo { transform: scale(1.1); background: rgba(0,212,255,0.15); }
+.social-name { font-size: 0.8125rem; font-weight: 600; color: var(--text-secondary); transition: color 0.3s; }
+.social-card:hover .social-name { color: var(--primary); }
+body.dark .social-card { background: rgba(15, 15, 26, 0.9); }
+
+/* ============================================
+   8️⃣ هیرو سه‌بعدی - بک‌گراند خالص + تعمیر لایه آیفون ✅
+============================================ */
+.iphone-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: url('../images/hero-bg-dark.png') center center / cover no-repeat;
     display: flex;
-
     align-items: center;
+}
+body:not(.dark) .iphone-hero {
+    background: url('../images/hero-bg-light.png') center center / cover no-repeat;
+}
+.iphone-hero::before { display: none !important; }
 
+
+
+/* ✅ اطمینان از اینکه محتوای متنی و سه‌بعدی روی بک‌گراند می‌مانند */
+.hero-left, .hero-right {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-left { 
+    max-width: 600px; 
+    flex: 0 0 auto; 
+    text-align: right; 
+}
+
+/* رنگ متن برای خوانایی */
+body:not(.dark) .hero-left h1 { color: #111827; }
+body:not(.dark) .hero-left p { color: #4b5563; }
+body.dark .hero-left h1 { color: #ffffff; text-shadow: 0 0 30px rgba(0,212,255,0.3); }
+body.dark .hero-left p { color: #b6c2d9; }
+
+.iphone-badge {
+    display: inline-block; padding: 0.625rem 1.125rem; border-radius: var(--radius-button);
+    backdrop-filter: blur(20px); margin-bottom: 1.5625rem; font-size: 0.875rem; font-weight: 600;
+}
+body.dark .iphone-badge { background: rgba(255,255,255,0.08); color: var(--primary); border: 1px solid rgba(255,255,255,0.1); }
+body:not(.dark) .iphone-badge { background: rgba(255,255,255,0.7); color: #007aff; border: 1px solid rgba(0,0,0,0.05); }
+
+.hero-left h1 { font-size: 4.5rem; line-height: 1; margin-bottom: 1.5625rem; font-weight: 900; }
+.hero-left p { font-size: 1.25rem; line-height: 2; margin-bottom: 2.1875rem; max-width: 540px; }
+
+.hero-btn {
+    position: relative; overflow: hidden; border: none; padding: 1.125rem 2.625rem;
+    border-radius: var(--radius-button); font-size: 1.125rem; font-weight: 700;
+    cursor: pointer; transition: 0.35s; backdrop-filter: blur(25px);
+}
+body.dark .hero-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: 0 10px 40px rgba(0,212,255,0.35); }
+body:not(.dark) .hero-btn { background: white; color: #111827; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+.hero-btn:hover { transform: translateY(-4px) scale(1.03); }
+.hero-btn:active { transform: translateY(-2px) scale(1.01); }
+
+.hero-right {
+    flex: 1 1 500px; 
+    min-width: 300px;
+    height: 700px; 
+    max-height: 90vh; 
+    display: flex; 
+    align-items: center; 
     justify-content: center;
-
-    cursor: pointer;
-
-    transition: all 0.3s ease;
-
 }
 
+/* ✅ کانواس سه‌بعدی */
 
+#iphone-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+#iphone-canvas.dragging { cursor: grabbing; }
 
-.quick-add-cart:hover {
-
-    background: #e2e8f0;
-
-    color: #0f172a;
-
-    transform: scale(1.05);
-
+/* ✅ فقط خود تگ canvas غیرفعال شود تا اسکرول کار کند، اما رندر خراب نشود */
+#iphone-canvas canvas {
+    pointer-events: none !important;
+    touch-action: pan-y !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+/* کانتینر اصلی برای فعال‌سازی عمق سه‌بعدی */
+.iphone-hero {
+    perspective: 1200px; /* ✅ حیاتی برای حس پشت‌سر بودن */
+    transform-style: preserve-3d;
 }
 
-
-
-
-
-/* ==========================================================================
-
-   پشتیبانی تمام عیار از حالت تاریک (Dark Mode) برای کارت‌ها
-
-   ========================================================================== */
-
-body.dark .product-card {
-
-    background: #1e293b;
-
-    border-color: rgba(255, 255, 255, 0.05);
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
+/* ============================================
+   متن سینمایی (ظاهر شدن واقعی از پشت آیفون)
+============================================ */
+.cinematic-text {
+    position: absolute;
+    right: 8%;
+    bottom: 40%; /* ✅ شروع از پایین‌تر */
+    z-index: 1;  /* ✅ پایین‌تر از کانواس */
+    width: auto;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.8rem;
+    
+    /* ✅ حالت اولیه: پایین‌تر، کوچک‌تر، نامرئی */
+    opacity: 0;
+    transform: translate3d(-400px, 150px, 0px) scale(0.9);
+    pointer-events: none;
+    will-change: transform, opacity;
 }
 
-
-
-body.dark .product-card:hover {
-
-    border-color: rgba(59, 130, 246, 0.4);
-
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-
+.cinematic-text .badge {
+    padding: 0.4rem 1rem;
+    background: rgba(0, 212, 255, 0.15);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 2rem;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    backdrop-filter: blur(6px);
 }
 
-
-
-body.dark .product-image-wrapper {
-
-    background: #111827;
-
+.cinematic-text .title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #fff, #c0c0d0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+    text-align: right;
 }
 
-
-
-body.dark .wishlist-btn {
-
-    background: rgba(30, 41, 59, 0.7);
-
-    border-color: rgba(255, 255, 255, 0.05);
-
-    color: #94a3b8;
-
+.cinematic-text .desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #a0a0b0;
+    max-width: 380px;
+    text-align: right;
+    margin: 0;
 }
 
-
-
-body.dark .wishlist-btn:hover {
-
-    background: #334155;
-
-    color: #f87171;
-
+.cinematic-text .btn-buy {
+    padding: 0.7rem 1.8rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    text-decoration: none;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    pointer-events: auto;
 }
-
-
-
-body.dark .product-title {
-
-    color: #f8fafc;
-
-}
-
-
-
-body.dark .product-card:hover .product-title {
-
-    color: #60a5fa;
-
-}
-
-
-
-body.dark .product-price {
-
-    color: #ffffff;
-
-}
-
-
-
-body.dark .currency-text {
-
-    color: #94a3b8;
-
-}
-
-
-
-body.dark .product-old-price {
-
-    color: #64748b;
-
-}
-
-
-
-body.dark .installment-badge {
-
-    background: rgba(22, 101, 52, 0.15);
-
-    border-color: rgba(34, 197, 94, 0.2);
-
-    color: #4ade80;
-
-}
-
-
-
-body.dark .installment-badge svg {
-
-    color: #4ade80;
-
-}
-
-
-
-body.dark .quick-add-cart {
-
-    background: #334155;
-
-    color: #e2e8f0;
-
-}
-
-
-
-body.dark .quick-add-cart:hover {
-
-    background: #475569;
-
-    color: #ffffff;
-
-}
-
-
-
-/* ========================================================
-
-   ساختار ۳ طبقه‌ی قطعی و میخ‌کوب هدر موبایل (زیر 768 پیکسل)
-
-======================================================== */
+.cinematic-text .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4); }
 
 @media (max-width: 768px) {
-
-    
-
-    /* بدنه اصلی هدر */
-
-    .main-header {
-
-        position: sticky !important;
-
-        top: 0 !important;
-
-        background: rgba(10, 10, 15, 0.9) !important; 
-
-        backdrop-filter: blur(20px) !important;
-
-        -webkit-backdrop-filter: blur(20px) !important;
-
-        border-bottom: 1px solid rgba(0, 212, 255, 0.2) !important;
-
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
-
-        z-index: 99999 !important;
-
-        padding: 0 !important;
-
-    }
-
-
-
-    body:not(.dark) .main-header {
-
-        background: rgba(255, 255, 255, 0.95) !important;
-
-        border-bottom: 1px solid rgba(112, 0, 255, 0.15) !important;
-
-    }
-
-
-
-    .main-header .container {
-
-        padding: 0 !important;
-
-    }
-
-
-
-    /* ---------------------------------------------------
-
-       طبقه ۱ و ۲: شبکه‌بندی (Grid) دقیق لوگو، دکمه‌ها و سرچ
-
-       --------------------------------------------------- */
-
-    .header-wrapper {
-
-        display: grid !important;
-
-        /* نقشه دقیق چیدمان: خط اول لوگو و دکمه، خط دوم فقط سرچ */
-
-        grid-template-areas: 
-
-            "logo actions"
-
-            "search search" !important;
-
-        grid-template-columns: 1fr auto !important; /* ستون راست (لوگو) بزرگ، ستون چپ (دکمه‌ها) کوچک */
-
-        row-gap: 12px !important; /* فاصله بین طبقه ۱ (لوگو/دکمه) و طبقه ۲ (سرچ) */
-
-        padding: 12px 14px 4px 14px !important; 
-
-        align-items: center !important;
-
-    }
-
-
-
-    /* طبقه ۱: سمت راست (نیوشاپ) */
-
-    .logo {
-
-        grid-area: logo !important;
-
-        justify-self: start !important; /* چسبیدن مطلق به راست */
-
-        margin: 0 !important;
-
-    }
-
-
-
-    .logo a {
-
-        font-size: 22px !important;
-
-        font-weight: 900 !important;
-
-    }
-
-
-
-    /* طبقه ۱: سمت چپ (دکمه‌ها) */
-
-    .user-actions {
-
-        grid-area: actions !important;
-
-        justify-self: end !important; /* چسبیدن مطلق به چپ */
-
-        display: flex !important;
-
-        gap: 8px !important;
-
-        margin: 0 !important;
-
-    }
-
-
-
-    /* استایل خفن و کامپیوتری دکمه‌ها */
-
-    .header-wrapper .icon-btn {
-
-        background: rgba(15, 15, 26, 0.8) !important;
-
-        border: 1px solid rgba(0, 212, 255, 0.25) !important;
-
-        width: 38px !important;
-
-        height: 38px !important;
-
-        padding: 0 !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-
-        justify-content: center !important;
-
-        border-radius: 8px !important; 
-
-        color: var(--primary) !important;
-
-    }
-
-
-
-    body:not(.dark) .header-wrapper .icon-btn {
-
-        background: rgba(255, 255, 255, 0.95) !important;
-
-        border-color: rgba(112, 0, 255, 0.2) !important;
-
-        color: var(--secondary) !important;
-
-    }
-
-
-
-    .header-wrapper .cart-badge {
-
-        top: -4px !important;
-
-        right: -4px !important;
-
-    }
-
-
-
-    /* طبقه ۲: سرچ باکس (زیر لوگو و دکمه‌ها) */
-
-    .search-form {
-
-        grid-area: search !important;
-
-        width: 100% !important;
-
-        display: flex !important;
-
-        height: 38px !important;
-
-        margin: 0 !important;
-
-        gap: 6px !important;
-
-    }
-
-
-
-    .search-form input {
-
-        height: 38px !important;
-
-        padding: 0 12px !important;
-
-        font-size: 12px !important;
-
-        background: rgba(10, 10, 15, 0.6) !important;
-
-        border: 1px solid rgba(0, 212, 255, 0.2) !important;
-
-        border-radius: 8px !important;
-
-        color: var(--text-primary) !important;
-
-        flex: 1 !important;
-
-    }
-
-
-
-    body:not(.dark) .search-form input {
-
-        background: #ffffff !important;
-
-        border-color: rgba(112, 0, 255, 0.15) !important;
-
-    }
-
-
-
-    .search-form button {
-
-        height: 38px !important;
-
-        padding: 0 14px !important;
-
-        border-radius: 8px !important;
-
-        background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
-
-    }
-
-
-
-    /* ---------------------------------------------------
-
-       طبقه ۳: دکمه‌های خانه و ... (زیر سرچ باکس)
-
-       --------------------------------------------------- */
-
-    .main-nav {
-
-        border-top: 1px solid rgba(0, 212, 255, 0.1) !important;
-
-        padding: 8px 0 !important;
-
-        margin: 8px 0 0 0 !important; /* فاصله مینی‌مال با سرچ باکس */
-
-        overflow-x: auto !important; 
-
-        white-space: nowrap !important;
-
-        display: block !important;
-
-        scrollbar-width: none !important;
-
-    }
-
-
-
-    .main-nav::-webkit-scrollbar {
-
-        display: none !important;
-
-    }
-
-
-
-    .nav-list {
-
-        display: flex !important;
-
-        flex-wrap: nowrap !important;
-
-        gap: 6px !important;
-
-        justify-content: flex-start !important;
-
-        padding: 0 14px !important; /* مماس شدن کلمه خانه با لبه راست لوگو */
-
-        margin: 0 !important;
-
-        list-style: none !important;
-
-    }
-
-
-
-    .nav-list li {
-
-        display: inline-block !important;
-
-    }
-
-
-
-    .nav-list a {
-
-        font-size: 12px !important;
-
-        font-weight: 600 !important;
-
-        padding: 6px 14px !important;
-
-        background: rgba(255, 255, 255, 0.03) !important;
-
-        border: 1px solid rgba(255, 255, 255, 0.07) !important;
-
-        border-radius: 6px !important;
-
-        color: var(--text-secondary) !important;
-
-        display: block !important;
-
-    }
-
-
-
-    body.dark .nav-list a {
-
-        background: rgba(0, 212, 255, 0.03) !important;
-
-        border-color: rgba(0, 212, 255, 0.1) !important;
-
-    }
-
-
-
-    .nav-list a::after {
-
-        display: none !important;
-
-    }
-
+    .cinematic-text { right: 50%; transform: translate3d(50%, 40px, -350px) scale(0.8); bottom: 10%; align-items: center; }
+    .cinematic-text .title, .cinematic-text .desc { text-align: center; }
 }
-
-/* ========================================================
-
-   آپدیت جدید: بزرگ‌تر کردن مینی‌کارت‌ها و اصلاح توزیع فضا (زیر 768 پیکسل)
-
-======================================================== */
+/* لودر (بدون تغییر) */
+#loader {
+    position: fixed; inset: 0; background: var(--bg-body); display: flex; justify-content: center; align-items: center;
+    flex-direction: column; z-index: var(--z-loader); transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-logo { font-size: 4rem; font-weight: 900; color: var(--text-primary); margin-bottom: 2.5rem; text-shadow: 0 0 30px var(--primary); animation: pulse 2s infinite; }
+.loader-bar { width: 300px; height: 6px; background: rgba(255,255,255,0.1); border-radius: var(--radius-button); overflow: hidden; max-width: 90%; }
+.loader-progress { width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); box-shadow: 0 0 20px var(--primary); transition: width 0.3s; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+/* ============================================
+   9️⃣ مدیا کوئری‌ها
+============================================ */
+@media (max-width: 1024px) {
+    .hero-title { font-size: var(--font-4xl); }
+    .hero-subtitle { font-size: var(--font-base); }
+    .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    .categories-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
 
 @media (max-width: 768px) {
-
+    .main-header { padding: 0.5rem 0; }
+    .header-wrapper { padding: 0.25rem 0; gap: 0.5rem; }
+    .logo a { font-size: var(--font-xl); }
+    .search-form { order: 3; width: 100%; max-width: none; margin-top: 0.75rem; }
+    .user-actions { gap: 0.25rem; }
+    .icon-btn { padding: 0.5rem; min-width: 2.5rem; min-height: 2.5rem; }
     
-
-    /* کانتینر اصلی اسکرول محصولات */
-
-    .products-grid {
-
-        display: flex !important;
-
-        flex-wrap: nowrap !important;
-
-        overflow-x: auto !important;
-
-        -webkit-overflow-scrolling: touch !important;
-
-        gap: 12px !important;
-
-        padding: 12px 14px 24px 14px !important; /* پدینگ پایین برای نیفتادن سایه کارت‌ها */
-
-        margin: 0 !important;
-
-        scrollbar-width: none !important;
-
-    }
-
-
-
-    .products-grid::-webkit-scrollbar {
-
-        display: none !important;
-
-    }
-
-
-
-    /* ۱. بزرگ‌تر کردن بدنه کارت و حذف ارتفاع صلب (height: auto منظم) */
-
-    .products-grid .product-card {
-
-        flex: 0 0 170px !important; /* افزایش عرض کارت بر اساس پیشنهاد شما */
-
-        width: 170px !important;
-
-        max-width: 170px !important;
-
-        height: auto !important; /* حذف ارتفاع ثابت برای بازگشتن بخش‌های حذف شده */
-
-        display: flex !important;
-
-        flex-direction: column !important;
-
-        padding: 0 !important;
-
-        background: rgba(20, 20, 35, 0.6) !important;
-
-        border: 1px solid rgba(0, 212, 255, 0.15) !important;
-
-        border-radius: 12px !important;
-
-        overflow: hidden !important;
-
-        box-sizing: border-box !important;
-
-    }
-
-
-
-    body:not(.dark) .products-grid .product-card {
-
-        background: #ffffff !important;
-
-        border-color: rgba(112, 0, 255, 0.1) !important;
-
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
-
-    }
-
-
-
-    /* ۲. تناسب ابعاد تصویر با عرض جدید کارت */
-
-    .products-grid .product-image {
-
-        width: 100% !important;
-
-        height: 150px !important; /* افزایش متناسب ارتفاع عکس */
-
-        position: relative !important;
-
-        margin: 0 !important;
-
-        padding: 0 !important;
-
-        flex-shrink: 0 !important;
-
-    }
-
-
-
-    .products-grid .product-image img {
-
-        width: 100% !important;
-
-        height: 100% !important;
-
-        object-fit: cover !important;
-
-    }
-
-
-
-    /* ۳. پدینگ باکس اطلاعات داخلی کارت */
-
-    .products-grid .product-info {
-
-        padding: 10px !important; /* پدینگ استاندارد و شیک */
-
-        display: flex !important;
-
-        flex-direction: column !important;
-
-        flex-grow: 1 !important;
-
-    }
-
-
-
-    /* ۴. مینی‌مال کردن و ریز کردن متن عنوان محصول */
-
-    .products-grid .product-title {
-
-        font-size: 11px !important; /* کوچک کردن فونت برای جا شدن متن */
-
-        line-height: 1.5 !important;
-
-        height: 33px !important; /* فیکس دو خط متن */
-
-        margin: 0 0 8px 0 !important;
-
-        display: -webkit-box !important;
-
-        -webkit-line-clamp: 2 !important;
-
-        -webkit-box-orient: vertical !important;
-
-        overflow: hidden !important;
-
-        white-space: normal !important;
-
-        color: var(--text-primary) !important;
-
-    }
-
-
-
-    /* ۵. چیدمان مجدد ردیف قیمت به صورت دو طبقه فشرده (جلوگیری از برخورد متون) */
-
-    .products-grid .price-row {
-
-        display: flex !important;
-
-        flex-direction: column !important; /* قیمت جدید و تخفیف به صورت ستونی زیر هم */
-
-        align-items: flex-start !important;
-
-        gap: 4px !important;
-
-        margin: auto 0 10px 0 !important; /* ایجاد فاصله با دکمه پایین */
-
-        padding: 0 !important;
-
-        background: transparent !important;
-
-        border: none !important;
-
-    }
-
-
-
-    /* طبقه بالای قیمت: قیمت خط خورده و درصد تخفیف کنار هم */
-
-    .products-grid .price-row > div:first-child,
-
-    .products-grid .discount-container {
-
-        display: flex !important;
-
-        align-items: center !important;
-
-        gap: 6px !important;
-
-        width: 100% !important;
-
-    }
-
-
-
-    /* قیمت قدیمی */
-
-    .products-grid .product-old-price {
-
-        font-size: 10px !important;
-
-        text-decoration: line-through !important;
-
-        opacity: 0.5 !important;
-
-        margin: 0 !important;
-
-    }
-
-
-
-    /* درصد تخفیف */
-
-    .products-grid .discount-percent {
-
-        font-size: 9px !important;
-
-        padding: 1px 5px !important;
-
-        border-radius: 4px !important;
-
-        background: var(--danger) !important;
-
-        color: white !important;
-
-        margin: 0 !important;
-
-    }
-
-
-
-    /* طبقه پایین قیمت: قیمت اصلی (تومان) */
-
-    .products-grid .product-price {
-
-        font-size: 14px !important; /* قیمت اصلی واضح و بزرگ */
-
-        font-weight: 800 !important;
-
-        margin: 0 !important;
-
-        color: var(--primary) !important;
-
-    }
-
+    .hero-section { padding: 5rem 1rem 2.5rem; margin-bottom: 2rem; border-radius: 0 0 var(--radius-card) var(--radius-card); }
+    .hero-title { font-size: var(--font-3xl); }
+    .hero-subtitle { font-size: var(--font-base); }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .hero-buttons .btn { width: 100%; max-width: 280px; }
     
-
-    body:not(.dark) .products-grid .product-price {
-
-        color: var(--secondary) !important;
-
+    .iphone-hero {
+        padding: 5rem 1rem 2.5rem; min-height: auto;
+        flex-direction: column; text-align: center; gap: 1.5rem;
     }
-
-
-
-    .products-grid .product-price::after {
-
-        content: ' تومان' !important;
-
-        font-size: 9px !important;
-
-        font-weight: normal !important;
-
-        margin-right: 2px !important;
-
-    }
-
-
-
-    /* ۶. دکمه خرید و مشاهده جزئیات: فیکسِ لبه پایینی بدون شکستگی */
-
-    .products-grid .btn-buy-details {
-
-        width: 100% !important;
-
-        height: 34px !important;
-
-        line-height: 34px !important;
-
-        padding: 0 !important;
-
-        margin: 0 !important;
-
-        font-size: 10.5px !important; /* فونت مینی‌مال و بهینه */
-
-        font-weight: 700 !important;
-
-        text-align: center !important;
-
-        display: block !important;
-
-        border-radius: 6px !important;
-
-        white-space: nowrap !important; /* جلوگیری مطلق از چند خطی شدن دکمه */
-
-        overflow: hidden !important;
-
-        text-overflow: ellipsis !important; /* افکت سه نقطه در صورت طولانی بودن مفرط */
-
-        background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
-
-        color: white !important;
-
-        box-sizing: border-box !important;
-
-    }
-
+    .hero-left { text-align: center; margin-bottom: 1.5rem; max-width: 100%; }
+    .hero-left h1 { font-size: 2.25rem; }
+    .hero-left p { font-size: 1rem; line-height: 1.8; }
+    .hero-btn { width: 100%; max-width: 280px; padding: 1rem 2rem; }
+    .hero-right { width: 100%; height: 400px; min-width: auto; flex: 0 0 auto; }
+    
+    .categories-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .category-card { padding: 1rem 0.5rem; }
+    .category-icon { width: 3rem; height: 3rem; }
+    .category-icon svg { width: 1.75rem; height: 1.75rem; }
+    .category-name { font-size: 0.75rem; }
+    .category-count { font-size: 0.625rem; }
+    
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    .product-card { border-radius: var(--radius-card); }
+    .product-title { font-size: 0.8125rem; height: 2.5rem; }
+    .product-price { font-size: 1rem; }
+    .btn-buy-details { padding: 0.625rem 0.75rem; font-size: 0.75rem; }
+    .quick-add-cart { width: 2.375rem; height: 2.375rem; }
+    
+    .offer-banner { margin: 2rem 0.75rem; padding: 2rem 1.25rem; border-radius: var(--radius-card); }
+    .offer-title { font-size: var(--font-2xl); }
+    .timer { gap: 0.625rem; }
+    .timer-box { padding: 0.75rem 1rem; min-width: 3.5rem; }
+    .timer-number { font-size: 1.75rem; }
+    .timer-label { font-size: 0.625rem; }
+    
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    .stat-card { padding: 1.25rem 0.75rem; }
+    .counter-number { font-size: var(--font-2xl); }
+    
+    .features-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    .feature-card { padding: 1.25rem 0.75rem; }
+    .feature-icon { width: 3.5rem; height: 3.5rem; }
+    .feature-title { font-size: 0.875rem; }
+    .feature-desc { font-size: 0.625rem; }
+    
+    .main-footer { padding: 2.5rem 1rem 5rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .back-to-top { bottom: 5rem; right: 1rem; width: 2.75rem; height: 2.75rem; }
 }
 
-.iphone-hero{
-
-
-
-width:100%;
-
-height:100vh;
-
-
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-
-
-padding:0 8%;
-
-
-
-background:
-
-radial-gradient(circle at top right,
-
-#16213e,
-
-#050816 60%);
-
-
-
-overflow:hidden;
-
-
-
-position:relative;
-
-
-
+@media (max-width: 360px) {
+    .categories-grid { grid-template-columns: repeat(2, 1fr); }
+    .products-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: var(--font-2xl); }
+    .timer-number { font-size: 1.5rem; }
 }
 
-
-
-/* LEFT */
-
-
-
-.hero-left{
-
-
-
-width:50%;
-
-
-
-color:white;
-
-
-
-z-index:5;
-
-
-
+@media (orientation: landscape) and (max-height: 500px) {
+    .hero-section, .iphone-hero { padding-top: 4rem; min-height: auto; }
+    .hero-left h1 { font-size: 2rem; }
 }
 
-
-
-.hero-left h1{
-
-
-
-font-size:5rem;
-
-
-
-margin-bottom:20px;
-
-
-
+@supports (padding: max(0px)) {
+    .main-header { padding-top: max(0.5rem, env(safe-area-inset-top)); }
+    .main-footer { padding-bottom: max(1.875rem, env(safe-area-inset-bottom)); }
+    .back-to-top { bottom: max(1.5rem, calc(1.5rem + env(safe-area-inset-bottom))); }
 }
 
-
-
-.hero-left p{
-
-
-
-font-size:1.2rem;
-
-
-
-line-height:2;
-
-
-
-opacity:.8;
-
-
-
-}
-
-
-
-/* RIGHT */
-
-
-
-.hero-right{
-
-
-
-width:50%;
-
-height:100vh;
-
-
-
-position:relative;
-
-
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-
-
-}
-
-
-
-/* CANVAS */
-
-
-
-#iphone-canvas{
-
-
-
-width:100%;
-
-height:100%;
-
-
-
-position:relative;
-
-
-
-}
-
-
-
-/* IMPORTANT */
-
-
-
-#iphone-canvas canvas{
-
-
-
-width:100% !important;
-
-height:100% !important;
-
-
-
-display:block;
-
-
-
-}
-
-
-
-
-
-#loader{
-
-    position: fixed; inset:0; background:#050816;
-
-    display:flex; justify-content:center; align-items:center; flex-direction:column;
-
-    z-index:9999; transition:1s ease;
-
-}
-
-.loader-logo{
-
-    font-size:4rem; font-weight:900; color:white;
-
-    margin-bottom:40px; text-shadow:0 0 30px #00d4ff;
-
-    animation:pulse 2s infinite;
-
-}
-
-.loader-bar{
-
-    width:300px; height:6px; background: rgba(255,255,255,.1);
-
-    border-radius:20px; overflow:hidden;
-
-}
-
-.loader-progress{
-
-    width:0%; height:100%;
-
-    background: linear-gradient(90deg,#00d4ff,#7000ff);
-
-    box-shadow:0 0 20px #00d4ff;
-
-    transition:.3s;
-
-}
-
-@keyframes pulse{
-
-    0%{transform:scale(1);}
-
-    50%{transform:scale(1.05);}
-
-    100%{transform:scale(1);}
-
-}
-
-
-
-
-
-/* =========================
-
-   HERO 3D
-
-========================= */
-
-
-
-.iphone-hero{
-
-    width:100%;
-
-    min-height:100vh;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:0 8%;
-
-    overflow:hidden;
-
-    position:relative;
-
-    background:
-
-    radial-gradient(circle at top right,#13203f,#050816 60%);
-
-}
-
-
-
-.hero-left{
-
-    width:45%;
-
-    z-index:5;
-
-}
-
-
-
-.hero-right{
-
-    width:55%;
-
-    height:100vh;
-
-    position:relative;
-
-}
-
-
-
-#iphone-canvas{
-
-    width:100%;
-
-    height:100%;
-
-}
-
-
-
-.iphone-badge{
-
-    display:inline-block;
-
-    padding:10px 18px;
-
-    border-radius:30px;
-
-    background:rgba(255,255,255,.08);
-
-    border:1px solid rgba(255,255,255,.15);
-
-    color:#00d4ff;
-
-    margin-bottom:25px;
-
-    backdrop-filter:blur(10px);
-
-}
-
-
-
-.hero-left h1{
-
-    font-size:72px;
-
-    color:white;
-
-    line-height:1.1;
-
-    margin-bottom:25px;
-
-    font-weight:900;
-
-}
-
-
-
-.hero-left p{
-
-    font-size:20px;
-
-    color:#b8c3d9;
-
-    line-height:2;
-
-    margin-bottom:35px;
-
-}
-
-
-
-.hero-btn{
-
-    padding:18px 40px;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:linear-gradient(
-
-    135deg,
-
-    #00d4ff,
-
-    #7000ff
-
-    );
-
-    color:white;
-
-    font-size:18px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-    transition:.3s;
-
-    box-shadow:
-
-    0 10px 40px rgba(0,212,255,.35);
-
-}
-
-
-
-.hero-btn:hover{
-
-    transform:translateY(-5px) scale(1.03);
-
-}
-
-
-
-canvas{
-
-    display:block;
-
-}
-
-
-
-/* MOBILE */
-
-
-
-@media(max-width:992px){
-
-
-
-.iphone-hero{
-
-    flex-direction:column;
-
-    text-align:center;
-
-    padding-top:120px;
-
-}
-
-
-
-.hero-left{
-
-    width:100%;
-
-}
-
-
-
-.hero-right{
-
-    width:100%;
-
-    height:60vh;
-
-}
-
-
-
-.hero-left h1{
-
-    font-size:48px;
-
-}
-
-
-
-.hero-left p{
-
-    font-size:16px;
-
-}
-
-
-
-}
-
-
-/* =========================
-   IPHONE HERO
-========================= */
-
-.iphone-hero{
-    position:relative;
-    width:100%;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    overflow:hidden;
-    padding:120px 7%;
-    transition:0.4s;
-}
-
-/* LIGHT MODE */
-
-body:not(.dark) .iphone-hero{
-
-    background:
-    radial-gradient(circle at top right,
-    rgba(0,122,255,0.15),
-    transparent 30%),
-
-    radial-gradient(circle at bottom left,
-    rgba(123,0,255,0.12),
-    transparent 35%),
-
-    linear-gradient(
-    135deg,
-    #f5f7ff,
-    #edf2ff,
-    #ffffff
-    );
-
-}
-
-/* DARK MODE */
-
-body.dark .iphone-hero{
-
-    background:
-    radial-gradient(circle at top right,
-    rgba(0,212,255,0.22),
-    transparent 30%),
-
-    radial-gradient(circle at bottom left,
-    rgba(112,0,255,0.18),
-    transparent 35%),
-
-    linear-gradient(
-    135deg,
-    #050816,
-    #0b1020,
-    #111827
-    );
-
-}
-
-/* GLOW */
-
-.iphone-hero::before{
-
-    content:'';
-    position:absolute;
-    width:700px;
-    height:700px;
-    border-radius:50%;
-    filter:blur(120px);
-    z-index:0;
-    animation:glowMove 8s ease-in-out infinite;
-}
-
-body.dark .iphone-hero::before{
-
-    background:rgba(0,212,255,0.15);
-
-}
-
-body:not(.dark) .iphone-hero::before{
-
-    background:rgba(0,122,255,0.12);
-
-}
-
-@keyframes glowMove{
-
-    0%{
-        transform:translate(0,0);
-    }
-
-    50%{
-        transform:translate(80px,-40px);
-    }
-
-    100%{
-        transform:translate(0,0);
-    }
-
-}
-
-/* LEFT */
-
-.hero-left{
-
-    position:relative;
-    z-index:2;
-    max-width:600px;
-}
-
-.iphone-badge{
-
-    display:inline-block;
-    padding:10px 18px;
-    border-radius:999px;
-    backdrop-filter:blur(20px);
-    margin-bottom:25px;
-    font-size:14px;
-    font-weight:600;
-}
-
-body.dark .iphone-badge{
-
-    background:rgba(255,255,255,0.08);
-    color:#00d4ff;
-    border:1px solid rgba(255,255,255,0.1);
-
-}
-
-body:not(.dark) .iphone-badge{
-
-    background:rgba(255,255,255,0.7);
-    color:#007aff;
-    border:1px solid rgba(0,0,0,0.05);
-
-}
-
-.hero-left h1{
-
-    font-size:72px;
-    line-height:1;
-    margin-bottom:25px;
-    font-weight:900;
-}
-
-body.dark .hero-left h1{
-
-    color:white;
-    text-shadow:0 0 30px rgba(0,212,255,0.3);
-
-}
-
-body:not(.dark) .hero-left h1{
-
-    color:#111827;
-
-}
-
-.hero-left p{
-
-    font-size:20px;
-    line-height:2;
-    margin-bottom:35px;
-    max-width:540px;
-}
-
-body.dark .hero-left p{
-
-    color:#b6c2d9;
-
-}
-
-body:not(.dark) .hero-left p{
-
-    color:#4b5563;
-
-}
-
-/* BUTTON */
-
-.hero-btn{
-
-    position:relative;
-    overflow:hidden;
-    border:none;
-    padding:18px 42px;
-    border-radius:18px;
-    font-size:18px;
-    font-weight:700;
-    cursor:pointer;
-    transition:0.35s;
-    backdrop-filter:blur(25px);
-}
-
-body.dark .hero-btn{
-
-    background:linear-gradient(
-    135deg,
-    #00d4ff,
-    #7000ff
-    );
-
-    color:white;
-
-    box-shadow:
-    0 10px 40px rgba(0,212,255,0.35);
-
-}
-
-body:not(.dark) .hero-btn{
-
-    background:white;
-    color:#111827;
-
-    box-shadow:
-    0 10px 40px rgba(0,0,0,0.08);
-
-}
-
-.hero-btn:hover{
-
-    transform:
-    translateY(-4px)
-    scale(1.03);
-
-}
-
-/* RIGHT */
-
-.hero-right{
-
-    position:relative;
-    z-index:2;
-    width:50%;
-    height:700px;
-}
-
-#iphone-canvas{
-
-    width:100%;
-    height:100%;
-}
-
-/* MOBILE */
-
-@media(max-width:991px){
-
-    .iphone-hero{
-
-        flex-direction:column;
-        text-align:center;
-        padding-top:160px;
-
-    }
-
-    .hero-right{
-
-        width:100%;
-        height:500px;
-
-    }
-
-    .hero-left h1{
-
-        font-size:52px;
-
-    }
-
-}
-
-
-/* =========================
-   IPHONE HERO RESPONSIVE
-========================= */
-
-/* SMALL TABLET */
-@media(max-width:991px){
-
-    .iphone-hero{
-        flex-direction:column;
-        text-align:center;
-        padding-top:160px;
-        min-height:650px;
-    }
-
-    .hero-left{
-        max-width:100%;
-        margin-bottom:40px;
-    }
-
-    .hero-left h1{
-        font-size:48px;
-    }
-
-    .hero-left p{
-        font-size:18px;
-        line-height:1.8;
-        max-width:90%;
-        margin:0 auto 30px auto;
-    }
-
-    .hero-btn{
-        padding:16px 32px;
-        font-size:16px;
-    }
-
-    .hero-right{
-        width:100%;
-        height:450px;
-    }
-}
-
-/* MOBILE */
-@media(max-width:767px){
-
-    .iphone-hero{
-        padding-top:120px;
-        min-height:600px;
-    }
-
-    .hero-left h1{
-        font-size:36px;
-    }
-
-    .hero-left p{
-        font-size:16px;
-        line-height:1.6;
-    }
-
-    .hero-btn{
-        padding:14px 28px;
-        font-size:15px;
-    }
-
-    .hero-right{
-        width:100%;
-        height:350px;
-    }
-
-    #iphone-canvas{
-        height:100%;
-    }
-}
-
-/* SMALL MOBILE / VERY NARROW SCREENS */
-@media(max-width:480px){
-
-    .iphone-hero{
-        padding-top:100px;
-        min-height:500px;
-    }
-
-    .hero-left h1{
-        font-size:28px;
-    }
-
-    .hero-left p{
-        font-size:14px;
-        line-height:1.5;
-    }
-
-    .hero-btn{
-        padding:12px 24px;
-        font-size:14px;
-    }
-
-    .hero-right{
-        height:280px;
+/* ============================================
+   🔟 کلاس‌های کمکی
+============================================ */
+body.modal-open { overflow: hidden; position: fixed; width: 100%; height: 100%; }
+.loading { position: relative; pointer-events: none; opacity: 0.7; }
+.loading::after { content: ''; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.1); }
+@keyframes highlight { 0%, 100% { background: transparent; } 50% { background: rgba(0, 212, 255, 0.2); } }
+.highlight-new { animation: highlight 1.5s ease; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+.shake { animation: shake 0.3s ease; }
+@media (max-width: 768px) { .desktop-only { display: none !important; } }
+@media (min-width: 769px) { .mobile-only { display: none !important; } }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.animate-on-scroll.visible { animation: slideUp 0.5s ease forwards; }
+@media (hover: none) {
+    .btn:active, .icon-btn:active, .category-card:active, .product-card:active, .feature-card:active {
+        transform: scale(0.98) !important; transition: transform 0.1s ease;
     }
 }
