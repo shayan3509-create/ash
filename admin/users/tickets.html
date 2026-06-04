@@ -35,6 +35,17 @@
             --border: #334155;
             --chat-user: #1e3a5f; --chat-admin: #2d1b69;
         }
+        body.dark .filter-select { color: #f1f5f9 !important; background: #1e293b !important; }
+        body.dark .filter-select option { background: #1e293b; color: #f1f5f9; }
+        body.dark .chat-input { color: #f1f5f9 !important; background: #1e293b !important; }
+        body.dark .chat-input::placeholder { color: #94a3b8 !important; }
+        body.dark .modal-box input,
+        body.dark .modal-box select { color: #f1f5f9 !important; background: #1e293b !important; }
+        body.dark .badge-dept { background: rgba(255,255,255,0.08) !important; }
+        body.dark .chat-bubble.user { color: #f1f5f9 !important; }
+        body.dark .chat-bubble.admin { color: #f1f5f9 !important; }
+        body.dark .chat-bubble .bubble-sender { color: #cbd5e1 !important; }
+        body.dark .chat-bubble .bubble-time { color: #94a3b8 !important; }
 
         html { overflow-x: hidden; overflow-y: auto; }
         body { scrollbar-width: thin; scrollbar-color: var(--border) transparent; overflow-x: hidden; }
@@ -53,7 +64,7 @@
         .sidebar {
             width: var(--sidebar-width); height: 100vh; position: fixed; right: 0; top: 0;
             background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
-            border-left: 1px solid rgba(0,0,0,0.08); z-index: 100;
+            border-left: 1px solid rgba(0,0,0,0.08); z-index: 101;
             transition: right 0.3s ease; overflow-y: auto;
             display: flex; flex-direction: column;
             scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent;
@@ -113,7 +124,6 @@
         .filter-select { padding: 8px 14px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Vazir', sans-serif; font-size: 12px; background: var(--bg-surface); color: var(--text-primary); cursor: pointer; transition: all 0.2s ease; }
         .filter-select:focus { outline: none; border-color: #0d47a1; }
         .filter-select:hover { border-color: #0d47a1; }
-        body.dark .filter-select { color: #f1f5f9; }
 
         .search-box { display: flex; align-items: center; gap: 8px; background: var(--bg-surface); border-radius: 40px; padding: 7px 14px; border: 1px solid var(--border); flex: 1; min-width: 180px; transition: all 0.2s ease; }
         .search-box:focus-within { border-color: #0d47a1; box-shadow: 0 0 0 3px rgba(13,71,161,0.06); }
@@ -150,27 +160,30 @@
         .dept-product { background: rgba(139,92,246,0.1); color: #8b5cf6; }
         .dept-other { background: rgba(100,116,139,0.1); color: #64748b; }
 
+        .badge-alert { padding: 2px 6px; border-radius: 8px; font-size: 9px; font-weight: bold; display: inline-block; }
+        .badge-customer-reply { background: rgba(239,68,68,0.1); color: #ef4444; }
+        .badge-waiting-reply { background: rgba(59,130,246,0.1); color: #3b82f6; }
+
         .pagination { display: flex; justify-content: center; gap: 6px; padding: 16px; }
         .page-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; font-family: 'Vazir', sans-serif; font-weight: bold; font-size: 12px; color: var(--text-primary); transition: all 0.2s ease; transform: translateY(0); }
         .page-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         .page-btn.active { background: #0d47a1; color: white; border-color: #0d47a1; }
         .no-result { text-align: center; padding: 30px; color: var(--text-muted); display: none; }
 
-        #chatView { display: none; flex-direction: column; height: calc(100vh - var(--header-height) - 48px); }
+        #chatView { display: none; flex-direction: column; height: 100vh; position: fixed; top: 0; right: var(--sidebar-width); left: 0; bottom: 0; z-index: 60; background: var(--bg-surface); }
         #chatView.show { display: flex; }
 
-        .chat-header { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+        .chat-header { display: flex; align-items: center; gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--border); flex-shrink: 0; background: var(--bg-card); }
         .chat-back-btn { width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--bg-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.2s ease; flex-shrink: 0; transform: translateY(0); }
         .chat-back-btn:hover { background: rgba(13,71,161,0.1); color: var(--primary); transform: translateY(-2px); }
         .chat-header-info { flex: 1; }
-        .chat-header-title { font-size: 15px; font-weight: bold; color: var(--text-primary); }
-        .chat-header-meta { font-size: 11px; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2px; }
+        .chat-header-title { font-size: 18px; font-weight: bold; color: var(--text-primary); }
+        .chat-header-meta { font-size: 11px; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
 
-        .chat-messages { flex: 1; overflow-y: auto; padding: 16px 0; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
         .chat-messages::-webkit-scrollbar { width: 4px; }
         .chat-messages::-webkit-scrollbar-track { background: transparent; }
         .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-        .chat-date-divider { text-align: center; font-size: 10px; color: var(--text-muted); margin: 8px 0; }
 
         .chat-bubble { max-width: 75%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.7; position: relative; transition: transform 0.2s ease; }
         .chat-bubble:hover { transform: scale(1.02); }
@@ -179,12 +192,12 @@
         .chat-bubble .bubble-sender { font-size: 10px; font-weight: bold; margin-bottom: 4px; color: var(--text-muted); }
         .chat-bubble .bubble-time { font-size: 9px; color: var(--text-muted); margin-top: 4px; text-align: left; }
 
-        .chat-input-area { flex-shrink: 0; padding: 12px 0; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+        .chat-input-area { flex-shrink: 0; padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; background: var(--bg-card); }
         .chat-input { flex: 1; padding: 11px 16px; border: 2px solid var(--border); border-radius: 24px; font-family: 'Vazir', sans-serif; font-size: 13px; background: var(--bg-surface); color: var(--text-primary); resize: none; transition: all 0.2s ease; }
         .chat-input:focus { outline: none; border-color: #0d47a1; box-shadow: 0 0 0 3px rgba(13,71,161,0.06); }
         .chat-send-btn { width: 42px; height: 42px; border-radius: 50%; border: none; background: #0d47a1; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; transform: translateY(0); }
         .chat-send-btn:hover { background: #0a3a82; transform: translateY(-2px) scale(1.05); }
-        .chat-actions { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+        .chat-actions { display: flex; gap: 8px; padding: 0 24px 16px 24px; flex-wrap: wrap; align-items: center; background: var(--bg-card); }
 
         .custom-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 200; opacity: 0; visibility: hidden; transition: 0.2s; }
         .custom-modal.show { opacity: 1; visibility: visible; }
@@ -229,7 +242,11 @@
             table tbody td { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: none; white-space: normal; font-size: 11px; cursor: pointer; }
             table tbody td::before { content: attr(data-label); font-weight: bold; color: var(--text-muted); font-size: 10px; margin-left: 6px; flex-shrink: 0; }
             .chat-bubble { max-width: 90%; }
-            #chatView { height: calc(100vh - var(--header-height) - 24px); }
+            #chatView { right: 0; }
+            .chat-header { padding: 12px 16px; }
+            .chat-messages { padding: 16px; }
+            .chat-input-area { padding: 12px 16px; }
+            .chat-actions { padding: 0 16px 12px 16px; }
         }
     </style>
 </head>
@@ -251,8 +268,8 @@
     </aside>
 
     <div class="main-content" id="mainContent">
-        <header class="header">
-            <div class="header-left"><button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><h3 class="header-title" id="headerTitle">تیکت‌ها</h3></div>
+        <header class="header" id="mainHeader">
+            <div class="header-left"><button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><h3 class="header-title">تیکت‌ها</h3></div>
             <div class="header-right"><button class="header-btn" onclick="toggleDarkMode()" title="تغییر تم"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><div class="user-avatar" title="ادمین">ا</div></div>
         </header>
 
@@ -281,29 +298,34 @@
                     <div class="pagination" id="pagination"></div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div id="chatView">
-                <div class="chat-header">
-                    <button class="chat-back-btn" onclick="backToList()" title="بازگشت"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
-                    <div class="chat-header-info">
-                        <div class="chat-header-title" id="chatTitle">-</div>
-                        <div class="chat-header-meta">
-                            <span id="chatUser">-</span>
-                            <span id="chatDept">-</span>
-                            <span id="chatStatus">-</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-messages" id="chatMessages"></div>
-                <div class="chat-input-area">
-                    <textarea class="chat-input" id="chatInput" placeholder="پاسخ خود را بنویسید..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
-                    <button class="chat-send-btn" onclick="sendMessage()" title="ارسال"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
-                </div>
-                <div class="chat-actions">
-                    <button class="btn btn-outline" id="btnCycleStatus" onclick="cycleStatus()">🔄 تغییر وضعیت</button>
-                    <button class="btn btn-danger" onclick="confirmDeleteTicket()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/></svg>حذف تیکت</button>
+    <!-- CHAT VIEW (fixed overlay) -->
+    <div id="chatView">
+        <div class="chat-header">
+            <button class="chat-back-btn" onclick="backToList()" title="بازگشت"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="chat-header-info">
+                <div class="chat-header-title" id="chatTitle">-</div>
+                <div class="chat-header-meta">
+                    <span id="chatUser">-</span>
+                    <span id="chatDept">-</span>
+                    <span id="chatStatus">-</span>
                 </div>
             </div>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-area">
+            <textarea class="chat-input" id="chatInput" placeholder="پاسخ خود را بنویسید..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
+            <button class="chat-send-btn" onclick="sendMessage()" title="ارسال"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        </div>
+        <div class="chat-actions">
+            <select class="filter-select" id="chatStatusSelect" onchange="changeStatus(this.value)" style="width:auto;padding:7px 12px;font-size:11px;font-family:'Vazir',sans-serif;">
+                <option value="open">🔴 باز</option>
+                <option value="waiting">🟡 در انتظار</option>
+                <option value="closed">🟢 بسته شده</option>
+            </select>
+            <button class="btn btn-danger" onclick="confirmDeleteTicket()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/></svg>حذف تیکت</button>
         </div>
     </div>
 
@@ -332,10 +354,8 @@
             open: 'باز', waiting: 'در انتظار', closed: 'بسته شده'
         };
 
-        const statusCycle = ['open', 'waiting', 'closed'];
-
         const defaultTickets = [
-            { id:1, title:'مشکل در پرداخت درگاه زرین‌پال', userId:6, userName:'زهرا مرادی', department:'payment', status:'open', createdAt:'2025-01-05 10:30', lastUpdate:'2025-01-05 12:10' },
+            { id:1, title:'مشکل در پرداخت درگاه زرین‌پال', userId:6, userName:'زهرا مرادی', department:'payment', status:'waiting', createdAt:'2025-01-05 10:30', lastUpdate:'2025-01-05 12:10' },
             { id:2, title:'سفارش NEO-1402-0897 کی ارسال میشه؟', userId:4, userName:'نیلوفر حسینی', department:'order', status:'waiting', createdAt:'2025-01-04 14:20', lastUpdate:'2025-01-06 09:45' },
             { id:3, title:'آیا لپ‌تاپ ایسوس گارانتی داره؟', userId:9, userName:'پوریا اکبری', department:'product', status:'closed', createdAt:'2025-01-03 11:00', lastUpdate:'2025-01-04 16:30' },
             { id:4, title:'بازیابی رمز عبور حساب کاربری', userId:10, userName:'نگار صادقی', department:'support', status:'open', createdAt:'2025-01-06 08:15', lastUpdate:'2025-01-06 08:15' },
@@ -347,7 +367,21 @@
             { id:10, title:'سوال درباره گارانتی باتری', userId:2, userName:'سارا احمدی', department:'other', status:'closed', createdAt:'2025-01-03 08:45', lastUpdate:'2025-01-04 12:00' }
         ];
 
+        function preloadDemoChats() {
+            if (localStorage.getItem('admin_ticket_chats_demo_loaded')) return;
+            const demos = {
+                1: [{ from:'user', text:'سلام، موقع پرداخت خطای 403 میده. لطفاً راهنمایی کنید.', date:'1403/10/15 - 10:30' }, { from:'admin', text:'سلام، لطفاً شماره سفارشتون رو بفرمایید.', date:'1403/10/15 - 11:45' }, { from:'user', text:'شماره سفارش: NEO-1402-0897', date:'1403/10/15 - 12:10' }],
+                2: [{ from:'user', text:'سلام، سفارش من چند روزه که توی وضعیت آماده ارسال مونده. کی ارسال میشه؟', date:'1403/10/14 - 14:20' }, { from:'admin', text:'سلام، اجازه بدید بررسی کنم.', date:'1403/10/16 - 09:45' }],
+                3: [{ from:'user', text:'سلام، لپ‌تاپ ایسوس گارانتی داره؟', date:'1403/10/13 - 11:00' }, { from:'admin', text:'سلام، بله ۱۸ ماه گارانتی داره.', date:'1403/10/14 - 16:30' }],
+                5: [{ from:'user', text:'درخواست فاکتور رسمی دارم برای سفارش.', date:'1403/10/12 - 09:00' }, { from:'admin', text:'لطفاً کد ملی و شناسه سفارش رو بفرمایید.', date:'1403/10/15 - 13:20' }],
+                8: [{ from:'user', text:'هارد وسترن ۲ ترابایت موجود دارید؟', date:'1403/10/16 - 15:30' }, { from:'admin', text:'بله موجوده. رنگ مشکی.', date:'1403/10/17 - 09:00' }],
+            };
+            localStorage.setItem('admin_ticket_chats', JSON.stringify(demos));
+            localStorage.setItem('admin_ticket_chats_demo_loaded', '1');
+        }
+
         function loadTickets() {
+            preloadDemoChats();
             const saved = localStorage.getItem('admin_tickets');
             tickets = saved ? JSON.parse(saved) : [...defaultTickets];
             if (!saved) localStorage.setItem('admin_tickets', JSON.stringify(tickets));
@@ -365,6 +399,12 @@
             const all = saved ? JSON.parse(saved) : {};
             all[ticketId] = chats;
             localStorage.setItem('admin_ticket_chats', JSON.stringify(all));
+        }
+
+        function isLastMessageFromUser(ticketId) {
+            const chats = getChats(ticketId);
+            if (chats.length === 0) return false;
+            return chats[chats.length - 1].from === 'user';
         }
 
         function getChatPreview(ticketId) {
@@ -412,7 +452,12 @@
             document.getElementById('noResult').style.display = filtered.length ? 'none' : 'block';
             document.getElementById('ticketsTable').innerHTML = items.map(t => `
                 <tr onclick="openChat(${t.id})">
-                    <td data-label="عنوان"><strong>${t.title}</strong><br><small style="color:var(--text-muted);">${getChatPreview(t.id)}</small></td>
+                    <td data-label="عنوان">
+                        <strong>${t.title}</strong>
+                        ${t.status === 'waiting' && isLastMessageFromUser(t.id) ? ' <span class="badge-alert badge-customer-reply">پاسخ مشتری</span>' : ''}
+                        ${t.status === 'open' && getChats(t.id).length === 0 ? ' <span class="badge-alert badge-waiting-reply">منتظر پاسخ</span>' : ''}
+                        <br><small style="color:var(--text-muted);">${getChatPreview(t.id)}</small>
+                    </td>
                     <td data-label="کاربر">${t.userName}</td>
                     <td data-label="دپارتمان"><span class="badge-dept dept-${t.department}">${departments[t.department]}</span></td>
                     <td data-label="وضعیت"><span class="badge-status badge-${t.status}">${statuses[t.status]}</span></td>
@@ -435,18 +480,19 @@
             const t = tickets.find(x => x.id === id);
             document.getElementById('listView').style.display = 'none';
             document.getElementById('chatView').classList.add('show');
-            document.getElementById('headerTitle').textContent = 'چت - ' + t.title;
             document.getElementById('chatTitle').textContent = t.title;
             document.getElementById('chatUser').textContent = '👤 ' + t.userName;
             document.getElementById('chatDept').innerHTML = '<span class="badge-dept dept-' + t.department + '">' + departments[t.department] + '</span>';
             updateChatStatusBadge();
             renderChatMessages();
+            document.getElementById('chatStatusSelect').value = t.status;
             document.getElementById('chatInput').focus();
         }
 
         function updateChatStatusBadge() {
             const t = tickets.find(x => x.id === activeTicketId);
             document.getElementById('chatStatus').innerHTML = '<span class="badge-status badge-' + t.status + '">' + statuses[t.status] + '</span>';
+            document.getElementById('chatStatusSelect').value = t.status;
         }
 
         function renderChatMessages() {
@@ -484,14 +530,13 @@
             updateChatStatusBadge();
         }
 
-        function cycleStatus() {
+        function changeStatus(newStatus) {
             const t = tickets.find(x => x.id === activeTicketId);
-            const idx = statusCycle.indexOf(t.status);
-            t.status = statusCycle[(idx + 1) % 3];
+            t.status = newStatus;
             t.lastUpdate = new Date().toLocaleDateString('fa-IR') + ' - ' + new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
             saveTickets();
             updateChatStatusBadge();
-            showToast('وضعیت تیکت به «' + statuses[t.status] + '» تغییر کرد');
+            showToast('وضعیت تیکت به «' + statuses[newStatus] + '» تغییر کرد');
         }
 
         function confirmDeleteTicket() {
@@ -522,7 +567,6 @@
             activeTicketId = null;
             document.getElementById('listView').style.display = 'block';
             document.getElementById('chatView').classList.remove('show');
-            document.getElementById('headerTitle').textContent = 'تیکت‌ها';
             applyFilters();
         }
 
