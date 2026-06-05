@@ -20,7 +20,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #0d47a1; --success: #10b981; --danger: #ef4444; --warning: #f59e0b; --info: #3b82f6;
+            --primary: #0d47a1; --success: #10b981; --danger: #ef4444; --warning: #f59e0b;
             --sidebar-width: 260px; --header-height: 70px;
             --bg-card: #ffffff; --bg-surface: #f8fafc;
             --text-primary: #0f172a; --text-secondary: #475569; --text-muted: #64748b;
@@ -34,8 +34,12 @@
             --border: #334155;
         }
 
-        html { scrollbar-width: none; -ms-overflow-style: none; overflow-x: hidden; }
-        html::-webkit-scrollbar { display: none; }
+        html { overflow-x: hidden; overflow-y: auto; }
+        body { scrollbar-width: thin; scrollbar-color: var(--border) transparent; overflow-x: hidden; }
+        body::-webkit-scrollbar { width: 6px; }
+        body::-webkit-scrollbar-track { background: transparent; }
+        body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        body::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
         body {
             font-family: 'Vazir', sans-serif;
@@ -48,10 +52,13 @@
             width: var(--sidebar-width); height: 100vh; position: fixed; right: 0; top: 0;
             background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
             border-left: 1px solid rgba(0,0,0,0.08); z-index: 100;
-            transition: right 0.3s ease; overflow-y: auto; scrollbar-width: none;
+            transition: right 0.3s ease; overflow-y: auto;
             display: flex; flex-direction: column;
+            scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent;
         }
-        .sidebar::-webkit-scrollbar { display: none; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
         body.dark .sidebar { background: rgba(30,41,59,0.95); }
 
         .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid var(--border); }
@@ -63,8 +70,8 @@
         .sidebar-nav { flex: 1; padding: 16px 0; }
         .nav-section { margin-bottom: 6px; }
         .nav-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); padding: 6px 24px; font-weight: bold; }
-        .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 24px; margin: 2px 12px; border-radius: var(--radius-md); color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; }
-        .nav-item:hover { background: rgba(13,71,161,0.08); color: var(--primary); }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 24px; margin: 2px 12px; border-radius: var(--radius-md); color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.2s ease; transform: translateY(0); }
+        .nav-item:hover { background: rgba(13,71,161,0.08); color: var(--primary); transform: translateY(-2px); }
         .nav-item.active { background: linear-gradient(135deg, #0d47a1, #4a148c); color: white; box-shadow: 0 4px 12px rgba(13,71,161,0.3); }
         .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
         .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
@@ -78,73 +85,96 @@
         .header-title { font-size: 18px; font-weight: bold; color: var(--text-primary); }
         .header-right { display: flex; align-items: center; gap: 10px; }
         .header-btn { width: 38px; height: 38px; border-radius: 50%; border: none; background: var(--bg-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: var(--transition); }
-        .header-btn:hover { background: rgba(13,71,161,0.1); color: var(--primary); }
-        .user-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #0d47a1, #c48b9d); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; cursor: pointer; }
+        .header-btn:hover { background: rgba(13,71,161,0.1); color: var(--primary); transform: translateY(-2px); }
+        .user-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #0d47a1, #c48b9d); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+        .user-avatar:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
-        .page-content { padding: 24px; max-width: 1100px; margin: 0 auto; }
+        .page-content { padding: 24px; max-width: 1200px; margin: 0 auto; }
 
-        .card { background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; }
+        .card { background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; margin-bottom: 20px; transition: all 0.25s ease; }
+        .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
         .card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
         .card-title { font-size: 15px; font-weight: bold; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+        .card-body { padding: 16px; }
 
-        .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .search-box { display: flex; align-items: center; gap: 8px; background: var(--bg-surface); border-radius: 40px; padding: 7px 14px; border: 1px solid var(--border); }
-        .search-box input { border: none; background: transparent; font-family: 'Vazir', sans-serif; font-size: 12px; color: var(--text-primary); outline: none; width: 160px; }
+        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border); padding: 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.25s ease; transform: translateY(0); }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: var(--primary); }
+        .stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.2s ease; }
+        .stat-card:hover .stat-icon { transform: scale(1.1); }
+        .stat-icon svg { width: 18px; height: 18px; stroke: white; }
+        .stat-info .stat-value { font-size: 18px; font-weight: bold; color: var(--text-primary); }
+        .stat-info .stat-label { font-size: 11px; color: var(--text-muted); }
+
+        .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+        .filter-select { padding: 8px 14px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Vazir', sans-serif; font-size: 12px; background: var(--bg-surface); color: var(--text-primary); cursor: pointer; transition: all 0.2s ease; }
+        .filter-select:focus { outline: none; border-color: #0d47a1; }
+        .filter-select:hover { border-color: #0d47a1; }
+        body.dark .filter-select { color: #f1f5f9; background: #1e293b; }
+
+        .search-box { display: flex; align-items: center; gap: 8px; background: var(--bg-surface); border-radius: 40px; padding: 7px 14px; border: 1px solid var(--border); flex: 1; min-width: 180px; transition: all 0.2s ease; }
+        .search-box:focus-within { border-color: #0d47a1; box-shadow: 0 0 0 3px rgba(13,71,161,0.06); }
+        .search-box input { border: none; background: transparent; font-family: 'Vazir', sans-serif; font-size: 12px; color: var(--text-primary); outline: none; width: 100%; }
         body.dark .search-box input { color: #f1f5f9 !important; }
         body.dark .search-box input::placeholder { color: #94a3b8 !important; opacity: 1; }
-        .filter-select { padding: 8px 14px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Vazir', sans-serif; font-size: 12px; background: var(--bg-surface); color: var(--text-primary); cursor: pointer; }
-        .filter-select:focus { outline: none; border-color: #0d47a1; }
-        body.dark .filter-select { color: #f1f5f9; }
+
+        .btn { padding: 7px 14px; border-radius: 8px; font-family: 'Vazir', sans-serif; font-weight: bold; font-size: 11px; cursor: pointer; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; gap: 5px; transform: translateY(0); }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary { background: #0d47a1; color: white; }
+        .btn-primary:hover { background: #0a3a82; }
+        .btn-outline { background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border); }
+        .btn-outline:hover { background: var(--border); }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-danger:hover { background: #dc2626; }
 
         .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
         table { width: 100%; border-collapse: collapse; min-width: 850px; }
-        th { text-align: right; padding: 10px 12px; font-size: 11px; font-weight: bold; color: var(--text-muted); border-bottom: 2px solid var(--border); background: var(--bg-surface); white-space: nowrap; }
-        td { padding: 10px 12px; font-size: 12px; color: var(--text-primary); border-bottom: 1px solid var(--border); white-space: nowrap; }
+        th { text-align: right; padding: 10px 12px; font-size: 11px; font-weight: bold; color: var(--text-muted); border-bottom: 2px solid var(--border); background: var(--bg-surface); white-space: nowrap; cursor: pointer; user-select: none; }
+        th:hover { color: var(--primary); }
+        th .sort-icon { margin-right: 4px; font-size: 10px; }
+        td { padding: 10px 12px; font-size: 12px; color: var(--text-primary); border-bottom: 1px solid var(--border); white-space: nowrap; cursor: pointer; transition: background 0.15s ease; }
         tr:hover td { background: rgba(13,71,161,0.03); }
-
-        .order-id { font-weight: bold; color: #0d47a1; }
+        tr { transition: transform 0.2s ease; }
+        tbody tr:hover { transform: translateX(-2px); }
 
         .badge-status { padding: 4px 10px; border-radius: 16px; font-size: 10px; font-weight: bold; display: inline-block; }
-        .badge-status.completed { background: rgba(16,185,129,0.1); color: #10b981; }
-        .badge-status.pending { background: rgba(245,158,11,0.1); color: #f59e0b; }
-        .badge-status.cancelled { background: rgba(239,68,68,0.1); color: #ef4444; }
-        .badge-status.returned { background: rgba(139,92,246,0.1); color: #8b5cf6; }
-        .badge-status.returning { background: rgba(59,130,246,0.1); color: #3b82f6; }
-        .badge-status.shipping { background: rgba(6,182,212,0.1); color: #06b6d4; }
-
-        .status-select { padding: 4px 8px; border-radius: 16px; font-size: 10px; font-weight: bold; border: none; cursor: pointer; font-family: 'Vazir', sans-serif; }
-        .status-select.completed { background: rgba(16,185,129,0.1); color: #10b981; }
-        .status-select.pending { background: rgba(245,158,11,0.1); color: #f59e0b; }
-        .status-select.cancelled { background: rgba(239,68,68,0.1); color: #ef4444; }
-        .status-select.returned { background: rgba(139,92,246,0.1); color: #8b5cf6; }
-        .status-select.returning { background: rgba(59,130,246,0.1); color: #3b82f6; }
-        .status-select.shipping { background: rgba(6,182,212,0.1); color: #06b6d4; }
-
-        .action-btns { display: flex; gap: 4px; align-items: center; min-width: 84px; }
-        .action-btn { width: 28px; height: 28px; border-radius: 6px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; background: var(--bg-surface); color: var(--text-secondary); transition: var(--transition); }
-        .action-btn:hover { background: rgba(13,71,161,0.1); color: #0d47a1; }
-        .action-btn.danger:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
-        .action-btn.purple:hover { background: rgba(139,92,246,0.1); color: #8b5cf6; }
-        .action-btn.info:hover { background: rgba(59,130,246,0.1); color: #3b82f6; }
-        .action-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        .action-btn:disabled:hover { background: var(--bg-surface); color: var(--text-secondary); }
-        .action-btn svg { width: 12px; height: 12px; }
+        .badge-pending { background: rgba(245,158,11,0.1); color: #f59e0b; }
+        .badge-confirmed { background: rgba(59,130,246,0.1); color: #3b82f6; }
+        .badge-processing { background: rgba(139,92,246,0.1); color: #8b5cf6; }
+        .badge-shipped { background: rgba(6,182,212,0.1); color: #06b6d4; }
+        .badge-delivered { background: rgba(16,185,129,0.1); color: #10b981; }
+        .badge-return_requested { background: rgba(249,115,22,0.1); color: #f97316; }
+        .badge-returned { background: rgba(100,116,139,0.1); color: #64748b; }
+        .badge-cancelled { background: rgba(239,68,68,0.1); color: #ef4444; }
 
         .pagination { display: flex; justify-content: center; gap: 6px; padding: 16px; }
-        .page-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; font-family: 'Vazir', sans-serif; font-weight: bold; font-size: 12px; color: var(--text-primary); }
+        .page-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; font-family: 'Vazir', sans-serif; font-weight: bold; font-size: 12px; color: var(--text-primary); transition: all 0.2s ease; transform: translateY(0); }
+        .page-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         .page-btn.active { background: #0d47a1; color: white; border-color: #0d47a1; }
         .no-result { text-align: center; padding: 30px; color: var(--text-muted); display: none; }
 
         .custom-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 200; opacity: 0; visibility: hidden; transition: 0.2s; }
         .custom-modal.show { opacity: 1; visibility: visible; }
-        .modal-box { background: var(--bg-card); border-radius: 20px; padding: 24px; width: 420px; max-width: 92%; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; }
-        .modal-box h3 { font-size: 16px; margin-bottom: 8px; color: var(--text-primary); }
-        .modal-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
-        .modal-btns { display: flex; gap: 10px; }
+        .modal-box { background: var(--bg-card); border-radius: 20px; padding: 24px; width: 600px; max-width: 94%; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .modal-box h3 { font-size: 17px; margin-bottom: 16px; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+        .modal-box .detail-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+        .modal-box .detail-row .dl { color: var(--text-muted); }
+        .modal-box .detail-row .dv { color: var(--text-primary); font-weight: 500; }
+        .modal-box .product-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 12px; border-bottom: 1px dashed var(--border); }
+        .modal-box select { padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Vazir', sans-serif; font-size: 12px; background: var(--bg-surface); color: var(--text-primary); }
+        .modal-box input { padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Vazir', sans-serif; font-size: 12px; background: var(--bg-surface); color: var(--text-primary); flex: 1; }
+        .modal-box input:focus, .modal-box select:focus { outline: none; border-color: #0d47a1; }
+        body.dark .modal-box input, body.dark .modal-box select { color: #f1f5f9; background: #1e293b; }
+
+        .modal-btns { display: flex; gap: 10px; margin-top: 16px; }
         .modal-btns button { flex: 1; padding: 11px; border-radius: 12px; border: none; font-family: 'Vazir', sans-serif; font-weight: bold; font-size: 13px; cursor: pointer; transition: 0.2s; }
-        .modal-btn-confirm { background: #3b82f6; color: white; }
         .modal-btn-danger { background: #ef4444; color: white; }
         .modal-btn-cancel { background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border); }
+        .modal-btn-primary { background: #0d47a1; color: white; }
+
+        .copy-btn { width: 28px; height: 28px; border-radius: 6px; border: none; background: var(--bg-surface); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: var(--transition); flex-shrink: 0; }
+        .copy-btn:hover { background: rgba(13,71,161,0.1); color: #0d47a1; }
+        .copy-btn svg { width: 12px; height: 12px; }
 
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 99; }
         .sidebar-overlay.show { display: block; }
@@ -160,15 +190,17 @@
             .menu-toggle { display: block; }
             .page-content { padding: 12px; }
             .card-header { flex-direction: column; align-items: stretch; }
-            .filter-row { flex-direction: column; align-items: stretch; }
-            .search-box { width: 100%; }
-            .search-box input { width: 100%; }
+            .filter-row { flex-direction: column; }
             .filter-select { width: 100%; }
+            .search-box { width: 100%; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .stat-card:hover { transform: translateY(-2px); }
             .table-wrap { overflow-x: visible; }
             table { min-width: 100%; }
             table thead { display: none; }
             table tbody tr { display: block; margin-bottom: 8px; border: 1px solid var(--border); border-radius: 12px; padding: 8px; background: var(--bg-card); }
-            table tbody td { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: none; white-space: normal; font-size: 11px; }
+            table tbody tr:hover { transform: translateX(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+            table tbody td { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: none; white-space: normal; font-size: 11px; cursor: pointer; }
             table tbody td::before { content: attr(data-label); font-weight: bold; color: var(--text-muted); font-size: 10px; margin-left: 6px; flex-shrink: 0; }
         }
     </style>
@@ -197,37 +229,39 @@
         </header>
 
         <div class="page-content">
+            <div class="stats-row">
+                <div class="stat-card" onclick="filterByStatus('')"><div class="stat-icon" style="background:#0d47a1;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="stat-info"><div class="stat-value" id="statTotal">0</div><div class="stat-label">کل سفارشات</div></div></div>
+                <div class="stat-card" onclick="filterByStatus('processing')"><div class="stat-icon" style="background:#8b5cf6;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div><div class="stat-info"><div class="stat-value" id="statProcessing">0</div><div class="stat-label">در حال پردازش</div></div></div>
+                <div class="stat-card" onclick="filterByStatus('return_requested')"><div class="stat-icon" style="background:#f97316;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div><div class="stat-info"><div class="stat-value" id="statReturnReq">0</div><div class="stat-label">درخواست مرجوعی</div></div></div>
+                <div class="stat-card" onclick="filterByStatus('shipped')"><div class="stat-icon" style="background:#06b6d4;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="stat-info"><div class="stat-value" id="statShipped">0</div><div class="stat-label">ارسال شده</div></div></div>
+            </div>
+
             <div class="card">
                 <div class="card-header">
                     <span class="card-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d47a1" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>سفارشات (<span id="orderCount">0</span>)</span>
+                </div>
+                <div class="card-body">
                     <div class="filter-row">
-                        <div class="search-box"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="searchInput" placeholder="شماره یا نام مشتری..."></div>
-                        <select class="filter-select" id="filterStatus" onchange="applyFilters()">
-                            <option value="">همه وضعیت‌ها</option>
-                            <option value="pending">در انتظار</option>
-                            <option value="shipping">در حال ارسال</option>
-                            <option value="completed">تکمیل شده</option>
-                            <option value="returning">در حال مرجوعی</option>
-                            <option value="returned">مرجوع شده</option>
-                            <option value="cancelled">لغو شده</option>
-                        </select>
+                        <div class="search-box"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="searchInput" placeholder="جستجوی کد سفارش یا نام مشتری..."></div>
+                        <select class="filter-select" id="filterStatus"><option value="">همه وضعیت‌ها</option><option value="pending">در انتظار پرداخت</option><option value="confirmed">تایید شده</option><option value="processing">در حال پردازش</option><option value="shipped">ارسال شده</option><option value="delivered">تحویل داده شده</option><option value="return_requested">درخواست مرجوعی</option><option value="returned">مرجوعی تایید شده</option><option value="cancelled">لغو شده</option></select>
+                        <select class="filter-select" id="filterPayment"><option value="">همه روش‌های پرداخت</option><option value="online">آنلاین</option><option value="card">کارت به کارت</option><option value="cash">پرداخت در محل</option></select>
                     </div>
                 </div>
-                <div class="table-wrap"><table><thead><tr><th>شماره</th><th>مشتری</th><th>محصولات</th><th>مبلغ</th><th>وضعیت</th><th>تاریخ</th><th>عملیات</th></tr></thead><tbody id="ordersTable"></tbody></table></div>
+                <div class="table-wrap"><table><thead><tr><th onclick="sortTable('orderCode')">کد سفارش <span class="sort-icon" id="sort-orderCode"></span></th><th>مشتری</th><th>محصولات</th><th onclick="sortTable('finalPrice')">مبلغ <span class="sort-icon" id="sort-finalPrice"></span></th><th>وضعیت</th><th onclick="sortTable('createdAt')">تاریخ <span class="sort-icon" id="sort-createdAt"></span></th></tr></thead><tbody id="ordersTable"></tbody></table></div>
                 <div class="no-result" id="noResult">هیچ سفارشی یافت نشد</div>
                 <div class="pagination" id="pagination"></div>
             </div>
         </div>
     </div>
 
-    <!-- RETURN REQUEST MODAL -->
-    <div class="custom-modal" id="returnModal">
+    <!-- ORDER DETAIL MODAL -->
+    <div class="custom-modal" id="orderModal">
         <div class="modal-box">
-            <h3>درخواست مرجوعی</h3>
-            <p id="returnText">آیا این سفارش برای مرجوعی ارسال شود؟</p>
+            <h3 id="orderModalTitle">جزئیات سفارش</h3>
+            <div id="orderDetailContent"></div>
             <div class="modal-btns">
-                <button class="modal-btn-cancel" onclick="closeReturnModal()">انصراف</button>
-                <button class="modal-btn-confirm" id="returnConfirmBtn">ارسال به مرجوعی</button>
+                <button class="modal-btn-cancel" onclick="closeOrderModal()">بستن</button>
+                <button class="modal-btn-danger" id="deleteOrderBtn" style="display:none;" onclick="confirmDeleteOrder()">حذف سفارش</button>
             </div>
         </div>
     </div>
@@ -235,7 +269,8 @@
     <!-- DELETE MODAL -->
     <div class="custom-modal" id="deleteModal">
         <div class="modal-box" style="text-align:center;">
-            <h3 id="deleteText">آیا از حذف این سفارش مطمئن هستید؟</h3>
+            <h3>حذف سفارش</h3>
+            <p id="deleteText">آیا از حذف این سفارش مطمئن هستید؟</p>
             <div class="modal-btns">
                 <button class="modal-btn-cancel" onclick="closeDeleteModal()">انصراف</button>
                 <button class="modal-btn-danger" id="deleteConfirmBtn">حذف</button>
@@ -244,257 +279,239 @@
     </div>
 
     <script>
-        // ========== DARK MODE - یکسان با detail.html ==========
-        function initDarkMode() {
-            const darkMode = localStorage.getItem('darkMode');
-            if (darkMode === 'true') {
-                document.body.classList.add('dark');
-            }
-        }
-        
-        function toggleDarkMode() {
-            const isDark = document.body.classList.toggle('dark');
-            localStorage.setItem('darkMode', isDark);
-        }
-        
-        // اجرای اولیه دارک مود
-        initDarkMode();
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 
-        // ========== DATA & STATE ==========
-        let orders = JSON.parse(localStorage.getItem('admin_orders')) || [
-            { id: 1, orderNo: 'ORD-4582', customer: 'علی محمدی', products: '3 محصول', amount: '2,450,000', status: 'completed', date: '۱۴۰۲/۱۲/۱۵' },
-            { id: 2, orderNo: 'ORD-4583', customer: 'زهرا احمدی', products: '1 محصول', amount: '890,000', status: 'completed', date: '۱۴۰۲/۱۲/۱۴' },
-            { id: 3, orderNo: 'ORD-4584', customer: 'محمد رضایی', products: '5 محصول', amount: '4,200,000', status: 'shipping', date: '۱۴۰۲/۱۲/۱۳' },
-            { id: 4, orderNo: 'ORD-4585', customer: 'فاطمه حسینی', products: '2 محصول', amount: '1,650,000', status: 'pending', date: '۱۴۰۲/۱۲/۱۲' },
-            { id: 5, orderNo: 'ORD-4586', customer: 'حسین کریمی', products: '4 محصول', amount: '3,100,000', status: 'returning', date: '۱۴۰۲/۱۲/۱۱' },
-            { id: 6, orderNo: 'ORD-4587', customer: 'مریم موسوی', products: '2 محصول', amount: '1,780,000', status: 'returned', date: '۱۴۰۲/۱۲/۱۰' },
-            { id: 7, orderNo: 'ORD-4588', customer: 'امیر عباسی', products: '6 محصول', amount: '5,500,000', status: 'cancelled', date: '۱۴۰۲/۱۲/۰۹' },
+        let orders = [], filtered = [], page = 1, perPage = 10;
+        let activeOrderId = null, deleteOrderId = null, sortKey = 'createdAt', sortDir = 'desc';
+
+        const statuses = {
+            pending: 'در انتظار پرداخت', confirmed: 'تایید شده', processing: 'در حال پردازش',
+            shipped: 'ارسال شده', delivered: 'تحویل داده شده',
+            return_requested: 'درخواست مرجوعی', returned: 'مرجوعی تایید شده', cancelled: 'لغو شده'
+        };
+
+        const paymentMethods = { online: 'آنلاین', card: 'کارت به کارت', cash: 'پرداخت در محل' };
+        const paymentStatuses = { paid: 'پرداخت شده', unpaid: 'پرداخت نشده', refunded: 'مسترد شده' };
+
+        const defaultOrders = [
+            { id:1, orderCode:'NEO-1402-0001', userId:4, userName:'نیلوفر حسینی', products:[{name:'گوشی شیائومی Redmi Note 13', price:12500000, qty:1},{name:'هدفون بی‌سیم سامسونگ', price:4500000, qty:2}], totalPrice:21500000, discount:2000000, finalPrice:19500000, status:'delivered', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'تهران، خیابان ولیعصر، کوچه بهار، پلاک ۱۲', trackingCode:'202512345678', notes:'', createdAt:'2025-01-05 10:30', updatedAt:'2025-01-10 14:20' },
+            { id:2, orderCode:'NEO-1402-0002', userId:6, userName:'زهرا مرادی', products:[{name:'لپ‌تاپ ایسوس Vivobook 15', price:28500000, qty:1}], totalPrice:28500000, discount:0, finalPrice:28500000, status:'processing', paymentMethod:'card', paymentStatus:'paid', shippingAddress:'اصفهان، خیابان چهارباغ، ساختمان آرش', trackingCode:'', notes:'مشتری درخواست بسته‌بندی کادویی داده', createdAt:'2025-01-06 14:00', updatedAt:'2025-01-07 09:30' },
+            { id:3, orderCode:'NEO-1402-0003', userId:9, userName:'پوریا اکبری', products:[{name:'ساعت هوشمند اپل واچ SE', price:18000000, qty:1},{name:'پاور بانک انرجایزر', price:1800000, qty:1}], totalPrice:19800000, discount:1000000, finalPrice:18800000, status:'shipped', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'مشهد، بلوار احمدآباد، نبش کوچه ۸', trackingCode:'9876543210', notes:'', createdAt:'2025-01-07 11:20', updatedAt:'2025-01-08 16:00' },
+            { id:4, orderCode:'NEO-1402-0004', userId:10, userName:'نگار صادقی', products:[{name:'تبلت سامسونگ Galaxy Tab A8', price:14500000, qty:1}], totalPrice:14500000, discount:0, finalPrice:14500000, status:'pending', paymentMethod:'cash', paymentStatus:'unpaid', shippingAddress:'تبریز، خیابان شریعتی، مجتمع تجاری اطلس', trackingCode:'', notes:'', createdAt:'2025-01-08 09:00', updatedAt:'2025-01-08 09:00' },
+            { id:5, orderCode:'NEO-1402-0005', userId:12, userName:'الناز رحیمی', products:[{name:'مانیتور ال‌جی 27 اینچ', price:22000000, qty:1},{name:'کیبورد مکانیکی Logitech', price:3200000, qty:1},{name:'ماوس بی‌سیم ریزر', price:5800000, qty:1}], totalPrice:31000000, discount:5000000, finalPrice:26000000, status:'return_requested', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'شیراز، شهرک آرین، فاز ۲', trackingCode:'5678901234', notes:'مشتری میگه مانیتور پیکسل سوخته داره', createdAt:'2025-01-03 15:00', updatedAt:'2025-01-09 10:00' },
+            { id:6, orderCode:'NEO-1402-0006', userId:5, userName:'امیر کریمی', products:[{name:'اسپیکر بلوتوثی JBL Flip 6', price:8900000, qty:2},{name:'هارد اکسترنال وسترن', price:6200000, qty:1}], totalPrice:24000000, discount:2400000, finalPrice:21600000, status:'delivered', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'کرج، مهرشهر، بلوار ارم', trackingCode:'1234567890', notes:'', createdAt:'2025-01-02 08:30', updatedAt:'2025-01-06 12:00' },
+            { id:7, orderCode:'NEO-1402-0007', userId:11, userName:'فرهاد جعفری', products:[{name:'گوشی آیفون 15 پرو مکس', price:65000000, qty:1}], totalPrice:65000000, discount:0, finalPrice:65000000, status:'confirmed', paymentMethod:'card', paymentStatus:'paid', shippingAddress:'اهواز، کیانپارس، خیابان ۱۲', trackingCode:'', notes:'تماس گرفته بشه قبل از ارسال', createdAt:'2025-01-09 13:00', updatedAt:'2025-01-09 13:30' },
+            { id:8, orderCode:'NEO-1402-0008', userId:2, userName:'سارا احمدی', products:[{name:'هدفون بی‌سیم سامسونگ', price:4500000, qty:3}], totalPrice:13500000, discount:1500000, finalPrice:12000000, status:'cancelled', paymentMethod:'online', paymentStatus:'refunded', shippingAddress:'قم، خیابان صفاییه', trackingCode:'', notes:'مشتری پشیمون شده', createdAt:'2025-01-01 10:00', updatedAt:'2025-01-02 11:00' },
+            { id:9, orderCode:'NEO-1402-0009', userId:3, userName:'محمد رضایی', products:[{name:'لپ‌تاپ ایسوس Vivobook 15', price:28500000, qty:2}], totalPrice:57000000, discount:7000000, finalPrice:50000000, status:'returned', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'یزد، بلوار شهید صدوقی', trackingCode:'', notes:'مرجوعی کامل - اشتباه در سفارش', createdAt:'2025-01-04 09:00', updatedAt:'2025-01-08 17:00' },
+            { id:10, orderCode:'NEO-1402-0010', userId:4, userName:'نیلوفر حسینی', products:[{name:'پاور بانک انرجایزر', price:1800000, qty:2},{name:'کیبورد مکانیکی Logitech', price:3200000, qty:1}], totalPrice:6800000, discount:0, finalPrice:6800000, status:'processing', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'تهران، پاسداران، نگارستان ششم', trackingCode:'', notes:'', createdAt:'2025-01-10 08:00', updatedAt:'2025-01-10 09:00' }
         ];
 
-        if (!localStorage.getItem('admin_orders')) {
-            localStorage.setItem('admin_orders', JSON.stringify(orders));
+        function loadOrders() {
+            const saved = localStorage.getItem('admin_orders');
+            orders = saved ? JSON.parse(saved) : [...defaultOrders];
+            if (!saved) localStorage.setItem('admin_orders', JSON.stringify(orders));
+            applyFilters();
         }
 
-        let currentPage = 1;
-        const itemsPerPage = 5;
-        let filteredOrders = [...orders];
-        let orderToDelete = null;
-        let orderToReturn = null;
+        function formatPrice(p) { return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان'; }
 
-        // ========== SIDEBAR ==========
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('sidebarOverlay').classList.toggle('show');
+        function applyFilters() {
+            const q = document.getElementById('searchInput').value.trim().toLowerCase();
+            const status = document.getElementById('filterStatus').value;
+            const payment = document.getElementById('filterPayment').value;
+
+            filtered = orders.filter(o => {
+                if (q && !o.orderCode.toLowerCase().includes(q) && !o.userName.toLowerCase().includes(q)) return false;
+                if (status && o.status !== status) return false;
+                if (payment && o.paymentMethod !== payment) return false;
+                return true;
+            });
+
+            sortFiltered();
+            updateStats();
+            page = Math.min(page, Math.max(1, Math.ceil(filtered.length / perPage)));
+            render();
         }
 
-        function closeSidebar() {
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('sidebarOverlay').classList.remove('show');
+        function filterByStatus(status) {
+            document.getElementById('filterStatus').value = status;
+            page = 1;
+            applyFilters();
         }
 
-        // ========== RENDER ORDERS ==========
-        function renderOrders() {
-            const tbody = document.getElementById('ordersTable');
-            const start = (currentPage - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const pageOrders = filteredOrders.slice(start, end);
+        function sortTable(key) {
+            if (sortKey === key) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+            else { sortKey = key; sortDir = 'desc'; }
+            sortFiltered();
+            render();
+        }
 
-            tbody.innerHTML = pageOrders.map(order => `
-                <tr>
-                    <td data-label="شماره"><span class="order-id">#${order.orderNo}</span></td>
-                    <td data-label="مشتری">${order.customer}</td>
-                    <td data-label="محصولات">${order.products || 'نامشخص'}</td>
-                    <td data-label="مبلغ">${order.amount} تومان</td>
-                    <td data-label="وضعیت">
-                        <select class="status-select ${order.status}" onchange="updateStatus(${order.id}, this.value)">
-                            <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>در انتظار</option>
-                            <option value="shipping" ${order.status === 'shipping' ? 'selected' : ''}>در حال ارسال</option>
-                            <option value="completed" ${order.status === 'completed' ? 'selected' : ''}>تکمیل شده</option>
-                            <option value="returning" ${order.status === 'returning' ? 'selected' : ''}>در حال مرجوعی</option>
-                            <option value="returned" ${order.status === 'returned' ? 'selected' : ''}>مرجوع شده</option>
-                            <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>لغو شده</option>
-                        </select>
-                    </td>
-                    <td data-label="تاریخ">${order.date}</td>
-                    <td data-label="عملیات">
-                        <div class="action-btns">
-                            <button class="action-btn" onclick="viewOrder(${order.id})" title="مشاهده">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                    <circle cx="12" cy="12" r="3"/>
-                                </svg>
-                            </button>
-                            <button class="action-btn purple" onclick="openReturnModal(${order.id})" title="مرجوعی" ${order.status === 'cancelled' || order.status === 'returned' ? 'disabled' : ''}>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="1 4 1 10 7 10"/>
-                                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
-                                </svg>
-                            </button>
-                            <button class="action-btn danger" onclick="openDeleteModal(${order.id})" title="حذف">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="3 6 5 6 21 6"/>
-                                    <path d="M19 6l-2 14H7L5 6"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
+        function sortFiltered() {
+            filtered.sort((a, b) => {
+                let valA = a[sortKey], valB = b[sortKey];
+                if (typeof valA === 'string') valA = valA.toLowerCase();
+                if (typeof valB === 'string') valB = valB.toLowerCase();
+                if (valA < valB) return sortDir === 'asc' ? -1 : 1;
+                if (valA > valB) return sortDir === 'asc' ? 1 : -1;
+                return 0;
+            });
+            document.querySelectorAll('.sort-icon').forEach(el => el.textContent = '');
+            const icon = document.getElementById('sort-' + sortKey);
+            if (icon) icon.textContent = sortDir === 'asc' ? '▲' : '▼';
+        }
+
+        function updateStats() {
+    if (!orders || orders.length === 0) {
+        document.getElementById('statTotal').textContent = '0';
+        document.getElementById('statProcessing').textContent = '0';
+        document.getElementById('statReturnReq').textContent = '0';
+        document.getElementById('statShipped').textContent = '0';
+        return;
+    }
+    document.getElementById('statTotal').textContent = orders.length;
+    document.getElementById('statProcessing').textContent = orders.filter(o => o.status === 'processing').length;
+    document.getElementById('statReturnReq').textContent = orders.filter(o => o.status === 'return_requested').length;
+    document.getElementById('statShipped').textContent = orders.filter(o => o.status === 'shipped').length;
+}
+
+        function render() {
+            const start = (page - 1) * perPage, items = filtered.slice(start, start + perPage);
+            document.getElementById('orderCount').textContent = filtered.length;
+            document.getElementById('noResult').style.display = filtered.length ? 'none' : 'block';
+            document.getElementById('ordersTable').innerHTML = items.map(o => `
+                <tr onclick="openOrderModal(${o.id})">
+                    <td data-label="کد سفارش"><strong>${o.orderCode}</strong></td>
+                    <td data-label="مشتری">${o.userName}</td>
+                    <td data-label="محصولات">${o.products.length} محصول (${o.products.reduce((s,p)=>s+p.qty,0)} عدد)</td>
+                    <td data-label="مبلغ">${formatPrice(o.finalPrice)}</td>
+                    <td data-label="وضعیت"><span class="badge-status badge-${o.status}">${statuses[o.status]}</span></td>
+                    <td data-label="تاریخ">${o.createdAt}</td>
                 </tr>
             `).join('');
 
-            document.getElementById('orderCount').textContent = filteredOrders.length;
-            document.getElementById('noResult').style.display = filteredOrders.length === 0 ? 'block' : 'none';
-            renderPagination();
+            let tp = Math.ceil(filtered.length / perPage), ph = '';
+            for (let i = 1; i <= tp; i++) ph += `<button class="page-btn ${i === page ? 'active' : ''}" onclick="go(${i})">${i}</button>`;
+            document.getElementById('pagination').innerHTML = tp > 1 ? ph : '';
         }
 
-        // ========== PAGINATION ==========
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
-            const pagination = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
-            }
+        function go(p) { page = p; render(); }
+        document.getElementById('searchInput').addEventListener('input', () => { page = 1; applyFilters(); });
+        document.getElementById('filterStatus').addEventListener('change', () => { page = 1; applyFilters(); });
+        document.getElementById('filterPayment').addEventListener('change', () => { page = 1; applyFilters(); });
 
-            let html = '';
-            for (let i = 1; i <= totalPages; i++) {
-                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-            }
-            pagination.innerHTML = html;
+        function openOrderModal(id) {
+            activeOrderId = id;
+            const o = orders.find(x => x.id === id);
+            document.getElementById('orderModalTitle').textContent = 'سفارش ' + o.orderCode;
+            document.getElementById('deleteOrderBtn').style.display = 'inline-flex';
+            document.getElementById('orderDetailContent').innerHTML = `
+                <div class="detail-row"><span class="dl">مشتری</span><span class="dv">${o.userName}</span></div>
+                <div class="detail-row"><span class="dl">تاریخ ثبت</span><span class="dv">${o.createdAt}</span></div>
+                <div class="detail-row"><span class="dl">آخرین بروزرسانی</span><span class="dv">${o.updatedAt}</span></div>
+                <div class="detail-row">
+                    <span class="dl">وضعیت</span>
+                    <select onchange="updateOrderStatus(${o.id}, this.value)" style="padding:6px 10px;font-size:11px;font-family:'Vazir',sans-serif;">
+                        ${Object.keys(statuses).map(s => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${statuses[s]}</option>`).join('')}
+                    </select>
+                </div>
+                <div class="detail-row"><span class="dl">روش پرداخت</span><span class="dv">${paymentMethods[o.paymentMethod]} | ${paymentStatuses[o.paymentStatus]}</span></div>
+                <div class="detail-row"><span class="dl">آدرس</span><span class="dv">${o.shippingAddress}</span></div>
+                <div class="detail-row" style="align-items:center;">
+                    <span class="dl">کد رهگیری</span>
+                    <span class="dv" style="display:flex;align-items:center;gap:6px;">
+                        <input type="text" id="trackingInput" value="${o.trackingCode || ''}" placeholder="کد رهگیری..." style="width:200px;" onchange="saveTracking(${o.id}, this.value)">
+                        ${o.trackingCode ? `<button class="copy-btn" onclick="copyTracking('${o.trackingCode}')" title="کپی"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>` : ''}
+                    </span>
+                </div>
+                <div style="margin-top:12px;font-weight:bold;color:var(--text-primary);">محصولات:</div>
+                ${o.products.map((p,i) => `
+                    <div class="product-item">
+                        <span>${i+1}. ${p.name}</span>
+                        <span>${p.qty}x - ${formatPrice(p.price * p.qty)}</span>
+                    </div>
+                `).join('')}
+                <div class="detail-row" style="margin-top:12px;"><span class="dl">جمع کل</span><span class="dv">${formatPrice(o.totalPrice)}</span></div>
+                <div class="detail-row"><span class="dl">تخفیف</span><span class="dv">${formatPrice(o.discount)}</span></div>
+                <div class="detail-row" style="font-weight:bold;font-size:14px;"><span class="dl">مبلغ نهایی</span><span class="dv">${formatPrice(o.finalPrice)}</span></div>
+                <div style="margin-top:12px;display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:12px;color:var(--text-muted);">یادداشت:</span>
+                    <input type="text" value="${o.notes || ''}" placeholder="یادداشت ادمین..." style="flex:1;" onchange="saveNotes(${o.id}, this.value)">
+                </div>
+            `;
+            document.getElementById('orderModal').classList.add('show');
         }
 
-        function goToPage(page) {
-            currentPage = page;
-            renderOrders();
+        function closeOrderModal() { document.getElementById('orderModal').classList.remove('show'); activeOrderId = null; }
+
+        function updateOrderStatus(id, newStatus) {
+            const o = orders.find(x => x.id === id);
+            o.status = newStatus;
+            o.updatedAt = new Date().toLocaleDateString('fa-IR') + ' - ' + new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+            if (newStatus === 'returned' && o.paymentStatus === 'paid') o.paymentStatus = 'refunded';
+            saveOrders();
+            applyFilters();
+            showToast('وضعیت به «' + statuses[newStatus] + '» تغییر کرد');
         }
 
-        // ========== FILTERS ==========
-        function applyFilters() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const statusFilter = document.getElementById('filterStatus').value;
-
-            filteredOrders = orders.filter(order => {
-                const matchesSearch = order.orderNo.toLowerCase().includes(searchTerm) || 
-                                    order.customer.includes(searchTerm) ||
-                                    String(order.id).includes(searchTerm);
-                const matchesStatus = !statusFilter || order.status === statusFilter;
-                return matchesSearch && matchesStatus;
-            });
-
-            currentPage = 1;
-            renderOrders();
+        function saveTracking(id, value) {
+            const o = orders.find(x => x.id === id);
+            o.trackingCode = value.trim();
+            o.updatedAt = new Date().toLocaleDateString('fa-IR') + ' - ' + new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+            saveOrders();
+            showToast('کد رهگیری ذخیره شد');
         }
 
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
-
-        // ========== STATUS UPDATE ==========
-        function updateStatus(orderId, newStatus) {
-            const order = orders.find(o => o.id === orderId);
-            if (order) {
-                const oldStatus = order.status;
-                order.status = newStatus;
-                
-                // اضافه کردن به تاریخچه
-                if (!order.history) order.history = [];
-                order.history.push({
-                    status: newStatus,
-                    date: new Date().toLocaleDateString('fa-IR'),
-                    time: new Date().toLocaleTimeString('fa-IR', {hour:'2-digit', minute:'2-digit'})
-                });
-                
-                localStorage.setItem('admin_orders', JSON.stringify(orders));
-                showToast('وضعیت سفارش با موفقیت بروزرسانی شد');
-                applyFilters();
-            }
+        function saveNotes(id, value) {
+            const o = orders.find(x => x.id === id);
+            o.notes = value.trim();
+            saveOrders();
         }
 
-        // ========== ACTIONS ==========
-        function viewOrder(id) {
-            window.location.href = `detail.html?id=${id}`;
+        function copyTracking(code) {
+            navigator.clipboard.writeText(code).then(() => showToast('کد رهگیری کپی شد'));
         }
 
-        // ========== RETURN MODAL ==========
-        function openReturnModal(id) {
-            const order = orders.find(o => o.id === id);
-            if (!order || order.status === 'cancelled' || order.status === 'returned') return;
-            
-            orderToReturn = id;
-            document.getElementById('returnText').textContent = `آیا سفارش #${order.orderNo} برای مرجوعی ارسال شود؟`;
-            document.getElementById('returnModal').classList.add('show');
-        }
-
-        function closeReturnModal() {
-            document.getElementById('returnModal').classList.remove('show');
-            orderToReturn = null;
-        }
-
-        document.getElementById('returnConfirmBtn').addEventListener('click', function() {
-            if (orderToReturn) {
-                updateStatus(orderToReturn, 'returning');
-                closeReturnModal();
-            }
-        });
-
-        // ========== DELETE MODAL ==========
-        function openDeleteModal(id) {
-            const order = orders.find(o => o.id === id);
-            if (!order) return;
-            
-            orderToDelete = id;
-            document.getElementById('deleteText').textContent = `آیا از حذف سفارش #${order.orderNo} مطمئن هستید؟`;
+        function confirmDeleteOrder() {
+            deleteOrderId = activeOrderId;
+            const o = orders.find(x => x.id === activeOrderId);
+            document.getElementById('deleteText').textContent = 'آیا از حذف سفارش «' + o.orderCode + '» مطمئن هستید؟';
             document.getElementById('deleteModal').classList.add('show');
         }
 
-        function closeDeleteModal() {
-            document.getElementById('deleteModal').classList.remove('show');
-            orderToDelete = null;
-        }
-
-        document.getElementById('deleteConfirmBtn').addEventListener('click', function() {
-            if (orderToDelete) {
-                orders = orders.filter(o => o.id !== orderToDelete);
-                localStorage.setItem('admin_orders', JSON.stringify(orders));
-                showToast('سفارش با موفقیت حذف شد');
+        document.getElementById('deleteConfirmBtn').addEventListener('click', () => {
+            if (deleteOrderId) {
+                orders = orders.filter(x => x.id !== deleteOrderId);
+                saveOrders();
+                closeOrderModal();
                 applyFilters();
-                closeDeleteModal();
             }
+            document.getElementById('deleteModal').classList.remove('show');
+            deleteOrderId = null;
+            showToast('سفارش حذف شد');
         });
 
-        // ========== TOAST ==========
-        function showToast(message) {
-            // حذف toast قبلی
-            const existingToast = document.querySelector('.toast');
-            if (existingToast) existingToast.remove();
-            
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
-                ${message}
-            `;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.remove();
-                }
-            }, 3000);
+        function closeDeleteModal() { document.getElementById('deleteModal').classList.remove('show'); }
+
+        function saveOrders() { localStorage.setItem('admin_orders', JSON.stringify(orders)); }
+
+        function showToast(msg) {
+            let t = document.querySelector('.toast');
+            if (t) t.remove();
+            const d = document.createElement('div');
+            d.className = 'toast';
+            d.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>' + msg;
+            document.body.appendChild(d);
+            setTimeout(() => d.remove(), 3000);
         }
 
-        // ========== MODAL OUTSIDE CLICK ==========
-        document.getElementById('returnModal').addEventListener('click', function(e) {
-            if (e.target === this) closeReturnModal();
-        });
+        function toggleDarkMode() { document.body.classList.toggle('dark'); localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light'); }
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
+        function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('show'); }
 
-        document.getElementById('deleteModal').addEventListener('click', function(e) {
-            if (e.target === this) closeDeleteModal();
-        });
+        window.addEventListener('beforeunload', () => { const s = document.getElementById('sidebar'); if (s) localStorage.setItem('sidebarScroll', s.scrollTop); });
+        window.addEventListener('load', () => { const s = document.getElementById('sidebar'); const sc = localStorage.getItem('sidebarScroll'); if (s && sc) s.scrollTop = parseInt(sc); });
 
-        // ========== INITIAL LOAD ==========
-        renderOrders();
+        loadOrders();
     </script>
 </body>
 </html>
