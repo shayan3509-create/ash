@@ -406,3 +406,136 @@ style.textContent = `@keyframes slideIn { from { transform: translateX(-100%); o
 document.head.appendChild(style);
 
 
+// ============================================================
+// اسکریپت کاروسل سه‌بعدی اسپکتروم (برای محصولات ویژه)
+// ============================================================
+(function() {
+    const cards = document.querySelectorAll('.spectrum-card');
+    const dots = document.querySelectorAll('.spectrum-dots .dot');
+    const carousel = document.getElementById('spectrumCarousel');
+    const prevBtn = document.getElementById('prevBtnSp');
+    const nextBtn = document.getElementById('nextBtnSp');
+    const curNumSpan = document.getElementById('curNumSp');
+    if (!cards.length) return;
+
+    const total = cards.length;
+    let current = 0;
+    let autoTimer, progressTimer;
+    let isAnimating = false;
+
+    const SPREAD = 260;
+    const Z_BACK = -280;
+    const AUTO_INTERVAL = 4000;
+
+    function getCardTransform(relIndex) {
+        const absRel = Math.abs(relIndex);
+        const x = relIndex * SPREAD;
+        const z = -absRel * Math.abs(Z_BACK);
+        const ry = relIndex * -22;
+        const scale = 1 - absRel * 0.12;
+        const opacity = 1 - absRel * 0.28;
+        const blur = absRel > 1 ? (absRel - 1) * 3 : 0;
+        return { x, z, ry, scale, opacity, blur };
+    }
+
+    function render(animated = true) {
+        cards.forEach((card, i) => {
+            let rel = i - current;
+            if (rel > Math.floor(total / 2)) rel -= total;
+            if (rel < -Math.floor(total / 2)) rel += total;
+            const t = getCardTransform(rel);
+            const zIndex = 100 - Math.abs(rel) * 10;
+            card.style.transition = animated
+                ? 'transform 0.85s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.5s, filter 0.85s, opacity 0.85s'
+                : 'none';
+            card.style.transform = `translateX(${t.x}px) translateZ(${t.z}px) rotateY(${t.ry}deg) scale(${t.scale})`;
+            card.style.opacity = t.opacity;
+            card.style.filter = `blur(${t.blur}px)`;
+            card.style.zIndex = zIndex;
+            card.style.pointerEvents = rel === 0 ? 'auto' : 'none';
+            if (rel === 0) {
+                card.classList.add('active-card');
+                card.style.boxShadow = '0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(255,60,0,0.15)';
+            } else {
+                card.classList.remove('active-card');
+                card.style.boxShadow = '0 10px 40px rgba(0,0,0,0.5)';
+            }
+        });
+        if (dots.length) {
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+        }
+        if (curNumSpan) curNumSpan.textContent = String(current + 1).padStart(2, '0');
+        resetProgress();
+    }
+
+    function resetProgress() {
+        const activeCard = cards[current];
+        const bar = activeCard.querySelector('.progress-bar');
+        if (bar) bar.style.width = '0%';
+        if (progressTimer) clearInterval(progressTimer);
+        let progressVal = 0;
+        progressTimer = setInterval(() => {
+            progressVal += 100 / (AUTO_INTERVAL / 100);
+            if (progressVal >= 100) progressVal = 100;
+            if (bar) bar.style.width = progressVal + '%';
+        }, 100);
+    }
+
+    function goTo(index, anim = true) {
+        if (isAnimating) return;
+        isAnimating = true;
+        current = ((index % total) + total) % total;
+        render(anim);
+        clearTimeout(autoTimer);
+        autoTimer = setTimeout(() => goTo(current + 1), AUTO_INTERVAL);
+        setTimeout(() => { isAnimating = false; }, 900);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+    if (dots.length) {
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => goTo(parseInt(dot.dataset.i)));
+        });
+    }
+    cards.forEach((card, i) => {
+        card.addEventListener('click', () => {
+            if (i !== current) goTo(i);
+        });
+    });
+    // پشتیبانی از کیبورد
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') goTo(current + 1);
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+    });
+    // درگ لمسی برای کاروسل
+    if (carousel) {
+        let dragStartX = null;
+        carousel.addEventListener('pointerdown', e => { dragStartX = e.clientX; });
+        carousel.addEventListener('pointerup', e => {
+            if (dragStartX === null) return;
+            const dx = e.clientX - dragStartX;
+            if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+            dragStartX = null;
+        });
+    }
+    // افکت تیلت موس روی کارت فعال
+    document.addEventListener('mousemove', e => {
+        const activeCard = cards[current];
+        if (!activeCard) return;
+        const rect = activeCard.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        const maxTilt = 8;
+        const base = getCardTransform(0);
+        activeCard.style.transition = 'transform 0.15s ease';
+        activeCard.style.transform = `translateX(${base.x}px) translateZ(${base.z}px) rotateY(${base.ry + dx * maxTilt}deg) rotateX(${-dy * maxTilt}deg) scale(${base.scale})`;
+    });
+    document.addEventListener('mouseleave', () => render(true));
+
+    // مقداردهی اولیه
+    render(false);
+    autoTimer = setTimeout(() => goTo(1), AUTO_INTERVAL);
+})();

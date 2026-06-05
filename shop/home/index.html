@@ -97,7 +97,7 @@
 
 <!-- Main Content -->
 <main>
-    <!-- Hero Slider - Neo 3D Carousel (ساختار بنر جدید، بدون استایل داخلی) -->
+    <!-- Hero Slider - Neo 3D Carousel (بدون تغییر) -->
     <section class="neo-hero">
         <div class="neo-grid-bg"></div>
         <div class="neo-scan-line"></div>
@@ -152,7 +152,6 @@
         </div>
     </section>
 
-    <!-- Rest of content (stats, categories, products, etc.) unchanged -->
     <div class="container">
         <div class="stats-section animate-on-scroll">
             <div class="stats-grid">
@@ -171,13 +170,102 @@
             <div class="categories-grid" id="categoriesGrid"></div>
         </section>
 
+        <!-- ========== بخش محصولات ویژه (جایگزین شده با کاروسل سه‌بعدی) ========== -->
         <section class="section animate-on-scroll">
             <div class="section-header">
                 <h2 class="section-title">محصولات ویژه</h2>
                 <p class="section-desc">پرطرفدارترین محصولات این هفته</p>
             </div>
-            <div class="products-grid" id="featuredProducts"></div>
+
+            <div class="spectrum-stage">
+                <div class="spectrum-carousel" id="spectrumCarousel">
+                    <!-- کارت 1: iPhone -->
+                    <div class="spectrum-card card-iphone" data-index="0">
+                        <div class="card-visual">
+                            <div class="shape shape-a"></div>
+                            <div class="shape shape-b"></div>
+                        </div>
+                        <div class="card-num">01</div>
+                        <div class="card-info">
+                            <div class="card-tag">Apple Event 2025</div>
+                            <div class="card-title">iPhone 17 Pro Max</div>
+                            <div class="card-sub">A19 Pro · تیتانیوم · دوربین 48MP</div>
+                        </div>
+                        <div class="progress-wrap"><div class="progress-bar"></div></div>
+                    </div>
+                    <!-- کارت 2: Samsung -->
+                    <div class="spectrum-card card-samsung" data-index="1">
+                        <div class="card-visual">
+                            <div class="shape shape-a"></div>
+                            <div class="shape shape-b"></div>
+                        </div>
+                        <div class="card-num">02</div>
+                        <div class="card-info">
+                            <div class="card-tag">Galaxy AI</div>
+                            <div class="card-title">Samsung S25 Ultra</div>
+                            <div class="card-sub">200MP · S Pen · 6000mAh</div>
+                        </div>
+                        <div class="progress-wrap"><div class="progress-bar"></div></div>
+                    </div>
+                    <!-- کارت 3: ASUS Laptop -->
+                    <div class="spectrum-card card-laptop" data-index="2">
+                        <div class="card-visual">
+                            <div class="shape shape-a"></div>
+                            <div class="shape shape-b"></div>
+                        </div>
+                        <div class="card-num">03</div>
+                        <div class="card-info">
+                            <div class="card-tag">ROG Dominator</div>
+                            <div class="card-title">ROG Zephyrus G16</div>
+                            <div class="card-sub">Ultra 9 · RTX 4090 · OLED 240Hz</div>
+                        </div>
+                        <div class="progress-wrap"><div class="progress-bar"></div></div>
+                    </div>
+                    <!-- کارت 4: Sony Headphone -->
+                    <div class="spectrum-card card-sony" data-index="3">
+                        <div class="card-visual">
+                            <div class="shape shape-a"></div>
+                            <div class="shape shape-b"></div>
+                        </div>
+                        <div class="card-num">04</div>
+                        <div class="card-info">
+                            <div class="card-tag">Premium Audio</div>
+                            <div class="card-title">Sony WH-1000XM5</div>
+                            <div class="card-sub">Noise Cancelling · 30h Battery</div>
+                        </div>
+                        <div class="progress-wrap"><div class="progress-bar"></div></div>
+                    </div>
+                    <!-- کارت 5: Apple Watch -->
+                    <div class="spectrum-card card-watch" data-index="4">
+                        <div class="card-visual">
+                            <div class="shape shape-a"></div>
+                            <div class="shape shape-b"></div>
+                        </div>
+                        <div class="card-num">05</div>
+                        <div class="card-info">
+                            <div class="card-tag">Wearable Tech</div>
+                            <div class="card-title">Apple Watch Series 9</div>
+                            <div class="card-sub">Always-On · S9 SiP</div>
+                        </div>
+                        <div class="progress-wrap"><div class="progress-bar"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="spectrum-controls">
+                <div class="spectrum-counter"><span id="curNumSp">01</span> / 05</div>
+                <button class="spectrum-btn" id="prevBtnSp"><span>‹</span></button>
+                <div class="spectrum-dots" id="dotsSp">
+                    <div class="dot active" data-i="0"></div>
+                    <div class="dot" data-i="1"></div>
+                    <div class="dot" data-i="2"></div>
+                    <div class="dot" data-i="3"></div>
+                    <div class="dot" data-i="4"></div>
+                </div>
+                <button class="spectrum-btn" id="nextBtnSp"><span>›</span></button>
+                <div class="spectrum-counter" id="autoLabelSp">AUTO</div>
+            </div>
         </section>
+        <!-- ========== پایان محصولات ویژه ========== -->
     </div>
 
     <section class="offer-banner animate-on-scroll">

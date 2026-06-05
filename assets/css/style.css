@@ -1175,3 +1175,310 @@ body:not(.dark) .neo-slide img {
 body:not(.dark) .neo-slide {
     background: #ffffff;
 }
+
+
+/* ============================================================
+   کاروسل سه‌بعدی اسپکتروم (برای محصولات ویژه)
+============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;600&display=swap');
+
+/* حباب‌های محو (blobs) */
+.blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    opacity: 0.12;
+    animation: blobFloat 8s ease-in-out infinite alternate;
+    z-index: 0;
+}
+.blob-1 { width: 500px; height: 500px; background: #ff3c00; top: -10%; left: -10%; animation-duration: 9s; }
+.blob-2 { width: 400px; height: 400px; background: #f5c518; bottom: -10%; right: -5%; animation-duration: 12s; animation-delay: -4s; }
+.blob-3 { width: 300px; height: 300px; background: #0062ff; top: 40%; left: 40%; animation-duration: 7s; animation-delay: -2s; }
+@keyframes blobFloat {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(30px,20px) scale(1.1); }
+}
+
+/* مرحله (stage) و کاروسل */
+.spectrum-stage {
+    perspective: 1200px;
+    perspective-origin: 50% 40%;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+}
+.spectrum-carousel {
+    position: relative;
+    width: 360px;
+    height: 480px;
+    transform-style: preserve-3d;
+    transition: transform 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* کارت‌ها */
+.spectrum-card {
+    position: absolute;
+    width: 360px;
+    height: 480px;
+    border-radius: 20px;
+    overflow: hidden;
+    backface-visibility: hidden;
+    cursor: pointer;
+    transition: transform 0.9s cubic-bezier(0.25,0.8,0.25,1),
+                box-shadow 0.5s ease,
+                filter 0.9s ease;
+    transform-style: preserve-3d;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.spectrum-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+/* رنگ‌بندی کارت‌ها بر اساس محصول */
+.card-iphone { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
+.card-samsung { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
+.card-laptop { background: linear-gradient(135deg, #200122, #6f0000, #200122); }
+.card-sony { background: linear-gradient(135deg, #0a3d0a, #1a5c00, #063000); }
+.card-watch { background: linear-gradient(135deg, #1c0720, #3d0b55, #0d0320); }
+
+/* اشکال متحرک داخل کارت */
+.card-visual {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    animation: shapeAnim 6s ease-in-out infinite alternate;
+}
+.card-iphone .shape-a { width:220px;height:220px; background:radial-gradient(circle,#a855f7,transparent 70%); top:-30px;right:-30px; animation-duration:7s; }
+.card-iphone .shape-b { width:160px;height:160px; background:radial-gradient(circle,#06b6d4,transparent 70%); bottom:-20px;left:-20px; animation-duration:5s; animation-delay:-2s; }
+.card-samsung .shape-a { width:250px;height:250px; background:radial-gradient(circle,#3b82f6,transparent 70%); top:-50px;left:50%;transform:translateX(-50%); animation-duration:8s; }
+.card-samsung .shape-b { width:120px;height:120px; background:radial-gradient(circle,#06b6d4,transparent 70%); bottom:30px;right:30px; animation-duration:6s; animation-delay:-3s; }
+.card-laptop .shape-a { width:300px;height:300px; background:radial-gradient(circle,#ef4444,transparent 70%); center; animation-duration:6s; }
+.card-laptop .shape-b { width:180px;height:180px; background:radial-gradient(circle,#f97316,transparent 70%); bottom:-40px;right:-40px; animation-duration:9s; animation-delay:-1s; }
+.card-sony .shape-a { width:200px;height:200px; background:radial-gradient(circle,#22c55e,transparent 70%); top:20px;left:20px; animation-duration:7s; }
+.card-sony .shape-b { width:250px;height:250px; background:radial-gradient(circle,#84cc16,transparent 70%); bottom:-60px;right:-60px; animation-duration:10s; animation-delay:-4s; }
+.card-watch .shape-a { width:280px;height:280px; background:radial-gradient(circle,#ec4899,transparent 70%); top:-40px;right:-40px; animation-duration:8s; }
+.card-watch .shape-b { width:150px;height:150px; background:radial-gradient(circle,#f59e0b,transparent 70%); bottom:40px;left:30px; animation-duration:6s; animation-delay:-2s; }
+@keyframes shapeAnim {
+    from { transform: scale(1) rotate(0deg); opacity: 0.6; }
+    to   { transform: scale(1.2) rotate(20deg); opacity: 1; }
+}
+
+/* محتوای متن کارت */
+.card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    padding: 30px 28px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+    z-index: 3;
+    transform: translateZ(20px);
+}
+.card-tag {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #ff3c00;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+.card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.08em;
+    color: #fff;
+    line-height: 1.1;
+}
+.card-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px;
+    font-weight: 300;
+}
+/* شماره کارت */
+.card-num {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: rgba(255,255,255,0.07);
+    line-height: 1;
+    z-index: 3;
+    letter-spacing: 0.05em;
+}
+/* درخشش روی کارت فعال */
+.spectrum-card.active-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transform: skewX(-20deg);
+    animation: shine 3s 0.5s ease forwards;
+    z-index: 4;
+    pointer-events: none;
+}
+@keyframes shine {
+    from { left: -100%; }
+    to   { left: 160%; }
+}
+/* نوار پیشرفت داخل کارت */
+.progress-wrap {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+    z-index: 5;
+}
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff3c00, #f5c518);
+    border-radius: 0 0 20px 20px;
+    width: 0%;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px #ff3c00;
+}
+/* کنترل‌های پایین کاروسل */
+.spectrum-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 44px;
+    position: relative;
+    z-index: 20;
+}
+.spectrum-btn {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.spectrum-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #ff3c00;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 50%;
+}
+.spectrum-btn:hover::before { opacity: 1; }
+.spectrum-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(255,60,0,0.5); border-color: #ff3c00; }
+.spectrum-btn span { position: relative; z-index: 1; }
+.spectrum-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.spectrum-dots .dot {
+    width: 6px; height: 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
+}
+.spectrum-dots .dot.active {
+    width: 28px;
+    background: #ff3c00;
+    box-shadow: 0 0 12px #ff3c00;
+}
+.spectrum-counter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.15em;
+    min-width: 60px;
+    text-align: center;
+}
+.spectrum-counter span { color: #fff; }
+
+/* حالت لایت مود (روشن) برای کاروسل */
+body:not(.dark) .spectrum-card {
+    border-color: rgba(0,0,0,0.1);
+}
+body:not(.dark) .spectrum-card::after {
+    background: linear-gradient(135deg, rgba(0,0,0,0.05) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.1) 100%);
+}
+body:not(.dark) .card-info {
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+}
+body:not(.dark) .card-title {
+    color: #1f2937;
+}
+body:not(.dark) .card-sub {
+    color: rgba(0,0,0,0.6);
+}
+body:not(.dark) .card-tag {
+    color: #ff3c00;
+}
+body:not(.dark) .card-num {
+    color: rgba(0,0,0,0.05);
+}
+body:not(.dark) .spectrum-btn {
+    border-color: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.05);
+    color: #1f2937;
+}
+body:not(.dark) .spectrum-btn:hover {
+    background: #1f2937;
+    color: white;
+}
+body:not(.dark) .spectrum-dots .dot {
+    background: rgba(0,0,0,0.2);
+}
+body:not(.dark) .spectrum-dots .dot.active {
+    background: #1f2937;
+    box-shadow: 0 0 12px #1f2937;
+}
+body:not(.dark) .spectrum-counter,
+body:not(.dark) .spectrum-counter span {
+    color: rgba(0,0,0,0.5);
+}
+body:not(.dark) .progress-bar {
+    background: linear-gradient(90deg, #1f2937, #ff3c00);
+}
+body:not(.dark) .blob {
+    opacity: 0.06;
+}
+
+/* ریسپانسیو کاروسل */
+@media (max-width: 700px) {
+    .spectrum-carousel, .spectrum-card { width: 300px; height: 400px; }
+    .card-title { font-size: 26px; }
+    .card-info { padding: 20px; }
+    .spectrum-btn { width: 44px; height: 44px; font-size: 16px; }
+}
+@media (max-width: 500px) {
+    .spectrum-carousel, .spectrum-card { width: 260px; height: 350px; }
+    .card-title { font-size: 22px; }
+}
