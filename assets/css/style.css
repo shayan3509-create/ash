@@ -1,50 +1,15 @@
-/* ============================================
-   تم نهایی فروشگاه نیوشاپ - نسخه پایدار و کامل
-   ✅ رفع خطای لود نشدن سایت
-   ✅ اسکرول بار کاملاً حذف شد
-   ✅ هدر چسبیده به لبه‌های چپ و راست
-   ✅ دکمه جستجو کاملاً دایره‌ای
-   ✅ تمام المان‌های بیضی -> مستطیل گرد یا دایره
-   ✅ هیرو سه‌بعدی: تمام‌عرض + اسکرول فعال
-   ✅ بک‌گراند تصویری خالص (بدون افکت اضافه)
-============================================ */
-
-/* @import "tailwindcss"; */
-
-/* ============================================
+/* ============================================================
    1️⃣ ریست پایه و اسکرول‌بار
-============================================ */
+============================================================ */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
-/* ============================================
-   ✅ مخفی کردن اسکرول‌بار بدون قفل کردن اسکرول
-============================================ */
-
-/* برای فایرفاکس */
-* {
-    scrollbar-width: none;
-}
-
-/* برای کروم، سافاری، اج */
-*::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
-}
-
-*::-webkit-scrollbar-track {
-    background: transparent !important;
-}
-
-*::-webkit-scrollbar-thumb {
-    background: transparent !important;
-}
-
-/* ✅ اصلاح خطای سینتکس - اسکرول عملکردی فعال */
+* { scrollbar-width: none; }
+*::-webkit-scrollbar { width: 0 !important; height: 0 !important; background: transparent !important; }
+*::-webkit-scrollbar-track { background: transparent !important; }
+*::-webkit-scrollbar-thumb { background: transparent !important; }
 html, body {
     overflow-y: scroll !important;
     overflow-x: hidden;
@@ -52,9 +17,9 @@ html, body {
     -ms-overflow-style: none;
 }
 
-/* ============================================
-   2️⃣ متغیرهای اصلی
-============================================ */
+/* ============================================================
+   2️⃣ متغیرهای اصلی (رنگ‌ها، فونت‌ها، سایه‌ها)
+============================================================ */
 :root {
     --primary: #00d4ff;
     --primary-dark: #0099cc;
@@ -86,7 +51,6 @@ html, body {
     --radius-card: 1rem;
     --radius-button: 2.5rem;
     --radius-circle: 50%;
-    --radius-timer: 0.75rem;
     
     --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --font-xs: 0.75rem;
@@ -102,11 +66,8 @@ html, body {
     --z-base: 1;
     --z-sticky: 200;
     --z-header: 1000;
-    --z-drawer: 2000;
-    --z-modal: 3000;
     --z-loader: 9999;
 }
-
 body.dark {
     --bg-body: #0a0a0f;
     --bg-surface: #0f0f1a;
@@ -118,9 +79,9 @@ body.dark {
     --text-muted: #7a7a9a;
 }
 
-/* ============================================
-   3️⃣ استایل‌های پایه
-============================================ */
+/* ============================================================
+   3️⃣ استایل‌های پایه (بدن، کانتینر، فوکوس)
+============================================================ */
 body {
     font-family: 'Vazir', 'Vazirmatn', 'Segoe UI', system-ui, sans-serif;
     background-color: var(--bg-body);
@@ -130,16 +91,12 @@ body {
     position: relative;
     font-size: var(--font-base);
     line-height: 1.6;
-    overscroll-behavior-y: auto !important;
-    -webkit-overflow-scrolling: touch;
 }
-
 *:focus-visible {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
     box-shadow: var(--shadow-neon);
 }
-
 .container {
     max-width: 1280px;
     margin: 0 auto;
@@ -148,109 +105,56 @@ body {
     z-index: var(--z-base);
 }
 
-/* ============================================
-   4️⃣ هدر (چسبیده به لبه‌ها)
-============================================ */
+/* ============================================================
+   4️⃣ هدر (چسبیده به لبه‌ها، نوار جستجو، منو)
+============================================================ */
 .main-header {
     position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0.625rem 0;
+    top: 0; left: 0; right: 0;
+    width: 100%; margin: 0; padding: 0.625rem 0;
     background: var(--bg-header);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
     z-index: var(--z-header);
     transform: translateZ(0);
 }
-
-@media (max-width: 1023px) {
-    .main-header { backdrop-filter: none; -webkit-backdrop-filter: none; }
-}
-
-.header-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
+.header-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .logo a {
-    font-size: var(--font-2xl);
-    font-weight: 800;
-    text-decoration: none;
+    font-size: var(--font-2xl); font-weight: 800; text-decoration: none;
     background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
+    -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block;
 }
-
-.search-form {
-    flex: 1;
-    max-width: 450px;
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-}
-
+.search-form { flex: 1; max-width: 450px; display: flex; gap: 0.75rem; align-items: center; }
 .search-form input {
-    flex: 1;
-    padding: 0.75rem 1.25rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-button);
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    font-family: inherit;
-    font-size: var(--font-base);
+    flex: 1; padding: 0.75rem 1.25rem; border: 1px solid var(--border-color); border-radius: var(--radius-button);
+    background: var(--bg-surface); color: var(--text-primary); font-family: inherit; font-size: var(--font-base);
     transition: border-color var(--transition), box-shadow var(--transition);
 }
 .search-form input:focus { outline: none; border-color: var(--primary); box-shadow: var(--shadow-neon); }
 .search-form input::placeholder { color: var(--text-muted); }
-
 .search-form button {
-    width: 3rem;
-    height: 3rem;
-    padding: 0;
-    min-width: unset;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border: none;
-    border-radius: var(--radius-circle);
-    cursor: pointer;
-    color: white;
-    transition: all var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+    width: 3rem; height: 3rem; padding: 0; min-width: unset;
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; border-radius: var(--radius-circle);
+    cursor: pointer; color: white; transition: all var(--transition); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
 }
 .search-form button:hover { transform: scale(1.1); box-shadow: var(--shadow-neon); }
 .search-form button:active { transform: scale(0.95); }
-
 .user-actions { display: flex; gap: 1rem; align-items: center; }
 .icon-btn {
     background: none; border: none; cursor: pointer; color: var(--text-secondary);
     transition: all var(--transition); display: flex; align-items: center; justify-content: center;
-    padding: 0.5rem; border-radius: var(--radius-circle);
-    min-width: 2.75rem; min-height: 2.75rem;
+    padding: 0.5rem; border-radius: var(--radius-circle); min-width: 2.75rem; min-height: 2.75rem;
 }
 .icon-btn:hover { color: var(--primary); transform: scale(1.1); background: rgba(0, 212, 255, 0.1); }
 .icon-btn:active { transform: scale(0.95); }
-
 .cart-icon { position: relative; }
 .cart-badge {
     position: absolute; top: -0.25rem; right: -0.25rem;
     background: linear-gradient(135deg, var(--danger), var(--accent)); color: white;
     font-size: 0.625rem; width: 1.25rem; height: 1.25rem;
-    border-radius: var(--radius-circle);
-    display: flex; align-items: center; justify-content: center; font-weight: 600;
+    border-radius: var(--radius-circle); display: flex; align-items: center; justify-content: center; font-weight: 600;
 }
-
 .main-nav { border-top: 1px solid var(--border-color); padding: 0.75rem 0; }
 .nav-list { display: flex; list-style: none; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin: 0; padding: 0; }
 .nav-list a {
@@ -265,9 +169,9 @@ body {
 .nav-list a:hover::after, .nav-list a:focus-visible::after { width: 100%; }
 .nav-list a:hover, .nav-list a:focus-visible { color: var(--primary); }
 
-/* ============================================
-   5️⃣ بخش‌های عمومی
-============================================ */
+/* ============================================================
+   5️⃣ بخش‌های عمومی و دکمه‌ها (هیروی قدیمی، دکمه‌های اصلی)
+============================================================ */
 .hero-section {
     background: linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 50%, #0a0a0f 100%);
     border-radius: 0 0 var(--radius-card) var(--radius-card);
@@ -281,26 +185,22 @@ body:not(.dark) .hero-section { background: linear-gradient(135deg, #667eea 0%, 
     animation: rotateSlow 20s linear infinite; pointer-events: none;
 }
 @keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@media (max-width: 768px) { .hero-section::before { animation: none; } }
-
 .hero-content { position: relative; z-index: 2; }
 .hero-badge {
-    display: inline-block; background: rgba(0, 212, 255, 0.15);
-    padding: 0.5rem 1.5rem; border-radius: var(--radius-button);
+    display: inline-block; background: rgba(0, 212, 255, 0.15); padding: 0.5rem 1.5rem; border-radius: var(--radius-button);
     font-size: var(--font-sm); color: var(--primary); margin-bottom: 1.5rem; border: 1px solid var(--primary);
 }
 .hero-title {
     font-size: var(--font-5xl); background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
     -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; line-height: 1.2;
 }
-.hero-subtitle { font-size: var(--font-lg); color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+.hero-subtitle { font-size: var(--font-lg); color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin: 0 auto 2rem; }
 .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
 .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-    padding: 0.75rem 2rem; border-radius: var(--radius-button);
-    font-weight: 600; cursor: pointer; transition: transform var(--transition), box-shadow var(--transition);
-    border: none; font-family: inherit; text-decoration: none; font-size: var(--font-base); white-space: nowrap;
+    padding: 0.75rem 2rem; border-radius: var(--radius-button); font-weight: 600; cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition); border: none;
+    font-family: inherit; text-decoration: none; font-size: var(--font-base); white-space: nowrap;
 }
 .btn:active { transform: scale(0.98) !important; }
 .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
@@ -308,21 +208,19 @@ body:not(.dark) .hero-section { background: linear-gradient(135deg, #667eea 0%, 
 .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
 .btn-outline:hover { transform: scale(1.05); background: rgba(0, 212, 255, 0.1); box-shadow: var(--shadow-neon); }
 
-/* ============================================
-   6️⃣ کارت‌ها و گریدها
-============================================ */
+/* ============================================================
+   6️⃣ کارت‌ها و گریدها (دسته‌بندی، محصولات، تخفیف و ...)
+============================================================ */
 .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.25rem; }
 .category-card {
-    background: var(--bg-card); border-radius: var(--radius-card);
-    padding: 1.5rem 1rem; text-align: center; transition: all var(--transition);
-    cursor: pointer; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+    background: var(--bg-card); border-radius: var(--radius-card); padding: 1.5rem 1rem; text-align: center;
+    transition: all var(--transition); cursor: pointer; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
 }
 .category-card:hover { transform: translateY(-0.5rem) scale(1.02); border-color: var(--primary); box-shadow: var(--shadow-neon); }
 .category-card:active { transform: scale(0.98) !important; }
 .category-icon {
     width: 4rem; height: 4rem; margin: 0 auto 1rem;
-    background: linear-gradient(135deg, var(--primary-light), var(--primary));
-    border-radius: var(--radius-circle);
+    background: linear-gradient(135deg, var(--primary-light), var(--primary)); border-radius: var(--radius-circle);
     display: flex; align-items: center; justify-content: center; color: white; transition: all var(--transition);
 }
 .category-card:hover .category-icon { transform: scale(1.1) rotate(360deg); }
@@ -330,13 +228,12 @@ body:not(.dark) .hero-section { background: linear-gradient(135deg, #667eea 0%, 
 .category-count { font-size: var(--font-xs); color: var(--primary); font-weight: 600; }
 
 .product-card {
-    background: var(--bg-card); border-radius: var(--radius-card);
-    overflow: hidden; transition: all var(--transition); border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; height: 100%;
+    background: var(--bg-card); border-radius: var(--radius-card); overflow: hidden; transition: all var(--transition);
+    border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); position: relative;
+    display: flex; flex-direction: column; height: 100%;
 }
 .product-card:hover { transform: translateY(-0.5rem) scale(1.02); border-color: var(--primary); box-shadow: var(--shadow-neon); }
 .product-card:active { transform: scale(0.98) !important; }
-
 .product-image-wrapper { position: relative; width: 100%; padding-top: 100%; overflow: hidden; background: var(--bg-surface); }
 .product-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 .product-card:hover .product-img { transform: scale(1.06); }
@@ -345,25 +242,21 @@ body:not(.dark) .hero-section { background: linear-gradient(135deg, #667eea 0%, 
     display: flex; align-items: center; justify-content: center;
     background: linear-gradient(135deg, var(--bg-surface), var(--bg-card)); color: var(--text-muted);
 }
-
 .discount-badge {
     position: absolute; top: 0.75rem; right: 0.75rem;
     background: linear-gradient(135deg, var(--danger), var(--accent)); color: white;
     font-weight: 700; font-size: var(--font-sm); padding: 0.25rem 0.625rem;
     border-radius: var(--radius-button); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25); z-index: 2; direction: ltr;
 }
-
 .wishlist-btn {
     position: absolute; top: 0.75rem; left: 0.75rem;
     background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(255, 255, 255, 0.4);
-    color: var(--text-muted); width: 2.25rem; height: 2.25rem;
-    border-radius: var(--radius-circle);
+    color: var(--text-muted); width: 2.25rem; height: 2.25rem; border-radius: var(--radius-circle);
     display: flex; align-items: center; justify-content: center; cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2;
 }
 .wishlist-btn:hover { background: var(--bg-surface); color: var(--danger); transform: scale(1.1); }
 .wishlist-btn.active { background: var(--danger); color: white; border-color: var(--danger); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
-
 .product-content { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; }
 .product-title {
     font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.625rem 0;
@@ -371,7 +264,6 @@ body:not(.dark) .hero-section { background: linear-gradient(135deg, #667eea 0%, 
     -webkit-line-clamp: 2; -webkit-box-orient: vertical; transition: color 0.3s;
 }
 .product-card:hover .product-title { color: var(--primary); }
-
 .price-container { margin-top: auto; margin-bottom: 0.625rem; }
 .price-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.375rem; }
 .product-price {
@@ -389,57 +281,50 @@ body:not(.dark) .hero-section { background: linear-gradient(135deg, #667eea 0%, 
     font-size: 0.6875rem; font-weight: bold; padding: 0.1875rem 0.5rem;
     border-radius: var(--radius-button); box-shadow: 0 0 10px rgba(255,51,102,0.4);
 }
-
 .installment-badge {
     display: flex; align-items: center; gap: 0.375rem; background: rgba(0, 212, 255, 0.1);
     border: 1px dashed var(--primary); color: var(--success); padding: 0.375rem 0.625rem;
     border-radius: var(--radius-card); font-size: 0.6875rem; margin-bottom: 0.625rem;
 }
 .installment-badge svg { color: var(--success); flex-shrink: 0; width: 0.875rem; height: 0.875rem; }
-
 .product-card-footer { display: flex; align-items: center; gap: 0.5rem; padding: 0 1rem 1rem 1rem; }
 .btn-buy-details {
     flex-grow: 1; display: flex; align-items: center; justify-content: center; gap: 0.375rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white;
-    text-decoration: none; font-weight: 600; font-size: 0.8125rem; padding: 0.625rem 0.75rem;
-    border-radius: var(--radius-button); transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); border: none; cursor: pointer; font-family: inherit;
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-decoration: none;
+    font-weight: 600; font-size: 0.8125rem; padding: 0.625rem 0.75rem; border-radius: var(--radius-button);
+    transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); border: none; cursor: pointer; font-family: inherit;
 }
 .btn-buy-details:hover { background: linear-gradient(135deg, var(--primary-dark), var(--secondary)); box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35); transform: translateY(-2px); }
 .btn-buy-details svg { transition: transform 0.3s ease; width: 1rem; height: 1rem; }
 [dir="rtl"] .btn-buy-details svg { transform: scaleX(-1); }
 [dir="rtl"] .btn-buy-details:hover svg { transform: scaleX(-1) translateX(4px); }
-.btn-buy-details:hover svg { transform: translateX(4px); }
-
 .quick-add-cart {
     background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-secondary);
     width: 2.5rem; height: 2.5rem; border-radius: var(--radius-button);
     display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;
 }
 .quick-add-cart:hover { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.05); }
-
 body.dark .product-card { background: var(--bg-card); border-color: rgba(255, 255, 255, 0.05); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
 body.dark .product-card:hover { border-color: var(--primary); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); }
 body.dark .wishlist-btn { background: rgba(30, 41, 59, 0.7); border-color: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
-body.dark .wishlist-btn:hover { background: var(--bg-surface); color: var(--danger); }
 body.dark .quick-add-cart { background: var(--bg-surface); color: var(--text-secondary); border-color: var(--border-color); }
 body.dark .quick-add-cart:hover { background: var(--primary); color: white; border-color: var(--primary); }
 body.dark .installment-badge { background: rgba(22, 101, 52, 0.15); border-color: rgba(34, 197, 94, 0.2); color: #4ade80; }
-
 .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
 
+/* ============================================================
+   7️⃣ ویژگی‌ها، آمار و بنر تخفیف
+============================================================ */
 .features-section { margin: 3.75rem 0; }
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
 .feature-card {
-    background: var(--bg-card); border-radius: var(--radius-card);
-    padding: 1.75rem 1.25rem; text-align: center; transition: all var(--transition);
-    border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+    background: var(--bg-card); border-radius: var(--radius-card); padding: 1.75rem 1.25rem; text-align: center;
+    transition: all var(--transition); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
 }
 .feature-card:hover { transform: translateY(-0.5rem) scale(1.02); border-color: var(--primary); box-shadow: var(--shadow-neon); }
 .feature-icon {
     width: 4.5rem; height: 4.5rem; margin: 0 auto 1rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border-radius: var(--radius-circle);
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: var(--radius-circle);
     display: flex; align-items: center; justify-content: center; transition: all var(--transition);
 }
 .feature-card:hover .feature-icon { transform: scale(1.15); }
@@ -449,9 +334,8 @@ body.dark .installment-badge { background: rgba(22, 101, 52, 0.15); border-color
 .stats-section { margin: 3.75rem 0; }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; }
 .stat-card {
-    background: var(--bg-card); border-radius: var(--radius-card);
-    padding: 1.75rem 1rem; text-align: center; transition: all var(--transition);
-    border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+    background: var(--bg-card); border-radius: var(--radius-card); padding: 1.75rem 1rem; text-align: center;
+    transition: all var(--transition); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
 }
 .stat-card:hover { transform: translateY(-0.3125rem) scale(1.02); border-color: var(--primary); box-shadow: var(--shadow-neon); }
 .counter-number {
@@ -460,34 +344,351 @@ body.dark .installment-badge { background: rgba(22, 101, 52, 0.15); border-color
 }
 
 .offer-banner {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); border-radius: var(--radius-card);
-    padding: 3.75rem 2.5rem; text-align: center; margin: 3.75rem 0; position: relative; overflow: hidden;
-    border: 1px solid rgba(0, 212, 255, 0.5); box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+    position: relative;
+    margin: 3.75rem 0;
+    border-radius: 2rem;
+    background: linear-gradient(135deg, rgba(15, 25, 45, 0.9), rgba(30, 20, 50, 0.9));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+    border: 1px solid rgba(0, 212, 255, 0.4);
+    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5);
 }
-body:not(.dark) .offer-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); border: none; box-shadow: var(--shadow-lg); }
-.offer-banner::before {
-    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
-    animation: scanLight 3s linear infinite; pointer-events: none;
+body:not(.dark) .offer-banner {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.85), rgba(118, 75, 162, 0.85), rgba(240, 147, 251, 0.85));
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.3);
 }
-@keyframes scanLight { 0% { left: -100%; } 100% { left: 100%; } }
-@media (max-width: 768px) { .offer-banner::before { animation: none; } }
-.offer-content { position: relative; z-index: 2; color: white; }
-.offer-title { font-size: var(--font-3xl); margin-bottom: 1rem; }
-
-.timer { display: flex; gap: 1.25rem; justify-content: center; margin: 2.5rem 0; flex-wrap: wrap; }
+.offer-content {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: white;
+}
+.offer-title {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffffff, #e0f7ff, #a0d2ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
+}
+.offer-content p {
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    background: rgba(0,0,0,0.4);
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 40px;
+    backdrop-filter: blur(8px);
+}
+.offer-content strong {
+    font-size: 1.6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffd966, #ffaa00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.timer {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
 .timer-box {
-    background: rgba(0, 212, 255, 0.15); padding: 1rem 1.75rem;
-    border-radius: var(--radius-card); text-align: center; border: 1px solid var(--primary); transition: all var(--transition);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    padding: 1rem 1.5rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(0, 212, 255, 0.6);
+    transition: all 0.3s ease;
+    min-width: 85px;
 }
-.timer-box:hover { transform: scale(1.05) translateY(-5px); box-shadow: var(--shadow-neon-strong); }
-.timer-number { font-size: 2.75rem; font-weight: bold; color: var(--primary); text-shadow: 0 0 20px var(--primary); font-family: 'Courier New', monospace; line-height: 1; }
-.timer-label { font-size: var(--font-sm); margin-top: 0.5rem; color: var(--text-primary); font-weight: 600; letter-spacing: 1px; }
-body.dark .timer-label { color: rgba(255, 255, 255, 0.9); }
+.timer-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+.timer-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #00d4ff, #ff00d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+}
+.timer-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-top: 0.5rem;
+}
+.offer-content .btn {
+    background: linear-gradient(135deg, #ffffff, #e2e8f0);
+    color: #1e1e2f;
+    font-weight: 800;
+    padding: 0.9rem 2.5rem;
+    border-radius: 3rem;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+.offer-content .btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+}
+body.dark .offer-content .btn {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: white;
+}
+body.dark .offer-content .btn:hover {
+    background: linear-gradient(135deg, #334155, #1e293b);
+}
 
-/* ============================================
-   7️⃣ فوتر و شبکه‌های اجتماعی
-============================================ */
+/* ============================================================
+   8️⃣ هیرو اسلایدر قدیمی (در صورت استفاده - فقط استایل پایه)
+============================================================ */
+.hero-slider {
+    width: 100%;
+    height: 100vh;
+    min-height: 650px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+}
+body:not(.dark) .hero-slider {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+}
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.slider-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s cubic-bezier(0.2, 0.9, 0.4, 1.2), visibility 1s;
+    z-index: 1;
+}
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+}
+.slide-bg {
+    display: none;
+}
+.slide-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    gap: 3rem;
+    padding: 0 2rem;
+    flex-wrap: wrap;
+}
+.slide-text {
+    flex: 1;
+    min-width: 320px;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 2rem 2.5rem;
+    transform: translateX(-30px);
+    opacity: 0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    transition-delay: 0.2s;
+}
+.slide.active .slide-text {
+    transform: translateX(0);
+    opacity: 1;
+}
+.slide-text .badge {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    background: rgba(0,212,255,0.15);
+    border-radius: 30px;
+    color: #00d4ff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+    border: none;
+}
+body:not(.dark) .slide-text .badge {
+    background: rgba(0,0,0,0.05);
+    color: #0f172a;
+}
+.slide-text .title {
+    font-size: clamp(2rem,5vw,4rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    background: none;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+body:not(.dark) .slide-text .title {
+    color: #0f172a;
+    text-shadow: none;
+}
+.slide-text .desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 2rem;
+    max-width: 500px;
+}
+body:not(.dark) .slide-text .desc {
+    color: #334155;
+}
+.slide-text .btn-buy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.8rem;
+    background: #00d4ff;
+    border-radius: 40px;
+    color: #0f172a;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,212,255,0.3);
+}
+.slide-text .btn-buy:hover {
+    transform: translateY(-3px);
+    background: #00e5ff;
+    gap: 0.9rem;
+    box-shadow: 0 8px 20px rgba(0,212,255,0.4);
+}
+body:not(.dark) .slide-text .btn-buy {
+    background: #0f172a;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+body:not(.dark) .slide-text .btn-buy:hover {
+    background: #1e293b;
+}
+.slide-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 520px;
+    width: 100%;
+    transform: translateX(30px);
+    opacity: 0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    transition-delay: 0.4s;
+}
+.slide.active .slide-image {
+    transform: translateX(0);
+    opacity: 1;
+}
+.slide-image img {
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.2));
+    transition: transform 0.4s ease;
+    animation: floatImage 5s ease-in-out infinite;
+}
+@keyframes floatImage {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
+}
+.slide-image img:hover {
+    transform: scale(1.02);
+}
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 30;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slider-nav:hover {
+    background: #00d4ff;
+    color: #0f172a;
+    border-color: transparent;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 12px rgba(0,212,255,0.5);
+}
+.slider-nav.prev { left: 20px; }
+.slider-nav.next { right: 20px; }
+body:not(.dark) .slider-nav {
+    background: rgba(0,0,0,0.2);
+    color: #0f172a;
+    border-color: #0f172a;
+}
+body:not(.dark) .slider-nav:hover {
+    background: #0f172a;
+    color: white;
+}
+.slider-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 30;
+    background: transparent;
+}
+.slider-dots .dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.slider-dots .dot.active {
+    background: #00d4ff;
+    width: 24px;
+    border-radius: 12px;
+}
+body:not(.dark) .slider-dots .dot {
+    background: rgba(0,0,0,0.3);
+}
+body:not(.dark) .slider-dots .dot.active {
+    background: #0f172a;
+}
+
+/* ============================================================
+   9️⃣ فوتر، شبکه‌های اجتماعی، لودر، دکمه بازگشت به بالا
+============================================================ */
 .section { margin: 3.75rem 0; }
 .section-header { text-align: center; margin-bottom: 3rem; }
 .section-title { font-size: var(--font-3xl); margin-bottom: 0.75rem; color: var(--text-primary); position: relative; display: inline-block; }
@@ -505,19 +706,6 @@ body.dark .timer-label { color: rgba(255, 255, 255, 0.9); }
 .footer-col a { color: var(--text-secondary); text-decoration: none; transition: var(--transition); font-size: var(--font-base); display: inline-block; }
 .footer-col a:hover, .footer-col a:focus-visible { color: var(--primary); padding-right: 0.5rem; }
 .footer-bottom { text-align: center; padding-top: 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: var(--font-sm); }
-
-.animate-on-scroll { opacity: 0; transform: translateY(1.875rem); transition: all 0.7s ease; }
-.animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
-
-.back-to-top {
-    position: fixed; bottom: 1.5rem; right: 1.5rem; width: 3rem; height: 3rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none;
-    border-radius: var(--radius-circle); cursor: pointer; display: none;
-    align-items: center; justify-content: center; z-index: var(--z-sticky);
-    transition: all var(--transition); box-shadow: var(--shadow-neon);
-}
-.back-to-top:hover { transform: scale(1.1); box-shadow: var(--shadow-neon-strong); }
-.back-to-top:active { transform: scale(0.95); }
 
 .social-section { margin: 3.125rem 0 1.875rem; text-align: center; position: relative; }
 .social-title {
@@ -554,904 +742,436 @@ body.dark .timer-label { color: rgba(255, 255, 255, 0.9); }
 .social-card:hover .social-name { color: var(--primary); }
 body.dark .social-card { background: rgba(15, 15, 26, 0.9); }
 
-/* ============================================
-   8️⃣ هیرو سه‌بعدی - بک‌گراند خالص + تعمیر لایه آیفون ✅
-============================================ */
-.iphone-hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background: url('../images/hero-bg-dark.png') center center / cover no-repeat;
-    display: flex;
-    align-items: center;
-}
-body:not(.dark) .iphone-hero {
-    background: url('../images/hero-bg-light.png') center center / cover no-repeat;
-}
-.iphone-hero::before { display: none !important; }
-
-
-
-/* ✅ اطمینان از اینکه محتوای متنی و سه‌بعدی روی بک‌گراند می‌مانند */
-.hero-left, .hero-right {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-left { 
-    max-width: 600px; 
-    flex: 0 0 auto; 
-    text-align: right; 
-}
-
-/* رنگ متن برای خوانایی */
-body:not(.dark) .hero-left h1 { color: #111827; }
-body:not(.dark) .hero-left p { color: #4b5563; }
-body.dark .hero-left h1 { color: #ffffff; text-shadow: 0 0 30px rgba(0,212,255,0.3); }
-body.dark .hero-left p { color: #b6c2d9; }
-
-.iphone-badge {
-    display: inline-block; padding: 0.625rem 1.125rem; border-radius: var(--radius-button);
-    backdrop-filter: blur(20px); margin-bottom: 1.5625rem; font-size: 0.875rem; font-weight: 600;
-}
-body.dark .iphone-badge { background: rgba(255,255,255,0.08); color: var(--primary); border: 1px solid rgba(255,255,255,0.1); }
-body:not(.dark) .iphone-badge { background: rgba(255,255,255,0.7); color: #007aff; border: 1px solid rgba(0,0,0,0.05); }
-
-.hero-left h1 { font-size: 4.5rem; line-height: 1; margin-bottom: 1.5625rem; font-weight: 900; }
-.hero-left p { font-size: 1.25rem; line-height: 2; margin-bottom: 2.1875rem; max-width: 540px; }
-
-.hero-btn {
-    position: relative; overflow: hidden; border: none; padding: 1.125rem 2.625rem;
-    border-radius: var(--radius-button); font-size: 1.125rem; font-weight: 700;
-    cursor: pointer; transition: 0.35s; backdrop-filter: blur(25px);
-}
-body.dark .hero-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: 0 10px 40px rgba(0,212,255,0.35); }
-body:not(.dark) .hero-btn { background: white; color: #111827; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
-.hero-btn:hover { transform: translateY(-4px) scale(1.03); }
-.hero-btn:active { transform: translateY(-2px) scale(1.01); }
-
-.hero-right {
-    flex: 1 1 500px; 
-    min-width: 300px;
-    height: 700px; 
-    max-height: 90vh; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-<<<<<<< HEAD
-}
-
-/* ✅ کانواس سه‌بعدی */
-
-#iphone-canvas {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-#iphone-canvas.dragging { cursor: grabbing; }
-
-/* ✅ فقط خود تگ canvas غیرفعال شود تا اسکرول کار کند، اما رندر خراب نشود */
-#iphone-canvas canvas {
-    pointer-events: none !important;
-    touch-action: pan-y !important;
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-}
-/* کانتینر اصلی برای فعال‌سازی عمق سه‌بعدی */
-.iphone-hero {
-    perspective: 1200px; /* ✅ حیاتی برای حس پشت‌سر بودن */
-    transform-style: preserve-3d;
-}
-
-/* ============================================
-   متن سینمایی (ظاهر شدن واقعی از پشت آیفون)
-============================================ */
-.cinematic-text {
-    position: absolute;
-    right: 8%;
-    bottom: 40%; /* ✅ شروع از پایین‌تر */
-    z-index: 1;  /* ✅ پایین‌تر از کانواس */
-    width: auto;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.8rem;
-    
-    /* ✅ حالت اولیه: پایین‌تر، کوچک‌تر، نامرئی */
-    opacity: 0;
-    transform: translate3d(-400px, 150px, 0px) scale(0.9);
-    pointer-events: none;
-    will-change: transform, opacity;
-}
-
-.cinematic-text .badge {
-    padding: 0.4rem 1rem;
-    background: rgba(0, 212, 255, 0.15);
-    border: 1px solid rgba(0, 212, 255, 0.3);
-    border-radius: 2rem;
-    color: var(--primary);
-    font-size: 0.85rem;
-    font-weight: 600;
-    backdrop-filter: blur(6px);
-}
-
-.cinematic-text .title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 900;
-    line-height: 1.2;
-    background: linear-gradient(135deg, #fff, #c0c0d0);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin: 0;
-    text-align: right;
-}
-
-.cinematic-text .desc {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: #a0a0b0;
-    max-width: 380px;
-    text-align: right;
-    margin: 0;
-}
-
-.cinematic-text .btn-buy {
-    padding: 0.7rem 1.8rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    text-decoration: none;
-    border-radius: 2rem;
-    font-weight: 700;
-    font-size: 0.9rem;
-    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    pointer-events: auto;
-}
-.cinematic-text .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4); }
-
-@media (max-width: 768px) {
-    .cinematic-text { right: 50%; transform: translate3d(50%, 40px, -350px) scale(0.8); bottom: 10%; align-items: center; }
-    .cinematic-text .title, .cinematic-text .desc { text-align: center; }
-}
-/* لودر (بدون تغییر) */
 #loader {
     position: fixed; inset: 0; background: var(--bg-body); display: flex; justify-content: center; align-items: center;
     flex-direction: column; z-index: var(--z-loader); transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.loader-logo { font-size: 4rem; font-weight: 900; color: var(--text-primary); margin-bottom: 2.5rem; text-shadow: 0 0 30px var(--primary); animation: pulse 2s infinite; }
-.loader-bar { width: 300px; height: 6px; background: rgba(255,255,255,0.1); border-radius: var(--radius-button); overflow: hidden; max-width: 90%; }
-.loader-progress { width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); box-shadow: 0 0 20px var(--primary); transition: width 0.3s; }
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-/* ============================================
-   9️⃣ مدیا کوئری‌ها
-============================================ */
-@media (max-width: 1024px) {
-    .hero-title { font-size: var(--font-4xl); }
-    .hero-subtitle { font-size: var(--font-base); }
-    .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-    .categories-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-}
-
-@media (max-width: 768px) {
-    .main-header { padding: 0.5rem 0; }
-    .header-wrapper { padding: 0.25rem 0; gap: 0.5rem; }
-    .logo a { font-size: var(--font-xl); }
-    .search-form { order: 3; width: 100%; max-width: none; margin-top: 0.75rem; }
-    .user-actions { gap: 0.25rem; }
-    .icon-btn { padding: 0.5rem; min-width: 2.5rem; min-height: 2.5rem; }
-    
-    .hero-section { padding: 5rem 1rem 2.5rem; margin-bottom: 2rem; border-radius: 0 0 var(--radius-card) var(--radius-card); }
-    .hero-title { font-size: var(--font-3xl); }
-    .hero-subtitle { font-size: var(--font-base); }
-    .hero-buttons { flex-direction: column; align-items: center; }
-    .hero-buttons .btn { width: 100%; max-width: 280px; }
-    
-    .iphone-hero {
-        padding: 5rem 1rem 2.5rem; min-height: auto;
-        flex-direction: column; text-align: center; gap: 1.5rem;
-    }
-    .hero-left { text-align: center; margin-bottom: 1.5rem; max-width: 100%; }
-    .hero-left h1 { font-size: 2.25rem; }
-    .hero-left p { font-size: 1rem; line-height: 1.8; }
-    .hero-btn { width: 100%; max-width: 280px; padding: 1rem 2rem; }
-    .hero-right { width: 100%; height: 400px; min-width: auto; flex: 0 0 auto; }
-    
-    .categories-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
-    .category-card { padding: 1rem 0.5rem; }
-    .category-icon { width: 3rem; height: 3rem; }
-    .category-icon svg { width: 1.75rem; height: 1.75rem; }
-    .category-name { font-size: 0.75rem; }
-    .category-count { font-size: 0.625rem; }
-    
-    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-    .product-card { border-radius: var(--radius-card); }
-    .product-title { font-size: 0.8125rem; height: 2.5rem; }
-    .product-price { font-size: 1rem; }
-    .btn-buy-details { padding: 0.625rem 0.75rem; font-size: 0.75rem; }
-    .quick-add-cart { width: 2.375rem; height: 2.375rem; }
-    
-    .offer-banner { margin: 2rem 0.75rem; padding: 2rem 1.25rem; border-radius: var(--radius-card); }
-    .offer-title { font-size: var(--font-2xl); }
-    .timer { gap: 0.625rem; }
-    .timer-box { padding: 0.75rem 1rem; min-width: 3.5rem; }
-    .timer-number { font-size: 1.75rem; }
-    .timer-label { font-size: 0.625rem; }
-    
-    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-    .stat-card { padding: 1.25rem 0.75rem; }
-    .counter-number { font-size: var(--font-2xl); }
-    
-    .features-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-    .feature-card { padding: 1.25rem 0.75rem; }
-    .feature-icon { width: 3.5rem; height: 3.5rem; }
-    .feature-title { font-size: 0.875rem; }
-    .feature-desc { font-size: 0.625rem; }
-    
-    .main-footer { padding: 2.5rem 1rem 5rem; }
-    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .back-to-top { bottom: 5rem; right: 1rem; width: 2.75rem; height: 2.75rem; }
-}
-
-@media (max-width: 360px) {
-    .categories-grid { grid-template-columns: repeat(2, 1fr); }
-    .products-grid { grid-template-columns: 1fr; }
-    .hero-title { font-size: var(--font-2xl); }
-    .timer-number { font-size: 1.5rem; }
-}
-
-@media (orientation: landscape) and (max-height: 500px) {
-    .hero-section, .iphone-hero { padding-top: 4rem; min-height: auto; }
-    .hero-left h1 { font-size: 2rem; }
-}
-
-@supports (padding: max(0px)) {
-    .main-header { padding-top: max(0.5rem, env(safe-area-inset-top)); }
-    .main-footer { padding-bottom: max(1.875rem, env(safe-area-inset-bottom)); }
-    .back-to-top { bottom: max(1.5rem, calc(1.5rem + env(safe-area-inset-bottom))); }
-}
-
-/* ============================================
-   🔟 کلاس‌های کمکی
-============================================ */
-body.modal-open { overflow: hidden; position: fixed; width: 100%; height: 100%; }
-.loading { position: relative; pointer-events: none; opacity: 0.7; }
-.loading::after { content: ''; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.1); }
-@keyframes highlight { 0%, 100% { background: transparent; } 50% { background: rgba(0, 212, 255, 0.2); } }
-.highlight-new { animation: highlight 1.5s ease; }
-@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
-.shake { animation: shake 0.3s ease; }
-@media (max-width: 768px) { .desktop-only { display: none !important; } }
-@media (min-width: 769px) { .mobile-only { display: none !important; } }
-.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-.hide-scrollbar::-webkit-scrollbar { display: none; }
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.animate-on-scroll.visible { animation: slideUp 0.5s ease forwards; }
-@media (hover: none) {
-    .btn:active, .icon-btn:active, .category-card:active, .product-card:active, .feature-card:active {
-        transform: scale(0.98) !important; transition: transform 0.1s ease;
-    }
-}
-=======
-}
-
-/* ✅ کانواس سه‌بعدی */
-
-#iphone-canvas {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-#iphone-canvas.dragging { cursor: grabbing; }
-
-/* ✅ فقط خود تگ canvas غیرفعال شود تا اسکرول کار کند، اما رندر خراب نشود */
-#iphone-canvas canvas {
-    pointer-events: none !important;
-    touch-action: pan-y !important;
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-}
-/* کانتینر اصلی برای فعال‌سازی عمق سه‌بعدی */
-.iphone-hero {
-    perspective: 1200px;
-    transform-style: preserve-3d;
-    position: relative;
-    will-change: contents;
-    transform: translateZ(0);
-}
-
-#iphone-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-}
-
-/* ============================================
-   CINEMATIC TEXT - PREMIUM BLUR + STAGGER
-============================================ */
-.cinematic-text {
-    position: absolute;
-    right: 8%;
-    bottom: 40%;
-    z-index: 5;
-    width: auto;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.8rem;
-    
-    opacity: 0;
-    transform: translate3d(-400px, 150px, 0px) scale(0.9);
-    pointer-events: none;
-    will-change: transform, opacity;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
-
-.cinematic-text .badge {
-    padding: 0.4rem 1rem;
-    background: rgba(0, 212, 255, 0.15);
-    border: 1px solid rgba(0, 212, 255, 0.3);
-    border-radius: 2rem;
-    color: var(--primary);
-    font-size: 0.85rem;
-    font-weight: 600;
-    backdrop-filter: blur(6px);
-    
-    opacity: 0;
-    filter: blur(12px);
-    transform: translateY(20px);
-    will-change: opacity, filter, transform;
-    transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-                filter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.cinematic-text .title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 900;
-    line-height: 1.2;
-    background: linear-gradient(135deg, #fff, #c0c0d0);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin: 0;
-    text-align: right;
-    
-    opacity: 0;
-    filter: blur(16px);
-    transform: translateY(24px);
-    will-change: opacity, filter, transform;
-    transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s,
-                filter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s,
-                transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;
-}
-
-.cinematic-text .desc {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: #a0a0b0;
-    max-width: 380px;
-    text-align: right;
-    margin: 0;
-    
-    opacity: 0;
-    filter: blur(14px);
-    transform: translateY(22px);
-    will-change: opacity, filter, transform;
-    transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s,
-                filter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s,
-                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s;
-}
-
-.cinematic-text .btn-buy {
-    padding: 0.7rem 1.8rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    text-decoration: none;
-    border-radius: 2rem;
-    font-weight: 700;
-    font-size: 0.9rem;
-    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
-    pointer-events: auto;
-    position: relative;
-    
-    opacity: 0;
-    filter: blur(12px);
-    transform: translateY(20px);
-    will-change: opacity, filter, transform;
-    transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s,
-                filter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s,
-                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
-}
-
-.cinematic-text .btn-buy::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: width 0.3s, height 0.3s;
-}
-
-.cinematic-text .btn-buy:hover::before {
-    width: 120%;
-    height: 120%;
-}
-
-.cinematic-text .btn-buy:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4);
-}
-
-.cinematic-text .btn-buy:active {
-    transform: translateY(0px);
-    box-shadow: 0 6px 15px rgba(0, 212, 255, 0.3);
-}
-
-.iphone-hero.dragging {
-    cursor: grabbing;
-}
-
-.iphone-hero.dragging #iphone-canvas {
-    filter: brightness(1.1);
-}
-
-@media (max-width: 768px) {
-    .cinematic-text { right: 50%; transform: translate3d(50%, 40px, -350px) scale(0.8); bottom: 10%; align-items: center; }
-    .cinematic-text .title, .cinematic-text .desc { text-align: center; }
-}
-/* لودر (بدون تغییر) */
-#loader {
-    position: fixed; inset: 0; background: var(--bg-body); display: flex; justify-content: center; align-items: center;
-    flex-direction: column; z-index: var(--z-loader); transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.loader-logo { font-size: 4rem; font-weight: 900; color: var(--text-primary); margin-bottom: 2.5rem; text-shadow: 0 0 30px var(--primary); animation: pulse 2s infinite; }
-.loader-bar { width: 300px; height: 6px; background: rgba(255,255,255,0.1); border-radius: var(--radius-button); overflow: hidden; max-width: 90%; }
-.loader-progress { width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); box-shadow: 0 0 20px var(--primary); transition: width 0.3s; }
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
-/* ============================================
-   ADVANCED MICRO-INTERACTIONS
-============================================ */
-#iphone-canvas,
-.cinematic-text {
-    will-change: transform, opacity;
-    transform: translateZ(0);
-}
-
-@supports (cursor: pointer) {
-    .cinematic-text .btn-buy:hover {
-        filter: drop-shadow(0 12px 30px rgba(0, 212, 255, 0.4));
-    }
-}
-
-/* Performance: High-performance scrolling */
-@media (prefers-reduced-motion: no-preference) {
-    html {
-        scroll-behavior: smooth;
-    }
-}
-
-/* Accessibility: Reduce motion */
-@media (prefers-reduced-motion: reduce) {
-    .cinematic-text,
-    .cinematic-text .badge,
-    .cinematic-text .title,
-    .cinematic-text .desc,
-    .cinematic-text .btn-buy {
-        animation: none !important;
-        transition: none !important;
-        filter: none !important;
-    }
-    
-    #iphone-canvas {
-        will-change: auto;
-    }
-}
-
-/* ============================================
-   9️⃣ مدیا کوئری‌ها
-============================================ */
-@media (max-width: 1024px) {
-    .hero-title { font-size: var(--font-4xl); }
-    .hero-subtitle { font-size: var(--font-base); }
-    .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-    .categories-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-}
-
-@media (max-width: 768px) {
-    .main-header { padding: 0.5rem 0; }
-    .header-wrapper { padding: 0.25rem 0; gap: 0.5rem; }
-    .logo a { font-size: var(--font-xl); }
-    .search-form { order: 3; width: 100%; max-width: none; margin-top: 0.75rem; }
-    .user-actions { gap: 0.25rem; }
-    .icon-btn { padding: 0.5rem; min-width: 2.5rem; min-height: 2.5rem; }
-    
-    .hero-section { padding: 5rem 1rem 2.5rem; margin-bottom: 2rem; border-radius: 0 0 var(--radius-card) var(--radius-card); }
-    .hero-title { font-size: var(--font-3xl); }
-    .hero-subtitle { font-size: var(--font-base); }
-    .hero-buttons { flex-direction: column; align-items: center; }
-    .hero-buttons .btn { width: 100%; max-width: 280px; }
-    
-    .iphone-hero {
-        padding: 5rem 1rem 2.5rem; min-height: auto;
-        flex-direction: column; text-align: center; gap: 1.5rem;
-    }
-    .hero-left { text-align: center; margin-bottom: 1.5rem; max-width: 100%; }
-    .hero-left h1 { font-size: 2.25rem; }
-    .hero-left p { font-size: 1rem; line-height: 1.8; }
-    .hero-btn { width: 100%; max-width: 280px; padding: 1rem 2rem; }
-    .hero-right { width: 100%; height: 400px; min-width: auto; flex: 0 0 auto; }
-    
-    .categories-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
-    .category-card { padding: 1rem 0.5rem; }
-    .category-icon { width: 3rem; height: 3rem; }
-    .category-icon svg { width: 1.75rem; height: 1.75rem; }
-    .category-name { font-size: 0.75rem; }
-    .category-count { font-size: 0.625rem; }
-    
-    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-    .product-card { border-radius: var(--radius-card); }
-    .product-title { font-size: 0.8125rem; height: 2.5rem; }
-    .product-price { font-size: 1rem; }
-    .btn-buy-details { padding: 0.625rem 0.75rem; font-size: 0.75rem; }
-    .quick-add-cart { width: 2.375rem; height: 2.375rem; }
-    
-    .offer-banner { margin: 2rem 0.75rem; padding: 2rem 1.25rem; border-radius: var(--radius-card); }
-    .offer-title { font-size: var(--font-2xl); }
-    .timer { gap: 0.625rem; }
-    .timer-box { padding: 0.75rem 1rem; min-width: 3.5rem; }
-    .timer-number { font-size: 1.75rem; }
-    .timer-label { font-size: 0.625rem; }
-    
-    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-    .stat-card { padding: 1.25rem 0.75rem; }
-    .counter-number { font-size: var(--font-2xl); }
-    
-    .features-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-    .feature-card { padding: 1.25rem 0.75rem; }
-    .feature-icon { width: 3.5rem; height: 3.5rem; }
-    .feature-title { font-size: 0.875rem; }
-    .feature-desc { font-size: 0.625rem; }
-    
-    .main-footer { padding: 2.5rem 1rem 5rem; }
-    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .back-to-top { bottom: 5rem; right: 1rem; width: 2.75rem; height: 2.75rem; }
-}
-
-@media (max-width: 360px) {
-    .categories-grid { grid-template-columns: repeat(2, 1fr); }
-    .products-grid { grid-template-columns: 1fr; }
-    .hero-title { font-size: var(--font-2xl); }
-    .timer-number { font-size: 1.5rem; }
-}
-
-@media (orientation: landscape) and (max-height: 500px) {
-    .hero-section, .iphone-hero { padding-top: 4rem; min-height: auto; }
-    .hero-left h1 { font-size: 2rem; }
-}
-
-@supports (padding: max(0px)) {
-    .main-header { padding-top: max(0.5rem, env(safe-area-inset-top)); }
-    .main-footer { padding-bottom: max(1.875rem, env(safe-area-inset-bottom)); }
-    .back-to-top { bottom: max(1.5rem, calc(1.5rem + env(safe-area-inset-bottom))); }
-}
-
-/* ============================================
-   🔟 کلاس‌های کمکی
-============================================ */
-body.modal-open { overflow: hidden; position: fixed; width: 100%; height: 100%; }
-.loading { position: relative; pointer-events: none; opacity: 0.7; }
-.loading::after { content: ''; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.1); }
-@keyframes highlight { 0%, 100% { background: transparent; } 50% { background: rgba(0, 212, 255, 0.2); } }
-.highlight-new { animation: highlight 1.5s ease; }
-@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
-.shake { animation: shake 0.3s ease; }
-@media (max-width: 768px) { .desktop-only { display: none !important; } }
-@media (min-width: 769px) { .mobile-only { display: none !important; } }
-.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-.hide-scrollbar::-webkit-scrollbar { display: none; }
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.animate-on-scroll.visible { animation: slideUp 0.5s ease forwards; }
-@media (hover: none) {
-    .btn:active, .icon-btn:active, .category-card:active, .product-card:active, .feature-card:active {
-        transform: scale(0.98) !important; transition: transform 0.1s ease;
-    }
-}
-
-/* ============================================
-   🎬 AWWWARDS UPGRADES - اضافه کن به انتهای style.css
-   ============================================ */
-
-/* ============================================
-   ✅ متن سینمایی - stagger + blur reveal
-   (بخش .cinematic-text رو با این جایگزین کن)
-============================================ */
-.cinematic-text {
-    position: absolute;
-    right: 8%;
-    bottom: 40%;
-    z-index: 1;
-    width: auto;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.8rem;
-    opacity: 0;
-    transform: translate3d(-400px, 150px, 0px) scale(0.9);
-    pointer-events: none;
-    will-change: transform, opacity;
-}
-
-/* ✅ بعد از triggerTextReveal() pointer-events فعال می‌شه */
-.cinematic-text[style*="opacity: 1"],
-.cinematic-text[style*="opacity:1"] {
-    pointer-events: auto;
-}
-
-/* ✅ حروف برای stagger animation */
-.cinematic-text .char {
-    display: inline-block;
-    transform-origin: center bottom;
-    backface-visibility: hidden;
-}
-
-.cinematic-text .word {
-    display: inline-block;
-    backface-visibility: hidden;
-}
-
-/* ✅ Badge - glass morphism */
-.cinematic-text .badge {
-    padding: 0.4rem 1rem;
-    background: rgba(0, 212, 255, 0.12);
-    border: 1px solid rgba(0, 212, 255, 0.35);
-    border-radius: 2rem;
-    color: var(--primary);
-    font-size: 0.8rem;
-    font-weight: 600;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-/* ✅ عنوان */
-.cinematic-text .title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 900;
-    line-height: 1.15;
-    background: linear-gradient(135deg, #fff 0%, #c0c8e0 50%, #8899cc 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin: 0;
-    text-align: right;
-    letter-spacing: -0.02em;
-}
-
-.cinematic-text .desc {
-    font-size: 0.92rem;
-    line-height: 1.8;
-    color: rgba(180, 190, 220, 0.85);
-    max-width: 360px;
-    text-align: right;
-    margin: 0;
-}
-
-/* ✅ دکمه خرید - magnetic + shine */
-.cinematic-text .btn-buy {
-    padding: 0.75rem 2rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    text-decoration: none;
-    border-radius: 3rem;
-    font-weight: 700;
-    font-size: 0.9rem;
-    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.3), 0 0 0 0 rgba(0, 212, 255, 0.4);
-    transition: box-shadow 0.3s ease, transform 0.1s ease;
-    pointer-events: auto;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    display: inline-block;
-}
-
-/* shine sweep روی دکمه */
-.cinematic-text .btn-buy::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-    transform: skewX(-20deg);
-    transition: none;
-}
-
-.cinematic-text .btn-buy:hover::before {
-    animation: btn-shine 0.6s ease forwards;
-}
-
-@keyframes btn-shine {
-    0%   { left: -100%; }
-    100% { left: 200%; }
-}
-
-.cinematic-text .btn-buy:hover {
-    box-shadow: 0 12px 40px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 212, 255, 0.2);
-}
-
-/* ============================================
-   ✅ Glow اطراف آیفون وقتی در مرکز است
-   (یک المان HTML overlay روی canvas)
-============================================ */
-.iphone-glow-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: 500px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0;
-    border-radius: 50%;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(0, 212, 255, 0.08) 0%,
-        rgba(112, 0, 255, 0.06) 40%,
-        transparent 70%
-    );
-    filter: blur(20px);
-    transition: opacity 0.5s ease;
-}
-
-.iphone-glow-overlay.visible {
-    opacity: 1;
-    animation: glow-pulse 2s ease-in-out infinite;
-}
-
-@keyframes glow-pulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
-    50%       { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-}
-
-/* ============================================
-   ✅ UFO ring lights pulse animation
-   (CSS-only fallback اگر Three.js نداشت)
-============================================ */
-@keyframes ring-pulse {
-    0%, 100% { opacity: 0.8; }
-    50%       { opacity: 0.3; }
-}
-
-/* ============================================
-   ✅ Loading spinner ارتقا یافته
-============================================ */
-#loader .loader-logo {
+.loader-logo {
+    font-size: 4rem; font-weight: 900; margin-bottom: 2.5rem;
     background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 4rem;
-    font-weight: 900;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
     animation: logo-breathe 1.5s ease-in-out infinite;
 }
+@keyframes logo-breathe { 0%, 100% { letter-spacing: 0; opacity: 1; } 50% { letter-spacing: 0.1em; opacity: 0.8; } }
+.loader-bar { width: 300px; height: 6px; background: rgba(255,255,255,0.1); border-radius: var(--radius-button); overflow: hidden; max-width: 90%; }
+.loader-progress { width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.3s; }
 
-@keyframes logo-breathe {
-    0%, 100% { letter-spacing: 0; opacity: 1; }
-    50%       { letter-spacing: 0.1em; opacity: 0.8; }
+.back-to-top {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; width: 3rem; height: 3rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none;
+    border-radius: var(--radius-circle); cursor: pointer; display: none;
+    align-items: center; justify-content: center; z-index: var(--z-sticky);
+    transition: all var(--transition); box-shadow: var(--shadow-neon);
+}
+.back-to-top:hover { transform: scale(1.1); box-shadow: var(--shadow-neon-strong); }
+.back-to-top:active { transform: scale(0.95); }
+
+.animate-on-scroll { opacity: 0; transform: translateY(1.875rem); transition: all 0.7s ease; }
+.animate-on-scroll.visible { opacity: 1; transform: translateY(0); animation: slideUp 0.5s ease forwards; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============================================================
+   🔟 کلاس‌های کمکی و مدیا کوئری‌های حداقلی
+============================================================ */
+body.modal-open { overflow: hidden; position: fixed; width: 100%; height: 100%; }
+.loading { position: relative; pointer-events: none; opacity: 0.7; }
+.loading::after { content: ''; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.1); }
+@keyframes highlight { 0%, 100% { background: transparent; } 50% { background: rgba(0, 212, 255, 0.2); } }
+.highlight-new { animation: highlight 1.5s ease; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+.shake { animation: shake 0.3s ease; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (prefers-reduced-motion: reduce) {
+    .cinematic-text, .cinematic-text .badge, .cinematic-text .title, .cinematic-text .desc, .cinematic-text .btn-buy {
+        animation: none !important; transition: none !important;
+    }
+}
+@supports (padding: max(0px)) {
+    .main-header { padding-top: max(0.5rem, env(safe-area-inset-top)); }
+    .main-footer { padding-bottom: max(1.875rem, env(safe-area-inset-bottom)); }
+    .back-to-top { bottom: max(1.5rem, calc(1.5rem + env(safe-area-inset-bottom))); }
 }
 
-/* ============================================
-   ✅ Cursor custom برای کانواس
-============================================ */
-#iphone-canvas {
+/* ============================================================
+   Neo Hero Carousel - پس‌زمینه زنده ابری با رنگ‌های آبی-بنفش-صورتی
+   با لایه رنگی مات برای هر محصول (بدون تغییر در حالت لایت)
+============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500&display=swap');
+
+.neo-hero {
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    perspective: 1400px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(125deg, #132a0a, #1a0a3a, #2a1040, #1a0a3a, #0a0a2a);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+/* ======= بک‌گراند و حاشیه رنگی مخصوص هر اسلاید (فقط در حالت فعال) ======= */
+.neo-slide {
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+/* آیفون - آبی */
+.neo-slide:first-child.active {
+    background: radial-gradient(circle at center, rgba(0,160,255,0.5), rgba(0,80,200,0.2));
+    box-shadow: 0 0 0 2px rgba(0,160,255,0.6), 0 0 30px rgba(0,160,255,0.4);
+}
+/* سامسونگ - بنفش */
+.neo-slide:nth-child(2).active {
+    background: radial-gradient(circle at center, rgba(140,0,255,0.5), rgba(70,0,140,0.2));
+    box-shadow: 0 0 0 2px rgba(140,0,255,0.6), 0 0 30px rgba(140,0,255,0.4);
+}
+/* لپ‌تاپ - قرمز/نارنجی */
+.neo-slide:nth-child(3).active {
+    background: radial-gradient(circle at center, rgba(255,70,30,0.5), rgba(180,20,0,0.2));
+    box-shadow: 0 0 0 2px rgba(255,70,30,0.6), 0 0 30px rgba(255,70,30,0.4);
+}
+@keyframes cloudMove {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+.neo-hero::after {
+    content: '';
     position: absolute;
     inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(0,150,255,0.08) 0%, transparent 60%);
+    background-size: 250% 250%;
+    animation: cloudShift 25s linear infinite;
+    pointer-events: none;
     z-index: 1;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='none' stroke='%2300d4ff' stroke-width='1.5' opacity='0.8'/%3E%3Ccircle cx='12' cy='12' r='2' fill='%2300d4ff'/%3E%3C/svg%3E") 12 12, grab;
 }
-
-#iphone-canvas.dragging {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%2300d4ff' stroke-width='1.5' opacity='0.8'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%2300d4ff'/%3E%3C/svg%3E") 12 12, grabbing;
+@keyframes cloudShift {
+    0% { background-position: 0% 0%; transform: scale(1); }
+    50% { background-position: 100% 100%; transform: scale(1.1); }
+    100% { background-position: 0% 0%; transform: scale(1); }
 }
-
-/* ✅ فقط خود تگ canvas غیرفعال شود */
-#iphone-canvas canvas {
-    pointer-events: none !important;
-    touch-action: pan-y !important;
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.iphone-hero {
-    perspective: 1200px;
-    transform-style: preserve-3d;
-}
-
-/* ============================================
-   ✅ Scanline overlay برای سینمایی‌تر شدن
-============================================ */
-.iphone-hero::after {
-    content: '';
+.neo-grid-bg {
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 0, 0, 0.015) 2px,
-        rgba(0, 0, 0, 0.015) 4px
-    );
-    pointer-events: none;
-    z-index: 3;
-    mix-blend-mode: multiply;
-}
-
-/* ============================================
-   ✅ Vignette روی بنر
-============================================ */
-.iphone-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        ellipse at center,
-        transparent 50%,
-        rgba(0, 0, 0, 0.4) 100%
-    );
-    pointer-events: none;
+    background-image: linear-gradient(rgba(0,150,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,150,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
     z-index: 2;
-    display: block !important;
+}
+.neo-scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,212,255,0.6), transparent);
+    animation: neoScan 4s linear infinite;
+    z-index: 3;
+    pointer-events: none;
+}
+@keyframes neoScan {
+    0% { top: -2px; opacity: 0; }
+    5% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+.neo-stage {
+    position: relative;
+    width: 1100px;
+    max-width: 95vw;
+    height: 620px;
+    transform-style: preserve-3d;
+    z-index: 10;
+}
+.neo-slide {
+    position: absolute;
+    width: 780px;
+    height: 500px;
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.75s cubic-bezier(0.34, 1.2, 0.64, 1);
+    left: 50%;
+    top: 50%;
+    margin-left: -390px;
+    margin-top: -250px;
+    background: #000;
+}
+.neo-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.6s ease;
+    background: #0a0a1a;
+}
+.neo-slide.active img {
+    transform: scale(1.02);
+}
+.neo-slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 55%, transparent 100%);
+}
+.neo-slide-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+}
+.neo-slide-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 22px 24px;
+    transform: translateY(6px);
+    opacity: 0;
+    transition: all 0.5s ease 0.35s;
+}
+.neo-slide.active .neo-slide-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+.neo-slide-badge {
+    display: inline-block;
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #00d4ff;
+    border: 1px solid rgba(0,212,255,0.5);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    background: rgba(0,212,255,0.12);
+}
+.neo-slide-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 15px rgba(0,0,0,0.7);
+}
+.neo-slide-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.9);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+}
+.neo-slide-shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 100%);
+    pointer-events: none;
+}
+.neo-slide-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+}
+.neo-slide.active {
+    transform: translateZ(90px) scale(1.05);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,212,255,0.25), 0 0 40px rgba(0,212,255,0.12);
+    z-index: 20;
+}
+.neo-slide.active .neo-slide-border {
+    border-color: rgba(0,212,255,0.4);
+}
+.neo-slide.prev1 {
+    transform: translateX(-400px) translateZ(-80px) rotateY(22deg) scale(0.82);
+    opacity: 0.8;
+    z-index: 5;
+    filter: brightness(0.65) saturate(0.85);
+}
+.neo-slide.prev2 {
+    transform: translateX(-620px) translateZ(-160px) rotateY(30deg) scale(0.65);
+    opacity: 0.4;
+    z-index: 3;
+    filter: brightness(0.45) saturate(0.7);
+}
+.neo-slide.next1 {
+    transform: translateX(400px) translateZ(-80px) rotateY(-22deg) scale(0.82);
+    opacity: 0.8;
+    z-index: 5;
+    filter: brightness(0.65) saturate(0.85);
+}
+.neo-slide.next2 {
+    transform: translateX(620px) translateZ(-160px) rotateY(-30deg) scale(0.65);
+    opacity: 0.4;
+    z-index: 3;
+    filter: brightness(0.45) saturate(0.7);
+}
+.neo-slide.hidden {
+    transform: translateX(850px) translateZ(-220px) scale(0.5);
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+.neo-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 35px;
+    position: relative;
+    z-index: 15;
+}
+.neo-progress-track {
+    width: 480px;
+    max-width: 85vw;
+    height: 2px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+.neo-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0080ff, #00d4ff);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+.neo-controls {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+.neo-nav-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,212,255,0.6);
+    background: rgba(0,212,255,0.15);
+    color: #00d4ff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-family: monospace;
+}
+.neo-nav-btn:hover {
+    background: rgba(0,212,255,0.35);
+    border-color: #00d4ff;
+    transform: scale(1.08);
+}
+.neo-nav-btn:active { transform: scale(0.95); }
+.neo-dots {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.neo-dots .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.neo-dots .dot.active {
+    width: 28px;
+    border-radius: 5px;
+    background: #00d4ff;
+}
+.neo-ctr {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    color: rgba(0,212,255,0.8);
+    letter-spacing: 2px;
+    min-width: 60px;
+    text-align: center;
+}
+/* ======= لایه رنگی مات برای هر محصول (فقط در حالت فعال) ======= */
+.neo-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+    pointer-events: none;
+    z-index: 6;
+    mix-blend-mode: soft-light;
+    border-radius: inherit;
+}
+/* آیفون - آبی */
+.neo-slide:nth-child(1)::before {
+    background: radial-gradient(circle at center, rgba(0,180,255,0.45), rgba(0,100,200,0.2));
+}
+/* سامسونگ - بنفش */
+.neo-slide:nth-child(2)::before {
+    background: radial-gradient(circle at center, rgba(160,0,255,0.45), rgba(80,0,160,0.2));
+}
+/* لپ‌تاپ - قرمز/نارنجی */
+.neo-slide:nth-child(3)::before {
+    background: radial-gradient(circle at center, rgba(255,80,40,0.45), rgba(200,30,0,0.2));
+}
+.neo-slide.active::before {
+    opacity: 0.65;
 }
 
-/* ============================================
-   ✅ رسپانسیو
-============================================ */
-@media (max-width: 768px) {
-    .cinematic-text {
-        right: 50%;
-        transform: translate3d(50%, 40px, 0) scale(0.85);
-        bottom: 12%;
-        align-items: center;
-    }
-    .cinematic-text .title,
-    .cinematic-text .desc {
-        text-align: center;
-    }
-    .iphone-glow-overlay {
-        width: 200px;
-        height: 340px;
-    }
+/* حذف هرگونه استایل متفاوت برای حالت روشن */
+body:not(.dark) .neo-hero,
+body.dark .neo-hero {
+    background: linear-gradient(125deg, #0a0a2a, #1a0a3a, #2a1040, #1a0a3a, #0a0a2a);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+/* ریسپانسیو */
+@media (max-width: 1000px) {
+    .neo-stage { width: 850px; height: 500px; }
+    .neo-slide { width: 600px; height: 380px; margin-left: -300px; margin-top: -190px; }
+    .neo-slide-title { font-size: 22px; }
+    .neo-slide-sub { font-size: 13px; }
+    .neo-slide.prev1 { transform: translateX(-300px) translateZ(-60px) scale(0.8); }
+    .neo-slide.next1 { transform: translateX(300px) translateZ(-60px) scale(0.8); }
+}
+@media (max-width: 700px) {
+    .neo-stage { width: 650px; height: 380px; }
+    .neo-slide { width: 460px; height: 290px; margin-left: -230px; margin-top: -145px; }
+    .neo-slide-title { font-size: 18px; }
+    .neo-slide-sub { font-size: 11px; }
+}
+@media (max-width: 550px) {
+    .neo-stage { width: 480px; height: 280px; }
+    .neo-slide { width: 340px; height: 210px; margin-left: -170px; margin-top: -105px; }
+    .neo-slide-title { font-size: 14px; }
 }
 
-/* ============================================
-   ✅ Performance - GPU layers
-============================================ */
-.cinematic-text,
-.cinematic-text .badge,
-.cinematic-text .title,
-.cinematic-text .desc,
-.cinematic-text .btn-buy {
-    will-change: transform, opacity, filter;
-    transform: translateZ(0);
+.neo-grid-bg {
+    display: none;
 }
->>>>>>> 26f214984788b0db3c973c167fbbe7635a8064a4
+
+.neo-scan-line {
+    display: none;
+}
+
+/* ======= در لایت مود، پس‌زمینه تصاویر سفید می‌شود ======= */
+body:not(.dark) .neo-slide img {
+    background: #ffffff !important;
+}
+/* همچنین برای اطمینان، اگر خود اسلاید هم پس‌زمینه تیره دارد، آن را هم سفید کنید */
+body:not(.dark) .neo-slide {
+    background: #ffffff;
+}

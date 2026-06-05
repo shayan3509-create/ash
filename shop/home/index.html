@@ -97,20 +97,62 @@
 
 <!-- Main Content -->
 <main>
-    <section class="iphone-hero">
-    <!-- لایه سه‌بعدی (زیر متن‌ها) -->
-    <div id="iphone-canvas"></div>
+    <!-- Hero Slider - Neo 3D Carousel (ساختار بنر جدید، بدون استایل داخلی) -->
+    <section class="neo-hero">
+        <div class="neo-grid-bg"></div>
+        <div class="neo-scan-line"></div>
+        <div class="neo-stage" id="neoStage">
+            <div class="neo-slide" data-i="0">
+                <img src="../../assets/images/iPhone-17-Pro-max.png" alt="iPhone 17 Pro Max">
+                <div class="neo-slide-top"></div>
+                <div class="neo-slide-overlay"></div>
+                <div class="neo-slide-shine"></div>
+                <div class="neo-slide-border"></div>
+                <div class="neo-slide-content">
+                    <div class="neo-slide-badge">Apple Event 2025</div>
+                    <div class="neo-slide-title">iPhone 17 Pro Max</div>
+                    <div class="neo-slide-sub">A19 Pro · تیتانیوم · دوربین 48MP</div>
+                </div>
+            </div>
+            <div class="neo-slide" data-i="1">
+                <img src="../../assets/images/Samsung-S25-Ultra.png" alt="Samsung Galaxy S25 Ultra">
+                <div class="neo-slide-top"></div>
+                <div class="neo-slide-overlay"></div>
+                <div class="neo-slide-shine"></div>
+                <div class="neo-slide-border"></div>
+                <div class="neo-slide-content">
+                    <div class="neo-slide-badge">Galaxy AI</div>
+                    <div class="neo-slide-title">S25 Ultra</div>
+                    <div class="neo-slide-sub">200MP · S Pen · 6000mAh</div>
+                </div>
+            </div>
+            <div class="neo-slide" data-i="2">
+                <img src="../../assets/images/ROG Zephyrus G16.png" alt="ASUS ROG Zephyrus G16">
+                <div class="neo-slide-top"></div>
+                <div class="neo-slide-overlay"></div>
+                <div class="neo-slide-shine"></div>
+                <div class="neo-slide-border"></div>
+                <div class="neo-slide-content">
+                    <div class="neo-slide-badge">ROG Dominator</div>
+                    <div class="neo-slide-title">ROG Zephyrus G16</div>
+                    <div class="neo-slide-sub">Ultra 9 · RTX 4090 · OLED 240Hz</div>
+                </div>
+            </div>
+        </div>
+        <div class="neo-bottom">
+            <div class="neo-progress-track">
+                <div class="neo-progress-fill" id="neoPf"></div>
+            </div>
+            <div class="neo-controls">
+                <button class="neo-nav-btn" id="neoPrev">‹</button>
+                <div class="neo-dots" id="neoDots"></div>
+                <span class="neo-ctr" id="neoCtr">01/03</span>
+                <button class="neo-nav-btn" id="neoNext">›</button>
+            </div>
+        </div>
+    </section>
 
-    <!-- لایه متنی (سمت راست، مخفی در ابتدا) -->
-    <div class="cinematic-text">
-        <span class="badge">آینده تکنولوژی</span>
-        <h1 class="title">iPhone 15 Pro Max</h1>
-        <p class="desc">
-            سریع‌ترین و قدرتمندترین آیفون تاریخ. تجربه‌ای فراتر از تصور با طراحی تیتانیومی، دوربین حرفه‌ای و قدرت بی‌نظیر.
-        </p>
-        <a href="#" class="btn-buy">خرید محصول</a>
-    </div>
-</section>
+    <!-- Rest of content (stats, categories, products, etc.) unchanged -->
     <div class="container">
         <div class="stats-section animate-on-scroll">
             <div class="stats-grid">
@@ -209,7 +251,6 @@
 <!-- Scripts -->
 <script src="../../assets/js/gsap.min.js"></script>
 <script src="../../assets/js/main.js"></script>
-<script type="module" src="../../assets/js/main3d.js"></script>
 
 </body>
 </html>
