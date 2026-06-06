@@ -155,10 +155,57 @@
     <div class="container">
         <div class="stats-section animate-on-scroll">
             <div class="stats-grid">
-                <div class="stat-card"><div class="counter-number" id="customersCount">0</div><div>مشتریان راضی</div></div>
-                <div class="stat-card"><div class="counter-number" id="productsCount">0</div><div>محصولات</div></div>
-                <div class="stat-card"><div class="counter-number" id="ordersCount">0</div><div>سفارشات موفق</div></div>
-                <div class="stat-card"><div class="counter-number" id="citiesCount">0</div><div>شهرهای تحت پوشش</div></div>
+                <!-- مشتریان راضی -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <path d="M16 3.128a4 4 0 0 1 0 7.744"/>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                            <circle cx="9" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="counter-number" id="customersCount">0</div>
+                    <div>مشتریان راضی</div>
+                </div>
+                <!-- محصولات -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M16 10a4 4 0 0 1-8 0"/>
+                            <path d="M3.103 6.034h17.794"/>
+                            <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/>
+                        </svg>
+                    </div>
+                    <div class="counter-number" id="productsCount">0</div>
+                    <div>محصولات</div>
+                </div>
+                <!-- سفارشات موفق -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 22V12"/>
+                            <path d="m16 17 2 2 4-4"/>
+                            <path d="M21 11.127V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l1.32-.753"/>
+                            <path d="M3.29 7 12 12l8.71-5"/>
+                            <path d="m7.5 4.27 8.997 5.148"/>
+                        </svg>
+                    </div>
+                    <div class="counter-number" id="ordersCount">0</div>
+                    <div>سفارشات موفق</div>
+                </div>
+                <!-- شهرهای تحت پوشش -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M19.43 12.935c.357-.967.57-1.955.57-2.935a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32.197 32.197 0 0 0 .813-.728"/>
+                            <circle cx="12" cy="10" r="3"/>
+                            <path d="m16 18 2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="counter-number" id="citiesCount">0</div>
+                    <div>شهرهای تحت پوشش</div>
+                </div>
             </div>
         </div>
 
@@ -170,7 +217,7 @@
             <div class="categories-grid" id="categoriesGrid"></div>
         </section>
 
-        <!-- ========== بخش محصولات ویژه (جایگزین شده با کاروسل سه‌بعدی) ========== -->
+        <!-- ========== بخش محصولات ویژه با کاروسل سه‌بعدی (نسخه نهایی با تمام اصلاحات) ========== -->
         <section class="section animate-on-scroll">
             <div class="section-header">
                 <h2 class="section-title">محصولات ویژه</h2>
@@ -179,81 +226,72 @@
 
             <div class="spectrum-stage">
                 <div class="spectrum-carousel" id="spectrumCarousel">
-                    <!-- کارت 1: iPhone -->
+                    <!-- کارت 1: آیفون ۱۷ پرو مکس -->
                     <div class="spectrum-card card-iphone" data-index="0">
-                        <div class="card-visual">
-                            <div class="shape shape-a"></div>
-                            <div class="shape shape-b"></div>
-                        </div>
+                        <img class="product-img-card" src="https://www.technolife.com/image/small_product-TLP-149697_e49566d8-244f-415b-a227-f7345502170a.png" alt="iPhone 17 Pro Max">
                         <div class="card-num">01</div>
                         <div class="card-info">
-                            <div class="card-tag">Apple Event 2025</div>
-                            <div class="card-title">iPhone 17 Pro Max</div>
-                            <div class="card-sub">A19 Pro · تیتانیوم · دوربین 48MP</div>
+                            <div class="card-tag">اپل ۲۰۲۵</div>
+                            <div class="card-title">آیفون ۱۷ پرو مکس</div>
+                            <div class="card-sub">تراشه A19 Pro · تیتانیوم · دوربین ۴۸ مگاپیکسل</div>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
-                    <!-- کارت 2: Samsung -->
+                    <!-- کارت 2: سامسونگ S25 اولترا -->
                     <div class="spectrum-card card-samsung" data-index="1">
-                        <div class="card-visual">
-                            <div class="shape shape-a"></div>
-                            <div class="shape shape-b"></div>
-                        </div>
+                        <img class="product-img-card" src="https://www.technolife.com/image/color_image_TLP-69015_64635f_9247c9f2-157c-4dac-a724-7ca8ff1fb353.png" alt="Samsung S25 Ultra">
                         <div class="card-num">02</div>
                         <div class="card-info">
-                            <div class="card-tag">Galaxy AI</div>
-                            <div class="card-title">Samsung S25 Ultra</div>
-                            <div class="card-sub">200MP · S Pen · 6000mAh</div>
+                            <div class="card-tag">هوش مصنوعی گلکسی</div>
+                            <div class="card-title">سامسونگ S25 اولترا</div>
+                            <div class="card-sub">۲۰۰ مگاپیکسل · قلم S Pen · باتری ۶۰۰۰ میلی‌آمپر</div>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
-                    <!-- کارت 3: ASUS Laptop -->
+                    <!-- کارت 3: لپ‌تاپ ایسوس ROG -->
                     <div class="spectrum-card card-laptop" data-index="2">
-                        <div class="card-visual">
-                            <div class="shape shape-a"></div>
-                            <div class="shape shape-b"></div>
-                        </div>
+                        <img class="product-img-card" src="https://www.yasertebat.com/public/images/products/rog-zephyrus-g16-gu603zv-1.jpg" alt="ASUS ROG Zephyrus G16">
                         <div class="card-num">03</div>
                         <div class="card-info">
-                            <div class="card-tag">ROG Dominator</div>
-                            <div class="card-title">ROG Zephyrus G16</div>
-                            <div class="card-sub">Ultra 9 · RTX 4090 · OLED 240Hz</div>
+                            <div class="card-tag">سلطان گیمرها</div>
+                            <div class="card-title">ایسوس ROG Zephyrus G16</div>
+                            <div class="card-sub">Intel Core Ultra 9 · RTX 4090 · OLED 240Hz</div>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
-                    <!-- کارت 4: Sony Headphone -->
+                    <!-- کارت 4: هدفون سونی -->
                     <div class="spectrum-card card-sony" data-index="3">
-                        <div class="card-visual">
-                            <div class="shape shape-a"></div>
-                            <div class="shape shape-b"></div>
-                        </div>
+                        <img class="product-img-card" src="https://www.technolife.com/image/color_image_TLP-38845_cfcfcf_946f367b-4437-4f03-83e1-950389a1ff7e.png" alt="Sony WH-1000XM5">
                         <div class="card-num">04</div>
                         <div class="card-info">
-                            <div class="card-tag">Premium Audio</div>
-                            <div class="card-title">Sony WH-1000XM5</div>
-                            <div class="card-sub">Noise Cancelling · 30h Battery</div>
+                            <div class="card-tag">صدای بی‌نظیر</div>
+                            <div class="card-title">سونی WH-1000XM5</div>
+                            <div class="card-sub">حذف نویز فعال · ۳۰ ساعت شارژدهی</div>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
-                    <!-- کارت 5: Apple Watch -->
+                    <!-- کارت 5: اپل واچ سری ۹ -->
                     <div class="spectrum-card card-watch" data-index="4">
-                        <div class="card-visual">
-                            <div class="shape shape-a"></div>
-                            <div class="shape shape-b"></div>
-                        </div>
+                        <img class="product-img-card" src="https://www.technolife.com/image/small_product-TLP-29470_b69ea1ed-9650-4980-9a48-7117ac58d821.png" alt="Apple Watch Series 9">
                         <div class="card-num">05</div>
                         <div class="card-info">
-                            <div class="card-tag">Wearable Tech</div>
-                            <div class="card-title">Apple Watch Series 9</div>
-                            <div class="card-sub">Always-On · S9 SiP</div>
+                            <div class="card-tag">پوشیدنی هوشمند</div>
+                            <div class="card-title">اپل واچ سری ۹</div>
+                            <div class="card-sub">صفحه همیشه روشن · تراشه S9</div>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
                 </div>
             </div>
+
             <div class="spectrum-controls">
                 <div class="spectrum-counter"><span id="curNumSp">01</span> / 05</div>
-                <button class="spectrum-btn" id="prevBtnSp"><span>‹</span></button>
+                <button class="spectrum-btn" id="nextBtnSp"><span>‹</span></button>
                 <div class="spectrum-dots" id="dotsSp">
                     <div class="dot active" data-i="0"></div>
                     <div class="dot" data-i="1"></div>
@@ -261,8 +299,9 @@
                     <div class="dot" data-i="3"></div>
                     <div class="dot" data-i="4"></div>
                 </div>
-                <button class="spectrum-btn" id="nextBtnSp"><span>›</span></button>
-                <div class="spectrum-counter" id="autoLabelSp">AUTO</div>
+                
+                <button class="spectrum-btn" id="prevBtnSp"><span>›</span></button>
+                <div class="spectrum-counter" id="autoLabelSp">خودکار</div>
             </div>
         </section>
         <!-- ========== پایان محصولات ویژه ========== -->
@@ -282,15 +321,7 @@
         </div>
     </section>
 
-    <div class="container">
-        <section class="section animate-on-scroll">
-            <div class="section-header">
-                <h2 class="section-title">پرفروش‌ترین محصولات</h2>
-                <p class="section-desc">محصولاتی که دیگران خریدند</p>
-            </div>
-            <div class="products-grid" id="bestsellerProducts"></div>
-        </section>
-    </div>
+    
 
     <section class="features-section animate-on-scroll">
         <div class="container">

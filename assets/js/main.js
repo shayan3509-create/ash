@@ -9,12 +9,12 @@ let isEnglish = window.location.pathname.includes('en.html') || window.location.
 
 // ---------- دیتاهای دو زبانه ----------
 const categoriesData = [
-    { nameFa: 'موبایل', nameEn: 'Mobile', count: 1243, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="18"></line></svg>' },
-    { nameFa: 'لپ‌تاپ', nameEn: 'Laptop', count: 856, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="4" y="4" width="16" height="12" rx="2" ry="2"></rect><line x1="2" y1="20" x2="22" y2="20"></line></svg>' },
-    { nameFa: 'هدفون', nameEn: 'Headphone', count: 432, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>' },
-    { nameFa: 'ساعت هوشمند', nameEn: 'Smart Watch', count: 321, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 13.5 13.5"></polyline><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"></path></svg>' },
-    { nameFa: 'تبلت', nameEn: 'Tablet', count: 245, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="18"></line></svg>' },
-    { nameFa: 'لوازم جانبی', nameEn: 'Accessories', count: 1876, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path><line x1="8" y1="8" x2="4" y2="12"></line><line x1="12" y1="4" x2="8" y2="8"></line></svg>' }
+    { nameFa: 'موبایل', nameEn: 'Mobile', count: 1243, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>' },
+    { nameFa: 'لپ‌تاپ', nameEn: 'Laptop', count: 856, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z"/><path d="M20.054 15.987H3.946"/></svg>' },
+    { nameFa: 'هدفون', nameEn: 'Headphone', count: 432, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>' },
+    { nameFa: 'ساعت هوشمند', nameEn: 'Smart Watch', count: 321, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><polyline points="12 9 12 12 13.5 13.5"/><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"/></svg>' },
+    { nameFa: 'تبلت', nameEn: 'Tablet', count: 245, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>' },
+    { nameFa: 'لوازم جانبی', nameEn: 'Accessories', count: 1876, icon: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19v-3m4 3v-3m4 3v-3m4 3v-3M8 11V9m8 2V9m-4 2V9M2 15h20M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.1a2 2 0 0 0 0 3.837V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5.1a2 2 0 0 0 0-3.837Z"/></svg>' }
 ];
 
 const productsData = [
@@ -405,9 +405,8 @@ const style = document.createElement('style');
 style.textContent = `@keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }`;
 document.head.appendChild(style);
 
-
 // ============================================================
-// اسکریپت کاروسل سه‌بعدی اسپکتروم (برای محصولات ویژه)
+// اسکریپت کاروسل سه‌بعدی اسپکتروم (اصلاح شده برای RTL و بدون تیلت)
 // ============================================================
 (function() {
     const cards = document.querySelectorAll('.spectrum-card');
@@ -491,8 +490,14 @@ document.head.appendChild(style);
         setTimeout(() => { isAnimating = false; }, 900);
     }
 
+    // اصلاح جهت دکمه‌ها برای RTL: قبلی (prev) باید برود به قبلی، بعدی (next) به بعدی
+    // اما فلش‌ها را خودمان در HTML عوض کرده‌ایم. در اینجا منطق حرکت را معکوس نمی‌کنیم،
+    // فقط دکمه prev باید current-1 و دکمه next باید current+1 برود (همان منطق عادی).
+    // در HTML ما دکمه prev را با فلش راست و دکمه next را با فلش چپ نشان داده‌ایم.
+    // بنابراین همان منطق عادی کار می‌کند.
     if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
     if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+    
     if (dots.length) {
         dots.forEach(dot => {
             dot.addEventListener('click', () => goTo(parseInt(dot.dataset.i)));
@@ -503,37 +508,24 @@ document.head.appendChild(style);
             if (i !== current) goTo(i);
         });
     });
-    // پشتیبانی از کیبورد
+    // پشتیبانی از کیبورد (جهت RTL: راست یعنی قبلی، چپ یعنی بعدی)
     document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight') goTo(current + 1);
-        if (e.key === 'ArrowLeft') goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current - 1);
+        if (e.key === 'ArrowLeft') goTo(current + 1);
     });
-    // درگ لمسی برای کاروسل
+    // درگ لمسی (بدون تغییر)
     if (carousel) {
         let dragStartX = null;
         carousel.addEventListener('pointerdown', e => { dragStartX = e.clientX; });
         carousel.addEventListener('pointerup', e => {
             if (dragStartX === null) return;
             const dx = e.clientX - dragStartX;
-            if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+            if (Math.abs(dx) > 50) dx > 0 ? goTo(current - 1) : goTo(current + 1); // برای RTL
             dragStartX = null;
         });
     }
-    // افکت تیلت موس روی کارت فعال
-    document.addEventListener('mousemove', e => {
-        const activeCard = cards[current];
-        if (!activeCard) return;
-        const rect = activeCard.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const dx = (e.clientX - cx) / (rect.width / 2);
-        const dy = (e.clientY - cy) / (rect.height / 2);
-        const maxTilt = 8;
-        const base = getCardTransform(0);
-        activeCard.style.transition = 'transform 0.15s ease';
-        activeCard.style.transform = `translateX(${base.x}px) translateZ(${base.z}px) rotateY(${base.ry + dx * maxTilt}deg) rotateX(${-dy * maxTilt}deg) scale(${base.scale})`;
-    });
-    document.addEventListener('mouseleave', () => render(true));
+    // ========== حذف افکت تیلت موس (دیگر کارت‌ها به موس نگاه نمی‌کنند) ==========
+    // تمام کدهای مربوط به mousemove حذف شده است.
 
     // مقداردهی اولیه
     render(false);
