@@ -33,6 +33,12 @@
             --text-primary: #f1f5f9; --text-secondary: #cbd5e1; --text-muted: #94a3b8;
             --border: #334155;
         }
+        body.dark .filter-select { color: #f1f5f9 !important; background: #1e293b !important; }
+        body.dark .filter-select option { background: #1e293b; color: #f1f5f9; }
+        body.dark .search-box input { color: #f1f5f9 !important; }
+        body.dark .search-box input::placeholder { color: #94a3b8 !important; opacity: 1; }
+        body.dark td select { color: #f1f5f9 !important; background: #1e293b !important; }
+        body.dark td select option { background: #1e293b; color: #f1f5f9; }
 
         html { overflow-x: hidden; overflow-y: auto; }
         body { scrollbar-width: thin; scrollbar-color: var(--border) transparent; overflow-x: hidden; }
@@ -91,51 +97,26 @@
 
         .page-content { padding: 24px; max-width: 1200px; margin: 0 auto; }
 
-        .card { background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; margin-bottom: 20px; transition: all 0.25s ease; }
-        .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+        .card { background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; margin-bottom: 20px; }
         .card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
         .card-title { font-size: 15px; font-weight: bold; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
-        .card-body { padding: 16px; }
 
-        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
-        .stat-card { background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border); padding: 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.25s ease; transform: translateY(0); }
-        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: var(--primary); }
-        .stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.2s ease; }
-        .stat-card:hover .stat-icon { transform: scale(1.1); }
-        .stat-icon svg { width: 18px; height: 18px; stroke: white; }
-        .stat-info .stat-value { font-size: 18px; font-weight: bold; color: var(--text-primary); }
-        .stat-info .stat-label { font-size: 11px; color: var(--text-muted); }
-
-        .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+        .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 16px 20px; }
         .filter-select { padding: 8px 14px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Vazir', sans-serif; font-size: 12px; background: var(--bg-surface); color: var(--text-primary); cursor: pointer; transition: all 0.2s ease; }
         .filter-select:focus { outline: none; border-color: #0d47a1; }
         .filter-select:hover { border-color: #0d47a1; }
-        body.dark .filter-select { color: #f1f5f9; background: #1e293b; }
 
         .search-box { display: flex; align-items: center; gap: 8px; background: var(--bg-surface); border-radius: 40px; padding: 7px 14px; border: 1px solid var(--border); flex: 1; min-width: 180px; transition: all 0.2s ease; }
         .search-box:focus-within { border-color: #0d47a1; box-shadow: 0 0 0 3px rgba(13,71,161,0.06); }
         .search-box input { border: none; background: transparent; font-family: 'Vazir', sans-serif; font-size: 12px; color: var(--text-primary); outline: none; width: 100%; }
-        body.dark .search-box input { color: #f1f5f9 !important; }
-        body.dark .search-box input::placeholder { color: #94a3b8 !important; opacity: 1; }
-
-        .btn { padding: 7px 14px; border-radius: 8px; font-family: 'Vazir', sans-serif; font-weight: bold; font-size: 11px; cursor: pointer; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; gap: 5px; transform: translateY(0); }
-        .btn:hover { transform: translateY(-2px); }
-        .btn-primary { background: #0d47a1; color: white; }
-        .btn-primary:hover { background: #0a3a82; }
-        .btn-outline { background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border); }
-        .btn-outline:hover { background: var(--border); }
-        .btn-danger { background: #ef4444; color: white; }
-        .btn-danger:hover { background: #dc2626; }
 
         .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
-        table { width: 100%; border-collapse: collapse; min-width: 850px; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
         th { text-align: right; padding: 10px 12px; font-size: 11px; font-weight: bold; color: var(--text-muted); border-bottom: 2px solid var(--border); background: var(--bg-surface); white-space: nowrap; cursor: pointer; user-select: none; }
         th:hover { color: var(--primary); }
         th .sort-icon { margin-right: 4px; font-size: 10px; }
-        td { padding: 10px 12px; font-size: 12px; color: var(--text-primary); border-bottom: 1px solid var(--border); white-space: nowrap; cursor: pointer; transition: background 0.15s ease; }
+        td { padding: 10px 12px; font-size: 12px; color: var(--text-primary); border-bottom: 1px solid var(--border); white-space: nowrap; }
         tr:hover td { background: rgba(13,71,161,0.03); }
-        tr { transition: transform 0.2s ease; }
-        tbody tr:hover { transform: translateX(-2px); }
 
         .badge-status { padding: 4px 10px; border-radius: 16px; font-size: 10px; font-weight: bold; display: inline-block; }
         .badge-pending { background: rgba(245,158,11,0.1); color: #f59e0b; }
@@ -147,34 +128,17 @@
         .badge-returned { background: rgba(100,116,139,0.1); color: #64748b; }
         .badge-cancelled { background: rgba(239,68,68,0.1); color: #ef4444; }
 
+        .tracking-code { color: var(--primary); cursor: pointer; font-size: 11px; }
+        .tracking-code:hover { text-decoration: underline; }
+
+        .action-btn { width: 28px; height: 28px; border-radius: 6px; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; background: var(--bg-surface); color: var(--text-secondary); text-decoration: none; transition: var(--transition); }
+        .action-btn:hover { background: rgba(13,71,161,0.1); color: #0d47a1; }
+        .action-btn svg { width: 12px; height: 12px; }
+
         .pagination { display: flex; justify-content: center; gap: 6px; padding: 16px; }
-        .page-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; font-family: 'Vazir', sans-serif; font-weight: bold; font-size: 12px; color: var(--text-primary); transition: all 0.2s ease; transform: translateY(0); }
-        .page-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .page-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; font-family: 'Vazir', sans-serif; font-weight: bold; font-size: 12px; color: var(--text-primary); }
         .page-btn.active { background: #0d47a1; color: white; border-color: #0d47a1; }
         .no-result { text-align: center; padding: 30px; color: var(--text-muted); display: none; }
-
-        .custom-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 200; opacity: 0; visibility: hidden; transition: 0.2s; }
-        .custom-modal.show { opacity: 1; visibility: visible; }
-        .modal-box { background: var(--bg-card); border-radius: 20px; padding: 24px; width: 600px; max-width: 94%; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-        .modal-box h3 { font-size: 17px; margin-bottom: 16px; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
-        .modal-box .detail-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
-        .modal-box .detail-row .dl { color: var(--text-muted); }
-        .modal-box .detail-row .dv { color: var(--text-primary); font-weight: 500; }
-        .modal-box .product-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 12px; border-bottom: 1px dashed var(--border); }
-        .modal-box select { padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Vazir', sans-serif; font-size: 12px; background: var(--bg-surface); color: var(--text-primary); }
-        .modal-box input { padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Vazir', sans-serif; font-size: 12px; background: var(--bg-surface); color: var(--text-primary); flex: 1; }
-        .modal-box input:focus, .modal-box select:focus { outline: none; border-color: #0d47a1; }
-        body.dark .modal-box input, body.dark .modal-box select { color: #f1f5f9; background: #1e293b; }
-
-        .modal-btns { display: flex; gap: 10px; margin-top: 16px; }
-        .modal-btns button { flex: 1; padding: 11px; border-radius: 12px; border: none; font-family: 'Vazir', sans-serif; font-weight: bold; font-size: 13px; cursor: pointer; transition: 0.2s; }
-        .modal-btn-danger { background: #ef4444; color: white; }
-        .modal-btn-cancel { background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border); }
-        .modal-btn-primary { background: #0d47a1; color: white; }
-
-        .copy-btn { width: 28px; height: 28px; border-radius: 6px; border: none; background: var(--bg-surface); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: var(--transition); flex-shrink: 0; }
-        .copy-btn:hover { background: rgba(13,71,161,0.1); color: #0d47a1; }
-        .copy-btn svg { width: 12px; height: 12px; }
 
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 99; }
         .sidebar-overlay.show { display: block; }
@@ -193,15 +157,12 @@
             .filter-row { flex-direction: column; }
             .filter-select { width: 100%; }
             .search-box { width: 100%; }
-            .stats-row { grid-template-columns: 1fr 1fr; }
-            .stat-card:hover { transform: translateY(-2px); }
             .table-wrap { overflow-x: visible; }
             table { min-width: 100%; }
             table thead { display: none; }
-            table tbody tr { display: block; margin-bottom: 8px; border: 1px solid var(--border); border-radius: 12px; padding: 8px; background: var(--bg-card); }
-            table tbody tr:hover { transform: translateX(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-            table tbody td { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: none; white-space: normal; font-size: 11px; cursor: pointer; }
-            table tbody td::before { content: attr(data-label); font-weight: bold; color: var(--text-muted); font-size: 10px; margin-left: 6px; flex-shrink: 0; }
+            table tbody tr { display: block; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 12px; padding: 10px; background: var(--bg-card); }
+            table tbody td { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: none; white-space: normal; font-size: 11px; }
+            table tbody td::before { content: attr(data-label); font-weight: bold; color: var(--text-muted); font-size: 10px; margin-left: 8px; flex-shrink: 0; }
         }
     </style>
 </head>
@@ -229,51 +190,18 @@
         </header>
 
         <div class="page-content">
-            <div class="stats-row">
-                <div class="stat-card" onclick="filterByStatus('')"><div class="stat-icon" style="background:#0d47a1;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="stat-info"><div class="stat-value" id="statTotal">0</div><div class="stat-label">کل سفارشات</div></div></div>
-                <div class="stat-card" onclick="filterByStatus('processing')"><div class="stat-icon" style="background:#8b5cf6;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div><div class="stat-info"><div class="stat-value" id="statProcessing">0</div><div class="stat-label">در حال پردازش</div></div></div>
-                <div class="stat-card" onclick="filterByStatus('return_requested')"><div class="stat-icon" style="background:#f97316;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div><div class="stat-info"><div class="stat-value" id="statReturnReq">0</div><div class="stat-label">درخواست مرجوعی</div></div></div>
-                <div class="stat-card" onclick="filterByStatus('shipped')"><div class="stat-icon" style="background:#06b6d4;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="stat-info"><div class="stat-value" id="statShipped">0</div><div class="stat-label">ارسال شده</div></div></div>
-            </div>
-
             <div class="card">
                 <div class="card-header">
                     <span class="card-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d47a1" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>سفارشات (<span id="orderCount">0</span>)</span>
                 </div>
-                <div class="card-body">
-                    <div class="filter-row">
-                        <div class="search-box"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="searchInput" placeholder="جستجوی کد سفارش یا نام مشتری..."></div>
-                        <select class="filter-select" id="filterStatus"><option value="">همه وضعیت‌ها</option><option value="pending">در انتظار پرداخت</option><option value="confirmed">تایید شده</option><option value="processing">در حال پردازش</option><option value="shipped">ارسال شده</option><option value="delivered">تحویل داده شده</option><option value="return_requested">درخواست مرجوعی</option><option value="returned">مرجوعی تایید شده</option><option value="cancelled">لغو شده</option></select>
-                        <select class="filter-select" id="filterPayment"><option value="">همه روش‌های پرداخت</option><option value="online">آنلاین</option><option value="card">کارت به کارت</option><option value="cash">پرداخت در محل</option></select>
-                    </div>
+                <div class="filter-row">
+                    <div class="search-box"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="searchInput" placeholder="جستجوی کد سفارش یا نام مشتری..."></div>
+                    <select class="filter-select" id="filterStatus"><option value="">همه وضعیت‌ها</option><option value="pending">در انتظار پرداخت</option><option value="confirmed">تایید شده</option><option value="processing">در حال پردازش</option><option value="shipped">ارسال شده</option><option value="delivered">تحویل داده شده</option><option value="return_requested">درخواست مرجوعی</option><option value="returned">مرجوعی تایید شده</option><option value="cancelled">لغو شده</option></select>
+                    <select class="filter-select" id="filterPayment"><option value="">همه روش‌های پرداخت</option><option value="online">آنلاین</option><option value="card">کارت به کارت</option><option value="cash">پرداخت در محل</option></select>
                 </div>
-                <div class="table-wrap"><table><thead><tr><th onclick="sortTable('orderCode')">کد سفارش <span class="sort-icon" id="sort-orderCode"></span></th><th>مشتری</th><th>محصولات</th><th onclick="sortTable('finalPrice')">مبلغ <span class="sort-icon" id="sort-finalPrice"></span></th><th>وضعیت</th><th onclick="sortTable('createdAt')">تاریخ <span class="sort-icon" id="sort-createdAt"></span></th></tr></thead><tbody id="ordersTable"></tbody></table></div>
+                <div class="table-wrap"><table><thead><tr><th onclick="sortTable('orderCode')">کد سفارش <span class="sort-icon" id="sort-orderCode"></span></th><th>مشتری</th><th>محصولات</th><th onclick="sortTable('finalPrice')">مبلغ <span class="sort-icon" id="sort-finalPrice"></span></th><th>وضعیت</th><th>کد رهگیری</th><th onclick="sortTable('createdAt')">تاریخ <span class="sort-icon" id="sort-createdAt"></span></th><th>عملیات</th></tr></thead><tbody id="ordersTable"></tbody></table></div>
                 <div class="no-result" id="noResult">هیچ سفارشی یافت نشد</div>
                 <div class="pagination" id="pagination"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ORDER DETAIL MODAL -->
-    <div class="custom-modal" id="orderModal">
-        <div class="modal-box">
-            <h3 id="orderModalTitle">جزئیات سفارش</h3>
-            <div id="orderDetailContent"></div>
-            <div class="modal-btns">
-                <button class="modal-btn-cancel" onclick="closeOrderModal()">بستن</button>
-                <button class="modal-btn-danger" id="deleteOrderBtn" style="display:none;" onclick="confirmDeleteOrder()">حذف سفارش</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- DELETE MODAL -->
-    <div class="custom-modal" id="deleteModal">
-        <div class="modal-box" style="text-align:center;">
-            <h3>حذف سفارش</h3>
-            <p id="deleteText">آیا از حذف این سفارش مطمئن هستید؟</p>
-            <div class="modal-btns">
-                <button class="modal-btn-cancel" onclick="closeDeleteModal()">انصراف</button>
-                <button class="modal-btn-danger" id="deleteConfirmBtn">حذف</button>
             </div>
         </div>
     </div>
@@ -281,8 +209,8 @@
     <script>
         if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 
-        let orders = [], filtered = [], page = 1, perPage = 10;
-        let activeOrderId = null, deleteOrderId = null, sortKey = 'createdAt', sortDir = 'desc';
+        let orders = [], filtered = [], page = 1, perPage = 5;
+        let sortKey = 'createdAt', sortDir = 'desc';
 
         const statuses = {
             pending: 'در انتظار پرداخت', confirmed: 'تایید شده', processing: 'در حال پردازش',
@@ -290,63 +218,38 @@
             return_requested: 'درخواست مرجوعی', returned: 'مرجوعی تایید شده', cancelled: 'لغو شده'
         };
 
-        const paymentMethods = { online: 'آنلاین', card: 'کارت به کارت', cash: 'پرداخت در محل' };
-        const paymentStatuses = { paid: 'پرداخت شده', unpaid: 'پرداخت نشده', refunded: 'مسترد شده' };
-
         const defaultOrders = [
-            { id:1, orderCode:'NEO-1402-0001', userId:4, userName:'نیلوفر حسینی', products:[{name:'گوشی شیائومی Redmi Note 13', price:12500000, qty:1},{name:'هدفون بی‌سیم سامسونگ', price:4500000, qty:2}], totalPrice:21500000, discount:2000000, finalPrice:19500000, status:'delivered', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'تهران، خیابان ولیعصر، کوچه بهار، پلاک ۱۲', trackingCode:'202512345678', notes:'', createdAt:'2025-01-05 10:30', updatedAt:'2025-01-10 14:20' },
-            { id:2, orderCode:'NEO-1402-0002', userId:6, userName:'زهرا مرادی', products:[{name:'لپ‌تاپ ایسوس Vivobook 15', price:28500000, qty:1}], totalPrice:28500000, discount:0, finalPrice:28500000, status:'processing', paymentMethod:'card', paymentStatus:'paid', shippingAddress:'اصفهان، خیابان چهارباغ، ساختمان آرش', trackingCode:'', notes:'مشتری درخواست بسته‌بندی کادویی داده', createdAt:'2025-01-06 14:00', updatedAt:'2025-01-07 09:30' },
-            { id:3, orderCode:'NEO-1402-0003', userId:9, userName:'پوریا اکبری', products:[{name:'ساعت هوشمند اپل واچ SE', price:18000000, qty:1},{name:'پاور بانک انرجایزر', price:1800000, qty:1}], totalPrice:19800000, discount:1000000, finalPrice:18800000, status:'shipped', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'مشهد، بلوار احمدآباد، نبش کوچه ۸', trackingCode:'9876543210', notes:'', createdAt:'2025-01-07 11:20', updatedAt:'2025-01-08 16:00' },
-            { id:4, orderCode:'NEO-1402-0004', userId:10, userName:'نگار صادقی', products:[{name:'تبلت سامسونگ Galaxy Tab A8', price:14500000, qty:1}], totalPrice:14500000, discount:0, finalPrice:14500000, status:'pending', paymentMethod:'cash', paymentStatus:'unpaid', shippingAddress:'تبریز، خیابان شریعتی، مجتمع تجاری اطلس', trackingCode:'', notes:'', createdAt:'2025-01-08 09:00', updatedAt:'2025-01-08 09:00' },
-            { id:5, orderCode:'NEO-1402-0005', userId:12, userName:'الناز رحیمی', products:[{name:'مانیتور ال‌جی 27 اینچ', price:22000000, qty:1},{name:'کیبورد مکانیکی Logitech', price:3200000, qty:1},{name:'ماوس بی‌سیم ریزر', price:5800000, qty:1}], totalPrice:31000000, discount:5000000, finalPrice:26000000, status:'return_requested', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'شیراز، شهرک آرین، فاز ۲', trackingCode:'5678901234', notes:'مشتری میگه مانیتور پیکسل سوخته داره', createdAt:'2025-01-03 15:00', updatedAt:'2025-01-09 10:00' },
-            { id:6, orderCode:'NEO-1402-0006', userId:5, userName:'امیر کریمی', products:[{name:'اسپیکر بلوتوثی JBL Flip 6', price:8900000, qty:2},{name:'هارد اکسترنال وسترن', price:6200000, qty:1}], totalPrice:24000000, discount:2400000, finalPrice:21600000, status:'delivered', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'کرج، مهرشهر، بلوار ارم', trackingCode:'1234567890', notes:'', createdAt:'2025-01-02 08:30', updatedAt:'2025-01-06 12:00' },
-            { id:7, orderCode:'NEO-1402-0007', userId:11, userName:'فرهاد جعفری', products:[{name:'گوشی آیفون 15 پرو مکس', price:65000000, qty:1}], totalPrice:65000000, discount:0, finalPrice:65000000, status:'confirmed', paymentMethod:'card', paymentStatus:'paid', shippingAddress:'اهواز، کیانپارس، خیابان ۱۲', trackingCode:'', notes:'تماس گرفته بشه قبل از ارسال', createdAt:'2025-01-09 13:00', updatedAt:'2025-01-09 13:30' },
-            { id:8, orderCode:'NEO-1402-0008', userId:2, userName:'سارا احمدی', products:[{name:'هدفون بی‌سیم سامسونگ', price:4500000, qty:3}], totalPrice:13500000, discount:1500000, finalPrice:12000000, status:'cancelled', paymentMethod:'online', paymentStatus:'refunded', shippingAddress:'قم، خیابان صفاییه', trackingCode:'', notes:'مشتری پشیمون شده', createdAt:'2025-01-01 10:00', updatedAt:'2025-01-02 11:00' },
-            { id:9, orderCode:'NEO-1402-0009', userId:3, userName:'محمد رضایی', products:[{name:'لپ‌تاپ ایسوس Vivobook 15', price:28500000, qty:2}], totalPrice:57000000, discount:7000000, finalPrice:50000000, status:'returned', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'یزد، بلوار شهید صدوقی', trackingCode:'', notes:'مرجوعی کامل - اشتباه در سفارش', createdAt:'2025-01-04 09:00', updatedAt:'2025-01-08 17:00' },
-            { id:10, orderCode:'NEO-1402-0010', userId:4, userName:'نیلوفر حسینی', products:[{name:'پاور بانک انرجایزر', price:1800000, qty:2},{name:'کیبورد مکانیکی Logitech', price:3200000, qty:1}], totalPrice:6800000, discount:0, finalPrice:6800000, status:'processing', paymentMethod:'online', paymentStatus:'paid', shippingAddress:'تهران، پاسداران، نگارستان ششم', trackingCode:'', notes:'', createdAt:'2025-01-10 08:00', updatedAt:'2025-01-10 09:00' }
+            { id:1, orderCode:'NEO-1402-0001', userName:'نیلوفر حسینی', productsCount:3, finalPrice:19500000, status:'delivered', paymentMethod:'online', trackingCode:'202512345678', createdAt:'2025-01-05' },
+            { id:2, orderCode:'NEO-1402-0002', userName:'زهرا مرادی', productsCount:1, finalPrice:28500000, status:'processing', paymentMethod:'card', trackingCode:'', createdAt:'2025-01-06' },
+            { id:3, orderCode:'NEO-1402-0003', userName:'پوریا اکبری', productsCount:2, finalPrice:18800000, status:'shipped', paymentMethod:'online', trackingCode:'9876543210', createdAt:'2025-01-07' },
+            { id:4, orderCode:'NEO-1402-0004', userName:'نگار صادقی', productsCount:1, finalPrice:14500000, status:'pending', paymentMethod:'cash', trackingCode:'', createdAt:'2025-01-08' },
+            { id:5, orderCode:'NEO-1402-0005', userName:'الناز رحیمی', productsCount:3, finalPrice:26000000, status:'return_requested', paymentMethod:'online', trackingCode:'5678901234', createdAt:'2025-01-03' },
+            { id:6, orderCode:'NEO-1402-0006', userName:'امیر کریمی', productsCount:3, finalPrice:21600000, status:'delivered', paymentMethod:'online', trackingCode:'1234567890', createdAt:'2025-01-02' },
+            { id:7, orderCode:'NEO-1402-0007', userName:'فرهاد جعفری', productsCount:1, finalPrice:65000000, status:'confirmed', paymentMethod:'card', trackingCode:'', createdAt:'2025-01-09' },
+            { id:8, orderCode:'NEO-1402-0008', userName:'سارا احمدی', productsCount:3, finalPrice:12000000, status:'cancelled', paymentMethod:'online', trackingCode:'', createdAt:'2025-01-01' },
+            { id:9, orderCode:'NEO-1402-0009', userName:'محمد رضایی', productsCount:2, finalPrice:50000000, status:'returned', paymentMethod:'online', trackingCode:'', createdAt:'2025-01-04' },
+            { id:10, orderCode:'NEO-1402-0010', userName:'نیلوفر حسینی', productsCount:3, finalPrice:6800000, status:'processing', paymentMethod:'online', trackingCode:'', createdAt:'2025-01-10' }
         ];
 
         function loadOrders() {
             const saved = localStorage.getItem('admin_orders');
             orders = saved ? JSON.parse(saved) : [...defaultOrders];
             if (!saved) localStorage.setItem('admin_orders', JSON.stringify(orders));
-            applyFilters();
+            f();
         }
 
-        function formatPrice(p) { return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان'; }
-
-        function applyFilters() {
-            const q = document.getElementById('searchInput').value.trim().toLowerCase();
-            const status = document.getElementById('filterStatus').value;
-            const payment = document.getElementById('filterPayment').value;
-
-            filtered = orders.filter(o => {
-                if (q && !o.orderCode.toLowerCase().includes(q) && !o.userName.toLowerCase().includes(q)) return false;
-                if (status && o.status !== status) return false;
-                if (payment && o.paymentMethod !== payment) return false;
-                return true;
-            });
-
-            sortFiltered();
-            updateStats();
-            page = Math.min(page, Math.max(1, Math.ceil(filtered.length / perPage)));
-            render();
-        }
-
-        function filterByStatus(status) {
-            document.getElementById('filterStatus').value = status;
-            page = 1;
-            applyFilters();
-        }
+        function formatPrice(p) { return (p || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان'; }
 
         function sortTable(key) {
             if (sortKey === key) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
             else { sortKey = key; sortDir = 'desc'; }
             sortFiltered();
+            page = 1;
             render();
         }
 
         function sortFiltered() {
+            if (!filtered.length) return;
             filtered.sort((a, b) => {
                 let valA = a[sortKey], valB = b[sortKey];
                 if (typeof valA === 'string') valA = valA.toLowerCase();
@@ -360,139 +263,77 @@
             if (icon) icon.textContent = sortDir === 'asc' ? '▲' : '▼';
         }
 
-        function updateStats() {
-    if (!orders || orders.length === 0) {
-        document.getElementById('statTotal').textContent = '0';
-        document.getElementById('statProcessing').textContent = '0';
-        document.getElementById('statReturnReq').textContent = '0';
-        document.getElementById('statShipped').textContent = '0';
-        return;
-    }
-    document.getElementById('statTotal').textContent = orders.length;
-    document.getElementById('statProcessing').textContent = orders.filter(o => o.status === 'processing').length;
-    document.getElementById('statReturnReq').textContent = orders.filter(o => o.status === 'return_requested').length;
-    document.getElementById('statShipped').textContent = orders.filter(o => o.status === 'shipped').length;
-}
+        function copyTracking(code) {
+            if (!code) { showToast('کد رهگیری ثبت نشده'); return; }
+            navigator.clipboard.writeText(code).then(() => showToast('کد رهگیری کپی شد'));
+        }
 
         function render() {
             const start = (page - 1) * perPage, items = filtered.slice(start, start + perPage);
             document.getElementById('orderCount').textContent = filtered.length;
             document.getElementById('noResult').style.display = filtered.length ? 'none' : 'block';
             document.getElementById('ordersTable').innerHTML = items.map(o => `
-                <tr onclick="openOrderModal(${o.id})">
+                <tr>
                     <td data-label="کد سفارش"><strong>${o.orderCode}</strong></td>
                     <td data-label="مشتری">${o.userName}</td>
-                    <td data-label="محصولات">${o.products.length} محصول (${o.products.reduce((s,p)=>s+p.qty,0)} عدد)</td>
+                    <td data-label="محصولات">${o.productsCount} محصول</td>
                     <td data-label="مبلغ">${formatPrice(o.finalPrice)}</td>
-                    <td data-label="وضعیت"><span class="badge-status badge-${o.status}">${statuses[o.status]}</span></td>
+                    <td data-label="وضعیت" onclick="event.stopPropagation()">
+                        <select onchange="updateOrderStatus(${o.id}, this.value)" style="padding:6px 10px;font-size:11px;font-family:'Vazir',sans-serif;background:var(--bg-surface);color:var(--text-primary);border:2px solid var(--border);border-radius:10px;cursor:pointer;">
+                            ${Object.keys(statuses).map(s => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${statuses[s]}</option>`).join('')}
+                        </select>
+                    </td>
+                    <td data-label="کد رهگیری" onclick="event.stopPropagation()">
+                        ${o.trackingCode ? `<span class="tracking-code" onclick="copyTracking('${o.trackingCode}')" title="کلیک کن کپی شه">📦 ${o.trackingCode}</span>` : '<span style="color:var(--text-muted);font-size:11px;">---</span>'}
+                    </td>
                     <td data-label="تاریخ">${o.createdAt}</td>
+                    <td data-label="عملیات" onclick="event.stopPropagation()">
+                        <a href="detail.html?id=${o.id}" class="action-btn" title="جزئیات">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        </a>
+                    </td>
                 </tr>
             `).join('');
-
             let tp = Math.ceil(filtered.length / perPage), ph = '';
             for (let i = 1; i <= tp; i++) ph += `<button class="page-btn ${i === page ? 'active' : ''}" onclick="go(${i})">${i}</button>`;
             document.getElementById('pagination').innerHTML = tp > 1 ? ph : '';
         }
 
         function go(p) { page = p; render(); }
-        document.getElementById('searchInput').addEventListener('input', () => { page = 1; applyFilters(); });
-        document.getElementById('filterStatus').addEventListener('change', () => { page = 1; applyFilters(); });
-        document.getElementById('filterPayment').addEventListener('change', () => { page = 1; applyFilters(); });
 
-        function openOrderModal(id) {
-            activeOrderId = id;
-            const o = orders.find(x => x.id === id);
-            document.getElementById('orderModalTitle').textContent = 'سفارش ' + o.orderCode;
-            document.getElementById('deleteOrderBtn').style.display = 'inline-flex';
-            document.getElementById('orderDetailContent').innerHTML = `
-                <div class="detail-row"><span class="dl">مشتری</span><span class="dv">${o.userName}</span></div>
-                <div class="detail-row"><span class="dl">تاریخ ثبت</span><span class="dv">${o.createdAt}</span></div>
-                <div class="detail-row"><span class="dl">آخرین بروزرسانی</span><span class="dv">${o.updatedAt}</span></div>
-                <div class="detail-row">
-                    <span class="dl">وضعیت</span>
-                    <select onchange="updateOrderStatus(${o.id}, this.value)" style="padding:6px 10px;font-size:11px;font-family:'Vazir',sans-serif;">
-                        ${Object.keys(statuses).map(s => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${statuses[s]}</option>`).join('')}
-                    </select>
-                </div>
-                <div class="detail-row"><span class="dl">روش پرداخت</span><span class="dv">${paymentMethods[o.paymentMethod]} | ${paymentStatuses[o.paymentStatus]}</span></div>
-                <div class="detail-row"><span class="dl">آدرس</span><span class="dv">${o.shippingAddress}</span></div>
-                <div class="detail-row" style="align-items:center;">
-                    <span class="dl">کد رهگیری</span>
-                    <span class="dv" style="display:flex;align-items:center;gap:6px;">
-                        <input type="text" id="trackingInput" value="${o.trackingCode || ''}" placeholder="کد رهگیری..." style="width:200px;" onchange="saveTracking(${o.id}, this.value)">
-                        ${o.trackingCode ? `<button class="copy-btn" onclick="copyTracking('${o.trackingCode}')" title="کپی"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>` : ''}
-                    </span>
-                </div>
-                <div style="margin-top:12px;font-weight:bold;color:var(--text-primary);">محصولات:</div>
-                ${o.products.map((p,i) => `
-                    <div class="product-item">
-                        <span>${i+1}. ${p.name}</span>
-                        <span>${p.qty}x - ${formatPrice(p.price * p.qty)}</span>
-                    </div>
-                `).join('')}
-                <div class="detail-row" style="margin-top:12px;"><span class="dl">جمع کل</span><span class="dv">${formatPrice(o.totalPrice)}</span></div>
-                <div class="detail-row"><span class="dl">تخفیف</span><span class="dv">${formatPrice(o.discount)}</span></div>
-                <div class="detail-row" style="font-weight:bold;font-size:14px;"><span class="dl">مبلغ نهایی</span><span class="dv">${formatPrice(o.finalPrice)}</span></div>
-                <div style="margin-top:12px;display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:12px;color:var(--text-muted);">یادداشت:</span>
-                    <input type="text" value="${o.notes || ''}" placeholder="یادداشت ادمین..." style="flex:1;" onchange="saveNotes(${o.id}, this.value)">
-                </div>
-            `;
-            document.getElementById('orderModal').classList.add('show');
+        function f() {
+            const q = document.getElementById('searchInput').value.trim().toLowerCase();
+            const status = document.getElementById('filterStatus').value;
+            const payment = document.getElementById('filterPayment').value;
+
+            filtered = orders.filter(o => {
+                if (q && !o.orderCode.toLowerCase().includes(q) && !o.userName.toLowerCase().includes(q)) return false;
+                if (status && o.status !== status) return false;
+                if (payment && o.paymentMethod !== payment) return false;
+                return true;
+            });
+
+            sortFiltered();
+            page = 1;
+            let max = Math.ceil(filtered.length / perPage);
+            if (max === 0) max = 1;
+            if (page > max) page = max;
+            render();
         }
-
-        function closeOrderModal() { document.getElementById('orderModal').classList.remove('show'); activeOrderId = null; }
 
         function updateOrderStatus(id, newStatus) {
             const o = orders.find(x => x.id === id);
+            if (!o) return;
             o.status = newStatus;
-            o.updatedAt = new Date().toLocaleDateString('fa-IR') + ' - ' + new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
-            if (newStatus === 'returned' && o.paymentStatus === 'paid') o.paymentStatus = 'refunded';
             saveOrders();
-            applyFilters();
             showToast('وضعیت به «' + statuses[newStatus] + '» تغییر کرد');
         }
 
-        function saveTracking(id, value) {
-            const o = orders.find(x => x.id === id);
-            o.trackingCode = value.trim();
-            o.updatedAt = new Date().toLocaleDateString('fa-IR') + ' - ' + new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
-            saveOrders();
-            showToast('کد رهگیری ذخیره شد');
-        }
-
-        function saveNotes(id, value) {
-            const o = orders.find(x => x.id === id);
-            o.notes = value.trim();
-            saveOrders();
-        }
-
-        function copyTracking(code) {
-            navigator.clipboard.writeText(code).then(() => showToast('کد رهگیری کپی شد'));
-        }
-
-        function confirmDeleteOrder() {
-            deleteOrderId = activeOrderId;
-            const o = orders.find(x => x.id === activeOrderId);
-            document.getElementById('deleteText').textContent = 'آیا از حذف سفارش «' + o.orderCode + '» مطمئن هستید؟';
-            document.getElementById('deleteModal').classList.add('show');
-        }
-
-        document.getElementById('deleteConfirmBtn').addEventListener('click', () => {
-            if (deleteOrderId) {
-                orders = orders.filter(x => x.id !== deleteOrderId);
-                saveOrders();
-                closeOrderModal();
-                applyFilters();
-            }
-            document.getElementById('deleteModal').classList.remove('show');
-            deleteOrderId = null;
-            showToast('سفارش حذف شد');
-        });
-
-        function closeDeleteModal() { document.getElementById('deleteModal').classList.remove('show'); }
-
         function saveOrders() { localStorage.setItem('admin_orders', JSON.stringify(orders)); }
+
+        document.getElementById('searchInput').addEventListener('input', f);
+        document.getElementById('filterStatus').addEventListener('change', f);
+        document.getElementById('filterPayment').addEventListener('change', f);
 
         function showToast(msg) {
             let t = document.querySelector('.toast');
