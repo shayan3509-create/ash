@@ -7,4 +7,3 @@ git pull
 
 Ash team
 
-add Brand.html categories.html list.html delete.html and form.html

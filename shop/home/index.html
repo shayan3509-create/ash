@@ -34,8 +34,8 @@
     </div>
 </div>
 
-<!-- Header -->
-<header class="main-header">
+<!-- Header (قسمت بالایی با لوگو، جستجو و آیکون‌ها) - این بخش اسکرول می‌شود -->
+<header class="main-header fixed-nav">
     <div class="container">
         <div class="header-wrapper">
             <div class="logo"><a href="index.html">نیو<span class="text-primary">شاپ</span></a></div>
@@ -63,12 +63,12 @@
                     </svg>
                     <svg class="moon-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
+                    </svg><span class="icon-title">تم</span>
                 </button>
                 <a href="../../auth/login.html" class="icon-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
-                </svg></a>
+                </svg><span class="icon-title">ورود</span></a>
                 <a href="../cart/cart.html" class="icon-btn cart-icon">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="9" cy="21" r="1"></circle>
@@ -76,28 +76,31 @@
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
                     <span class="cart-badge" id="cartCount">0</span>
+                    <span class="icon-title">سبد خرید</span>
                 </a>
             </div>
         </div>
-
-        <!-- Navigation -->
-        <nav class="main-nav">
-            <ul class="nav-list">
-                <li><a href="index.html">خانه</a></li>
-                <li><a href="../products/category.html">محصولات</a></li>
-                <li><a href="../products/sale.html">تخفیف‌ها</a></li>
-                <li><a href="../blog/list.html">مجله</a></li>
-                <li><a href="../blog/gallery.html">گالری</a></li>
-                <li><a href="../blog/static-page.html">درباره ما</a></li>
-                <li><a href="../../user-panel/dashboard/index.html">پنل کاربری</a></li>
-            </ul>
-        </nav>
     </div>
 </header>
 
+<!-- منوی ناوبری ثابت در بالای صفحه (خانه، محصولات، تخفیف‌ها، ...) -->
+<nav class="main-nav ">
+    <div class="container">
+        <ul class="nav-list">
+            <li><a href="index.html">خانه</a></li>
+            <li><a href="../products/category.html">محصولات</a></li>
+            <li><a href="../products/sale.html">تخفیف‌ها</a></li>
+            <li><a href="../blog/list.html">مجله</a></li>
+            <li><a href="../blog/gallery.html">گالری</a></li>
+            <li><a href="../blog/static-page.html">درباره ما</a></li>
+            <li><a href="../../user-panel/dashboard/index.html">پنل کاربری</a></li>
+        </ul>
+    </div>
+</nav>
+
 <!-- Main Content -->
 <main>
-    <!-- Hero Slider - Neo 3D Carousel (بدون تغییر) -->
+    <!-- Hero Slider - Neo 3D Carousel -->
     <section class="neo-hero">
         <div class="neo-grid-bg"></div>
         <div class="neo-scan-line"></div>
@@ -109,7 +112,7 @@
                 <div class="neo-slide-shine"></div>
                 <div class="neo-slide-border"></div>
                 <div class="neo-slide-content">
-                    <div class="neo-slide-badge">Apple Event 2025</div>
+                    
                     <div class="neo-slide-title">iPhone 17 Pro Max</div>
                     <div class="neo-slide-sub">A19 Pro · تیتانیوم · دوربین 48MP</div>
                 </div>
@@ -121,7 +124,7 @@
                 <div class="neo-slide-shine"></div>
                 <div class="neo-slide-border"></div>
                 <div class="neo-slide-content">
-                    <div class="neo-slide-badge">Galaxy AI</div>
+                    
                     <div class="neo-slide-title">S25 Ultra</div>
                     <div class="neo-slide-sub">200MP · S Pen · 6000mAh</div>
                 </div>
@@ -133,7 +136,7 @@
                 <div class="neo-slide-shine"></div>
                 <div class="neo-slide-border"></div>
                 <div class="neo-slide-content">
-                    <div class="neo-slide-badge">ROG Dominator</div>
+                    
                     <div class="neo-slide-title">ROG Zephyrus G16</div>
                     <div class="neo-slide-sub">Ultra 9 · RTX 4090 · OLED 240Hz</div>
                 </div>
@@ -217,7 +220,7 @@
             <div class="categories-grid" id="categoriesGrid"></div>
         </section>
 
-        <!-- ========== بخش محصولات ویژه با کاروسل سه‌بعدی (نسخه نهایی با تمام اصلاحات) ========== -->
+        <!-- ========== بخش محصولات ویژه با کاروسل سه‌بعدی ========== -->
         <section class="section animate-on-scroll">
             <div class="section-header">
                 <h2 class="section-title">محصولات ویژه</h2>
@@ -229,60 +232,55 @@
                     <!-- کارت 1: آیفون ۱۷ پرو مکس -->
                     <div class="spectrum-card card-iphone" data-index="0">
                         <img class="product-img-card" src="https://www.technolife.com/image/small_product-TLP-149697_e49566d8-244f-415b-a227-f7345502170a.png" alt="iPhone 17 Pro Max">
-                        <div class="card-num">01</div>
                         <div class="card-info">
                             <div class="card-tag">اپل ۲۰۲۵</div>
                             <div class="card-title">آیفون ۱۷ پرو مکس</div>
                             <div class="card-sub">تراشه A19 Pro · تیتانیوم · دوربین ۴۸ مگاپیکسل</div>
-                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید</a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
                     <!-- کارت 2: سامسونگ S25 اولترا -->
                     <div class="spectrum-card card-samsung" data-index="1">
                         <img class="product-img-card" src="https://www.technolife.com/image/color_image_TLP-69015_64635f_9247c9f2-157c-4dac-a724-7ca8ff1fb353.png" alt="Samsung S25 Ultra">
-                        <div class="card-num">02</div>
                         <div class="card-info">
                             <div class="card-tag">هوش مصنوعی گلکسی</div>
                             <div class="card-title">سامسونگ S25 اولترا</div>
                             <div class="card-sub">۲۰۰ مگاپیکسل · قلم S Pen · باتری ۶۰۰۰ میلی‌آمپر</div>
-                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید</a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
                     <!-- کارت 3: لپ‌تاپ ایسوس ROG -->
                     <div class="spectrum-card card-laptop" data-index="2">
                         <img class="product-img-card" src="https://www.yasertebat.com/public/images/products/rog-zephyrus-g16-gu603zv-1.jpg" alt="ASUS ROG Zephyrus G16">
-                        <div class="card-num">03</div>
                         <div class="card-info">
                             <div class="card-tag">سلطان گیمرها</div>
                             <div class="card-title">ایسوس ROG Zephyrus G16</div>
                             <div class="card-sub">Intel Core Ultra 9 · RTX 4090 · OLED 240Hz</div>
-                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید</a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
                     <!-- کارت 4: هدفون سونی -->
                     <div class="spectrum-card card-sony" data-index="3">
                         <img class="product-img-card" src="https://www.technolife.com/image/color_image_TLP-38845_cfcfcf_946f367b-4437-4f03-83e1-950389a1ff7e.png" alt="Sony WH-1000XM5">
-                        <div class="card-num">04</div>
                         <div class="card-info">
                             <div class="card-tag">صدای بی‌نظیر</div>
                             <div class="card-title">سونی WH-1000XM5</div>
                             <div class="card-sub">حذف نویز فعال · ۳۰ ساعت شارژدهی</div>
-                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید</a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
                     <!-- کارت 5: اپل واچ سری ۹ -->
                     <div class="spectrum-card card-watch" data-index="4">
                         <img class="product-img-card" src="https://www.technolife.com/image/small_product-TLP-29470_b69ea1ed-9650-4980-9a48-7117ac58d821.png" alt="Apple Watch Series 9">
-                        <div class="card-num">05</div>
                         <div class="card-info">
                             <div class="card-tag">پوشیدنی هوشمند</div>
                             <div class="card-title">اپل واچ سری ۹</div>
                             <div class="card-sub">صفحه همیشه روشن · تراشه S9</div>
-                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید </a>
+                            <a href="#" class="card-buy-btn">مشاهده جزئیات و خرید</a>
                         </div>
                         <div class="progress-wrap"><div class="progress-bar"></div></div>
                     </div>
@@ -290,7 +288,6 @@
             </div>
 
             <div class="spectrum-controls">
-                <div class="spectrum-counter"><span id="curNumSp">01</span> / 05</div>
                 <button class="spectrum-btn" id="nextBtnSp"><span>‹</span></button>
                 <div class="spectrum-dots" id="dotsSp">
                     <div class="dot active" data-i="0"></div>
@@ -299,9 +296,7 @@
                     <div class="dot" data-i="3"></div>
                     <div class="dot" data-i="4"></div>
                 </div>
-                
                 <button class="spectrum-btn" id="prevBtnSp"><span>›</span></button>
-                <div class="spectrum-counter" id="autoLabelSp">خودکار</div>
             </div>
         </section>
         <!-- ========== پایان محصولات ویژه ========== -->
@@ -310,18 +305,15 @@
     <section class="offer-banner animate-on-scroll">
         <div class="offer-content">
             <h2 class="offer-title">تخفیف ۵۰٪ برای اولین خرید</h2>
-            <p>کد تخفیف: <strong style="font-size:1.5rem">NEWSHOP50</strong></p>
             <div class="timer">
-                <div class="timer-box"><div class="timer-number" id="days">00</div><div class="timer-label">روز</div></div>
-                <div class="timer-box"><div class="timer-number" id="hours">00</div><div class="timer-label">ساعت</div></div>
-                <div class="timer-box"><div class="timer-number" id="minutes">00</div><div class="timer-label">دقیقه</div></div>
                 <div class="timer-box"><div class="timer-number" id="seconds">00</div><div class="timer-label">ثانیه</div></div>
+                <div class="timer-box"><div class="timer-number" id="minutes">00</div><div class="timer-label">دقیقه</div></div>
+                <div class="timer-box"><div class="timer-number" id="hours">00</div><div class="timer-label">ساعت</div></div>
+                <div class="timer-box"><div class="timer-number" id="days">00</div><div class="timer-label">روز</div></div>
             </div>
             <a href="../products/sale.html" class="btn btn-primary" style="background:white; color:#764ba2;">مشاهده حراجی‌ها</a>
         </div>
     </section>
-
-    
 
     <section class="features-section animate-on-scroll">
         <div class="container">
@@ -329,7 +321,58 @@
         </div>
     </section>
 </main>
+<div class="social-section">
+    <h3 class="social-title">مارا در شبکه‌های اجتماعی دنبال کنید</h3>
+    <div class="social-grid">
+        <!-- تلگرام -->
+        <a href="#" class="social-card telegram" target="_blank">
+            <div class="social-logo">
+                <img src="../../assets/images/telegram.png" alt="تلگرام">
+            </div>
+            <span class="social-name">تلگرام</span>
+        </a>
 
+        <!-- واتساپ -->
+        <a href="#" class="social-card whatsapp" target="_blank">
+            <div class="social-logo">
+                <img src="../../assets/images/watsapp.png" alt="واتساپ">
+            </div>
+            <span class="social-name">واتساپ</span>
+        </a>
+
+        <!-- اینستاگرام -->
+        <a href="#" class="social-card instagram" target="_blank">
+            <div class="social-logo">
+                <img src="../../assets/images/instagram.png" alt="اینستاگرام">
+            </div>
+            <span class="social-name">اینستاگرام</span>
+        </a>
+
+        <!-- ایتا -->
+        <a href="#" class="social-card eitaa" target="_blank">
+            <div class="social-logo">
+                <img src="../../assets/images/Eitaa.png" alt="ایتا">
+            </div>
+            <span class="social-name">ایتا</span>
+        </a>
+
+        <!-- بله -->
+        <a href="#" class="social-card bale" target="_blank">
+            <div class="social-logo">
+                <img src="../../assets/images/Bale.png" alt="بله">
+            </div>
+            <span class="social-name">بله</span>
+        </a>
+
+        <!-- روبیکا -->
+        <a href="#" class="social-card rubika" target="_blank">
+            <div class="social-logo">
+                <img src="../../assets/images/Rubika.png" alt="روبیکا">
+            </div>
+            <span class="social-name">روبیکا</span>
+        </a>
+    </div>
+</div>
 <footer class="main-footer">
     <div class="container">
         <div class="footer-grid">
@@ -361,11 +404,61 @@
     </div>
 </footer>
 
-<button class="back-to-top" id="backToTop">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-        <polyline points="18 15 12 9 6 15"></polyline>
-    </svg>
-</button>
+<!-- دکمه و پنجره پشتیبانی -->
+<div class="support-widget">
+    <!-- دکمه شناور با آیکون هدست -->
+    <button class="support-btn" id="supportToggle">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/>
+            <path d="M21 16v2a4 4 0 0 1-4 4h-5"/>
+        </svg>
+    </button>
+
+    <!-- پنجره چت -->
+    <div class="support-modal" id="supportModal">
+        <!-- هدر -->
+        <div class="support-header">
+            <span id="supportTitle">پشتیبانی</span>
+            <button class="support-close" id="supportClose">&times;</button>
+        </div>
+
+        <!-- صفحه انتخاب نوع پشتیبانی -->
+        <div class="support-choice" id="supportChoice">
+            <p class="support-choice-text">چطور می‌تونیم کمکت کنیم؟</p>
+            <div class="support-choice-buttons">
+                <button class="support-option" data-type="ai">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/>
+                    </svg>
+                    <span>چت با هوش مصنوعی</span>
+                    <small>برای مشاوره در خرید</small>
+                </button>
+                <button class="support-option" data-type="human">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <path d="M16 3.128a4 4 0 0 1 0 7.744"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                        <circle cx="9" cy="7" r="4"/>
+                    </svg>
+                    <span>چت با پشتیبان</span>
+                    <small>برای پیگیری مشکلات </small>
+                </button>
+
+        <!-- بدنه چت (ابتدا مخفی) -->
+        <div class="support-body" id="supportBody" style="display:none;"></div>
+
+        <!-- فوتر چت (ابتدا مخفی) -->
+        <div class="support-footer" id="supportFooter" style="display:none;">
+            <input type="text" id="supportInput" placeholder="پیامتان را بنویسید..." autocomplete="off">
+            <button id="supportSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
 
 <!-- Scripts -->
 <script src="../../assets/js/gsap.min.js"></script>

@@ -1,515 +1,557 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#0d47a1">
-    <title>ورود | نیوشاپ</title>
+  <meta charset="UTF-8">
+  <title>Animated Login &amp; Register Form</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/fonts.css">
+<style>
+/* ===== متغیرهای اصلی (برگرفته از style.css) ===== */
+:root {
+    --primary: #00d4ff;
+    --primary-dark: #0099cc;
+    --primary-light: #66e5ff;
+    --secondary: #b700ff;
+    --accent: #ff00d4;
+    --success: #00ff88;
+    --danger: #ff3366;
+    --warning: #ffaa00;
+    --info: #00ffff;
     
-    <link rel="stylesheet" href="../assets/css/fonts.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    --bg-body: #f0f4f8;
+    --bg-surface: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-header: rgba(255, 255, 255, 0.95);
+    --bg-footer: #ffffff;
     
-    <style>
-        /* استایل اختصاصی صفحه ورود */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Vazir', 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(135deg, #0d47a1, #00bcd4);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-        body.dark {
-            background: linear-gradient(135deg, #0a0f1a, #0d2b4a);
-        }
-        
-        .login-card {
-            max-width: 420px;
-            width: 100%;
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border-radius: 28px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
-            overflow: hidden;
-            border: 1px solid rgba(0,212,255,0.3);
-            transition: all var(--transition);
-            position: relative;
-        }
-        
-        /* دکمه بازگشت به صفحه اصلی (سمت راست داخل کارت) */
-        .back-home-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            padding: 6px 12px;
-            border-radius: 30px;
-            color: white;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255,255,255,0.2);
-            z-index: 10;
-        }
-        .back-home-btn:hover {
-            background: rgba(0, 0, 0, 0.6);
-            transform: scale(1.02);
-            border-color: rgba(255,255,255,0.5);
-        }
-        body.dark .back-home-btn {
-            background: rgba(255,255,255,0.1);
-        }
-        body.dark .back-home-btn:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .card-header {
-            padding: 30px 25px 15px;
-            text-align: center;
-            margin-top: 10px;
-        }
-        h1 {
-            font-size: 28px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 8px;
-        }
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
-        
-        .tabs {
-            display: flex;
-            padding: 0 20px;
-            gap: 10px;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .tab {
-            flex: 1;
-            padding: 12px 0;
-            background: none;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            cursor: pointer;
-            position: relative;
-            font-family: 'Vazir', sans-serif;
-        }
-        .tab.active {
-            color: var(--primary);
-        }
-        .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            right: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px 3px 0 0;
-        }
-        
-        .form-container {
-            padding: 25px 25px 30px;
-        }
-        .login-form { display: none; }
-        .login-form.active-form { display: block; }
-        
-        .input-group {
-            margin-bottom: 20px;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-        .input-group input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 2px solid var(--border-color);
-            border-radius: 14px;
-            font-size: 14px;
-            background: var(--bg-body);
-            color: var(--text-primary);
-            transition: 0.2s;
-            font-family: 'Vazir', sans-serif;
-        }
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(13,71,161,0.1);
-        }
-        
-        .password-wrapper {
-            position: relative;
-        }
-        .password-wrapper input {
-            padding-left: 45px;
-            padding-right: 14px;
-        }
-        .toggle-password {
-            position: absolute;
-            left: 14px;
-            right: auto;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 40px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Vazir', sans-serif;
-        }
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-neon);
-        }
-        
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            font-size: 13px;
-        }
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-        .forgot-link {
-            color: var(--primary);
-            text-decoration: none;
-        }
-        
-        .otp-timer {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        .resend-btn {
-            background: none;
-            border: none;
-            color: var(--primary);
-            cursor: pointer;
-            font-size: 12px;
-            font-family: 'Vazir', sans-serif;
-        }
-        
-        .register-link {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-        .register-link a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            left: auto;
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            color: var(--text-primary);
-            padding: 12px 18px;
-            border-radius: 14px;
-            text-align: center;
-            animation: fadeUp 0.3s ease;
-            z-index: 200;
-            max-width: 350px;
-            font-family: 'Vazir', sans-serif;
-            border-right: 3px solid var(--success);
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @media (max-width: 480px) {
-            .login-card { margin: 10px; }
-            .toast { right: 10px; left: 10px; max-width: none; }
-            .back-home-btn { top: 12px; right: 12px; padding: 4px 10px; font-size: 11px; }
-            .card-header { margin-top: 5px; }
-        }
-    </style>
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a4a6a;
+    --text-muted: #5a5a7a;
+    
+    --border-color: rgba(0, 212, 255, 0.3);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --shadow-neon: 0 0 20px rgba(0, 212, 255, 0.5);
+    --shadow-neon-strong: 0 0 30px rgba(0, 212, 255, 0.7), 0 0 15px rgba(112, 0, 255, 0.5);
+    
+    --radius-card: 1rem;
+    --radius-button: 2.5rem;
+    --radius-circle: 50%;
+    
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-base: 1rem;
+    --font-lg: 1.125rem;
+    --font-xl: 1.25rem;
+    --font-2xl: 1.625rem;
+    --font-3xl: 2.125rem;
+    --font-4xl: 2.75rem;
+    --font-5xl: 3.625rem;
+    
+    --z-base: 1;
+    --z-sticky: 200;
+    --z-header: 1000;
+    --z-loader: 9999;
+}
+
+body.dark {
+    --bg-body: #0a0a0f;
+    --bg-surface: #0f0f1a;
+    --bg-card: rgba(15, 15, 26, 0.95);
+    --bg-header: rgba(10, 10, 15, 0.95);
+    --bg-footer: #0a0a0f;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0c0;
+    --text-muted: #7a7a9a;
+}
+
+/* ===== ریست پایه ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Vazir', 'Vazirmatn', sans-serif;
+    color: #fff;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-body), #1a0a2e, #2a1040);
+}
+
+/* ===== دکمه بازگشت به خانه ===== */
+.back-home {
+    position: absolute;           /* نسبت به container */
+    top: 15px;                   /* فاصله از بالای container */
+    right: 15px;                 /* فاصله از راست (برای RTL) */
+    width: auto;
+    height: auto;
+    padding: 8px;
+    border-radius: 50px;
+    background: rgb(53, 56, 255);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    text-decoration: none;
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
+    transition: all var(--transition);
+    z-index: 15;                 /* بالاتر از ورق‌ها و فرم‌ها */
+}
+.back-home:hover {
+    background: var(--primary);
+    color: #0a0a0f;
+    box-shadow: var(--shadow-neon);
+    transform: scale(1.1);
+}
+.back-home svg {
+    width: 1.3rem;
+    height: 1.3rem;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ===== کانتینر اصلی ===== */
+.container {
+    position: relative;
+    width: 850px;
+    height: 500px;
+    border: 2px solid var(--primary);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-neon);
+    overflow: hidden;
+    background: transparent;
+}
+
+/* ===== ورق‌های منحنی ===== */
+.curved-shape {
+    position: absolute;
+    left: 0;
+    top: -5px;
+    height: 600px;
+    width: 850px;
+    background: linear-gradient(45deg, #8d8dff, var(--primary));
+    transform: rotate(-10deg) skewY(-40deg);
+    transform-origin: bottom left;
+    transition: 1.5s ease;
+    transition-delay: 1.6s;
+}
+.container.active .curved-shape {
+    transform: rotate(0deg) skewY(0deg);
+    transition-delay: .5s;
+}
+
+.curved-shape2 {
+    position: absolute;
+    right: 250px;
+    top: 100%;
+    height: 700px;
+    width: 850px;
+    background: var(--bg-surface);
+    border-top: 3px solid var(--primary);
+    transform: rotate(0deg) skewY(0deg);
+    transform-origin: bottom right;
+    transition: 1.5s ease;
+    transition-delay: .5s;
+}
+.container.active .curved-shape2 {
+    transform: rotate(11deg) skewY(41deg);
+    transition-delay: 1.2s;
+}
+
+/* ===== جعبه‌های فرم ===== */
+.form-box {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* راست‌چین: فرم ورود در سمت راست */
+.form-box.Login {
+    right: 0;
+    padding: 0 50px;
+}
+.form-box.Register {
+    left: 0;
+    padding: 0 70px;
+}
+
+/* انیمیشن‌ها */
+.animation {
+    transition: transform 0.7s ease, opacity 0.7s ease, filter 0.7s ease;
+}
+
+.form-box.Login .animation {
+    transform: translateX(0%);
+    opacity: 1;
+    transition-delay: calc(0.1s * var(--S));
+}
+.container.active .form-box.Login .animation {
+    transform: translateX(120%);    /* راست خارج شود */
+    opacity: 0;
+    transition-delay: calc(0.1s * var(--D));
+}
+
+.form-box.Register .animation {
+    transform: translateX(-120%);
+    opacity: 0;
+    filter: blur(10px);
+    transition-delay: calc(0.1s * var(--S));
+}
+.container.active .form-box.Register .animation {
+    transform: translateX(0%);
+    opacity: 1;
+    filter: blur(0px);
+    transition-delay: calc(0.1s * var(--li));
+}
+
+.form-box h2 {
+    font-size: 32px;
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 1.8rem;
+}
+
+/* ===== فیلدهای ورودی ===== */
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 25px 0;   /* فقط بالا و پایین فاصله داشته باشد */
+    padding: 0;
+}
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: rgb(137, 137, 255);
+    font-weight: 500;
+    border: 2px solid rgba(47, 0, 255, 0.3);
+    border-radius:50px;
+    padding-left: 30px;
+    padding-right: 30px;          /* جای آیکون */
+    transition: border-color 0.5s;
+}
+
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: var(--text-secondary);
+    transition: 0.5s;
+    pointer-events: none;
+}
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -12px;
+    right: 15px;
+    color: var(--primary);
+    font-size: 16px;
+}
+.input-box box-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: var(--text-secondary);
+    transition: 0.5s;
+}
+.input-box input:focus ~ box-icon,
+.input-box input:valid ~ box-icon {
+    color: var(--primary);
+}
+
+/* ===== دکمه‌ها ===== */
+.btn {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    border: 2px solid var(--primary);
+    color: var(--text-primary);
+    overflow: hidden;
+    z-index: 1;
+    
+
+    transition: all 0.3s;
+}
+.btn::before {
+    content: "";
+    position: absolute;
+    height: 300%;
+    width: 100%;
+    background: linear-gradient(var(--bg-surface), var(--primary), var(--bg-surface), var(--primary));
+    top: -100%;
+    left: 0;
+    z-index: -1;
+    transition: 0.5s;
+}
+.btn:hover::before {
+    top: 0;
+}
+.btn:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 0 15px var(--primary);
+}
+
+/* ===== لینک‌های ثبت‌نام / ورود ===== */
+.regi-link {
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0 5px;   /* قبلاً 20px 0 10px */
+}
+.regi-link p {
+    margin-bottom: 0.6rem;
+    color: var(--text-secondary);
+}
+.btn, .regi-btn {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.regi-btn {
+    display: inline-block;
+    padding: 0.5rem 1.8rem;
+    border: 1px solid var(--primary);
+    border-radius: 2rem;
+    color: var(--primary) !important;
+    background: rgba(0, 212, 255, 0.08);
+    backdrop-filter: blur(10px);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all var(--transition);
+    text-decoration: none !important;
+    width: 100%;          /* عرض کامل مثل بقیه دکمه‌ها */
+    box-sizing: border-box; /* تا padding داخل عرض محاسبه شود */
+    /* margin-right: 27px;  این خط را حذف کن */
+    
+    
+}
+.regi-btn:hover {
+    background: var(--primary);
+    color: var(--bg-body) !important;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+/* ===== اطلاعات کنار فرم ===== */
+.info-content {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.info-content.Login {
+    left: 0;
+    text-align: left;
+    padding: 0 150px 60px 40px;
+}
+.info-content.Register {
+    right: 0;
+    text-align: right;
+    padding: 0 40px 60px 150px;
+    pointer-events: none;
+}
+
+.info-content .animation {
+    transition: transform 0.7s ease, opacity 0.7s ease, filter 0.7s ease;
+}
+
+.info-content.Login .animation {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0px);
+    transition-delay: calc(0.1s * var(--S));
+}
+.container.active .info-content.Login .animation {
+    transform: translateX(-120%);
+    opacity: 0;
+    filter: blur(10px);
+    transition-delay: calc(0.1s * var(--D));
+}
+
+.info-content.Register .animation {
+    transform: translateX(120%);
+    opacity: 0;
+    filter: blur(10px);
+    transition-delay: calc(0.1s * var(--S));
+}
+.container.active .info-content.Register .animation {
+    transform: translateX(0%);
+    opacity: 1;
+    filter: blur(0);
+    transition-delay: calc(0.1s * var(--li));
+}
+
+.info-content h2 {
+    text-transform: uppercase;
+    font-size: 36px;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+.info-content p {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+/* ===== واکنش‌گرایی ===== */
+@media (max-width: 768px) {
+    .container {
+        width: 95vw;
+        height: auto;
+        min-height: 500px;
+    }
+    .form-box, .info-content {
+        width: 100%;
+        padding: 20px;
+        left: 0;
+        right: 0;
+    }
+    .info-content {
+        display: none;
+    }
+}
+/* حذف فاصله اضافه بین دکمه اصلی و دکمه لینک */
+.input-box {
+    margin: 15px 0 5px !important;   /* بالا 15px، پایین 5px */
+}
+
+.regi-link {
+    margin: 0 !important;            /* همه marginها صفر */
+}
+
+.regi-btn {
+    margin-top: 0 !important;        /* فاصله بالای دکمه لینک صفر */
+}
+/* فقط فاصلهٔ رمز عبور از بالا بیشتر شود (در فرم ورود) */
+.form-box.Login .input-box:nth-child(2) {
+    margin-top: 25px !important;
+}
+.form-box.Register .input-box:nth-child(2) {
+    margin-top: 25px !important;
+}
+.form-box.Register .input-box {
+    margin-top: 25px !important;
+}
+</style>
 </head>
 <body>
 
-<div class="login-card">
-    <!-- دکمه بازگشت به صفحه اصلی (سمت راست داخل کارت) -->
-    <a href="../shop/home/index.html" class="back-home-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-        خانه
-    </a>
-    
-    <div class="card-header">
-        <h1>نیوشاپ</h1>
-        <div class="subtitle">به فروشگاه ما خوش آمدید</div>
-    </div>
 
-    <div class="tabs">
-        <button class="tab active" data-tab="password">ورود با رمز عبور</button>
-        <button class="tab" data-tab="otp">ورود با کد یکبارمصرف</button>
-    </div>
-    
-    <div class="form-container">
-        <!-- فرم ورود با رمز -->
-        <div id="passwordForm" class="login-form active-form">
-            <div class="input-group">
-                <label>ایمیل یا شماره موبایل</label>
-                <input type="text" id="identifier" placeholder="example@mail.com یا 09123456789">
+
+
+<div class="container">
+    <a href="../shop/home/index.html" class="back-home" title="بازگشت به خانه">
+    بازگشت
+</a>
+    <div class="curved-shape"></div>
+    <div class="curved-shape2"></div>
+
+    <div class="form-box Login">
+        <h2 class="animation" style="color: #66e5ff;" style="--D:0; --S:21">ورود</h2>
+        <form action="#">
+            <div class="input-box animation" style="--D:1; --S:22">
+                <input type="text" required>
+                <label>نام کاربری</label>
+                <box-icon type='solid' name='user' color="gray"></box-icon>
             </div>
-            <div class="input-group">
+            <div class="input-box animation" style="--D:2; --S:23">
+                <input type="password" required>
                 <label>رمز عبور</label>
-                <div class="password-wrapper">
-                    <input type="password" id="password" placeholder="********">
-                    <button type="button" id="togglePasswordBtn" class="toggle-password">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                            <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
-                    </button>
-                </div>
+                <box-icon name='lock-alt' type='solid' color="gray"></box-icon>
             </div>
-            <div class="form-options">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="rememberMe"> مرا به خاطر بسپار
-                </label>
-                <a href="forgot-password.html" id="forgotLink" class="forgot-link">فراموشی رمز عبور؟</a>
+            <div class="input-box animation" style="--D:3; --S:24">
+                <button class="btn" type="submit">ورود</button>
             </div>
-            <button id="loginBtn" class="btn">ورود</button>
-        </div>
-        
-        <!-- فرم ورود با کد یکبارمصرف -->
-        <div id="otpForm" class="login-form">
-            <div class="input-group">
-                <label>شماره موبایل</label>
-                <input type="tel" id="otpPhone" placeholder="09xxxxxxxxx">
+            <div class="regi-link animation" style="--D:4; --S:25">
+                
+                <a href="#" class="SignUpLink regi-btn">ثبت‌نام</a>
             </div>
-            <div id="otpCodeGroup" style="display: none;">
-                <div class="input-group">
-                    <label>کد تایید ۶ رقمی</label>
-                    <input type="text" id="otpCode" placeholder="123456" maxlength="6">
-                </div>
-            </div>
-            <button id="sendOtpBtn" class="btn" style="background: #00bcd4;">ارسال کد</button>
-            <div id="otpTimerArea" class="otp-timer" style="display: none;">
-                <div id="timerText"></div>
-                <button id="resendOtpBtn" class="resend-btn" disabled>ارسال مجدد کد</button>
-            </div>
-            <button id="verifyOtpBtn" class="btn" style="display: none; margin-top: 15px;">تایید و ورود</button>
-        </div>
-        
-        <div class="register-link">
-            حساب ندارید؟ <a href="register.html">ثبت‌نام کنید</a>
-        </div>
+        </form>
     </div>
-</div>
 
+    <div class="info-content Login">
+        <h2 class="animation" style="--D:0; --S:20">خوش برگشتید!</h2>
+    </div>
+
+    <div class="form-box Register">
+        <h2 class="animation" style="--li:17; --S:0">ثبت‌نام</h2>
+        <form action="#">
+            <div class="input-box animation" style="--li:18; --S:1">
+                <input type="text" required>
+                <label>نام کاربری</label>
+                <box-icon type='solid' name='user' color="gray"></box-icon>
+            </div>
+            <div class="input-box animation" style="--li:19; --S:2">
+                <input type="email" required>
+                <label>ایمیل</label>
+                <box-icon name='envelope' type='solid' color="gray"></box-icon>
+            </div>
+            <div class="input-box animation" style="--li:19; --S:3">
+                <input type="password" required>
+                <label>رمز عبور</label>
+                <box-icon name='lock-alt' type='solid' color="gray"></box-icon>
+            </div>
+            <div class="input-box animation" style="--li:20; --S:4">
+                <button class="btn" type="submit">ثبت‌نام</button>
+            </div>
+            <div class="regi-link animation" style="--li:21; --S:5">
+                
+                <a href="#" class="SignInLink regi-btn">ورود</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="info-content Register">
+        <h2 class="animation" style="--li:17; --S:0">خوش آمدید!</h2>
+    </div>
+    
+</div>
 <script>
-    // ============================================
-    // منطق لاگین (بدون وابستگی به ترجمه)
-    // ============================================
-    let otpTimerInterval = null;
-    let timeLeft = 0;
-    let generatedOtp = null;
-    
-    let users = JSON.parse(localStorage.getItem('niushop_users')) || [];
-    
-    function showMessage(msg, isError = false) {
-        let existing = document.querySelector('.toast');
-        if(existing) existing.remove();
-        let toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerText = (isError ? '❌ ' : '✅ ') + msg;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-    }
-    
-    function isValidPhone(phone) {
-        return /^09[0-9]{9}$/.test(phone);
-    }
-    
-    function startOtpTimer(seconds = 90) {
-        if(otpTimerInterval) clearInterval(otpTimerInterval);
-        timeLeft = seconds;
-        let timerDiv = document.getElementById('timerText');
-        let resendBtn = document.getElementById('resendOtpBtn');
-        otpTimerInterval = setInterval(function() {
-            if(timeLeft <= 0) {
-                clearInterval(otpTimerInterval);
-                timerDiv.innerText = '';
-                resendBtn.disabled = false;
-                resendBtn.style.opacity = '1';
-                resendBtn.innerText = 'ارسال مجدد کد';
-            } else {
-                let mins = Math.floor(timeLeft / 60);
-                let secs = timeLeft % 60;
-                timerDiv.innerText = 'زمان باقیمانده: ' + mins + ':' + (secs < 10 ? '0' + secs : secs);
-                timeLeft--;
-            }
-        }, 1000);
-    }
-    
-    document.getElementById('loginBtn').onclick = function() {
-        let identifier = document.getElementById('identifier').value.trim();
-        let password = document.getElementById('password').value;
-        let remember = document.getElementById('rememberMe').checked;
-        
-        if(identifier === "") {
-            showMessage("لطفا ایمیل یا شماره موبایل را وارد کنید", true);
-            return;
-        }
-        if(password === "") {
-            showMessage("لطفا رمز عبور را وارد کنید", true);
-            return;
-        }
-        
-        let user = users.find(u => (u.email === identifier || u.phone === identifier) && u.password === password);
-        if(user) {
-            let session = { name: user.fullname, email: user.email, phone: user.phone };
-            if(remember) localStorage.setItem('niushop_user', JSON.stringify(session));
-            else sessionStorage.setItem('niushop_user', JSON.stringify(session));
-            showMessage("خوش آمدید " + user.fullname);
-            setTimeout(() => window.location.href = '../shop/home/index.html', 1500);
-        } else {
-            showMessage("ایمیل یا شماره موبایل یا رمز عبور اشتباه است", true);
-        }
-    };
-    
-    document.getElementById('sendOtpBtn').onclick = function() {
-        let phone = document.getElementById('otpPhone').value.trim();
-        if(phone === "") {
-            showMessage("لطفا شماره موبایل را وارد کنید", true);
-            return;
-        }
-        if(!isValidPhone(phone)) {
-            showMessage("شماره موبایل نامعتبر است (09xxxxxxxxx)", true);
-            return;
-        }
-        let userExists = users.some(u => u.phone === phone);
-        if(!userExists) {
-            showMessage("این شماره موبایل ثبت نام نشده است", true);
-            return;
-        }
-        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-        console.log("OTP:", generatedOtp);
-        showMessage("کد تایید به شماره " + phone + " ارسال شد");
-        document.getElementById('otpCodeGroup').style.display = "block";
-        document.getElementById('verifyOtpBtn').style.display = "block";
-        document.getElementById('sendOtpBtn').disabled = true;
-        document.getElementById('sendOtpBtn').style.opacity = "0.6";
-        document.getElementById('otpTimerArea').style.display = "block";
-        startOtpTimer(90);
-    };
-    
-    document.getElementById('resendOtpBtn').onclick = function() {
-        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-        console.log("New OTP:", generatedOtp);
-        showMessage("کد جدید ارسال شد");
-        startOtpTimer(90);
-        this.disabled = true;
-    };
-    
-    document.getElementById('verifyOtpBtn').onclick = function(e) {
-        e.preventDefault();
-        let code = document.getElementById('otpCode').value.trim();
-        if(code === "") {
-            showMessage("لطفا کد تایید را وارد کنید", true);
-            return;
-        }
-        if(code !== generatedOtp) {
-            showMessage("کد تایید اشتباه است", true);
-            return;
-        }
-        showMessage("ورود با موفقیت انجام شد");
-        setTimeout(() => window.location.href = '../shop/home/index.html', 1000);
-    };
-    
-    let tabs = document.querySelectorAll('.tab');
-    for(let i = 0; i < tabs.length; i++) {
-        tabs[i].addEventListener('click', function() {
-            for(let j = 0; j < tabs.length; j++) tabs[j].classList.remove('active');
-            this.classList.add('active');
-            let type = this.getAttribute('data-tab');
-            if(type === 'password') {
-                document.getElementById('passwordForm').classList.add('active-form');
-                document.getElementById('otpForm').classList.remove('active-form');
-            } else {
-                document.getElementById('otpForm').classList.add('active-form');
-                document.getElementById('passwordForm').classList.remove('active-form');
-            }
-        });
-    }
-    
-    let toggleBtn = document.getElementById('togglePasswordBtn');
-    let passInput = document.getElementById('password');
-    if(toggleBtn && passInput) {
-        toggleBtn.onclick = function() {
-            let svg = this.querySelector('svg');
-            if(passInput.type === 'password') {
-                passInput.type = 'text';
-                svg.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
-            } else {
-                passInput.type = 'password';
-                svg.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
-            }
-        };
-    }
-    
-    // لینک فراموشی رمز به صفحه forgot-password.html هدایت می‌کند (رویداد جاوااسکریپت حذف شد)
-    // نیازی به کد جداگانه نیست چون href مستقیم است
-    
-    if(localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark');
-    }
-    window.addEventListener('storage', function(e) {
-        if(e.key === 'theme') {
-            if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
-            else document.body.classList.remove('dark');
-        }
-    });
+
+!function(t,e,n,r,o){if("customElements"in n)o();else{if(n.AWAITING_WEB_COMPONENTS_POLYFILL)return void n.AWAITING_WEB_COMPONENTS_POLYFILL.then(o);var a=n.AWAITING_WEB_COMPONENTS_POLYFILL=f();a.then(o);var i=n.WEB_COMPONENTS_POLYFILL||"//cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.0.2/webcomponents-bundle.js",s=n.ES6_CORE_POLYFILL||"//cdnjs.cloudflare.com/ajax/libs/core-js/2.5.3/core.min.js";"Promise"in n?c(i).then((function(){a.isDone=!0,a.exec()})):c(s).then((function(){c(i).then((function(){a.isDone=!0,a.exec()}))}))}function f(){var t=[];return t.isDone=!1,t.exec=function(){t.splice(0).forEach((function(t){t()}))},t.then=function(e){return t.isDone?e():t.push(e),t},t}function c(t){var e=f(),n=r.createElement("script");return n.type="text/javascript",n.readyState?n.onreadystatechange=function(){"loaded"!=n.readyState&&"complete"!=n.readyState||(n.onreadystatechange=null,e.isDone=!0,e.exec())}:n.onload=function(){e.isDone=!0,e.exec()},n.src=t,r.getElementsByTagName("head")[0].appendChild(n),n.then=e.then,n}}(0,0,window,document,(function(){var t,e;t=window,e=function(){return function(t){var e={};function n(r){if(e[r])return e[r].exports;var o=e[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var o in t)n.d(r,o,function(e){return t[e]}.bind(null,o));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=5)}([function(t,e){t.exports=function(t){var e=[];return e.toString=function(){return this.map((function(e){var n=function(t,e){var n,r=t[1]||"",o=t[3];if(!o)return r;if(e&&"function"==typeof btoa){var a=(n=o,"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(n))))+" */"),i=o.sources.map((function(t){return"/*# sourceURL="+o.sourceRoot+t+" */"}));return[r].concat(i).concat([a]).join("\n")}return[r].join("\n")}(e,t);return e[2]?"@media "+e[2]+"{"+n+"}":n})).join("")},e.i=function(t,n){"string"==typeof t&&(t=[[null,t,""]]);for(var r={},o=0;o<this.length;o++){var a=this[o][0];"number"==typeof a&&(r[a]=!0)}for(o=0;o<t.length;o++){var i=t[o];"number"==typeof i[0]&&r[i[0]]||(n&&!i[2]?i[2]=n:n&&(i[2]="("+i[2]+") and ("+n+")"),e.push(i))}},e}},function(t,e,n){var r=n(3);t.exports="string"==typeof r?r:r.toString()},function(t,e,n){var r=n(4);t.exports="string"==typeof r?r:r.toString()},function(t,e,n){(t.exports=n(0)(!1)).push([t.i,"@-webkit-keyframes spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@-webkit-keyframes burst{0%{-webkit-transform:scale(1);transform:scale(1);opacity:1}90%{-webkit-transform:scale(1.5);transform:scale(1.5);opacity:0}}@keyframes burst{0%{-webkit-transform:scale(1);transform:scale(1);opacity:1}90%{-webkit-transform:scale(1.5);transform:scale(1.5);opacity:0}}@-webkit-keyframes flashing{0%{opacity:1}45%{opacity:0}90%{opacity:1}}@keyframes flashing{0%{opacity:1}45%{opacity:0}90%{opacity:1}}@-webkit-keyframes fade-left{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}75%{-webkit-transform:translateX(-20px);transform:translateX(-20px);opacity:0}}@keyframes fade-left{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}75%{-webkit-transform:translateX(-20px);transform:translateX(-20px);opacity:0}}@-webkit-keyframes fade-right{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}75%{-webkit-transform:translateX(20px);transform:translateX(20px);opacity:0}}@keyframes fade-right{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}75%{-webkit-transform:translateX(20px);transform:translateX(20px);opacity:0}}@-webkit-keyframes fade-up{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}75%{-webkit-transform:translateY(-20px);transform:translateY(-20px);opacity:0}}@keyframes fade-up{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}75%{-webkit-transform:translateY(-20px);transform:translateY(-20px);opacity:0}}@-webkit-keyframes fade-down{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}75%{-webkit-transform:translateY(20px);transform:translateY(20px);opacity:0}}@keyframes fade-down{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}75%{-webkit-transform:translateY(20px);transform:translateY(20px);opacity:0}}@-webkit-keyframes tada{0%{-webkit-transform:scaleX(1);transform:scaleX(1)}10%,20%{-webkit-transform:scale3d(.95,.95,.95) rotate(-10deg);transform:scale3d(.95,.95,.95) rotate(-10deg)}30%,50%,70%,90%{-webkit-transform:scaleX(1) rotate(10deg);transform:scaleX(1) rotate(10deg)}40%,60%,80%{-webkit-transform:scaleX(1) rotate(-10deg);transform:scaleX(1) rotate(-10deg)}to{-webkit-transform:scaleX(1);transform:scaleX(1)}}@keyframes tada{0%{-webkit-transform:scaleX(1);transform:scaleX(1)}10%,20%{-webkit-transform:scale3d(.95,.95,.95) rotate(-10deg);transform:scale3d(.95,.95,.95) rotate(-10deg)}30%,50%,70%,90%{-webkit-transform:scaleX(1) rotate(10deg);transform:scaleX(1) rotate(10deg)}40%,60%,80%{-webkit-transform:rotate(-10deg);transform:rotate(-10deg)}to{-webkit-transform:scaleX(1);transform:scaleX(1)}}.bx-spin,.bx-spin-hover:hover{-webkit-animation:spin 2s linear infinite;animation:spin 2s linear infinite}.bx-tada,.bx-tada-hover:hover{-webkit-animation:tada 1.5s ease infinite;animation:tada 1.5s ease infinite}.bx-flashing,.bx-flashing-hover:hover{-webkit-animation:flashing 1.5s infinite linear;animation:flashing 1.5s infinite linear}.bx-burst,.bx-burst-hover:hover{-webkit-animation:burst 1.5s infinite linear;animation:burst 1.5s infinite linear}.bx-fade-up,.bx-fade-up-hover:hover{-webkit-animation:fade-up 1.5s infinite linear;animation:fade-up 1.5s infinite linear}.bx-fade-down,.bx-fade-down-hover:hover{-webkit-animation:fade-down 1.5s infinite linear;animation:fade-down 1.5s infinite linear}.bx-fade-left,.bx-fade-left-hover:hover{-webkit-animation:fade-left 1.5s infinite linear;animation:fade-left 1.5s infinite linear}.bx-fade-right,.bx-fade-right-hover:hover{-webkit-animation:fade-right 1.5s infinite linear;animation:fade-right 1.5s infinite linear}",""])},function(t,e,n){(t.exports=n(0)(!1)).push([t.i,'.bx-rotate-90{transform:rotate(90deg);-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)"}.bx-rotate-180{transform:rotate(180deg);-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)"}.bx-rotate-270{transform:rotate(270deg);-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)"}.bx-flip-horizontal{transform:scaleX(-1);-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)"}.bx-flip-vertical{transform:scaleY(-1);-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)"}',""])},function(t,e,n){"use strict";n.r(e),n.d(e,"BoxIconElement",(function(){return g}));var r,o,a,i,s=n(1),f=n.n(s),c=n(2),l=n.n(c),m="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},u=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),d=(o=(r=Object).getPrototypeOf||function(t){return t.__proto__},a=r.setPrototypeOf||function(t,e){return t.__proto__=e,t},i="object"===("undefined"==typeof Reflect?"undefined":m(Reflect))?Reflect.construct:function(t,e,n){var r,o=[null];return o.push.apply(o,e),r=t.bind.apply(t,o),a(new r,n.prototype)},function(t){var e=o(t);return a(t,a((function(){return i(e,arguments,o(this).constructor)}),e))}),p=window,b={},y=document.createElement("template"),h=function(){return!!p.ShadyCSS};y.innerHTML='\n<style>\n:host {\n  display: inline-block;\n  font-size: initial;\n  box-sizing: border-box;\n  width: 24px;\n  height: 24px;\n}\n:host([size=xs]) {\n    width: 0.8rem;\n    height: 0.8rem;\n}\n:host([size=sm]) {\n    width: 1.55rem;\n    height: 1.55rem;\n}\n:host([size=md]) {\n    width: 2.25rem;\n    height: 2.25rem;\n}\n:host([size=lg]) {\n    width: 3.0rem;\n    height: 3.0rem;\n}\n\n:host([size]:not([size=""]):not([size=xs]):not([size=sm]):not([size=md]):not([size=lg])) {\n    width: auto;\n    height: auto;\n}\n:host([pull=left]) #icon {\n    float: left;\n    margin-right: .3em!important;\n}\n:host([pull=right]) #icon {\n    float: right;\n    margin-left: .3em!important;\n}\n:host([border=square]) #icon {\n    padding: .25em;\n    border: .07em solid rgba(0,0,0,.1);\n    border-radius: .25em;\n}\n:host([border=circle]) #icon {\n    padding: .25em;\n    border: .07em solid rgba(0,0,0,.1);\n    border-radius: 50%;\n}\n#icon,\nsvg {\n  width: 100%;\n  height: 100%;\n}\n#icon {\n    box-sizing: border-box;\n} \n'+f.a+"\n"+l.a+'\n</style>\n<div id="icon"></div>';var g=d(function(t){function e(){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,e);var t=function(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}(this,(e.__proto__||Object.getPrototypeOf(e)).call(this));return t.$ui=t.attachShadow({mode:"open"}),t.$ui.appendChild(t.ownerDocument.importNode(y.content,!0)),h()&&p.ShadyCSS.styleElement(t),t._state={$iconHolder:t.$ui.getElementById("icon"),type:t.getAttribute("type")},t}return function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}(e,HTMLElement),u(e,null,[{key:"getIconSvg",value:function(t,e){var n=this.cdnUrl+"/regular/bx-"+t+".svg";return"solid"===e?n=this.cdnUrl+"/solid/bxs-"+t+".svg":"logo"===e&&(n=this.cdnUrl+"/logos/bxl-"+t+".svg"),n&&b[n]||(b[n]=new Promise((function(t,e){var r=new XMLHttpRequest;r.addEventListener("load",(function(){this.status<200||this.status>=300?e(new Error(this.status+" "+this.responseText)):t(this.responseText)})),r.onerror=e,r.onabort=e,r.open("GET",n),r.send()}))),b[n]}},{key:"define",value:function(t){t=t||this.tagName,h()&&p.ShadyCSS.prepareTemplate(y,t),customElements.define(t,this)}},{key:"cdnUrl",get:function(){return"//unpkg.com/boxicons@2.1.4/svg"}},{key:"tagName",get:function(){return"box-icon"}},{key:"observedAttributes",get:function(){return["type","name","color","size","rotate","flip","animation","border","pull"]}}]),u(e,[{key:"attributeChangedCallback",value:function(t,e,n){var r=this._state.$iconHolder;switch(t){case"type":!function(t,e,n){var r=t._state;r.$iconHolder.textContent="",r.type&&(r.type=null),r.type=!n||"solid"!==n&&"logo"!==n?"regular":n,void 0!==r.currentName&&t.constructor.getIconSvg(r.currentName,r.type).then((function(t){r.type===n&&(r.$iconHolder.innerHTML=t)})).catch((function(t){console.error("Failed to load icon: "+r.currentName+"\n"+t)}))}(this,0,n);break;case"name":!function(t,e,n){var r=t._state;r.currentName=n,r.$iconHolder.textContent="",n&&void 0!==r.type&&t.constructor.getIconSvg(n,r.type).then((function(t){r.currentName===n&&(r.$iconHolder.innerHTML=t)})).catch((function(t){console.error("Failed to load icon: "+n+"\n"+t)}))}(this,0,n);break;case"color":r.style.fill=n||"";break;case"size":!function(t,e,n){var r=t._state;r.size&&(r.$iconHolder.style.width=r.$iconHolder.style.height="",r.size=r.sizeType=null),n&&!/^(xs|sm|md|lg)$/.test(r.size)&&(r.size=n.trim(),r.$iconHolder.style.width=r.$iconHolder.style.height=r.size)}(this,0,n);break;case"rotate":e&&r.classList.remove("bx-rotate-"+e),n&&r.classList.add("bx-rotate-"+n);break;case"flip":e&&r.classList.remove("bx-flip-"+e),n&&r.classList.add("bx-flip-"+n);break;case"animation":e&&r.classList.remove("bx-"+e),n&&r.classList.add("bx-"+n)}}},{key:"connectedCallback",value:function(){h()&&p.ShadyCSS.styleElement(this)}}]),e}());e.default=g,g.define()}])},"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.BoxIconElement=e():t.BoxIconElement=e()}));
+//# sourceMappingURL=boxicons.js.map
+    const container = document.querySelector('.container');
+const LoginLink = document.querySelector('.SignInLink');
+const RegisterLink = document.querySelector('.SignUpLink');
+
+RegisterLink.addEventListener('click', () =>{
+    container.classList.add('active');
+})
+
+LoginLink.addEventListener('click', () => {
+    container.classList.remove('active');
+})
 </script>
 
 </body>
