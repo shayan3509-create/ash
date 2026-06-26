@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "name": "آیفون ۱۴",
+    "description": "گوشی اپل آیفون ۱۴",
+    "price": 45000000,
+    "category": "موبایل",
+    "brand": "Apple",
+    "inventory": {
+      "quantity": 10
+    },
+    "image": "",
+    "isActive": true
+  },
+  {
+    "id": 2,
+    "name": "مک‌بوک پرو",
+    "description": "لپ‌تاپ اپل مک‌بوک پرو",
+    "price": 85000000,
+    "category": "لپ‌تاپ",
+    "brand": "Apple",
+    "inventory": {
+      "quantity": 5
+    },
+    "image": "",
+    "isActive": true
+  },
+  {
+    "id": 3,
+    "name": "ایرپادز پرو",
+    "description": "هدفون بی‌سیم اپل",
+    "price": 8000000,
+    "category": "هدفون",
+    "brand": "Apple",
+    "inventory": {
+      "quantity": 20
+    },
+    "image": "",
+    "isActive": true
+  }
+]

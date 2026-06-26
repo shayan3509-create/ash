@@ -1,0 +1,1072 @@
+/* ==================== فونت‌های محلی ==================== */
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('../fonts/Vazir-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('../fonts/Vazir-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('../fonts/Vazir-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+/* ==================== متغیرها - لایت مود ==================== */
+:root {
+    /* رنگ‌های اصلی نیوشاپ */
+    --color-blue: #4361EE;
+    --color-cyan: #4CC9F0;
+    --color-pink: #F72585;
+    --color-purple: #B026FF;
+
+    /* پس‌زمینه */
+    --bg-base: #F5F7FA;
+    --bg-blob-1: rgba(67, 97, 238, 0.18);
+    --bg-blob-2: rgba(76, 201, 240, 0.15);
+    --bg-blob-3: rgba(176, 38, 255, 0.12);
+
+    /* هدر - حس حباب (وسط تیره‌تر) */
+    --glass-bg: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.55) 0%,
+            rgba(180, 195, 220, 0.45) 50%,
+            rgba(255, 255, 255, 0.55) 100%);
+    --glass-border: rgba(255, 255, 255, 0.7);
+    --glass-shadow-outer: rgba(67, 97, 238, 0.25);
+    --glass-shadow-mid: rgba(67, 97, 238, 0.15);
+    --glass-shadow-inner: rgba(67, 97, 238, 0.1);
+    --glass-highlight-top: rgba(255, 255, 255, 0.95);
+    --glass-highlight-bottom: rgba(40, 60, 100, 0.25);
+    --reflection-start: rgba(255, 255, 255, 0.75);
+    --reflection-end: rgba(255, 255, 255, 0.0);
+    --glare-color: rgba(255, 255, 255, 0.6);
+
+    /* جستجو - همرنگ هدر (اصلاح شده) */
+    --search-bg: rgba(180, 195, 220, 0.45);
+    --search-bg-focus: rgba(180, 195, 220, 0.65);
+    --search-border: rgba(255, 255, 255, 0.6);
+
+    /* دکمه‌ها */
+    --action-bg: rgba(255, 255, 255, 0.4);
+    --action-hover: rgba(255, 255, 255, 0.7);
+    --action-border: rgba(255, 255, 255, 0.6);
+    --cart-bg: rgba(255, 255, 255, 0.5);
+
+    /* متن */
+    --text-primary: #1E1E2E;
+    --text-secondary: #5A5A7A;
+    --logo-text-color: #000000;
+
+    --font-fa: 'Vazirmatn', sans-serif;
+    --header-height: 100px;
+    --border-radius: 100px;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ==================== متغیرها - دارک مود ==================== */
+[data-theme="dark"] {
+    --bg-base: #0A0A14;
+    --bg-blob-1: rgba(176, 38, 255, 0.22);
+    --bg-blob-2: rgba(67, 97, 238, 0.2);
+    --bg-blob-3: rgba(247, 37, 133, 0.18);
+
+    --glass-bg: linear-gradient(180deg,
+            rgba(40, 45, 60, 0.65) 0%,
+            rgba(15, 20, 30, 0.85) 50%,
+            rgba(40, 45, 60, 0.65) 100%);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow-outer: rgba(67, 97, 238, 0.35);
+    --glass-shadow-mid: rgba(0, 0, 0, 0.5);
+    --glass-shadow-inner: rgba(67, 97, 238, 0.2);
+    --glass-highlight-top: rgba(255, 255, 255, 0.15);
+    --glass-highlight-bottom: rgba(0, 0, 0, 0.4);
+    --reflection-start: rgba(255, 255, 255, 0.12);
+    --reflection-end: rgba(255, 255, 255, 0.0);
+    --glare-color: rgba(255, 255, 255, 0.18);
+
+    --search-bg: rgba(15, 20, 30, 0.85);
+    --search-bg-focus: rgba(25, 30, 45, 0.95);
+    --search-border: rgba(255, 255, 255, 0.12);
+
+    --action-bg: rgba(255, 255, 255, 0.08);
+    --action-hover: rgba(255, 255, 255, 0.15);
+    --action-border: rgba(255, 255, 255, 0.12);
+    --cart-bg: rgba(255, 255, 255, 0.1);
+
+    --text-primary: #F0F0FF;
+    --text-secondary: #A0A0C0;
+    --logo-text-color: #FFFFFF;
+}
+
+/* ==================== بیس ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-fa);
+    background: var(--bg-base);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 200vh;
+    overflow-x: hidden;
+    position: relative;
+    transition: background 0.6s ease, color 0.4s ease;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* ==================== پس‌زمینه متحرک ==================== */
+.bg-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.7;
+    animation: blobFloat 25s ease-in-out infinite;
+    will-change: transform;
+}
+
+.bg-blob--1 {
+    width: 55vw;
+    height: 55vw;
+    background: var(--bg-blob-1);
+    top: -15%;
+    right: -10%;
+    animation-delay: 0s;
+}
+
+.bg-blob--2 {
+    width: 50vw;
+    height: 50vw;
+    background: var(--bg-blob-2);
+    bottom: -15%;
+    left: -10%;
+    animation-delay: -8s;
+}
+
+.bg-blob--3 {
+    width: 40vw;
+    height: 40vw;
+    background: var(--bg-blob-3);
+    top: 35%;
+    left: 45%;
+    animation-delay: -16s;
+}
+
+@keyframes blobFloat {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(40px, -60px) scale(1.08);
+    }
+
+    50% {
+        transform: translate(-30px, 40px) scale(0.95);
+    }
+
+    75% {
+        transform: translate(20px, 30px) scale(1.05);
+    }
+}
+/* ==================== هدر Liquid Glass ==================== */
+.liquid-nav {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 92%;
+    max-width: 1200px;
+    height: var(--header-height);
+    border-radius: var(--border-radius);
+    z-index: 1000;
+
+    background: var(--glass-bg);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+
+    /* سایه‌های چندلایه برای حس حباب */
+    box-shadow:
+        0 30px 60px -15px var(--glass-shadow-outer),
+        0 15px 30px -10px var(--glass-shadow-mid),
+        0 5px 15px -5px var(--glass-shadow-inner),
+        inset 0 2px 4px -1px var(--glass-highlight-top),
+        inset 0 -2px 4px -1px var(--glass-highlight-bottom),
+        inset 0 0 0 1.5px var(--glass-border);
+
+    transition: all 0.4s ease;
+}
+
+/* انعکاس خیس */
+.liquid-nav::before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    height: 45%;
+    border-radius: 99px 99px 24px 24px / 99px 99px 12px 12px;
+    background: linear-gradient(180deg, var(--reflection-start) 0%, var(--reflection-end) 100%);
+    pointer-events: none;
+    z-index: 6;
+    transition: background 0.5s ease;
+}/* Glare container */
+.liquid-glare-container {
+    display: none;
+}
+
+.liquid-glare {
+    display: none;
+}
+
+.liquid-nav:hover .liquid-glare {
+    display: none;
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 28px;
+    gap: 20px;
+    position: relative;
+    z-index: 10;
+}
+/* ==================== دکمه‌های اکشن ==================== */
+.header__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.action__btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--bounce);
+    position: relative;
+    background: var(--action-bg);
+    border: 1px solid var(--action-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* hover فقط برای دیوایس‌هایی که hover دارن */
+@media (hover: hover) and (pointer: fine) {
+    .action__btn:hover {
+        background: var(--action-hover);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow:
+            0 8px 20px rgba(76, 201, 240, 0.3),
+            0 0 0 2px rgba(76, 201, 240, 0.2);
+    }
+}
+
+.action-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: center;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.action-item:hover .action-label {
+    opacity: 1;
+    color: var(--text-primary);
+}
+
+/* دکمه تم */
+.theme-btn {
+    overflow: hidden;
+}
+
+.theme-icon-wrapper {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    pointer-events: none;
+}
+
+.theme-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    transition: transform 0.5s var(--bounce), opacity 0.4s ease;
+}
+
+.sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.moon-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+}
+
+[data-theme="dark"] .sun-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+}
+
+[data-theme="dark"] .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+/* سبد خرید */
+.cart-btn {
+    background: var(--cart-bg);
+    border-color: rgba(247, 37, 133, 0.3);
+}
+
+/* hover فقط برای دیوایس‌های دارای hover */
+@media (hover: hover) and (pointer: fine) {
+    .cart-btn:hover {
+        border-color: var(--color-pink);
+        box-shadow:
+            0 8px 20px rgba(247, 37, 133, 0.4),
+            0 0 0 2px rgba(247, 37, 133, 0.2);
+    }
+}
+
+.user-icon,
+.cart-icon {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.cart__badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(247, 37, 133, 0.6);
+    animation: badgeBounce 2s ease-in-out infinite;
+}
+
+@keyframes badgeBounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+/* ==================== لوگو ==================== */
+.header__logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    transition: transform 0.5s var(--bounce);
+    isolation: isolate;
+}
+
+/* هاله RGB همیشه فعال */
+.header__logo::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 25px;
+    background: linear-gradient(135deg,
+            var(--color-blue) 0%,
+            var(--color-cyan) 25%,
+            var(--color-purple) 50%,
+            var(--color-pink) 75%,
+            var(--color-blue) 100%);
+    background-size: 300% 300%;
+    opacity: 0.45;
+    filter: blur(15px);
+    z-index: -1;
+    animation: logoGradientShift 6s ease infinite;
+    transition: opacity 0.4s ease;
+}
+
+.header__logo:hover::before {
+    opacity: 0.7;
+}
+
+@keyframes logoGradientShift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.header__logo:hover {
+    transform: scale(1.08) translateY(-2px);
+}
+
+.header__logo:hover .logo__text {
+    animation: textBounce 0.6s var(--bounce);
+}
+
+.header__logo:hover .logo__accent {
+    animation: textBounce 0.6s var(--bounce) 0.08s;
+}
+
+@keyframes textBounce {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    40% {
+        transform: translateY(-6px) scale(1.08);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* متن "نیو" - رنگ بر اساس تم */
+.logo__text {
+    color: var(--logo-text-color);
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    display: inline-block;
+}
+
+.header__logo:hover .logo__text {
+    text-shadow:
+        0 0 20px rgba(67, 97, 238, 0.5),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* متن "شاپ" با گرادینت */
+.logo__accent {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg,
+            var(--color-blue) 0%,
+            var(--color-purple) 50%,
+            var(--color-pink) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: accentGradient 4s ease infinite;
+    filter: drop-shadow(0 0 8px rgba(176, 38, 255, 0.5));
+    transition: filter 0.4s ease;
+}
+
+@keyframes accentGradient {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.header__logo:hover .logo__accent {
+    filter:
+        drop-shadow(0 0 12px rgba(176, 38, 255, 0.8)) drop-shadow(0 0 24px rgba(247, 37, 133, 0.5));
+}
+
+/* نقطه لوگو */
+.logo__dot-wrapper {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+}
+
+.logo__dot {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle at 30% 30%,
+            #ffffff 0%,
+            var(--color-cyan) 40%,
+            var(--color-blue) 100%);
+    border-radius: 50%;
+    position: relative;
+    z-index: 3;
+    box-shadow:
+        0 0 12px var(--color-cyan),
+        0 0 24px var(--color-cyan),
+        0 0 36px rgba(76, 201, 240, 0.5),
+        inset 0 0 4px rgba(255, 255, 255, 0.8);
+    animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow:
+            0 0 12px var(--color-cyan),
+            0 0 24px var(--color-cyan),
+            0 0 36px rgba(76, 201, 240, 0.5),
+            inset 0 0 4px rgba(255, 255, 255, 0.8);
+    }
+
+    50% {
+        transform: scale(1.15);
+        box-shadow:
+            0 0 18px var(--color-cyan),
+            0 0 36px var(--color-blue),
+            0 0 54px rgba(176, 38, 255, 0.6),
+            inset 0 0 6px rgba(255, 255, 255, 1);
+    }
+}
+
+.logo__orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid transparent;
+    border-top-color: var(--color-cyan);
+    border-right-color: var(--color-purple);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: orbitSpin 3s linear infinite;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 4px var(--color-cyan));
+}
+
+@keyframes orbitSpin {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.logo__particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+}
+
+.logo__particle--1 {
+    background: var(--color-cyan);
+    box-shadow: 0 0 6px var(--color-cyan), 0 0 12px var(--color-cyan);
+    animation: particleOrbit1 2.5s linear infinite;
+}
+
+.logo__particle--2 {
+    background: var(--color-purple);
+    box-shadow: 0 0 6px var(--color-purple), 0 0 12px var(--color-purple);
+    animation: particleOrbit2 3.5s linear infinite reverse;
+}
+
+.logo__particle--3 {
+    background: var(--color-pink);
+    box-shadow: 0 0 6px var(--color-pink), 0 0 12px var(--color-pink);
+    animation: particleOrbit3 4s linear infinite;
+}
+
+@keyframes particleOrbit1 {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(14px) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(14px) rotate(-360deg);
+    }
+}
+
+@keyframes particleOrbit2 {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(16px) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(16px) rotate(-360deg);
+    }
+}
+
+@keyframes particleOrbit3 {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(18px) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(18px) rotate(-360deg);
+    }
+}
+
+.header__logo:hover .logo__dot {
+    animation: dotPulseHover 1s ease-in-out infinite;
+}
+
+@keyframes dotPulseHover {
+
+    0%,
+    100% {
+        transform: scale(1.1);
+        box-shadow:
+            0 0 20px var(--color-cyan),
+            0 0 40px var(--color-blue),
+            0 0 60px var(--color-purple),
+            inset 0 0 6px rgba(255, 255, 255, 1);
+    }
+
+    50% {
+        transform: scale(1.3);
+        box-shadow:
+            0 0 30px var(--color-cyan),
+            0 0 60px var(--color-purple),
+            0 0 90px var(--color-pink),
+            inset 0 0 8px rgba(255, 255, 255, 1);
+    }
+}
+
+.header__logo:hover .logo__orbit {
+    width: 28px;
+    height: 28px;
+    border-width: 2px;
+    animation-duration: 1.5s;
+    border-top-color: var(--color-pink);
+    border-right-color: var(--color-cyan);
+}
+
+.header__logo:hover .logo__particle--1 {
+    animation-duration: 1.5s;
+}
+
+.header__logo:hover .logo__particle--2 {
+    animation-duration: 2s;
+}
+
+.header__logo:hover .logo__particle--3 {
+    animation-duration: 2.5s;
+}
+
+/* ==================== جستجو ==================== */
+.header__search {
+    height: 70px;
+    flex: 1;
+    max-width: 700px;
+    display: flex;
+    align-items: center;
+    background: var(--search-bg);
+    border: 1.5px solid var(--search-border);
+    border-radius: 50px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.header__search:focus-within {
+    border-color: var(--color-cyan);
+    background: var(--search-bg-focus);
+    box-shadow:
+        0 0 0 3px rgba(76, 201, 240, 0.15),
+        0 0 25px rgba(76, 201, 240, 0.4),
+        0 0 50px rgba(67, 97, 238, 0.2);
+}
+
+.search__icon-btn {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.search__icon-btn:hover .search-icon {
+    transform: scale(1.2) rotate(15deg);
+}
+
+.search-icon {
+    width: 38px;
+    height: 38px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 5px var(--color-cyan));
+}
+
+.search__input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 14px 0;
+    font-size: 16px;
+    font-family: var(--font-fa);
+    color: var(--text-primary);
+    outline: none;
+    caret-color: var(--color-cyan);
+}
+
+.search__input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.header__search:focus-within .search__input::placeholder {
+    opacity: 0.5;
+}
+
+/* ==================== دکمه‌های اکشن ==================== */
+.header__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.action__btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--bounce);
+    position: relative;
+    background: var(--action-bg);
+    border: 1px solid var(--action-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* hover فقط برای دیوایس‌هایی که hover دارن */
+@media (hover: hover) and (pointer: fine) {
+    .action__btn:hover {
+        background: var(--action-hover);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow:
+            0 8px 20px rgba(76, 201, 240, 0.3),
+            0 0 0 2px rgba(76, 201, 240, 0.2);
+    }
+}
+
+/* دکمه تم */
+.theme-btn {
+    overflow: hidden;
+}
+
+.theme-icon-wrapper {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    pointer-events: none;
+}
+
+.theme-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    transition: transform 0.5s var(--bounce), opacity 0.4s ease;
+}
+
+.sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.moon-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+}
+
+[data-theme="dark"] .sun-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+}
+
+[data-theme="dark"] .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+/* سبد خرید */
+.cart-btn {
+    background: var(--cart-bg);
+    border-color: rgba(247, 37, 133, 0.3);
+}
+
+/* hover فقط برای دیوایس‌های دارای hover */
+@media (hover: hover) and (pointer: fine) {
+    .cart-btn:hover {
+        border-color: var(--color-pink);
+        box-shadow:
+            0 8px 20px rgba(247, 37, 133, 0.4),
+            0 0 0 2px rgba(247, 37, 133, 0.2);
+    }
+}
+
+.user-icon,
+.cart-icon {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.cart__badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(247, 37, 133, 0.6);
+    animation: badgeBounce 2s ease-in-out infinite;
+}
+
+@keyframes badgeBounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* ==================== رفع مشکل کلیک موبایل در دارک مود ==================== */
+
+/* این کد رو فقط در انتهای فایل style.css اضافه کن */
+[data-theme="dark"] .action__btn:active,
+[data-theme="dark"] .action__btn:focus,
+[data-theme="dark"] .action__btn:focus-visible,
+[data-theme="dark"] .cart-btn:active,
+[data-theme="dark"] .cart-btn:focus,
+[data-theme="dark"] .cart-btn:focus-visible {
+    background: var(--action-bg) !important;
+    border-color: var(--action-border) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transform: translateY(-1px) scale(1) !important;
+}
+
+/* برای لایت مود هم برای انسجام */
+:root .action__btn:active,
+:root .action__btn:focus,
+:root .action__btn:focus-visible,
+:root .cart-btn:active,
+:root .cart-btn:focus,
+:root .cart-btn:focus-visible {
+    background: var(--action-bg) !important;
+    border-color: var(--action-border) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transform: translateY(-1px) scale(1) !important;
+}
+
+/* ==================== محتوای اصلی ==================== */
+.main-content {
+    margin-top: calc(var(--header-height) + 60px);
+    padding-top: 40px;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero__title {
+    font-size: 48px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan), var(--color-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 15px rgba(67, 97, 238, 0.4));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 30px rgba(176, 38, 255, 0.6));
+    }
+}
+
+.hero__desc {
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.hero__highlight {
+    color: var(--color-pink);
+    font-weight: 600;
+}
+
+/* ==================== حذف نوار اسکرول (ظاهر) ==================== */
+
+/* برای کروم، سافاری و اج جدید */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+/* برای فایرفاکس */
+html {
+    scrollbar-width: none;
+}
+
+/* برای اینترنت اکسپلورر و اج قدیمی */
+body {
+    -ms-overflow-style: none;
+}
+
+/* ==================== رفع مشکل کلیک موبایل در دارک مود ==================== */
+
+/* جلوگیری از تغییر ناخواسته رنگ هنگام کلیک در دارک مود */
+[data-theme="dark"] .action__btn:active {
+    background: var(--action-bg) !important;
+    border-color: var(--action-border) !important;
+    transform: translateY(-1px) scale(1) !important;
+    outline: none;
+    box-shadow: none;
+}
+
+[data-theme="dark"] .cart-btn:active {
+    background: var(--cart-bg) !important;
+    border-color: rgba(247, 37, 133, 0.3) !important;
+    transform: translateY(-1px) scale(1) !important;
+    outline: none;
+    box-shadow: none;
+}
+
+/* برای لایت مود هم برای انسجام */
+:root .action__btn:active {
+    background: var(--action-bg) !important;
+    border-color: var(--action-border) !important;
+    transform: translateY(-1px) scale(1) !important;
+    outline: none;
+    box-shadow: none;
+}
+
+:root .cart-btn:active {
+    background: var(--cart-bg) !important;
+    border-color: rgba(247, 37, 133, 0.3) !important;
+    transform: translateY(-1px) scale(1) !important;
+    outline: none;
+    box-shadow: none;
+}
+
+/* برای جلوگیری از تغییر ناخواسته رنگ در حالت focus هم */
+[data-theme="dark"] .action__btn:focus,
+[data-theme="dark"] .action__btn:focus-visible {
+    background: var(--action-bg) !important;
+    border-color: var(--action-border) !important;
+    outline: none;
+    box-shadow: none;
+}
+
+[data-theme="dark"] .cart-btn:focus,
+[data-theme="dark"] .cart-btn:focus-visible {
+    background: var(--cart-bg) !important;
+    border-color: rgba(247, 37, 133, 0.3) !important;
+    outline: none;
+    box-shadow: none;
+}
