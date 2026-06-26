@@ -335,8 +335,8 @@ button {
 
 .theme-icon-wrapper {
     position: relative;
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     pointer-events: none;
 }
 
@@ -344,8 +344,8 @@ button {
     position: absolute;
     top: 0;
     left: 0;
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
     transition: transform 0.5s var(--bounce), opacity 0.4s ease;
 }
@@ -388,8 +388,8 @@ button {
 
 .user-icon,
 .cart-icon {
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
 }
 
@@ -837,8 +837,8 @@ button {
 
 .theme-icon-wrapper {
     position: relative;
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     pointer-events: none;
 }
 
@@ -846,8 +846,8 @@ button {
     position: absolute;
     top: 0;
     left: 0;
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
     transition: transform 0.5s var(--bounce), opacity 0.4s ease;
 }
@@ -890,8 +890,8 @@ button {
 
 .user-icon,
 .cart-icon {
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
 }
 
