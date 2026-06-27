@@ -22,19 +22,16 @@
 
 /* ==================== متغیرها - لایت مود ==================== */
 :root {
-    /* رنگ‌های اصلی نیوشاپ */
     --color-blue: #4361EE;
     --color-cyan: #4CC9F0;
     --color-pink: #F72585;
     --color-purple: #B026FF;
 
-    /* پس‌زمینه */
     --bg-base: #F5F7FA;
     --bg-blob-1: rgba(67, 97, 238, 0.18);
     --bg-blob-2: rgba(76, 201, 240, 0.15);
     --bg-blob-3: rgba(176, 38, 255, 0.12);
 
-    /* هدر - حس حباب (وسط تیره‌تر) */
     --glass-bg: linear-gradient(180deg,
             rgba(255, 255, 255, 0.55) 0%,
             rgba(180, 195, 220, 0.45) 50%,
@@ -49,18 +46,26 @@
     --reflection-end: rgba(255, 255, 255, 0.0);
     --glare-color: rgba(255, 255, 255, 0.6);
 
-    /* جستجو - همرنگ هدر (اصلاح شده) */
     --search-bg: rgba(180, 195, 220, 0.45);
     --search-bg-focus: rgba(180, 195, 220, 0.65);
     --search-border: rgba(255, 255, 255, 0.6);
 
-    /* دکمه‌ها */
     --action-bg: rgba(255, 255, 255, 0.4);
     --action-hover: rgba(255, 255, 255, 0.7);
     --action-border: rgba(255, 255, 255, 0.6);
     --cart-bg: rgba(255, 255, 255, 0.5);
 
-    /* متن */
+    /* متغیرهای جدید برای Sidebar و Bottom Nav */
+    --sidebar-bg: rgba(255, 255, 255, 0.55);
+    --sidebar-border: rgba(255, 255, 255, 0.7);
+    --sidebar-item-hover: rgba(67, 97, 238, 0.1);
+    --sidebar-item-active: rgba(67, 97, 238, 0.15);
+    --sidebar-width: 90px;
+
+    --bottom-nav-bg: rgba(255, 255, 255, 0.6);
+    --bottom-nav-border: rgba(255, 255, 255, 0.7);
+    --bottom-nav-height: 80px;
+
     --text-primary: #1E1E2E;
     --text-secondary: #5A5A7A;
     --logo-text-color: #000000;
@@ -101,6 +106,15 @@
     --action-hover: rgba(255, 255, 255, 0.15);
     --action-border: rgba(255, 255, 255, 0.12);
     --cart-bg: rgba(255, 255, 255, 0.1);
+
+    /* متغیرهای دارک برای Sidebar و Bottom Nav */
+    --sidebar-bg: rgba(20, 25, 40, 0.7);
+    --sidebar-border: rgba(255, 255, 255, 0.1);
+    --sidebar-item-hover: rgba(76, 201, 240, 0.1);
+    --sidebar-item-active: rgba(76, 201, 240, 0.2);
+
+    --bottom-nav-bg: rgba(20, 25, 40, 0.75);
+    --bottom-nav-border: rgba(255, 255, 255, 0.1);
 
     --text-primary: #F0F0FF;
     --text-secondary: #A0A0C0;
@@ -209,6 +223,7 @@ button {
         transform: translate(20px, 30px) scale(1.05);
     }
 }
+
 /* ==================== هدر Liquid Glass ==================== */
 .liquid-nav {
     position: fixed;
@@ -221,12 +236,9 @@ button {
     height: var(--header-height);
     border-radius: var(--border-radius);
     z-index: 1000;
-
     background: var(--glass-bg);
     backdrop-filter: blur(40px) saturate(180%);
     -webkit-backdrop-filter: blur(40px) saturate(180%);
-
-    /* سایه‌های چندلایه برای حس حباب */
     box-shadow:
         0 30px 60px -15px var(--glass-shadow-outer),
         0 15px 30px -10px var(--glass-shadow-mid),
@@ -234,11 +246,9 @@ button {
         inset 0 2px 4px -1px var(--glass-highlight-top),
         inset 0 -2px 4px -1px var(--glass-highlight-bottom),
         inset 0 0 0 1.5px var(--glass-border);
-
     transition: all 0.4s ease;
 }
 
-/* انعکاس خیس */
 .liquid-nav::before {
     content: '';
     position: absolute;
@@ -251,16 +261,13 @@ button {
     pointer-events: none;
     z-index: 6;
     transition: background 0.5s ease;
-}/* Glare container */
+}
+
 .liquid-glare-container {
     display: none;
 }
 
 .liquid-glare {
-    display: none;
-}
-
-.liquid-nav:hover .liquid-glare {
     display: none;
 }
 
@@ -274,38 +281,80 @@ button {
     position: relative;
     z-index: 10;
 }
-/* ==================== دکمه‌های اکشن ==================== */
-.header__actions {
-    display: flex;
+
+/* ==================== دکمه منو (موبایل) - بدون بک‌گراند ==================== */
+.menu-toggle-btn {
+    width: 50px;
+    height: 50px;
+    display: none;
+    /* در دسکتاپ مخفی */
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    padding: 0;
 }
 
-.action-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
+.menu-toggle-btn:hover {
+    transform: scale(1.1);
 }
 
-.action__btn {
+.menu-toggle-icon {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* ==================== دکمه جستجو (موبایل) ==================== */
+.search-toggle-btn {
+    width: 50px;
+    height: 50px;
+    display: none;
+    /* در دسکتاپ مخفی */
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    padding: 0;
+}
+
+.search-toggle-btn:hover {
+    transform: scale(1.1) rotate(15deg);
+}
+
+.search-toggle-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px var(--color-cyan));
+}
+
+/* ==================== دکمه نوتیفیکیشن (دسکتاپ) ==================== */
+.notification-btn {
     width: 60px;
     height: 60px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s var(--bounce);
-    position: relative;
     background: var(--action-bg);
     border: 1px solid var(--action-border);
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s var(--bounce);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
 
-/* hover فقط برای دیوایس‌هایی که hover دارن */
 @media (hover: hover) and (pointer: fine) {
-    .action__btn:hover {
+    .notification-btn:hover {
         background: var(--action-hover);
         transform: translateY(-3px) scale(1.05);
         box-shadow:
@@ -314,86 +363,13 @@ button {
     }
 }
 
-.action-label {
-    font-size: 12px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-align: center;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-
-.action-item:hover .action-label {
-    opacity: 1;
-    color: var(--text-primary);
-}
-
-/* دکمه تم */
-.theme-btn {
-    overflow: hidden;
-}
-
-.theme-icon-wrapper {
-    position: relative;
-    width: 60px;
-    height: 60px;
-    pointer-events: none;
-}
-
-.theme-icon {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    transition: transform 0.5s var(--bounce), opacity 0.4s ease;
-}
-
-.sun-icon {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-}
-
-.moon-icon {
-    opacity: 0;
-    transform: rotate(-90deg) scale(0);
-}
-
-[data-theme="dark"] .sun-icon {
-    opacity: 0;
-    transform: rotate(90deg) scale(0);
-}
-
-[data-theme="dark"] .moon-icon {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-}
-
-/* سبد خرید */
-.cart-btn {
-    background: var(--cart-bg);
-    border-color: rgba(247, 37, 133, 0.3);
-}
-
-/* hover فقط برای دیوایس‌های دارای hover */
-@media (hover: hover) and (pointer: fine) {
-    .cart-btn:hover {
-        border-color: var(--color-pink);
-        box-shadow:
-            0 8px 20px rgba(247, 37, 133, 0.4),
-            0 0 0 2px rgba(247, 37, 133, 0.2);
-    }
-}
-
-.user-icon,
-.cart-icon {
-    width: 60px;
-    height: 60px;
+.notification-icon {
+    width: 40px;
+    height: 40px;
     object-fit: contain;
 }
 
-.cart__badge {
+.notification__badge {
     position: absolute;
     top: -4px;
     right: -4px;
@@ -412,17 +388,6 @@ button {
     animation: badgeBounce 2s ease-in-out infinite;
 }
 
-@keyframes badgeBounce {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.15);
-    }
-}
 /* ==================== لوگو ==================== */
 .header__logo {
     position: relative;
@@ -438,7 +403,6 @@ button {
     isolation: isolate;
 }
 
-/* هاله RGB همیشه فعال */
 .header__logo::before {
     content: '';
     position: absolute;
@@ -478,29 +442,6 @@ button {
     transform: scale(1.08) translateY(-2px);
 }
 
-.header__logo:hover .logo__text {
-    animation: textBounce 0.6s var(--bounce);
-}
-
-.header__logo:hover .logo__accent {
-    animation: textBounce 0.6s var(--bounce) 0.08s;
-}
-
-@keyframes textBounce {
-    0% {
-        transform: translateY(0) scale(1);
-    }
-
-    40% {
-        transform: translateY(-6px) scale(1.08);
-    }
-
-    100% {
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* متن "نیو" - رنگ بر اساس تم */
 .logo__text {
     color: var(--logo-text-color);
     position: relative;
@@ -513,40 +454,6 @@ button {
     text-shadow:
         0 0 20px rgba(67, 97, 238, 0.5),
         0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* متن "شاپ" با گرادینت */
-.logo__accent {
-    position: relative;
-    display: inline-block;
-    background: linear-gradient(135deg,
-            var(--color-blue) 0%,
-            var(--color-purple) 50%,
-            var(--color-pink) 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: accentGradient 4s ease infinite;
-    filter: drop-shadow(0 0 8px rgba(176, 38, 255, 0.5));
-    transition: filter 0.4s ease;
-}
-
-@keyframes accentGradient {
-
-    0%,
-    100% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-.header__logo:hover .logo__accent {
-    filter:
-        drop-shadow(0 0 12px rgba(176, 38, 255, 0.8)) drop-shadow(0 0 24px rgba(247, 37, 133, 0.5));
 }
 
 /* نقطه لوگو */
@@ -684,54 +591,7 @@ button {
     }
 }
 
-.header__logo:hover .logo__dot {
-    animation: dotPulseHover 1s ease-in-out infinite;
-}
-
-@keyframes dotPulseHover {
-
-    0%,
-    100% {
-        transform: scale(1.1);
-        box-shadow:
-            0 0 20px var(--color-cyan),
-            0 0 40px var(--color-blue),
-            0 0 60px var(--color-purple),
-            inset 0 0 6px rgba(255, 255, 255, 1);
-    }
-
-    50% {
-        transform: scale(1.3);
-        box-shadow:
-            0 0 30px var(--color-cyan),
-            0 0 60px var(--color-purple),
-            0 0 90px var(--color-pink),
-            inset 0 0 8px rgba(255, 255, 255, 1);
-    }
-}
-
-.header__logo:hover .logo__orbit {
-    width: 28px;
-    height: 28px;
-    border-width: 2px;
-    animation-duration: 1.5s;
-    border-top-color: var(--color-pink);
-    border-right-color: var(--color-cyan);
-}
-
-.header__logo:hover .logo__particle--1 {
-    animation-duration: 1.5s;
-}
-
-.header__logo:hover .logo__particle--2 {
-    animation-duration: 2s;
-}
-
-.header__logo:hover .logo__particle--3 {
-    animation-duration: 2.5s;
-}
-
-/* ==================== جستجو ==================== */
+/* ==================== جستجو (دسکتاپ) ==================== */
 .header__search {
     height: 70px;
     flex: 1;
@@ -797,169 +657,338 @@ button {
     opacity: 0.5;
 }
 
-/* ==================== دکمه‌های اکشن ==================== */
-.header__actions {
+/* ==================== Desktop Sidebar (شبیه یوتیوب) ==================== */
+.desktop-sidebar {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1.5px solid var(--sidebar-border);
+    border-radius: 30px;
+    padding: 20px 10px;
+    z-index: 999;
+    box-shadow:
+        0 20px 50px -10px var(--glass-shadow-outer),
+        0 10px 25px -5px var(--glass-shadow-mid),
+        inset 0 1px 3px -1px var(--glass-highlight-top),
+        inset 0 -1px 3px -1px var(--glass-highlight-bottom);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    transition: all 0.4s ease;
 }
 
-.action__btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+.sidebar-nav {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.sidebar-item {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s var(--bounce);
+    gap: 4px;
+    padding: 10px 8px;
+    border-radius: 16px;
+    width: 100%;
+    transition: all 0.3s ease;
     position: relative;
-    background: var(--action-bg);
-    border: 1px solid var(--action-border);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
 }
 
-/* hover فقط برای دیوایس‌هایی که hover دارن */
-@media (hover: hover) and (pointer: fine) {
-    .action__btn:hover {
-        background: var(--action-hover);
-        transform: translateY(-3px) scale(1.05);
-        box-shadow:
-            0 8px 20px rgba(76, 201, 240, 0.3),
-            0 0 0 2px rgba(76, 201, 240, 0.2);
-    }
+.sidebar-item:hover {
+    background: var(--sidebar-item-hover);
+    transform: scale(1.05);
 }
 
-/* دکمه تم */
-.theme-btn {
-    overflow: hidden;
+.sidebar-item.active {
+    background: var(--sidebar-item-active);
 }
 
-.theme-icon-wrapper {
-    position: relative;
-    width: 60px;
-    height: 60px;
-    pointer-events: none;
-}
-
-.theme-icon {
+.sidebar-item.active::before {
+    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 60px;
-    height: 60px;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, var(--color-cyan), var(--color-blue));
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--color-cyan);
+}
+
+.sidebar-icon {
+    width: 32px;
+    height: 32px;
     object-fit: contain;
-    transition: transform 0.5s var(--bounce), opacity 0.4s ease;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-.sun-icon {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
+.sidebar-item:hover .sidebar-icon {
+    transform: scale(1.15);
 }
 
-.moon-icon {
-    opacity: 0;
-    transform: rotate(-90deg) scale(0);
+.sidebar-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: center;
+    transition: color 0.3s ease;
 }
 
-[data-theme="dark"] .sun-icon {
-    opacity: 0;
-    transform: rotate(90deg) scale(0);
+.sidebar-item:hover .sidebar-label,
+.sidebar-item.active .sidebar-label {
+    color: var(--text-primary);
 }
 
-[data-theme="dark"] .moon-icon {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-}
-
-/* سبد خرید */
-.cart-btn {
-    background: var(--cart-bg);
-    border-color: rgba(247, 37, 133, 0.3);
-}
-
-/* hover فقط برای دیوایس‌های دارای hover */
-@media (hover: hover) and (pointer: fine) {
-    .cart-btn:hover {
-        border-color: var(--color-pink);
-        box-shadow:
-            0 8px 20px rgba(247, 37, 133, 0.4),
-            0 0 0 2px rgba(247, 37, 133, 0.2);
-    }
-}
-
-.user-icon,
-.cart-icon {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-}
-
-.cart__badge {
+.sidebar-badge {
     position: absolute;
-    top: -4px;
-    right: -4px;
-    min-width: 22px;
-    height: 22px;
-    padding: 0 6px;
+    top: 4px;
+    left: 4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
     background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
     color: #fff;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 700;
-    border-radius: 11px;
+    border-radius: 9px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 10px rgba(247, 37, 133, 0.6);
-    animation: badgeBounce 2s ease-in-out infinite;
+    box-shadow: 0 2px 6px rgba(247, 37, 133, 0.5);
 }
 
-@keyframes badgeBounce {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.15);
-    }
+/* ==================== نیمه دکمه تم (Sidebar) ==================== */
+.theme-sidebar-item {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--sidebar-border);
 }
 
-/* ==================== رفع مشکل کلیک موبایل در دارک مود ==================== */
-
-/* این کد رو فقط در انتهای فایل style.css اضافه کن */
-[data-theme="dark"] .action__btn:active,
-[data-theme="dark"] .action__btn:focus,
-[data-theme="dark"] .action__btn:focus-visible,
-[data-theme="dark"] .cart-btn:active,
-[data-theme="dark"] .cart-btn:focus,
-[data-theme="dark"] .cart-btn:focus-visible {
-    background: var(--action-bg) !important;
-    border-color: var(--action-border) !important;
-    outline: none !important;
-    box-shadow: none !important;
-    transform: translateY(-1px) scale(1) !important;
+.theme-half-btn {
+    width: 60px;
+    height: 32px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #FFD93D 0%, #6C5CE7 100%);
+    border: 1.5px solid var(--sidebar-border);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.4s ease;
+    padding: 0;
 }
 
-/* برای لایت مود هم برای انسجام */
-:root .action__btn:active,
-:root .action__btn:focus,
-:root .action__btn:focus-visible,
-:root .cart-btn:active,
-:root .cart-btn:focus,
-:root .cart-btn:focus-visible {
-    background: var(--action-bg) !important;
-    border-color: var(--action-border) !important;
-    outline: none !important;
-    box-shadow: none !important;
-    transform: translateY(-1px) scale(1) !important;
+.theme-half-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.theme-half {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+}
+
+.theme-half--light {
+    background: linear-gradient(135deg, #FFD93D 0%, #FFA502 100%);
+}
+
+.theme-half--dark {
+    background: linear-gradient(135deg, #2C3E50 0%, #6C5CE7 100%);
+}
+
+.theme-half-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+/* حالت لایت - آیکون خورشید بزرگتر */
+[data-theme="light"] .theme-half--light {
+    flex: 1.5;
+}
+
+[data-theme="light"] .theme-half--dark {
+    flex: 0.5;
+    opacity: 0.6;
+}
+
+/* حالت دارک - آیکون ماه بزرگتر */
+[data-theme="dark"] .theme-half--dark {
+    flex: 1.5;
+}
+
+[data-theme="dark"] .theme-half--light {
+    flex: 0.5;
+    opacity: 0.6;
+}
+
+.theme-half-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.4);
+}
+
+/* ==================== Mobile Bottom Navigation ==================== */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 94%;
+    max-width: 500px;
+    height: var(--bottom-nav-height);
+    background: var(--bottom-nav-bg);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1.5px solid var(--bottom-nav-border);
+    border-radius: 40px;
+    z-index: 999;
+    display: none;
+    /* در دسکتاپ مخفی */
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10px;
+    box-shadow:
+        0 20px 50px -10px var(--glass-shadow-outer),
+        0 10px 25px -5px var(--glass-shadow-mid),
+        inset 0 1px 3px -1px var(--glass-highlight-top),
+        inset 0 -1px 3px -1px var(--glass-highlight-bottom);
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 4px;
+    border-radius: 16px;
+    flex: 1;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.bottom-nav-item:hover {
+    background: var(--sidebar-item-hover);
+}
+
+.bottom-nav-item.active {
+    background: var(--sidebar-item-active);
+}
+
+.bottom-nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-cyan), var(--color-blue));
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--color-cyan);
+}
+
+.bottom-nav-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.bottom-nav-item:hover .bottom-nav-icon,
+.bottom-nav-item.active .bottom-nav-icon {
+    transform: scale(1.15);
+}
+
+.bottom-nav-label {
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: center;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.bottom-nav-item:hover .bottom-nav-label,
+.bottom-nav-item.active .bottom-nav-label {
+    color: var(--text-primary);
+}
+
+.bottom-nav-badge {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(247, 37, 133, 0.5);
+}
+
+/* نیمه دکمه تم در موبایل */
+.theme-bottom-item {
+    padding: 4px;
+}
+
+.theme-half-btn-mobile {
+    width: 50px;
+    height: 26px;
+    border-radius: 13px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #FFD93D 0%, #6C5CE7 100%);
+    border: 1px solid var(--sidebar-border);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.4s ease;
+    padding: 0;
+}
+
+.theme-half-btn-mobile .theme-half-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.theme-half-btn-mobile:hover {
+    transform: scale(1.05);
 }
 
 /* ==================== محتوای اصلی ==================== */
 .main-content {
     margin-top: calc(var(--header-height) + 60px);
     padding-top: 40px;
+    padding-right: 0;
+    transition: padding-right 0.4s ease;
 }
 
 .hero {
@@ -1000,73 +1029,28 @@ button {
     font-weight: 600;
 }
 
-/* ==================== حذف نوار اسکرول (ظاهر) ==================== */
+@keyframes badgeBounce {
 
-/* برای کروم، سافاری و اج جدید */
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* ==================== حذف نوار اسکرول ==================== */
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent;
 }
 
-/* برای فایرفاکس */
 html {
     scrollbar-width: none;
 }
 
-/* برای اینترنت اکسپلورر و اج قدیمی */
 body {
     -ms-overflow-style: none;
-}
-
-/* ==================== رفع مشکل کلیک موبایل در دارک مود ==================== */
-
-/* جلوگیری از تغییر ناخواسته رنگ هنگام کلیک در دارک مود */
-[data-theme="dark"] .action__btn:active {
-    background: var(--action-bg) !important;
-    border-color: var(--action-border) !important;
-    transform: translateY(-1px) scale(1) !important;
-    outline: none;
-    box-shadow: none;
-}
-
-[data-theme="dark"] .cart-btn:active {
-    background: var(--cart-bg) !important;
-    border-color: rgba(247, 37, 133, 0.3) !important;
-    transform: translateY(-1px) scale(1) !important;
-    outline: none;
-    box-shadow: none;
-}
-
-/* برای لایت مود هم برای انسجام */
-:root .action__btn:active {
-    background: var(--action-bg) !important;
-    border-color: var(--action-border) !important;
-    transform: translateY(-1px) scale(1) !important;
-    outline: none;
-    box-shadow: none;
-}
-
-:root .cart-btn:active {
-    background: var(--cart-bg) !important;
-    border-color: rgba(247, 37, 133, 0.3) !important;
-    transform: translateY(-1px) scale(1) !important;
-    outline: none;
-    box-shadow: none;
-}
-
-/* برای جلوگیری از تغییر ناخواسته رنگ در حالت focus هم */
-[data-theme="dark"] .action__btn:focus,
-[data-theme="dark"] .action__btn:focus-visible {
-    background: var(--action-bg) !important;
-    border-color: var(--action-border) !important;
-    outline: none;
-    box-shadow: none;
-}
-
-[data-theme="dark"] .cart-btn:focus,
-[data-theme="dark"] .cart-btn:focus-visible {
-    background: var(--cart-bg) !important;
-    border-color: rgba(247, 37, 133, 0.3) !important;
-    outline: none;
-    box-shadow: none;
 }

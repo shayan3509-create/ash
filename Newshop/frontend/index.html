@@ -17,17 +17,22 @@
         <div class="bg-blob bg-blob--3"></div>
     </div>
 
-    <!-- هدر اصلی -->
+    <!-- ==================== هدر اصلی ==================== -->
     <header class="header liquid-nav" id="header">
         <div class="liquid-glare-container">
             <div class="liquid-glare" id="glare"></div>
         </div>
 
         <div class="header__inner">
+            <!-- دکمه منو (موبایل) - بدون بک‌گراند -->
+            <button class="menu-toggle-btn" id="menu-toggle" aria-label="منو">
+                <img src="assets/icons/meno.webp" alt="منو" class="menu-toggle-icon">
+            </button>
+
             <!-- لوگو -->
             <a href="#" class="header__logo">
                 <span class="logo__text">نیوشاپ</span>
-                
+
                 <span class="logo__dot-wrapper">
                     <span class="logo__dot"></span>
                     <span class="logo__orbit"></span>
@@ -37,52 +42,128 @@
                 </span>
             </a>
 
-            <!-- فرم جستجو -->
+            <!-- فرم جستجو (دسکتاپ: کامل / موبایل: فقط آیکون) -->
             <form class="header__search" id="search-form">
                 <button type="submit" class="search__icon-btn" aria-label="جستجو">
-                    <img src="assets/icons/search.webp" alt="جستجو"
-                        class="search-icon">
+                    <img src="assets/icons/search.webp" alt="جستجو" class="search-icon">
                 </button>
                 <input type="text" class="search__input" placeholder="جستجوی گوشی، لپ‌تاپ، ساعت..." id="search-input">
             </form>
 
-            <!-- اکشن‌ها -->
-            <div class="header__actions">
-                <!-- تم دارک/لایت -->
-                <div class="action-item">
-                    <button class="action__btn theme-btn" id="theme-toggle" aria-label="تغییر تم">
-                        <div class="theme-icon-wrapper">
-                            <img src="assets/icons/sun.webp" alt="تم روشن" class="theme-icon sun-icon"
-                                id="theme-light-icon">
-                            <img src="assets/icons/moon.webp"
-                                alt="تم تاریک" class="theme-icon moon-icon" id="theme-dark-icon">
-                        </div>
-                    </button>
-                    <span class="action-label">تم</span>
-                </div>
+            <!-- دکمه جستجو (فقط موبایل - آیکون خالی) -->
+            <button class="search-toggle-btn" id="search-toggle" aria-label="جستجو">
+                <img src="assets/icons/search.webp" alt="جستجو" class="search-toggle-icon">
+            </button>
 
-                <!-- حساب کاربری -->
-                <div class="action-item">
-                    <button class="action__btn" id="account-btn" aria-label="حساب کاربری">
-                        <img  src="assets/icons/user.webp" alt="حساب کاربری"
-                            class="user-icon">
-                    </button>
-                    <span class="action-label">حساب کاربری</span>
-                </div>
-
-                <!-- سبد خرید -->
-                <div class="action-item">
-                    <button class="action__btn cart-btn" id="cart-btn" aria-label="سبد خرید">
-                        <img src="assets/icons/cart.webp" alt="سبد خرید"
-                            class="cart-icon">
-                        <span class="cart__badge" id="cart-badge">3</span>
-                    </button>
-                    <span class="action-label">سبد خرید</span>
-                </div>
-            </div>
+            <!-- آیکون نوتیفیکیشن (فقط دسکتاپ) -->
+            <button class="notification-btn" id="notification-btn" aria-label="اعلانات">
+                <img src="assets/icons/bell.webp" alt="اعلانات" class="notification-icon">
+                <span class="notification__badge">5</span>
+            </button>
         </div>
     </header>
 
+    <!-- ==================== Sidebar دسکتاپ (شبیه یوتیوب) ==================== -->
+    <aside class="desktop-sidebar" id="desktop-sidebar">
+        <nav class="sidebar-nav">
+            <!-- نیمه دکمه تم -->
+            <div class="sidebar-item theme-sidebar-item">
+                <button class="theme-half-btn" id="theme-toggle-desktop" aria-label="تغییر تم">
+                    <div class="theme-half-wrapper">
+                        <div class="theme-half theme-half--light">
+                            <img src="assets/icons/sun.webp" alt="روشن" class="theme-half-icon">
+                        </div>
+                        <div class="theme-half theme-half--dark">
+                            <img src="assets/icons/moon.webp" alt="تاریک" class="theme-half-icon">
+                        </div>
+                    </div>
+                </button>
+                <span class="sidebar-label">تم</span>
+            </div>
+
+            <!-- خانه -->
+            <a href="#" class="sidebar-item active">
+                <img src="assets/icons/home.webp" alt="خانه" class="sidebar-icon">
+                <span class="sidebar-label">خانه</span>
+            </a>
+
+            <!-- گالری محصولات (اکسپلور) -->
+            <a href="#" class="sidebar-item">
+                <img src="assets/icons/Product-gallery.webp" alt="گالری" class="sidebar-icon">
+                <span class="sidebar-label">گالری</span>
+            </a>
+
+            <!-- وبلاگ -->
+            <a href="#" class="sidebar-item">
+                <img src="assets/icons/Blog.webp" alt="وبلاگ" class="sidebar-icon">
+                <span class="sidebar-label">وبلاگ</span>
+            </a>
+
+            <!-- حساب کاربری -->
+            <a href="#" class="sidebar-item">
+                <img src="assets/icons/user.webp" alt="حساب کاربری" class="sidebar-icon">
+                <span class="sidebar-label">حساب</span>
+            </a>
+
+            <!-- سبد خرید -->
+            <a href="#" class="sidebar-item sidebar-cart">
+                <img src="assets/icons/cart.webp" alt="سبد خرید" class="sidebar-icon">
+                <span class="sidebar-label">سبد</span>
+                <span class="sidebar-badge">3</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- ==================== Bottom Navigation موبایل ==================== -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+        <!-- نیمه دکمه تم -->
+        <div class="bottom-nav-item theme-bottom-item">
+            <button class="theme-half-btn-mobile" id="theme-toggle-mobile" aria-label="تغییر تم">
+                <div class="theme-half-wrapper">
+                    <div class="theme-half theme-half--light">
+                        <img src="assets/icons/sun.webp" alt="روشن" class="theme-half-icon">
+                    </div>
+                    <div class="theme-half theme-half--dark">
+                        <img src="assets/icons/moon.webp" alt="تاریک" class="theme-half-icon">
+                    </div>
+                </div>
+            </button>
+            <span class="bottom-nav-label">تم</span>
+        </div>
+
+        <!-- خانه -->
+        <a href="#" class="bottom-nav-item active">
+            <img src="assets/icons/home.webp" alt="خانه" class="bottom-nav-icon">
+            <span class="bottom-nav-label">خانه</span>
+        </a>
+
+        <!-- گالری محصولات -->
+        <a href="#" class="bottom-nav-item">
+            <img src="assets/icons/Product-gallery.webp" alt="گالری" class="bottom-nav-icon">
+            <span class="bottom-nav-label">گالری</span>
+        </a>
+
+        <!-- وبلاگ -->
+        <a href="#" class="bottom-nav-item">
+            <img src="assets/icons/blog.webp" alt="وبلاگ" class="bottom-nav-icon">
+            <span class="bottom-nav-label">وبلاگ</span>
+        </a>
+
+        <!-- حساب کاربری -->
+        <a href="#" class="bottom-nav-item">
+            <img src="assets/icons/user.webp" alt="حساب کاربری" class="bottom-nav-icon">
+            <span class="bottom-nav-label">حساب</span>
+        </a>
+
+        <!-- سبد خرید -->
+        <a href="#" class="bottom-nav-item bottom-nav-cart">
+            <img src="assets/icons/cart.webp" alt="سبد خرید" class="bottom-nav-icon">
+            <span class="bottom-nav-label">سبد</span>
+            <span class="bottom-nav-badge">3</span>
+        </a>
+    </nav>
+
+    <!-- ==================== محتوای اصلی ==================== -->
     <main class="main-content">
         <section class="hero">
             <h1 class="hero__title">آینده تکنولوژی، همینجا</h1>
