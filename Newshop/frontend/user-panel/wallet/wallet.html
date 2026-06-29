@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0d47a1">
+    <title>کیف پول | نیوشاپ</title>
+    
+    <!-- Fonts -->
+    <style>
+        @font-face {
+            font-family: 'Vazir';
+            src: url('../../assets/fonts/Vazir-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Vazir';
+            src: url('../../assets/fonts/Vazir-Bold.woff2') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Vazir';
+            src: url('../../assets/fonts/Vazir-Light.woff2') format('woff2');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
+    <style>
+        /* ============================================ */
+        /* RESET & BASE VARIABLES (مثل صفحه انگلیسی)    */
+        /* ============================================ */
+ /* ============================================ */
+/* RESET & BASE VARIABLES                        */
+/* ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #0d47a1;
+    --primary-dark: #0a3a82;
+    --primary-light: #1565c0;
+    --secondary: #00bcd4;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    --gray-100: #f8fafc;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+    --bg-body: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-surface: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+    --transition: 0.2s ease;
+}
+body {
+    font-family: 'Vazir', 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #0d47a1 0%, #4a148c 50%, #c48b9d 100%);
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+body.dark {
+    --bg-body: #0f172a;
+    --bg-card: #1e293b;
+    --bg-surface: #0f172a;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    background: linear-gradient(135deg, #0a0f2e 0%, #1a0a2e 50%, #2e0a1a 100%);
+}
+
+body.dark::before {
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.4) 0%, rgba(0, 150, 200, 0.15) 50%, transparent 70%),
+        radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.35) 0%, rgba(60, 0, 180, 0.15) 50%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(255, 0, 212, 0.25) 0%, transparent 60%);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.back-btn {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.back-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.05);
+}
+.back-btn svg {
+    stroke: white;
+    width: 24px;
+    height: 24px;
+}
+h1 {
+    font-size: 24px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+h1 svg {
+    stroke: white;
+}
+.recharge-btn {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 10px 20px;
+    border-radius: 40px;
+    color: white;
+    font-family: 'Vazir', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.recharge-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.02);
+}
+
+/* Balance Cards */
+.balance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 35px;
+}
+.balance-card {
+    background: var(--bg-card);
+    border-radius: 28px;
+    padding: 22px 20px;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s;
+    border: 1px solid var(--border);
+}
+.balance-card:hover {
+    transform: translateY(-3px);
+}
+.card-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+.card-label svg {
+    stroke: var(--primary);
+    width: 22px;
+    height: 22px;
+}
+.card-amount {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+body.dark .card-amount {
+    color: #90caf9;
+}
+.card-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* History Section */
+.history-section {
+    background: var(--bg-card);
+    border-radius: 28px;
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+}
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+}
+
+/* Search Box */
+.search-container {
+    margin-bottom: 20px;
+    position: relative;
+}
+.search-container input {
+    width: 100%;
+    padding: 12px 45px 12px 45px;
+    border: 2px solid var(--border);
+    border-radius: 60px;
+    font-family: 'Vazir', sans-serif;
+    background: var(--bg-body);
+    color: var(--text-primary);
+    transition: 0.2s;
+}
+.search-container input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.clear-search {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--danger);
+    display: none;
+    font-size: 18px;
+}
+.search-result-msg {
+    font-size: 12px;
+    margin-top: 8px;
+    color: var(--text-muted);
+}
+
+/* Transactions List */
+.transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.transaction-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: var(--bg-surface);
+    border-radius: 20px;
+    transition: 0.2s;
+    border-right: 4px solid transparent;
+    animation: fadeSlide 0.3s ease;
+}
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.transaction-item.deposit { border-right-color: var(--success); }
+.transaction-item.withdraw { border-right-color: var(--danger); }
+.transaction-item.reward { border-right-color: var(--warning); }
+.transaction-item.purchase { border-right-color: var(--info); }
+
+.transaction-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.transaction-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(13,71,161,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body.dark .transaction-icon {
+    background: rgba(144,202,249,0.15);
+}
+.transaction-details h4 {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.transaction-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    align-items: center;
+}
+.transaction-meta svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    vertical-align: middle;
+}
+.ref-badge {
+    background: rgba(13,71,161,0.1);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-family: monospace;
+    font-size: 11px;
+}
+
+/* Transaction Amount */
+.transaction-amount {
+    font-weight: 800;
+    font-size: 18px;
+    padding: 6px 14px;
+    border-radius: 60px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.transaction-amount.positive {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+.transaction-amount.negative {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+.transaction-amount:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+.page-btn {
+    background: var(--gray-200);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-family: 'Vazir', sans-serif;
+    cursor: pointer;
+    font-weight: bold;
+}
+body.dark .page-btn {
+    background: var(--gray-700);
+    color: white;
+}
+.page-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
+}
+.modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+.modal-content {
+    background: var(--bg-card);
+    max-width: 450px;
+    width: 90%;
+    border-radius: 32px;
+    padding: 28px;
+    text-align: center;
+}
+.amount-input {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    border: 2px solid var(--border);
+    border-radius: 24px;
+    margin: 15px 0;
+    font-family: 'Vazir', sans-serif;
+    text-align: center;
+}
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+.modal-actions button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 40px;
+    border: none;
+    font-family: 'Vazir', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    background: var(--gray-800);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 60px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1100;
+    animation: slideInRight 0.3s ease;
+}
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .balance-grid { grid-template-columns: 1fr; }
+    .transaction-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .transaction-left { width: 100%; }
+    .header { flex-direction: column; align-items: stretch; }
+    .header-left { justify-content: space-between; }
+}
+    </style>
+
+</head>
+<body>
+
+<div class="container"> 
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="back-btn" id="backBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <h1>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="5" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="2" y1="10" x2="22" y2="10"/>
+                </svg>
+                کیف پول من
+            </h1>
+        </div>
+        <button class="recharge-btn" id="rechargeBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M12 5v14M5 12h14"/>
+            </svg>
+            شارژ کیف پول
+        </button>
+    </div>
+
+    <!-- Balance Cards -->
+    <div class="balance-grid">
+        <div class="balance-card">
+            <div class="card-label">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+                <span>موجودی کل</span>
+            </div>
+            <div class="card-amount" id="totalBalance">۰ تومان</div>
+            <div class="card-sub">قابل استفاده در تمام بخش‌ها</div>
+        </div>
+        <div class="balance-card">
+            <div class="card-label">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M20 12H4M12 4v16"/>
+                    <rect x="2" y="5" width="20" height="14" rx="2"/>
+                </svg>
+                <span>قابل برداشت</span>
+            </div>
+            <div class="card-amount" id="withdrawableBalance">۰ تومان</div>
+            <div class="card-sub">قابل انتقال به کارت بانکی</div>
+        </div>
+    </div>
+
+    <!-- Transaction History with Search -->
+    <div class="history-section">
+        <div class="section-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            <span>تاریخچه تراکنش‌ها</span>
+        </div>
+
+        <!-- Search Box -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="جستجوی شماره پیگیری (مثال: TRX123456)">
+            <svg class="search-icon" id="searchIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <button class="clear-search" id="clearSearchBtn">✕</button>
+        </div>
+        <div id="searchResultMsg" class="search-result-msg"></div>
+
+        <div id="transactionsList" class="transactions-list"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+</div>
+
+<!-- Modal Recharge -->
+<div id="rechargeModal" class="modal">
+    <div class="modal-content">
+        <h3>شارژ کیف پول</h3>
+        <p>مبلغ مورد نظر را وارد کنید (تومان)</p>
+        <input type="number" id="rechargeAmount" class="amount-input" placeholder="مثال: ۵۰۰۰۰۰" min="10000" step="10000">
+        <div class="modal-actions">
+            <button id="confirmRechargeBtn" style="background: #0d47a1; color: white;">تایید و پرداخت</button>
+            <button id="cancelRechargeBtn" style="background: #e2e8f0;">انصراف</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============================================
+    // DATA
+    // ============================================
+    let walletBalance = 12500000;
+    let withdrawableBalance = 5000000;
+    let transactions = [];
+    const sampleTransactions = [
+        { id: 1, type: "deposit", title: "شارژ کیف پول", amount: 500000, date: "۱۴۰۳/۰۲/۱۵", time: "۱۴:۳۰", ref: "TRX123456", description: "پرداخت از طریق درگاه بانکی" },
+        { id: 2, type: "purchase", title: "خرید از فروشگاه", amount: -250000, date: "۱۴۰۳/۰۲/۱۴", time: "۱۱:۲۰", ref: "ORD12345", description: "سفارش #۱۲۳۴۵" },
+        { id: 3, type: "reward", title: "کد تخفیف", amount: 100000, date: "۱۴۰۳/۰۲/۱۳", time: "۰۹:۴۵", ref: "COUPON10", description: "کد WELCOME10" },
+        { id: 4, type: "withdraw", title: "برداشت به کارت", amount: -200000, date: "۱۴۰۳/۰۲/۱۲", time: "۱۸:۰۰", ref: "WDR98765", description: "کارت شماره ۶۲۱۹****۱۲۳۴" },
+        { id: 5, type: "deposit", title: "شارژ کیف پول", amount: 1000000, date: "۱۴۰۳/۰۲/۱۰", time: "۱۲:۱۵", ref: "TRX654321", description: "پرداخت موفق" },
+        { id: 6, type: "purchase", title: "خرید گوشی موبایل", amount: -1200000, date: "۱۴۰۳/۰۲/۰۸", time: "۱۶:۲۰", ref: "ORD54321", description: "سفارش #۵۴۳۲۱" },
+        { id: 7, type: "reward", title: "بازگشت وجه", amount: 300000, date: "۱۴۰۳/۰۲/۰۵", time: "۱۰:۰۰", ref: "RMA001", description: "مرجوعی کالا" },
+        { id: 8, type: "deposit", title: "شارژ با کارت", amount: 2000000, date: "۱۴۰۳/۰۱/۲۸", time: "۲۲:۱۰", ref: "TRX111222", description: "شارژ شب عید" },
+        { id: 9, type: "purchase", title: "خرید لپ‌تاپ", amount: -3500000, date: "۱۴۰۳/۰۱/۲۵", time: "۱۴:۵۰", ref: "ORD78901", description: "سفارش #۷۸۹۰۱" },
+        { id: 10, type: "reward", title: "هدیه عضویت", amount: 50000, date: "۱۴۰۳/۰۱/۲۰", time: "۰۸:۳۰", ref: "GIFT001", description: "خوش آمدید" },
+        { id: 11, type: "deposit", title: "شارژ خودکار", amount: 200000, date: "۱۴۰۳/۰۱/۱۸", time: "۰۹:۱۵", ref: "AUTO01", description: "پرداخت خودکار" },
+        { id: 12, type: "withdraw", title: "تسویه حساب", amount: -500000, date: "۱۴۰۳/۰۱/۱۵", time: "۱۳:۰۰", ref: "WDR45678", description: "برداشت به حساب شبا" }
+    ];
+
+    let currentPage = 1;
+    const itemsPerPage = 5;
+    let searchResults = null;
+
+    // ============================================
+    // HELPERS
+    // ============================================
+    function formatMoney(amount) {
+        return amount.toLocaleString('fa-IR') + ' تومان';
+    }
+
+    function showToast(msg, isError = false) {
+        let existing = document.querySelector('.toast');
+        if(existing) existing.remove();
+        let toast = document.createElement('div');
+        toast.className = 'toast';
+        // SVG instead of emoji
+        const iconSvg = isError 
+            ? '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+            : '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+        toast.innerHTML = `${iconSvg} <span>${msg}</span>`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    function loadData() {
+        const savedBalance = localStorage.getItem('wallet_balance');
+        const savedWithdraw = localStorage.getItem('wallet_withdrawable');
+        const savedTransactions = localStorage.getItem('wallet_transactions');
+        if(savedBalance) walletBalance = parseInt(savedBalance);
+        if(savedWithdraw) withdrawableBalance = parseInt(savedWithdraw);
+        if(savedTransactions) {
+            transactions = JSON.parse(savedTransactions);
+        } else {
+            transactions = [...sampleTransactions];
+            saveData();
+        }
+        updateBalanceDisplay();
+        renderTransactions();
+    }
+
+    function saveData() {
+        localStorage.setItem('wallet_balance', walletBalance);
+        localStorage.setItem('wallet_withdrawable', withdrawableBalance);
+        localStorage.setItem('wallet_transactions', JSON.stringify(transactions));
+    }
+
+    function updateBalanceDisplay() {
+        document.getElementById('totalBalance').innerText = formatMoney(walletBalance);
+        document.getElementById('withdrawableBalance').innerText = formatMoney(withdrawableBalance);
+    }
+
+    function addTransaction(type, title, amount, ref, desc) {
+        const now = new Date();
+        const persianDate = now.toLocaleDateString('fa-IR');
+        const persianTime = now.toLocaleTimeString('fa-IR', { hour:'2-digit', minute:'2-digit' });
+        const newId = transactions.length ? Math.max(...transactions.map(t=>t.id)) + 1 : 1;
+        transactions.unshift({
+            id: newId, type, title, amount, date: persianDate, time: persianTime, ref, description: desc
+        });
+        saveData();
+        searchResults = null;
+        document.getElementById('searchInput').value = '';
+        document.getElementById('clearSearchBtn').style.display = 'none';
+        document.getElementById('searchResultMsg').innerHTML = '';
+        currentPage = 1;
+        renderTransactions();
+    }
+
+    function rechargeWallet(amount) {
+        if(amount < 10000) { showToast('حداقل مبلغ ۱۰,۰۰۰ تومان', true); return false; }
+        walletBalance += amount;
+        withdrawableBalance += amount;
+        addTransaction('deposit', 'شارژ کیف پول', amount, 'ONLINE-'+Date.now(), `شارژ آنلاین ${formatMoney(amount)}`);
+        updateBalanceDisplay();
+        showToast(`${formatMoney(amount)} به کیف پول اضافه شد`);
+        return true;
+    }
+
+    // ============================================
+    // RENDER WITH SEARCH
+    // ============================================
+    function getDisplayTransactions() {
+        return searchResults !== null ? searchResults : transactions;
+    }
+
+    function renderTransactions() {
+        const displayList = getDisplayTransactions();
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageItems = displayList.slice(start, start + itemsPerPage);
+        const container = document.getElementById('transactionsList');
+
+        if(displayList.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:40px;">تراکنشی یافت نشد</div>';
+            document.getElementById('pagination').innerHTML = '';
+            return;
+        }
+
+        container.innerHTML = pageItems.map(t => {
+            let iconSvg = '';
+            if(t.type === 'deposit') iconSvg = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>`;
+            else if(t.type === 'purchase') iconSvg = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
+            else if(t.type === 'reward') iconSvg = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+            else iconSvg = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12H4M12 4v16"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>`;
+
+            return `
+                <div class="transaction-item ${t.type}" style="animation: fadeSlide 0.2s ease;">
+                    <div class="transaction-left">
+                        <div class="transaction-icon">${iconSvg}</div>
+                        <div class="transaction-details">
+                            <h4>${t.title}</h4>
+                            <div class="transaction-meta">
+                                <span style="display: inline-flex; align-items: center; gap: 4px;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                    ${t.date}
+                                </span>
+                                <span style="display: inline-flex; align-items: center; gap: 4px;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    ${t.time}
+                                </span>
+                                <span class="ref-badge">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-left: 4px;"><path d="M4 4v16h16V4H4z M8 9h8M8 13h6"/></svg>
+                                    ${t.ref}
+                                </span>
+                            </div>
+                            <div style="font-size: 11px; color: #64748b;">${t.description}</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount ${t.amount>=0?'positive':'negative'}">
+                        ${t.amount>=0 ? '+ ' : '- '}${formatMoney(Math.abs(t.amount))}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Pagination
+        const totalPages = Math.ceil(displayList.length / itemsPerPage);
+        const paginationDiv = document.getElementById('pagination');
+        if(totalPages <= 1) {
+            paginationDiv.innerHTML = '';
+            return;
+        }
+        let pagHtml = '';
+        for(let i=1; i<=totalPages; i++) {
+            pagHtml += `<button class="page-btn ${i===currentPage?'active':''}" data-page="${i}">${i}</button>`;
+        }
+        paginationDiv.innerHTML = pagHtml;
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                currentPage = parseInt(btn.dataset.page);
+                renderTransactions();
+            });
+        });
+    }
+
+    // ============================================
+    // SEARCH
+    // ============================================
+    function performSearch() {
+        const query = document.getElementById('searchInput').value.trim();
+        const clearBtn = document.getElementById('clearSearchBtn');
+        const msgDiv = document.getElementById('searchResultMsg');
+
+        if(query === "") {
+            searchResults = null;
+            clearBtn.style.display = 'none';
+            msgDiv.innerHTML = '';
+            currentPage = 1;
+            renderTransactions();
+            return;
+        }
+
+        const results = transactions.filter(t => t.ref.toLowerCase().includes(query.toLowerCase()));
+        if(results.length > 0) {
+            searchResults = results;
+            msgDiv.innerHTML = `<span style="color: #10b981;">✅ ${results.length} تراکنش با شماره پیگیری "${query}" یافت شد</span>`;
+            clearBtn.style.display = 'flex';
+        } else {
+            searchResults = [];
+            msgDiv.innerHTML = `<span style="color: #ef4444;">❌ هیچ تراکنشی با شماره پیگیری "${query}" یافت نشد</span>`;
+            clearBtn.style.display = 'flex';
+        }
+        currentPage = 1;
+        renderTransactions();
+        if(results.length > 0) showToast(`${results.length} تراکنش یافت شد`);
+        else showToast('تراکنشی یافت نشد', true);
+    }
+
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        searchResults = null;
+        document.getElementById('clearSearchBtn').style.display = 'none';
+        document.getElementById('searchResultMsg').innerHTML = '';
+        currentPage = 1;
+        renderTransactions();
+        showToast('جستجو پاک شد');
+    }
+
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    document.getElementById('backBtn').addEventListener('click', () => {
+        window.location.href = '../shop/home/index.html';
+    });
+    document.getElementById('rechargeBtn').addEventListener('click', () => {
+        document.getElementById('rechargeModal').classList.add('active');
+    });
+    document.getElementById('cancelRechargeBtn').addEventListener('click', () => {
+        document.getElementById('rechargeModal').classList.remove('active');
+    });
+    document.getElementById('confirmRechargeBtn').addEventListener('click', () => {
+        let amount = parseInt(document.getElementById('rechargeAmount').value);
+        if(isNaN(amount) || amount < 10000) {
+            showToast('مبلغ معتبر حداقل ۱۰,۰۰۰ تومان وارد کنید', true);
+            return;
+        }
+        if(rechargeWallet(amount)) {
+            document.getElementById('rechargeModal').classList.remove('active');
+            document.getElementById('rechargeAmount').value = '';
+        }
+    });
+
+    document.getElementById('searchIcon').addEventListener('click', performSearch);
+    document.getElementById('clearSearchBtn').addEventListener('click', clearSearch);
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') performSearch();
+    });
+    document.getElementById('searchInput').addEventListener('input', function() {
+        if(this.value === '') clearSearch();
+    });
+
+    // Dark mode sync
+    if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+    window.addEventListener('storage', (e) => {
+        if(e.key === 'theme') {
+            if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+            else document.body.classList.remove('dark');
+        }
+    });
+
+    loadData();
+</script>
+</body>
+</html>

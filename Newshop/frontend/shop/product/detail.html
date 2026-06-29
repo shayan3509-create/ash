@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="خرید بهترین محصولات با بهترین قیمت و ضمانت اصالت کالا">
+    <meta name="theme-color" content="#0d47a1">
+    <title>جزئیات محصول | نیوشاپ</title>
+    
+    <link rel="stylesheet" href="../../assets/css/fonts.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #7000ff;
+            --accent: #ff00d4;
+            --success: #00ff88;
+            --danger: #ff3366;
+            --warning: #ffaa00;
+            --bg-body: #f0f4f8;
+            --bg-surface: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --bg-header: rgba(255, 255, 255, 0.95);
+            --bg-footer: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --text-muted: #8a8aaa;
+            --border-color: rgba(0, 212, 255, 0.3);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --shadow-neon: 0 0 20px rgba(0, 212, 255, 0.5);
+            --shadow-neon-strong: 0 0 30px rgba(0, 212, 255, 0.7), 0 0 15px rgba(112, 0, 255, 0.5);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-2xl: 36px;
+            --radius-full: 9999px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark {
+            --bg-body: #0a0a0f;
+            --bg-surface: #0f0f1a;
+            --bg-card: rgba(15, 15, 26, 0.95);
+            --bg-header: rgba(10, 10, 15, 0.95);
+            --bg-footer: #0a0a0f;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0c0;
+            --text-muted: #6a6a7a;
+        }
+
+        html, body { overflow-x: hidden; max-width: 100vw; }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+            direction: rtl;
+            margin: 0; padding: 0;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 0, 212, 0.05) 0%, transparent 35%);
+            pointer-events: none; z-index: 0;
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+        .back-btn-fixed {
+            position: fixed; top: 24px; right: 24px; z-index: 999;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(0, 0, 0, 0.466); backdrop-filter: blur(12px);
+            padding: 12px 22px; border-radius: var(--radius-full);
+            color: var(--primary); text-decoration: none;
+            font-weight: 600; font-size: 14px;
+            transition: all var(--transition);
+            border: 1px solid var(--border-color); box-shadow: var(--shadow-neon);
+        }
+        .back-btn-fixed:hover { background: rgba(0, 212, 255, 0.25); transform: translateX(-4px); box-shadow: var(--shadow-neon-strong); }
+
+        .breadcrumb { display: flex; align-items: center; gap: 8px; padding: 20px 0; flex-wrap: wrap; font-size: 14px; color: var(--text-muted); overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+        .breadcrumb::-webkit-scrollbar { display: none; }
+        .breadcrumb a { color: var(--text-secondary); text-decoration: none; transition: color var(--transition); }
+        .breadcrumb a:hover { color: var(--primary); }
+        .breadcrumb .sep { color: var(--primary); font-size: 12px; }
+        .breadcrumb .current { color: var(--primary); font-weight: 500; }
+
+        .product-gallery-wrap { display: grid; grid-template-columns: 100px 1fr; gap: 20px; margin-bottom: 24px; }
+        .thumb-list { display: flex; flex-direction: column; gap: 10px; }
+
+        .thumb-item { width: 100%; aspect-ratio: 1; border-radius: var(--radius-md); overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: all var(--transition); background: var(--bg-surface); position: relative; }
+        .thumb-item img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition); }
+        .thumb-item:hover img { transform: scale(1.08); }
+        .thumb-item.active { border-color: var(--primary); border-width: 3px; box-shadow: 0 0 20px rgba(0, 212, 255, 0.6); }
+        .thumb-item.active::after {
+            content: ''; position: absolute; top: 6px; right: 6px;
+            width: 22px; height: 22px; background: var(--primary); border-radius: 50%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-size: 14px 14px; background-position: center; background-repeat: no-repeat;
+            box-shadow: 0 0 8px rgba(0,0,0,0.4);
+        }
+
+        .main-image-box { position: relative; border-radius: var(--radius-xl); overflow: hidden; background: var(--bg-surface); border: 1px solid var(--border-color); aspect-ratio: 1; max-height: 550px; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+        .main-image-box:active { cursor: grabbing; }
+        .main-image-box img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+        .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; transition: all var(--transition); z-index: 10; opacity: 0; }
+        .main-image-box:hover .gallery-arrow { opacity: 1; }
+        .gallery-arrow:hover { background: rgba(0, 213, 255, 0.13); box-shadow: var(--shadow-neon); }
+        .gallery-arrow.prev-btn { right: 16px; }
+        .gallery-arrow.next-btn { left: 16px; }
+
+        .gallery-dots-bar { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(12px); padding: 8px 16px; border-radius: var(--radius-full); border: 1px solid rgba(255, 255, 255, 0.25); }
+        .gallery-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.6); cursor: pointer; transition: all var(--transition); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .gallery-dot.active { background: var(--primary); box-shadow: 0 0 12px var(--primary); width: 28px; border-radius: 20px; border-color: var(--primary); }
+
+        .price-chart-box { background: var(--bg-card); backdrop-filter: blur(12px); border-radius: var(--radius-xl); border: 1px solid var(--border-color); padding: 24px; margin-bottom: 40px; }
+        .chart-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .chart-container { width: 100%; overflow-x: auto; scrollbar-width: none; }
+        .chart-container::-webkit-scrollbar { display: none; }
+        .chart-container svg { min-width: 500px; height: auto; }
+
+        .product-main-layout { display: grid; grid-template-columns: 1fr 400px; gap: 36px; margin-bottom: 40px; }
+        .product-info-card { background: var(--bg-card); backdrop-filter: blur(10px); border-radius: var(--radius-xl); border: 1px solid var(--border-color); padding: 28px; position: relative; overflow: hidden; }
+        .product-name { font-size: 26px; font-weight: 800; margin-bottom: 6px; color: var(--text-primary); line-height: 1.4; }
+        .product-eng-name { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+        .rating-inline { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .stars-gold { display: flex; gap: 1px; color: #ffc107; font-size: 18px; }
+        .rating-link { color: var(--primary); font-size: 14px; cursor: pointer; text-decoration: none; }
+        .rating-link:hover { text-decoration: underline; }
+
+        .price-box { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; }
+        .price-current { font-size: 32px; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline; }
+        .price-toman { font-size: 14px; color: var(--text-secondary); margin-right: 4px; }
+        .price-old-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+        .price-old { font-size: 16px; color: var(--text-muted); text-decoration: line-through; }
+        .discount-tag { display: inline-block; background: linear-gradient(135deg, var(--danger), var(--accent)); color: #fff; padding: 4px 12px; border-radius: var(--radius-full); font-size: 13px; font-weight: 700; }
+        .installment-row { margin-top: 14px; font-size: 14px; color: var(--text-secondary); background: rgba(0, 212, 255, 0.06); padding: 10px 14px; border-radius: var(--radius-md); display: inline-block; }
+        .installment-row .green-text { color: #059669; font-weight: 700; font-size: 15px; background: rgba(5, 150, 105, 0.1); padding: 3px 10px; border-radius: 6px; }
+        .stock-status-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; font-weight: 500; color: #059669; background: rgba(5, 150, 105, 0.06); padding: 10px 14px; border-radius: var(--radius-md); font-size: 14px; }
+
+        .option-block { margin-bottom: 20px; }
+        .option-title { font-weight: 700; margin-bottom: 10px; color: var(--text-primary); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .option-title .chosen { color: var(--primary); font-weight: 400; }
+        .color-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .color-circle { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; border: 2px solid var(--border-color); transition: all var(--transition); position: relative; }
+        .color-circle:hover { transform: scale(1.1); border-color: var(--primary); }
+        .color-circle.active { border-color: var(--primary); border-width: 3px; box-shadow: 0 0 0 3px var(--bg-card), 0 0 0 7px var(--primary); }
+        .color-circle .color-hint { position: absolute; bottom: -30px; right: 50%; transform: translateX(50%); background: var(--text-primary); color: var(--bg-card); padding: 4px 10px; border-radius: 6px; font-size: 10px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 5; }
+        .color-circle:hover .color-hint { opacity: 1; }
+
+        .chip-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .chip-btn { padding: 10px 18px; border: 1px solid var(--border-color); border-radius: var(--radius-full); background: var(--bg-surface); cursor: pointer; transition: all var(--transition); font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+        .chip-btn:hover { border-color: var(--primary); background: rgba(0, 212, 255, 0.04); }
+        .chip-btn.active { border-color: var(--primary); background: rgba(0, 212, 255, 0.1); color: var(--primary); font-weight: 700; }
+
+        .checkbox-option { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; cursor: pointer; }
+        .checkbox-option input[type="checkbox"] { display: none; }
+        .checkbox-custom { width: 22px; height: 22px; border: 2px solid var(--border-color); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all var(--transition); flex-shrink: 0; }
+        .checkbox-option input:checked + .checkbox-custom { background: var(--primary); border-color: var(--primary); }
+        .checkbox-option input:checked + .checkbox-custom::after { content: ''; display: block; width: 10px; height: 6px; border-left: 2px solid white; border-bottom: 2px solid white; transform: rotate(-45deg); margin-top: -2px; }
+        .checkbox-label { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+        .checkbox-label small { color: var(--text-muted); font-weight: 400; }
+
+        .qty-row { display: flex; align-items: center; gap: 0; margin-bottom: 20px; }
+        .qty-row button { width: 40px; height: 40px; border: 1px solid var(--border-color); background: var(--bg-surface); cursor: pointer; font-size: 18px; color: var(--text-primary); transition: all var(--transition); display: flex; align-items: center; justify-content: center; font-weight: 500; }
+        .qty-row button:hover { background: rgba(0, 212, 255, 0.1); color: var(--primary); }
+        .qty-row button:first-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+        .qty-row button:last-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+        .qty-row input { width: 50px; height: 40px; border: 1px solid var(--border-color); border-left: none; border-right: none; text-align: center; font-size: 15px; font-weight: 600; background: var(--bg-surface); color: var(--text-primary); }
+
+        .action-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-cart { flex: 3; padding: 14px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; border: none; border-radius: var(--radius-full); font-weight: 700; font-size: 15px; cursor: pointer; transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 180px; }
+        .btn-cart:hover { transform: translateY(-3px); box-shadow: var(--shadow-neon-strong); }
+        .btn-cart:active { transform: scale(0.97); }
+        .btn-cart.removed { background: linear-gradient(135deg, var(--danger), #cc0033); }
+        .btn-fav, .btn-compare { flex: 1; padding: 14px; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-full); cursor: pointer; transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 500; color: var(--text-secondary); font-size: 14px; min-width: 100px; }
+        .btn-fav:hover { border-color: var(--danger); color: var(--danger); background: rgba(255, 51, 102, 0.04); }
+        .btn-fav.is-liked { color: var(--danger); border-color: var(--danger); background: rgba(255, 51, 102, 0.08); }
+        .btn-compare:hover { border-color: var(--warning); color: var(--warning); background: rgba(255, 170, 0, 0.04); }
+        .cart-count-indicator { display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.3); color: #fff; width: 22px; height: 22px; border-radius: 50%; font-size: 12px; font-weight: 700; }
+
+        .tabs-box { background: var(--bg-card); backdrop-filter: blur(10px); border-radius: var(--radius-xl); border: 1px solid var(--border-color); overflow: hidden; margin-bottom: 60px; }
+        .tabs-header { display: flex; border-bottom: 1px solid var(--border-color); background: var(--bg-surface); position: sticky; top: 0; z-index: 50; overflow-x: auto; scrollbar-width: none; cursor: grab; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        .tabs-header:active { cursor: grabbing; }
+        .tabs-header::-webkit-scrollbar { display: none; }
+        .tabs-header button { flex: 1 0 auto; padding: 16px 20px; background: none; border: none; font-weight: 600; cursor: pointer; transition: all var(--transition); color: var(--text-secondary); position: relative; font-size: 14px; white-space: nowrap; }
+        .tabs-header button::after { content: ''; position: absolute; bottom: 0; right: 50%; transform: translateX(50%); width: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 3px 3px 0 0; transition: width var(--transition); }
+        .tabs-header button.active { color: var(--primary); }
+        .tabs-header button.active::after { width: 50%; }
+
+        .tab-panel { display: none; padding: 28px; animation: fadeUp 0.4s ease; }
+        .tab-panel.active { display: block; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .specs-table-wrap { width: 100%; overflow-x: auto; scrollbar-width: none; }
+        .specs-table-wrap::-webkit-scrollbar { display: none; }
+        .specs-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        .specs-table tr { border-bottom: 1px solid var(--border-color); transition: background var(--transition); }
+        .specs-table tr:hover { background: rgba(0, 212, 255, 0.02); }
+        .specs-table td { padding: 14px; font-size: 14px; }
+        .specs-table td:first-child { font-weight: 700; color: var(--text-primary); width: 160px; }
+        .specs-table td:last-child { color: var(--text-secondary); }
+        .specs-cat-title { background: linear-gradient(135deg, rgba(0, 212, 255, 0.04), rgba(112, 0, 255, 0.04)); font-weight: 800 !important; color: var(--primary) !important; font-size: 16px !important; padding: 18px 14px !important; }
+
+        .review-summary-row { display: flex; gap: 40px; margin-bottom: 36px; flex-wrap: wrap; }
+        .review-avg-box { text-align: center; min-width: 140px; }
+        .review-avg-number { font-size: 56px; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1; }
+        .review-avg-stars { color: #ffc107; font-size: 20px; margin: 6px 0; }
+        .review-avg-count { font-size: 13px; color: var(--text-muted); }
+        .review-bars-col { flex: 1; min-width: 200px; }
+        .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+        .bar-label { width: 28px; text-align: left; font-size: 12px; color: var(--text-secondary); }
+        .bar-track { flex: 1; height: 7px; background: var(--bg-surface); border-radius: 10px; overflow: hidden; }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, var(--warning), var(--primary)); border-radius: 10px; transition: width 1s ease; }
+        .bar-num { width: 35px; font-size: 12px; color: var(--text-muted); }
+        .ai-summary { background: linear-gradient(135deg, rgba(0, 212, 255, 0.06), rgba(112, 0, 255, 0.06)); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 28px; }
+        .ai-summary-badge { display: inline-block; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 4px 10px; border-radius: var(--radius-full); font-size: 11px; margin-bottom: 10px; }
+        .ai-summary-text { color: var(--text-secondary); font-size: 14px; line-height: 1.8; }
+        .review-card { background: var(--bg-surface); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px; border: 1px solid var(--border-color); transition: all var(--transition); }
+        .review-card:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+        .review-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+        .review-user-info { display: flex; align-items: center; gap: 8px; }
+        .review-avatar-circle { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
+        .review-user-name { font-weight: 600; color: var(--text-primary); font-size: 14px; }
+        .review-date { font-size: 11px; color: var(--text-muted); }
+        .review-text-content { color: var(--text-secondary); line-height: 1.7; margin: 10px 0; font-size: 14px; }
+        .review-votes { display: flex; gap: 14px; margin-top: 12px; }
+        .vote-btn { display: flex; align-items: center; gap: 4px; padding: 5px 12px; border-radius: var(--radius-full); border: 1px solid var(--border-color); background: transparent; cursor: pointer; transition: all var(--transition); font-size: 12px; color: var(--text-secondary); }
+        .vote-btn:hover { border-color: #059669; color: #059669; background: rgba(5, 150, 105, 0.06); }
+        .vote-btn.voted { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 255, 0.1); }
+        .qa-card { background: var(--bg-surface); border-radius: var(--radius-lg); padding: 18px; margin-bottom: 14px; border: 1px solid var(--border-color); }
+        .qa-question { font-weight: 600; color: var(--text-primary); margin-bottom: 8px; font-size: 14px; }
+        .qa-answer { color: var(--text-secondary); font-size: 14px; padding: 10px 12px; background: rgba(5, 150, 105, 0.05); border-radius: var(--radius-md); border-right: 3px solid #059669; line-height: 1.7; }
+        .qa-votes { display: flex; gap: 14px; margin-top: 10px; }
+        .qa-answers-list { margin-top: 10px; }
+        .qa-answer-item { background: rgba(0, 212, 255, 0.02); border-radius: 8px; padding: 10px; margin-bottom: 8px; font-size: 13px; color: var(--text-secondary); }
+        .text-description { line-height: 2; color: var(--text-secondary); font-size: 15px; }
+        .text-description h3 { color: var(--text-primary); font-size: 18px; margin: 20px 0 10px; }
+        .text-description p { margin-bottom: 12px; }
+        .text-description ul { list-style: disc; padding-right: 24px; margin-bottom: 16px; }
+        .text-description ul li { margin-bottom: 6px; }
+        .included-items { background: rgba(0, 212, 255, 0.04); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 16px 20px; margin: 20px 0; }
+        .included-items h4 { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .guide-content { line-height: 2; color: var(--text-secondary); font-size: 15px; }
+        .guide-content h3 { color: var(--text-primary); font-size: 18px; margin: 20px 0 10px; }
+        .shipping-content { line-height: 2; color: var(--text-secondary); font-size: 15px; }
+        .shipping-highlight { background: rgba(0, 212, 255, 0.05); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 16px; margin: 16px 0; }
+        .shipping-highlight strong { color: var(--primary); }
+
+        .related-section, .bought-together-section { margin-bottom: 60px; }
+        .related-head, .together-head { margin-bottom: 28px; }
+        .related-head h2, .together-head h2 { font-size: 26px; font-weight: 800; color: var(--text-primary); position: relative; display: inline-block; }
+        .related-head h2::after, .together-head h2::after { content: ''; position: absolute; bottom: -8px; right: 0; width: 50px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 3px; }
+
+        .scrollable-grid { display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; padding-bottom: 12px; cursor: grab; scroll-behavior: smooth; }
+        .scrollable-grid::-webkit-scrollbar { display: none; }
+        .scrollable-grid:active { cursor: grabbing; }
+
+        .product-card { background: var(--bg-card); backdrop-filter: blur(10px); border-radius: var(--radius-lg); overflow: hidden; transition: all var(--transition); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); cursor: pointer; min-width: 260px; max-width: 300px; flex-shrink: 0; user-select: none; }
+        .product-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--primary); box-shadow: var(--shadow-neon); }
+        .product-card .product-image { position: relative; aspect-ratio: 1; background: linear-gradient(135deg, #1a1a2e, #0a0a0f); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .product-card .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; pointer-events: none; }
+        .product-card:hover .product-image img { transform: scale(1.06); }
+        .product-card .discount-badge { position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, var(--danger), var(--accent)); color: white; padding: 6px 14px; border-radius: var(--radius-full); font-size: 13px; font-weight: bold; z-index: 2; }
+        .product-card .product-info { padding: 20px; }
+        .product-card .product-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
+        .product-card .price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .product-card .product-price { font-size: 20px; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .product-card .product-old-price { font-size: 13px; color: var(--text-muted); text-decoration: line-through; }
+        .product-card .installment { font-size: 12px; margin: 8px 0; padding: 6px 10px; background: rgba(0, 212, 255, 0.08); border-radius: var(--radius-md); display: inline-block; color: var(--text-secondary); }
+        .product-card .installment span:last-child { color: #059669; font-weight: bold; background: rgba(5, 150, 105, 0.08); padding: 2px 6px; border-radius: 4px; }
+        .product-card .btn-buy-details { width: 100%; padding: 11px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition); font-weight: 500; font-size: 14px; margin-top: 10px; }
+        .product-card .btn-buy-details:hover { transform: translateY(-2px); box-shadow: var(--shadow-neon); }
+
+        .image-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.98); z-index: 10000; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+        .image-modal.active { display: flex; align-items: center; justify-content: center; }
+        .modal-image-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; touch-action: none; }
+        .modal-image-container img { max-width: 95vw; max-height: 95vh; object-fit: contain; transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; cursor: grab; }
+        .modal-image-container img:active { cursor: grabbing; }
+        .modal-close-btn { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 20; }
+        .modal-close-btn:hover { background: rgba(255,50,50,0.5); transform: scale(1.1); }
+        .modal-counter { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 600; letter-spacing: 2px; z-index: 20; }
+        .modal-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 20; }
+        .modal-nav:hover { background: rgba(255,255,255,0.25); transform: translateY(-50%) scale(1.1); }
+        .modal-nav.prev-modal { left: 16px; }
+        .modal-nav.next-modal { right: 16px; }
+
+        /* ============================================
+           مودال مشاهده همه نظرات / پرسش‌ها
+        ============================================ */
+        .all-items-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+        }
+        .all-items-modal.active { display: flex; }
+        .all-items-dialog {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: var(--shadow-neon-strong);
+        }
+        @keyframes modalSlideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .all-items-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0, 212, 255, 0.03);
+        }
+        .all-items-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+        }
+        .all-items-close {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 50, 50, 0.1);
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .all-items-close:hover { background: rgba(255, 50, 50, 0.3); transform: rotate(90deg); }
+        .all-items-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            scrollbar-width: thin;
+        }
+        .all-items-body::-webkit-scrollbar { width: 4px; }
+        .all-items-body::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        .modal-review-card,
+        .modal-qa-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition);
+        }
+        .modal-review-card:hover,
+        .modal-qa-card:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+
+        @media (max-width: 480px) {
+            .all-items-dialog { width: 95%; max-height: 90vh; }
+            .all-items-header { padding: 16px 18px; }
+            .all-items-body { padding: 16px; }
+        }
+
+        .toast-wrap { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; align-items: center; }
+        .toast-msg { background: var(--bg-card); backdrop-filter: blur(20px); padding: 14px 24px; border-radius: var(--radius-full); border: 1px solid var(--border-color); box-shadow: var(--shadow-lg); animation: toastIn 0.4s ease, toastOut 0.4s ease 2.6s forwards; font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .toast-success { border-right: 4px solid #059669; }
+        .toast-info { border-right: 4px solid var(--primary); }
+        .toast-warning { border-right: 4px solid var(--warning); }
+        @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes toastOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-16px); } }
+
+        .page-footer { background: var(--bg-footer); border-top: 1px solid var(--border-color); padding: 24px 0; text-align: center; color: var(--text-muted); font-size: 13px; }
+
+        /* جلوگیری از کشیدن عکس‌ها */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
+        .product-card img {
+            pointer-events: none;
+        }
+        .main-image-box img,
+        .thumb-item img {
+            pointer-events: none;
+        }
+
+        @media (max-width: 1024px) {
+            .product-main-layout { grid-template-columns: 1fr; }
+            .product-gallery-wrap { grid-template-columns: 1fr; gap: 16px; width: 100%; }
+            .thumb-list { flex-direction: row; overflow-x: auto; max-height: none; order: 2; gap: 10px; scrollbar-width: none; padding: 4px 0; }
+            .thumb-list::-webkit-scrollbar { display: none; }
+            .thumb-item { width: 90px; height: 90px; flex-shrink: 0; }
+            .main-image-box { order: 1; max-height: none; aspect-ratio: 1; width: 100%; }
+            .main-image-box img { width: 100%; height: 100%; object-fit: cover; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 12px; }
+            .product-name { font-size: 20px; }
+            .price-current { font-size: 24px; }
+            .price-box { padding: 16px; }
+            .tabs-header button { padding: 14px 14px; font-size: 13px; }
+            .tab-panel { padding: 18px; }
+            .action-row { flex-direction: column; gap: 10px; }
+            .btn-cart, .btn-fav, .btn-compare { width: 100%; min-width: auto; justify-content: center; }
+            .review-summary-row { flex-direction: column; gap: 20px; }
+            .product-info-card { padding: 20px; }
+            .back-btn-fixed { top: 16px; right: 16px; padding: 10px 18px; font-size: 13px; }
+            .thumb-item { width: 80px; height: 80px; }
+            .gallery-arrow { width: 36px; height: 36px; }
+            .chip-btn { padding: 8px 14px; font-size: 12px; }
+            .product-card { min-width: 220px; max-width: 260px; }
+            .scrollable-grid { gap: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 8px; max-width: 100%; }
+            .product-info-card { padding: 14px; border-radius: var(--radius-lg); max-width: 100%; }
+            .product-name { font-size: 18px; }
+            .price-current { font-size: 20px; }
+            .price-box { padding: 14px; }
+            .product-card { min-width: 180px; max-width: 220px; }
+            .product-card .product-info { padding: 12px; }
+            .product-card .product-title { font-size: 13px; }
+            .product-card .product-price { font-size: 16px; }
+            .product-card .btn-buy-details { padding: 8px; font-size: 12px; }
+            .product-card .discount-badge { font-size: 10px; padding: 4px 10px; }
+            .product-card .product-old-price { font-size: 11px; }
+            .product-card .installment { font-size: 10px; padding: 5px 8px; }
+            .product-card .installment span:last-child { font-size: 11px; }
+            .thumb-item { width: 70px; height: 70px; }
+            .main-image-box { max-height: 420px; border-radius: var(--radius-lg); }
+            .gallery-arrow { width: 30px; height: 30px; }
+            .tabs-header button { padding: 12px 10px; font-size: 12px; }
+            .tab-panel { padding: 14px; }
+            .color-circle { width: 32px; height: 32px; }
+            .chip-btn { padding: 6px 10px; font-size: 10px; }
+            .qty-row button { width: 32px; height: 32px; font-size: 15px; }
+            .qty-row input { width: 36px; height: 32px; font-size: 13px; }
+            .btn-cart { font-size: 13px; padding: 12px; }
+            .btn-fav, .btn-compare { font-size: 11px; padding: 10px; }
+            .back-btn-fixed { top: 10px; right: 10px; padding: 8px 12px; font-size: 15px; }
+            .specs-table td { padding: 8px 6px; font-size: 11px; }
+            .specs-table td:first-child { width: 80px; font-size: 11px; }
+            .specs-table { min-width: 100%; }
+            .specs-table-wrap { max-width: 100%; }
+            .review-card { padding: 12px; }
+            .ai-summary { padding: 12px; }
+            .ai-summary-text { font-size: 12px; }
+            .chart-container svg { min-width: 100% !important; width: 100% !important; height: auto; min-height: 320px; }
+            .price-chart-box { padding: 12px; }
+            .scrollable-grid { gap: 12px; }
+            .modal-nav { width: 40px; height: 40px; }
+            .modal-nav.prev-modal { left: 8px; }
+            .modal-nav.next-modal { right: 8px; }
+            .modal-close-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .modal-counter { font-size: 12px; padding: 6px 14px; top: 16px; }
+        }
+        /* ============================================
+   فرم‌های ثبت نظر و پرسش - طراحی لوکس
+============================================ */
+.submit-form {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    margin-top: 32px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition);
+}
+
+.submit-form::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.submit-form::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(112, 0, 255, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.submit-form h4 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.submit-form h4::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    border-radius: 4px;
+}
+
+.submit-form .form-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.submit-form input,
+.submit-form textarea,
+.submit-form select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    resize: vertical;
+    position: relative;
+    z-index: 1;
+}
+
+.submit-form input:hover,
+.submit-form textarea:hover,
+.submit-form select:hover {
+    border-color: rgba(0, 212, 255, 0.4);
+    background: rgba(0, 212, 255, 0.02);
+}
+
+.submit-form input:focus,
+.submit-form textarea:focus,
+.submit-form select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1), 0 0 20px rgba(0, 212, 255, 0.15);
+    background: var(--bg-surface);
+    transform: translateY(-1px);
+}
+
+.submit-form input::placeholder,
+.submit-form textarea::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+    transition: all 0.3s;
+}
+
+.submit-form input:focus::placeholder,
+.submit-form textarea:focus::placeholder {
+    opacity: 0.5;
+    transform: translateX(-8px);
+}
+
+.submit-form textarea {
+    min-height: 100px;
+    line-height: 1.8;
+}
+
+.submit-form select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a8aaa' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 14px center;
+    padding-left: 40px;
+}
+
+.submit-form button {
+    padding: 12px 28px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all var(--transition);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.submit-form button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.5s;
+}
+
+.submit-form button:hover::before {
+    left: 100%;
+}
+
+.submit-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4), 0 0 25px rgba(112, 0, 255, 0.3);
+}
+
+.submit-form button:active {
+    transform: scale(0.96);
+}
+
+/* استایل‌های دارک مود */
+body.dark .submit-form {
+    background: rgba(15, 15, 26, 0.9);
+    border-color: rgba(0, 212, 255, 0.2);
+}
+
+body.dark .submit-form input,
+body.dark .submit-form textarea,
+body.dark .submit-form select {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(0, 212, 255, 0.2);
+    color: #fff;
+}
+
+body.dark .submit-form input:focus,
+body.dark .submit-form textarea:focus,
+body.dark .submit-form select:focus {
+    border-color: var(--primary);
+    background: rgba(0, 212, 255, 0.05);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.08), 0 0 30px rgba(0, 212, 255, 0.2);
+}
+/* فرم پاسخ به پرسش */
+.reply-form {
+    margin-top: 10px;
+    display: none;
+}
+
+.reply-form textarea {
+    width: 100%;
+    min-height: 60px;
+    padding: 10px 14px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 13px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    resize: vertical;
+}
+
+.reply-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+.reply-form textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.reply-form button {
+    margin-top: 8px;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+    font-size: 12px;
+    transition: all var(--transition);
+}
+
+.reply-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-neon);
+}
+    </style>
+</head>
+<body>
+
+<pre style="font-size: 15px;">
+
+</pre>
+
+<a href="../home/index.html" class="back-btn-fixed">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    بازگشت
+</a>
+
+<main>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../home/index.html">خانه</a><span class="sep">/</span>
+            <a href="../products/category.html">موبایل</a><span class="sep">/</span>
+            <a href="../products/category.html">اپل</a><span class="sep">/</span>
+            <span class="current">iPhone 15 Pro Max</span>
+        </nav>
+
+        <div class="product-main-layout">
+            <div>
+                <div class="product-gallery-wrap">
+                    <div class="thumb-list" id="thumbList">
+                        <div class="thumb-item active" data-index="0"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-01.jpg" alt="تصویر ۱" loading="lazy" draggable="false"></div>
+                        <div class="thumb-item" data-index="1"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-02.jpg" alt="تصویر ۲" loading="lazy" draggable="false"></div>
+                        <div class="thumb-item" data-index="2"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-03.jpg" alt="تصویر ۳" loading="lazy" draggable="false"></div>
+                        <div class="thumb-item" data-index="3"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-04.jpg" alt="تصویر ۴" loading="lazy" draggable="false"></div>
+                    </div>
+                    <div class="main-image-box" id="mainImageBox">
+                        <img id="mainImage" src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-01.jpg" alt="iPhone 15 Pro Max" draggable="false">
+                        <button class="gallery-arrow next-btn" id="nextImgBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                        <button class="gallery-arrow prev-btn" id="prevImgBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                        <div class="gallery-dots-bar" id="galleryDots"></div>
+                    </div>
+                </div>
+
+                <div class="price-chart-box">
+                    <div class="chart-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>روند قیمت از زمان عرضه</div>
+                    <div class="chart-container">
+                        <svg viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg">
+                            <defs><linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,212,255,0.3)"/><stop offset="100%" stop-color="rgba(0,212,255,0.02)"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+                            <line x1="60" y1="40" x2="560" y2="40" stroke="rgba(128,128,128,0.15)" stroke-dasharray="5,5"/>
+                            <line x1="60" y1="115" x2="560" y2="115" stroke="rgba(128,128,128,0.15)" stroke-dasharray="5,5"/>
+                            <line x1="60" y1="190" x2="560" y2="190" stroke="rgba(128,128,128,0.15)" stroke-dasharray="5,5"/>
+                            <line x1="60" y1="265" x2="560" y2="265" stroke="rgba(128,128,128,0.15)" stroke-dasharray="5,5"/>
+                            <text x="52" y="44" fill="var(--text-muted)" font-size="13" text-anchor="end">۸۰M</text>
+                            <text x="52" y="119" fill="var(--text-muted)" font-size="13" text-anchor="end">۷۵M</text>
+                            <text x="52" y="194" fill="var(--text-muted)" font-size="13" text-anchor="end">۷۰M</text>
+                            <text x="52" y="269" fill="var(--text-muted)" font-size="13" text-anchor="end">۶۵M</text>
+                            <text x="130" y="320" fill="var(--text-muted)" font-size="13" text-anchor="middle">مهر ۱۴۰۲</text>
+                            <text x="220" y="320" fill="var(--text-muted)" font-size="13" text-anchor="middle">آبان</text>
+                            <text x="310" y="320" fill="var(--text-muted)" font-size="13" text-anchor="middle">آذر</text>
+                            <text x="400" y="320" fill="var(--text-muted)" font-size="13" text-anchor="middle">دی</text>
+                            <text x="490" y="320" fill="var(--text-muted)" font-size="13" text-anchor="middle">بهمن</text>
+                            <text x="550" y="320" fill="var(--text-muted)" font-size="13" text-anchor="middle">اسفند</text>
+                            <path d="M130,60 L220,90 L310,130 L400,190 L490,210 L550,230 L550,290 L130,290 Z" fill="url(#chartGradient)" opacity="0.6"/>
+                            <path d="M130,60 L220,90 L310,130 L400,190 L490,210 L550,230" fill="none" stroke="url(#chartGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1200" stroke-dashoffset="1200" filter="url(#glow)" id="chartLine"><animate attributeName="stroke-dashoffset" from="1200" to="0" dur="2s" fill="freeze"/></path>
+                            <circle cx="130" cy="60" r="7" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2.5" filter="url(#glow)"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.3s" fill="freeze"/></circle>
+                            <circle cx="220" cy="90" r="7" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2.5" filter="url(#glow)"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.6s" fill="freeze"/></circle>
+                            <circle cx="310" cy="130" r="7" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2.5" filter="url(#glow)"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.9s" fill="freeze"/></circle>
+                            <circle cx="400" cy="190" r="7" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2.5" filter="url(#glow)"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.2s" fill="freeze"/></circle>
+                            <circle cx="490" cy="210" r="7" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2.5" filter="url(#glow)"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.5s" fill="freeze"/></circle>
+                            <circle cx="550" cy="230" r="9" fill="var(--primary)" stroke="#fff" stroke-width="3" filter="url(#glow)"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.8s" fill="freeze"/><animate attributeName="r" from="5" to="11" dur="1.5s" repeatCount="indefinite" begin="2.3s"/><animate attributeName="opacity" from="1" to="0.5" dur="1.5s" repeatCount="indefinite" begin="2.3s"/></circle>
+                            <text x="130" y="48" fill="var(--text-primary)" font-size="12" text-anchor="middle" font-weight="600">۷۸M</text>
+                            <text x="220" y="78" fill="var(--text-primary)" font-size="12" text-anchor="middle" font-weight="600">۷۵M</text>
+                            <text x="310" y="118" fill="var(--text-primary)" font-size="12" text-anchor="middle" font-weight="600">۷۲.۵M</text>
+                            <text x="400" y="178" fill="var(--text-primary)" font-size="12" text-anchor="middle" font-weight="600">۶۸M</text>
+                            <text x="490" y="198" fill="var(--text-primary)" font-size="12" text-anchor="middle" font-weight="600">۶۷.۵M</text>
+                            <text x="550" y="250" fill="var(--primary)" font-size="13" text-anchor="middle" font-weight="700">۶۵.۹M</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-info-card">
+                <h1 class="product-name">iPhone 15 Pro Max</h1>
+                <p class="product-eng-name">Apple iPhone 15 Pro Max 512GB - International Version</p>
+                <div class="rating-inline"><div class="stars-gold"><span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span></div><a href="#reviews" class="rating-link">۱۲۴ نظر</a></div>
+                <div class="price-box" id="priceBox"><span class="price-current" id="priceCurrent">69,195,000</span><span class="price-toman">تومان</span><div class="price-old-row"><span class="price-old" id="priceOld">72,500,000</span><span class="discount-tag" id="discountTag">۹٪ تخفیف</span></div><div class="installment-row">اقساط از <span class="green-text" id="installmentAmount">۵,۷۶۶,۲۵۰ تومان</span> در ۱۲ ماه</div></div>
+                <div class="stock-status-bar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>موجود در انبار - آماده ارسال</div>
+                <div class="option-block"><div class="option-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>انتخاب رنگ: <span class="chosen" id="chosenColor">تیتانیوم طبیعی</span></div><div class="color-row" id="colorRow"><div class="color-circle active" data-color="تیتانیوم طبیعی" style="background:#c5b9a5"><span class="color-hint">طبیعی</span></div><div class="color-circle" data-color="تیتانیوم آبی" style="background:#3a4f63"><span class="color-hint">آبی</span></div><div class="color-circle" data-color="تیتانیوم سفید" style="background:#e8e6e1"><span class="color-hint">سفید</span></div><div class="color-circle" data-color="تیتانیوم مشکی" style="background:#2a2a2a"><span class="color-hint">مشکی</span></div></div></div>
+                <div class="option-block"><div class="option-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>انتخاب گارانتی:</div><div class="chip-row" id="warrantyRow"><div class="chip-btn active" data-extra="0">۱۸ ماهه گارانتی شرکتی</div><div class="chip-btn" data-extra="800000">۲۴ ماهه گارانتی طلایی</div><div class="chip-btn" data-extra="1500000">۳۶ ماهه گارانتی VIP</div></div></div>
+                <div class="option-block"><label class="checkbox-option"><input type="checkbox" id="insuranceCheck" onchange="updatePrice()"><span class="checkbox-custom"></span><span class="checkbox-label">بیمه محصول <small>(۲۰,۰۰۰ تومان)</small></span></label></div>
+                <div class="option-block"><label class="checkbox-option"><input type="checkbox" id="installmentCheck" onchange="updatePrice()" checked><span class="checkbox-custom"></span><span class="checkbox-label">خرید اقساطی با ۵٪ سود <small>(پرداخت در ۱۲ قسط)</small></span></label></div>
+                <div class="option-block"><div class="option-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>تعداد:</div><div class="qty-row"><button id="qtyMinus">−</button><input type="text" id="qtyInput" value="1" readonly><button id="qtyPlus">+</button></div></div>
+                <div class="action-row"><button class="btn-cart" id="addToCartBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg><span id="cartBtnText">افزودن به سبد خرید</span><span class="cart-count-indicator" id="cartCountBadge" style="display:none">1</span></button><button class="btn-fav" id="favBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>علاقه‌مندی</button><button class="btn-compare" id="compareBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>مقایسه</button></div>
+            </div>
+        </div>
+
+        <div class="tabs-box">
+            <div class="tabs-header" id="tabsHeader">
+                <button class="active" data-tab="description">توضیحات</button>
+                <button data-tab="specs">مشخصات فنی</button>
+                <button data-tab="included">اقلام همراه</button>
+                <button data-tab="reviews">نظرات کاربران (۱۲۴)</button>
+                <button data-tab="qa">پرسش و پاسخ (۳۶)</button>
+                <button data-tab="guide">راهنمای خرید</button>
+                <button data-tab="shipping">شرایط ارسال</button>
+            </div>
+
+            <div class="tab-panel active" id="description">
+                <div class="text-description">
+                    <h3>معرفی iPhone 15 Pro Max</h3>
+                    <p>iPhone 15 Pro Max پرچمدار سال ۲۰۲۳ اپل، با بدنه‌ای از جنس تیتانیوم درجه ۵ طراحی شده که هم مقاومت فوق‌العاده‌ای دارد و هم به طرز چشمگیری سبک‌تر از نسل قبل است. این گوشی با پردازنده انقلابی A17 Pro، اولین تراشه ۳ نانومتری جهان، قدرتی بی‌نظیر را در اختیار شما قرار می‌دهد.</p>
+                    <h3>دوربین حرفه‌ای</h3>
+                    <p>سیستم دوربین سه‌گانه با لنز تله‌فوتو ۵ برابری، عکاسی در نور کم را متحول کرده است. دوربین اصلی ۴۸ مگاپیکسلی با قابلیت ثبت جزئیات خیره‌کننده و فیلمبرداری 4K با Dolby Vision HDR، تجربه‌ای سینمایی را به شما هدیه می‌دهد.</p>
+                    <h3>نمایشگر بی‌نظیر</h3>
+                    <p>صفحه نمایش ۶.۷ اینچی Super Retina XDR OLED با نرخ تازه‌سازی ۱۲۰ هرتز و روشنایی خیره‌کننده ۲۰۰۰ نیت، محتوا را با وضوح و روانی بی‌سابقه‌ای به نمایش می‌گذارد.</p>
+                    <h3>ویژگی‌های کلیدی</h3>
+                    <ul><li>بدنه تیتانیومی سبک و مقاوم</li><li>پردازنده A17 Pro با عملکرد خیره‌کننده</li><li>دوربین تله‌فوتو با زوم اپتیکال ۵ برابر</li><li>پورت USB-C با سرعت انتقال ۱۰ گیگابیت بر ثانیه</li><li>دکمه Action قابل شخصی‌سازی</li><li>پشتیبانی از Wi-Fi 6E و Bluetooth 5.3</li><li>باتری با ماندگاری بالا و شارژ سریع</li></ul>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="specs">
+                <div class="specs-table-wrap"><table class="specs-table">
+                    <tr><td colspan="2" class="specs-cat-title">مشخصات کلی</td></tr><tr><td>مدل</td><td>iPhone 15 Pro Max</td></tr><tr><td>تاریخ معرفی</td><td>۱۲ سپتامبر ۲۰۲۳</td></tr><tr><td>سیستم عامل</td><td>iOS 17 (قابل ارتقا به iOS 18)</td></tr><tr><td>ابعاد</td><td>۱۵۹.۹ × ۷۶.۷ × ۸.۳ میلی‌متر</td></tr><tr><td>وزن</td><td>۲۲۱ گرم</td></tr><tr><td>ساختار بدنه</td><td>فریم تیتانیوم + شیشه مات</td></tr>
+                    <tr><td colspan="2" class="specs-cat-title">صفحه نمایش</td></tr><tr><td>نوع صفحه نمایش</td><td>Super Retina XDR OLED</td></tr><tr><td>اندازه</td><td>۶.۷ اینچ</td></tr><tr><td>رزولوشن</td><td>۲۷۹۶ × ۱۲۹۰ پیکسل</td></tr><tr><td>نرخ تازه‌سازی</td><td>۱۲۰ هرتز (ProMotion)</td></tr><tr><td>حداکثر روشنایی</td><td>۲۰۰۰ نیت</td></tr>
+                    <tr><td colspan="2" class="specs-cat-title">پردازنده و حافظه</td></tr><tr><td>پردازنده</td><td>A17 Pro (۳ نانومتری)</td></tr><tr><td>پردازنده گرافیکی</td><td>Apple GPU 6 هسته‌ای</td></tr><tr><td>حافظه رم</td><td>۸ گیگابایت</td></tr><tr><td>حافظه داخلی</td><td>۵۱۲ گیگابایت</td></tr>
+                    <tr><td colspan="2" class="specs-cat-title">دوربین</td></tr><tr><td>دوربین اصلی</td><td>۴۸MP واید + ۱۲MP اولتراواید + ۱۲MP تله‌فوتو ۵x</td></tr><tr><td>دوربین سلفی</td><td>۱۲ مگاپیکسل</td></tr><tr><td>فیلمبرداری</td><td>4K@60fps با Dolby Vision HDR</td></tr>
+                    <tr><td colspan="2" class="specs-cat-title">باتری و ارتباطات</td></tr><tr><td>ظرفیت باتری</td><td>۴۴۲۲ میلی‌آمپر ساعت</td></tr><tr><td>شارژ سریع</td><td>۲۷ وات (۵۰٪ در ۳۰ دقیقه)</td></tr><tr><td>شارژ بی‌سیم</td><td>MagSafe 15W + Qi2 15W</td></tr><tr><td>شبکه</td><td>5G</td></tr><tr><td>درگاه</td><td>USB-C 3.0</td></tr><tr><td>مقاومت</td><td>IP68</td></tr>
+                </table></div>
+            </div>
+
+            <div class="tab-panel" id="included">
+                <div class="included-items">
+                    <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>اقلام همراه محصول</h4>
+                    <ul><li>دفترچه راهنما</li><li>کابل USB-C به USB-C (1 متر)</li><li>آداپتور شارژ ۲۰ وات USB-C (در صورت انتخاب گارانتی VIP)</li><li>هندزفری بلوتوثی اپل (ایرپاد) در بسته‌بندی جداگانه (هدیه ویژه)</li><li>سوزن خارج کردن سیم‌کارت</li><li>قاب محافظ سیلیکونی طرح دار (تصادفی)</li></ul>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="reviews">
+                <div class="review-summary-row">
+                    <div class="review-avg-box"><div class="review-avg-number">4.6</div><div class="review-avg-stars">★★★★☆</div><div class="review-avg-count">از ۱۲۴ نظر</div></div>
+                    <div class="review-bars-col">
+                        <div class="bar-row"><span class="bar-label">۵</span><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div><span class="bar-num">۸۹</span></div>
+                        <div class="bar-row"><span class="bar-label">۴</span><div class="bar-track"><div class="bar-fill" style="width:18%"></div></div><span class="bar-num">۲۲</span></div>
+                        <div class="bar-row"><span class="bar-label">۳</span><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><span class="bar-num">۷</span></div>
+                        <div class="bar-row"><span class="bar-label">۲</span><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><span class="bar-num">۴</span></div>
+                        <div class="bar-row"><span class="bar-label">۱</span><div class="bar-track"><div class="bar-fill" style="width:1%"></div></div><span class="bar-num">۲</span></div>
+                    </div>
+                </div>
+                <div class="ai-summary"><div class="ai-summary-badge">خلاصه هوش مصنوعی از نظرات کاربران</div><p class="ai-summary-text">بر اساس تحلیل ۱۲۴ نظر ثبت‌شده، کاربران بیشتر از همه از <strong>کیفیت دوربین (به‌خصوص زوم ۵ برابری)</strong>، <strong>طراحی تیتانیومی سبک و مقاوم</strong> و <strong>عملکرد سریع پردازنده A17 Pro</strong> رضایت دارند. نقاط قوت ذکر شده: عمر باتری بهبود یافته، نمایشگر با روشنایی بالا، و پورت USB-C. بیشترین انتقادات به <strong>قیمت بالا</strong> و <strong>نبود تغییرات اساسی نسبت به نسل قبل</strong> اشاره دارد. در مجموع ۹۰٪ خریداران این محصول را توصیه کرده‌اند.</p></div>
+                <div class="review-card">
+                    <div class="review-top"><div class="review-user-info"><div class="review-avatar-circle">ا</div><div><div class="review-user-name">احمد رضایی</div><div class="review-date">۲ روز پیش | خریداری کرده</div></div></div><div class="stars-gold">★★★★★</div></div>
+                    <p class="review-text-content">کیفیت عالی، سرعت فوق‌العاده و دوربین حرفه‌ای. طراحی تیتانیومی بسیار زیبا و مقاوم است. باتری نیز نسبت به نسل قبل بهبود چشمگیری داشته. پیشنهاد می‌کنم حتماً خرید کنید.</p>
+                    <div class="review-votes" data-vote-state="">
+                        <button class="vote-btn" onclick="toggleVote(this, 'like', 'review')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                            <span class="count">42</span>
+                        </button>
+                        <button class="vote-btn" onclick="toggleVote(this, 'dislike', 'review')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                            <span class="count">3</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-top"><div class="review-user-info"><div class="review-avatar-circle">س</div><div><div class="review-user-name">سارا محمدی</div><div class="review-date">۱ هفته پیش | خریداری کرده</div></div></div><div class="stars-gold">★★★★☆</div></div>
+                    <p class="review-text-content">باطری خوب، اما قیمت کمی بالاست. کیفیت ساخت عالی و دوربین‌ها بی‌نظیر هستند. فقط ای کاش قیمت مناسب‌تر بود.</p>
+                    <div class="review-votes" data-vote-state="">
+                        <button class="vote-btn" onclick="toggleVote(this, 'like', 'review')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                            <span class="count">28</span>
+                        </button>
+                        <button class="vote-btn" onclick="toggleVote(this, 'dislike', 'review')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                            <span class="count">5</span>
+                        </button>
+                    </div>
+                </div>
+                <div style="text-align:center; margin-top:24px;">
+                    <button class="btn-outline" onclick="showAllReviews()" style="padding:10px 24px; border-radius:50px; cursor:pointer; font-family:inherit; border:1px solid var(--primary); color:var(--primary); background:transparent;">مشاهده همه ۱۲۴ نظر</button>
+                </div>
+                <div class="submit-form">
+                    <h4>نظر خود را ثبت کنید</h4>
+                    <div class="form-row">
+                        <input type="text" id="reviewName" placeholder="نام شما" style="flex:1;">
+                        <select id="reviewRating" style="flex:1;">
+                            <option value="5">★★★★★</option>
+                            <option value="4">★★★★☆</option>
+                            <option value="3">★★★☆☆</option>
+                            <option value="2">★★☆☆☆</option>
+                            <option value="1">★☆☆☆☆</option>
+                        </select>
+                    </div>
+                    <textarea id="reviewText" placeholder="نظر خود را بنویسید..." style="width:100%; min-height:80px; margin-bottom:12px;"></textarea>
+                    <button onclick="submitReview()">ثبت نظر</button>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="qa">
+                <div class="qa-card" data-qa-id="1">
+                    <p class="qa-question">آیا این محصول گارانتی معتبر دارد؟</p>
+                    <p class="qa-answer">بله، تمامی محصولات نیوشاپ دارای گارانتی معتبر شرکتی هستند. شما می‌توانید از بین گارانتی ۱۸ ماهه شرکتی، ۲۴ ماهه طلایی و ۳۶ ماهه VIP انتخاب کنید.</p>
+                    <div class="qa-answers-list" style="display:none;">
+                        <div class="qa-answer-item">پاسخ: بله، تمام محصولات ما گارانتی دارند.</div>
+                    </div>
+                    <div class="qa-votes" data-vote-state="">
+                        <button class="vote-btn" onclick="toggleVote(this, 'like', 'qa')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                            <span class="count">12</span>
+                        </button>
+                        <button class="vote-btn" onclick="toggleVote(this, 'dislike', 'qa')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                            <span class="count">0</span>
+                        </button>
+                    </div>
+                    <button class="btn-toggle-answers" onclick="toggleAnswers(this)" style="margin-top:8px; background:none; border:none; color:var(--primary); cursor:pointer; font-size:13px;">مشاهده پاسخ‌ها (1)</button>
+                    <button class="btn-reply" onclick="showReplyForm(this)" style="margin-right:10px; background:none; border:none; color:var(--primary); cursor:pointer; font-size:13px;">پاسخ دادن</button>
+                    <div class="reply-form" style="display:none; margin-top:10px;">
+                        <textarea placeholder="پاسخ خود را بنویسید..." style="width:100%; min-height:60px; padding:8px; border-radius:8px; border:1px solid var(--border-color); background:var(--bg-surface); color:var(--text-primary); font-family:inherit;"></textarea>
+                        <button onclick="submitReply(this)" style="margin-top:8px; padding:6px 16px; background:linear-gradient(135deg, var(--primary), var(--secondary)); color:white; border:none; border-radius:20px; cursor:pointer;">ارسال</button>
+                    </div>
+                </div>
+                <div class="qa-card" data-qa-id="2">
+                    <p class="qa-question">زمان ارسال چقدر است؟</p>
+                    <p class="qa-answer">سفارشات ثبت‌شده تا ساعت ۱۸ همان روز پردازش و به پست تحویل داده می‌شوند. زمان تحویل بسته به شهر شما بین ۲ تا ۵ روز کاری متغیر است.</p>
+                    <div class="qa-votes" data-vote-state="">
+                        <button class="vote-btn" onclick="toggleVote(this, 'like', 'qa')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                            <span class="count">8</span>
+                        </button>
+                        <button class="vote-btn" onclick="toggleVote(this, 'dislike', 'qa')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                            <span class="count">1</span>
+                        </button>
+                    </div>
+                    <button class="btn-reply" onclick="showReplyForm(this)" style="margin-right:10px; background:none; border:none; color:var(--primary); cursor:pointer; font-size:13px;">پاسخ دادن</button>
+                    <div class="reply-form" style="display:none; margin-top:10px;">
+                        <textarea placeholder="پاسخ خود را بنویسید..." style="width:100%; min-height:60px; padding:8px; border-radius:8px; border:1px solid var(--border-color); background:var(--bg-surface); color:var(--text-primary); font-family:inherit;"></textarea>
+                        <button onclick="submitReply(this)" style="margin-top:8px; padding:6px 16px; background:linear-gradient(135deg, var(--primary), var(--secondary)); color:white; border:none; border-radius:20px; cursor:pointer;">ارسال</button>
+                    </div>
+                </div>
+                <div style="text-align:center; margin-top:24px;">
+                    <button class="btn-outline" onclick="showAllQA()" style="padding:10px 24px; border-radius:50px; cursor:pointer; font-family:inherit; border:1px solid var(--primary); color:var(--primary); background:transparent;">مشاهده همه ۳۶ پرسش</button>
+                </div>
+                <div class="submit-form">
+                    <h4>پرسش خود را مطرح کنید</h4>
+                    <div class="form-row">
+                        <input type="text" id="qaName" placeholder="نام شما" style="flex:1;">
+                    </div>
+                    <textarea id="qaText" placeholder="پرسش خود را بنویسید..." style="width:100%; min-height:80px; margin-bottom:12px;"></textarea>
+                    <button onclick="submitQuestion()">ثبت پرسش</button>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="guide">
+                <div class="guide-content">
+                    <h3>چگونه بهترین گوشی را انتخاب کنیم؟</h3>
+                    <p>برای خرید یک گوشی هوشمند، ابتدا نیازهای خود را مشخص کنید. اگر عکاسی برایتان اهمیت دارد، به کیفیت دوربین توجه کنید. اگر اهل بازی هستید، پردازنده و رم قوی را در اولویت قرار دهید.</p>
+                    <h3>نکات مهم هنگام خرید iPhone 15 Pro Max</h3>
+                    <p>حتماً به ظرفیت حافظه مورد نیازتان دقت کنید. اگر زیاد فیلمبرداری می‌کنید یا عکس‌های با کیفیت بالا می‌گیرید، نسخه ۵۱۲ گیگابایت یا ۱ ترابایت را انتخاب کنید. همچنین گارانتی معتبر را فراموش نکنید.</p>
+                    <h3>مقالات مرتبط</h3>
+                    <ul>
+                        <li><a href="../blog/article1.html" style="color:var(--primary); text-decoration:none;">راهنمای خرید گوشی موبایل در سال ۱۴۰۴</a></li>
+                        <li><a href="../blog/article2.html" style="color:var(--primary); text-decoration:none;">مقایسه iPhone 15 Pro Max با Galaxy S24 Ultra</a></li>
+                        <li><a href="../blog/article3.html" style="color:var(--primary); text-decoration:none;">۵ نکته طلایی قبل از خرید گوشی</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="shipping">
+                <div class="shipping-content">
+                    <div class="shipping-highlight"><strong>ارسال رایگان</strong> برای سفارش‌های بالای ۵ میلیون تومان</div>
+                    <p>تمامی سفارش‌ها پس از تأیید نهایی، حداکثر تا ۲۴ ساعت کاری پردازش و تحویل شرکت پست می‌شوند.</p>
+                    <p>زمان تحویل:</p>
+                    <ul><li>تهران: ۱ تا ۲ روز کاری</li><li>مراکز استان‌ها: ۲ تا ۴ روز کاری</li><li>سایر شهرها: ۳ تا ۵ روز کاری</li></ul>
+                    <div class="shipping-highlight"><strong>ضمانت بازگشت:</strong> تا ۷ روز پس از دریافت کالا، در صورت عدم رضایت می‌توانید کالا را مرجوع کنید.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-section">
+            <div class="related-head"><h2>محصولات مشابه</h2></div>
+            <div class="scrollable-grid" id="relatedGrid">
+                <div class="product-card"><div class="product-image"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-02.jpg" loading="lazy" draggable="false"><span class="discount-badge">-11%</span></div><div class="product-info"><h3 class="product-title">iPhone 15 Pro 256GB</h3><div class="price-row"><span class="product-price">59,900,000</span><span class="product-old-price">67,500,000</span></div><div class="installment"><span>شروع اقساط از</span><span>4,991,666</span></div><button class="btn-buy-details">خرید و مشاهده جزئیات</button></div></div>
+                <div class="product-card"><div class="product-image"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-03.jpg" loading="lazy" draggable="false"><span class="discount-badge">-8%</span></div><div class="product-info"><h3 class="product-title">Samsung Galaxy S24 Ultra</h3><div class="price-row"><span class="product-price">58,900,000</span><span class="product-old-price">64,500,000</span></div><div class="installment"><span>شروع اقساط از</span><span>4,908,333</span></div><button class="btn-buy-details">خرید و مشاهده جزئیات</button></div></div>
+                <div class="product-card"><div class="product-image"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-04.jpg" loading="lazy" draggable="false"><span class="discount-badge">-15%</span></div><div class="product-info"><h3 class="product-title">Google Pixel 8 Pro</h3><div class="price-row"><span class="product-price">42,900,000</span><span class="product-old-price">50,500,000</span></div><div class="installment"><span>شروع اقساط از</span><span>3,575,000</span></div><button class="btn-buy-details">خرید و مشاهده جزئیات</button></div></div>
+                <div class="product-card"><div class="product-image"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-01.jpg" loading="lazy" draggable="false"><span class="discount-badge">-10%</span></div><div class="product-info"><h3 class="product-title">Xiaomi 14 Ultra</h3><div class="price-row"><span class="product-price">45,900,000</span><span class="product-old-price">51,000,000</span></div><div class="installment"><span>شروع اقساط از</span><span>3,825,000</span></div><button class="btn-buy-details">خرید و مشاهده جزئیات</button></div></div>
+            </div>
+        </div>
+
+        <div class="bought-together-section">
+            <div class="together-head"><h2>در کنارش خریداری شده</h2></div>
+            <div class="scrollable-grid" id="togetherGrid">
+                <div class="product-card"><div class="product-image"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-04.jpg" loading="lazy" draggable="false"><span class="discount-badge">-5%</span></div><div class="product-info"><h3 class="product-title">قاب محافظ سیلیکونی MagSafe</h3><div class="price-row"><span class="product-price">1,490,000</span><span class="product-old-price">1,570,000</span></div><div class="installment"><span>شروع اقساط از</span><span>124,166</span></div><button class="btn-buy-details">خرید و مشاهده جزئیات</button></div></div>
+                <div class="product-card"><div class="product-image"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-03.jpg" loading="lazy" draggable="false"></div><div class="product-info"><h3 class="product-title">آداپتور شارژ 20W USB-C اپل</h3><div class="price-row"><span class="product-price">1,090,000</span></div><div class="installment"><span>شروع اقساط از</span><span>90,833</span></div><button class="btn-buy-details">خرید و مشاهده جزئیات</button></div></div>
+                <div class="product-card"><div class="product-image"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-02.jpg" loading="lazy" draggable="false"><span class="discount-badge">-8%</span></div><div class="product-info"><h3 class="product-title">AirPods Pro 2</h3><div class="price-row"><span class="product-price">12,900,000</span><span class="product-old-price">14,000,000</span></div><div class="installment"><span>شروع اقساط از</span><span>1,075,000</span></div><button class="btn-buy-details">خرید و مشاهده جزئیات</button></div></div>
+                <div class="product-card"><div class="product-image"><img src="https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-01.jpg" loading="lazy" draggable="false"></div><div class="product-info"><h3 class="product-title">کابل USB-C به USB-C (2m)</h3><div class="price-row"><span class="product-price">490,000</span></div><div class="installment"><span>شروع اقساط از</span><span>40,833</span></div><button class="btn-buy-details">خرید و مشاهده جزئیات</button></div></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="page-footer"><div class="container"><p>تمامی حقوق متعلق به نیوشاپ است. ۱۴۰۴</p></div></footer>
+
+<div class="image-modal" id="imageModal">
+    <button class="modal-close-btn" onclick="closeImageModal()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    <div class="modal-counter" id="modalCounter">1 / 4</div>
+    <button class="modal-nav prev-modal" onclick="modalPrevImage(event)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+    <button class="modal-nav next-modal" onclick="modalNextImage(event)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    <div class="modal-image-container" id="modalImageContainer"><img id="modalImage" src="" alt="تصویر بزرگ" draggable="false"></div>
+</div>
+
+<div class="all-items-modal" id="allItemsModal">
+    <div class="all-items-dialog">
+        <div class="all-items-header">
+            <h2 id="allItemsTitle">همه نظرات</h2>
+            <button class="all-items-close" onclick="closeAllItemsModal()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="all-items-body" id="allItemsBody"></div>
+    </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+    const galleryImages = [
+        'https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-01.jpg',
+        'https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-02.jpg',
+        'https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-03.jpg',
+        'https://itmall.ir/wp-content/uploads/2023/09/iphone-15-pro-max-Natural-04.jpg'
+    ];
+    let currentImageIndex = 0;
+    const mainImage = document.getElementById('mainImage');
+    const modalImg = document.getElementById('modalImage');
+    const modalCounter = document.getElementById('modalCounter');
+    const modalContainer = document.getElementById('modalImageContainer');
+    const thumbItems = document.querySelectorAll('.thumb-item');
+    const galleryDots = document.getElementById('galleryDots');
+
+    galleryImages.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', (e) => { e.stopPropagation(); goToImage(i); });
+        galleryDots.appendChild(dot);
+    });
+    const dots = document.querySelectorAll('.gallery-dot');
+
+    function updateActiveThumb(index) { thumbItems.forEach((t, i) => t.classList.toggle('active', i === index)); dots.forEach((d, i) => d.classList.toggle('active', i === index)); }
+    function updateModalCounter() { if (modalCounter) modalCounter.textContent = (currentImageIndex + 1) + ' / ' + galleryImages.length; }
+    function goToImage(index) { currentImageIndex = index; mainImage.src = galleryImages[index]; updateActiveThumb(index); updateModalCounter(); }
+
+    thumbItems.forEach(thumb => { thumb.addEventListener('click', (e) => { e.stopPropagation(); goToImage(parseInt(thumb.dataset.index)); }); });
+    document.getElementById('prevImgBtn').addEventListener('click', (e) => { e.stopPropagation(); goToImage((currentImageIndex - 1 + galleryImages.length) % galleryImages.length); });
+    document.getElementById('nextImgBtn').addEventListener('click', (e) => { e.stopPropagation(); goToImage((currentImageIndex + 1) % galleryImages.length); });
+
+    // Swipe main image
+    (function() {
+        const box = document.getElementById('mainImageBox');
+        let startX = 0, isSwiping = false, moved = false, bgImg = null;
+        function createBgImage() { if (bgImg) bgImg.remove(); bgImg = document.createElement('img'); bgImg.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:1;'; box.insertBefore(bgImg, mainImage); mainImage.style.zIndex = '2'; mainImage.style.position = 'relative'; }
+        box.addEventListener('touchstart', (e) => { if (e.target.tagName === 'BUTTON') return; startX = e.touches[0].clientX; isSwiping = true; moved = false; mainImage.style.transition = 'none'; }, { passive: true });
+        box.addEventListener('touchmove', (e) => { if (!isSwiping) return; const diff = e.touches[0].clientX - startX; if (Math.abs(diff) > 10 && !moved) { moved = true; createBgImage(); bgImg.src = galleryImages[diff < 0 ? (currentImageIndex - 1 + galleryImages.length) % galleryImages.length : (currentImageIndex + 1) % galleryImages.length]; } if (moved) mainImage.style.transform = `translateX(${diff}px)`; }, { passive: true });
+        box.addEventListener('touchend', (e) => { if (!isSwiping) return; isSwiping = false; const diff = (e.changedTouches[0]?.clientX || startX) - startX; const threshold = box.offsetWidth * 0.3; mainImage.style.transition = 'transform 0.3s ease'; if (moved && Math.abs(diff) > threshold) { const goPrev = diff < 0; const newIndex = goPrev ? (currentImageIndex - 1 + galleryImages.length) % galleryImages.length : (currentImageIndex + 1) % galleryImages.length; mainImage.src = galleryImages[newIndex]; currentImageIndex = newIndex; updateActiveThumb(newIndex); updateModalCounter(); mainImage.style.transform = `translateX(${goPrev ? -box.offsetWidth : box.offsetWidth}px)`; setTimeout(() => { mainImage.style.transition = 'none'; mainImage.style.transform = 'translateX(0)'; mainImage.style.zIndex = ''; mainImage.style.position = ''; if (bgImg) { bgImg.remove(); bgImg = null; } }, 300); } else { mainImage.style.transform = 'translateX(0)'; setTimeout(() => { mainImage.style.transition = 'none'; mainImage.style.zIndex = ''; mainImage.style.position = ''; if (bgImg) { bgImg.remove(); bgImg = null; } }, 300); } });
+        box.addEventListener('click', (e) => { if (e.target.tagName === 'BUTTON') return; if (!moved) openImageModal(); });
+    })();
+
+    function openImageModal() { modalImg.src = galleryImages[currentImageIndex]; updateModalCounter(); resetZoom(); document.getElementById('imageModal').classList.add('active'); }
+    function closeImageModal() { document.getElementById('imageModal').classList.remove('active'); resetZoom(); }
+    function modalPrevImage(e) { e.stopPropagation(); currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length; modalImg.src = galleryImages[currentImageIndex]; mainImage.src = galleryImages[currentImageIndex]; updateActiveThumb(currentImageIndex); updateModalCounter(); resetZoom(); }
+    function modalNextImage(e) { e.stopPropagation(); currentImageIndex = (currentImageIndex + 1) % galleryImages.length; modalImg.src = galleryImages[currentImageIndex]; mainImage.src = galleryImages[currentImageIndex]; updateActiveThumb(currentImageIndex); updateModalCounter(); resetZoom(); }
+
+    let scale = 1, initialDistance = 0, lastScale = 1;
+    function resetZoom() { scale = 1; modalImg.style.transform = 'scale(1)'; }
+    modalContainer.addEventListener('touchstart', (e) => { if (e.touches.length === 2) { e.preventDefault(); initialDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); lastScale = scale; } }, { passive: false });
+    modalContainer.addEventListener('touchmove', (e) => { if (e.touches.length === 2) { e.preventDefault(); const cd = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); scale = Math.max(1, Math.min(4, lastScale * (cd / initialDistance))); modalImg.style.transition = 'none'; modalImg.style.transform = `scale(${scale})`; } }, { passive: false });
+    modalContainer.addEventListener('touchend', () => { if (scale > 1) modalImg.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; });
+    modalContainer.addEventListener('dblclick', (e) => { e.preventDefault(); scale = scale > 1 ? 1 : 2.5; modalImg.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; modalImg.style.transform = `scale(${scale})`; });
+
+    // Swipe modal
+    (function() { const modal = document.getElementById('imageModal'); let mStartX = 0, mSwiping = false, mMoved = false; modal.addEventListener('touchstart', (e) => { if (e.target.tagName === 'BUTTON' || e.touches.length !== 1 || scale > 1) return; mStartX = e.touches[0].clientX; mSwiping = true; mMoved = false; modalImg.style.transition = 'none'; }, { passive: true }); modal.addEventListener('touchmove', (e) => { if (!mSwiping || scale > 1) return; const diff = e.touches[0].clientX - mStartX; if (Math.abs(diff) > 10) { mMoved = true; const pull = diff * 0.85; modalImg.style.transform = `translateX(${pull}px)`; modalImg.style.opacity = 1 - (Math.abs(pull) / window.innerWidth) * 0.4; } }, { passive: true }); modal.addEventListener('touchend', (e) => { if (!mSwiping || scale > 1) return; mSwiping = false; const diff = (e.changedTouches[0]?.clientX || mStartX) - mStartX; const threshold = window.innerWidth * 0.2; modalImg.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.35s ease'; if (mMoved && Math.abs(diff) > threshold) { const targetX = diff > 0 ? window.innerWidth : -window.innerWidth; modalImg.style.transform = `translateX(${targetX}px)`; modalImg.style.opacity = '0'; setTimeout(() => { if (diff > 0) modalPrevImage({ stopPropagation: () => {} }); else modalNextImage({ stopPropagation: () => {} }); modalImg.style.transition = 'none'; modalImg.style.transform = 'scale(1)'; modalImg.style.opacity = '1'; }, 350); } else { modalImg.style.transform = scale > 1 ? `scale(${scale})` : 'scale(1)'; modalImg.style.opacity = '1'; } }); })();
+    document.getElementById('imageModal').addEventListener('click', function(e) { if (e.target === this) closeImageModal(); });
+
+    // Tabs
+    document.querySelectorAll('#tabsHeader button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#tabsHeader button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.add('active');
+        });
+    });
+
+    document.querySelectorAll('.color-circle').forEach(circle => {
+        circle.addEventListener('click', () => {
+            document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
+            circle.classList.add('active');
+            document.getElementById('chosenColor').textContent = circle.dataset.color;
+        });
+    });
+
+    function formatPrice(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+    function updatePrice() {
+        const aw = document.querySelector('#warrantyRow .chip-btn.active');
+        const extra = aw ? parseInt(aw.dataset.extra) : 0;
+        const ins = document.getElementById('insuranceCheck').checked ? 20000 : 0;
+        const qty = parseInt(document.getElementById('qtyInput').value);
+        let raw = (65900000 + extra + ins) * qty;
+        const total = document.getElementById('installmentCheck').checked ? Math.floor(raw * 1.05) : raw;
+        document.getElementById('priceCurrent').textContent = formatPrice(total);
+        document.getElementById('installmentAmount').textContent = formatPrice(Math.floor(raw * 1.05 / 12)) + ' تومان';
+    }
+    document.querySelectorAll('#warrantyRow .chip-btn').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('#warrantyRow .chip-btn').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            updatePrice();
+        });
+    });
+
+    let qty = 1; const qtyInput = document.getElementById('qtyInput');
+    document.getElementById('qtyPlus').addEventListener('click', () => { if (qty < 10) { qty++; qtyInput.value = qty; updatePrice(); } });
+    document.getElementById('qtyMinus').addEventListener('click', () => { if (qty > 1) { qty--; qtyInput.value = qty; updatePrice(); } });
+
+    let isInCart = false; const cartBtn = document.getElementById('addToCartBtn'), cartBtnText = document.getElementById('cartBtnText'), cartBadge = document.getElementById('cartCountBadge');
+    function showToast(msg, type = 'info') { const t = document.createElement('div'); t.className = 'toast-msg toast-' + type; t.textContent = msg; document.getElementById('toastWrap').appendChild(t); setTimeout(() => t.remove(), 3000); }
+    cartBtn.addEventListener('click', () => { isInCart = !isInCart; if (isInCart) { cartBtn.classList.add('removed'); cartBtnText.textContent = 'حذف از سبد خرید'; cartBadge.style.display = 'inline-flex'; cartBadge.textContent = qtyInput.value; showToast('محصول به سبد خرید اضافه شد', 'success'); } else { cartBtn.classList.remove('removed'); cartBtnText.textContent = 'افزودن به سبد خرید'; cartBadge.style.display = 'none'; showToast('محصول از سبد خرید حذف شد', 'warning'); } });
+    document.getElementById('favBtn').addEventListener('click', function() { this.classList.toggle('is-liked'); showToast(this.classList.contains('is-liked') ? 'به علاقه‌مندی‌ها اضافه شد' : 'از علاقه‌مندی‌ها حذف شد', 'info'); });
+    document.getElementById('compareBtn').addEventListener('click', () => showToast('به لیست مقایسه اضافه شد', 'info'));
+
+    // Toggle vote (like/dislike)
+    function toggleVote(btn, type, section) {
+        const container = btn.closest('.review-votes, .qa-votes');
+        if (!container) return;
+        const state = container.getAttribute('data-vote-state') || '';
+        const likeBtn = container.querySelector('.vote-btn:first-child');
+        const dislikeBtn = container.querySelector('.vote-btn:last-child');
+        const likeCountSpan = likeBtn.querySelector('.count');
+        const dislikeCountSpan = dislikeBtn.querySelector('.count');
+        let likeCount = parseInt(likeCountSpan.textContent) || 0;
+        let dislikeCount = parseInt(dislikeCountSpan.textContent) || 0;
+
+        if (type === 'like') {
+            if (state === 'liked') {
+                // unlike
+                likeCount--;
+                likeBtn.classList.remove('voted');
+                container.setAttribute('data-vote-state', '');
+            } else {
+                // remove dislike if present
+                if (state === 'disliked') {
+                    dislikeCount--;
+                    dislikeBtn.classList.remove('voted');
+                }
+                likeCount++;
+                likeBtn.classList.add('voted');
+                dislikeBtn.classList.remove('voted');
+                container.setAttribute('data-vote-state', 'liked');
+            }
+        } else if (type === 'dislike') {
+            if (state === 'disliked') {
+                dislikeCount--;
+                dislikeBtn.classList.remove('voted');
+                container.setAttribute('data-vote-state', '');
+            } else {
+                if (state === 'liked') {
+                    likeCount--;
+                    likeBtn.classList.remove('voted');
+                }
+                dislikeCount++;
+                dislikeBtn.classList.add('voted');
+                likeBtn.classList.remove('voted');
+                container.setAttribute('data-vote-state', 'disliked');
+            }
+        }
+        likeCountSpan.textContent = Math.max(0, likeCount);
+        dislikeCountSpan.textContent = Math.max(0, dislikeCount);
+    }
+
+    // All Reviews & QA Data
+    const allReviews = [
+        { name: 'احمد رضایی', date: '۲ روز پیش', rating: 5, text: 'کیفیت عالی، سرعت فوق‌العاده و دوربین حرفه‌ای. طراحی تیتانیومی بسیار زیبا و مقاوم است. باتری نیز نسبت به نسل قبل بهبود چشمگیری داشته. پیشنهاد می‌کنم حتماً خرید کنید.', likes: 42, dislikes: 3 },
+        { name: 'سارا محمدی', date: '۱ هفته پیش', rating: 4, text: 'باطری خوب، اما قیمت کمی بالاست. کیفیت ساخت عالی و دوربین‌ها بی‌نظیر هستند. فقط ای کاش قیمت مناسب‌تر بود.', likes: 28, dislikes: 5 },
+        { name: 'محمد کریمی', date: '۲ هفته پیش', rating: 5, text: 'بهترین گوشی که تا حالا داشتم. دوربین تله‌فوتو ۵ برابری فوق‌العاده‌ست. پورت USB-C هم خیلی خوبه.', likes: 35, dislikes: 1 },
+        { name: 'علی حسینی', date: '۳ هفته پیش', rating: 3, text: 'گوشی خوبیه ولی قیمتش واقعاً زیاده. ارزش خرید در حد قیمتش نیست ولی کیفیتش قابل انکار نیست.', likes: 15, dislikes: 8 },
+        { name: 'مریم اکبری', date: '۱ ماه پیش', rating: 5, text: 'عاشق طراحی تیتانیومیش شدم. خیلی سبک و خوش دسته. دوربینش تو نور کم عالیه.', likes: 22, dislikes: 0 },
+        { name: 'رضا نادری', date: '۱ ماه پیش', rating: 4, text: 'بعد از ۱ ماه استفاده، هنوز راضیم. باتری یک روز کامل جواب میده.', likes: 18, dislikes: 2 }
+    ];
+    const allQAs = [
+        { question: 'آیا این محصول گارانتی معتبر دارد؟', answer: 'بله، تمامی محصولات نیوشاپ دارای گارانتی معتبر شرکتی هستند. شما می‌توانید از بین گارانتی ۱۸ ماهه شرکتی، ۲۴ ماهه طلایی و ۳۶ ماهه VIP انتخاب کنید.', likes: 12, dislikes: 0 },
+        { question: 'زمان ارسال چقدر است؟', answer: 'سفارشات ثبت‌شده تا ساعت ۱۸ همان روز پردازش و به پست تحویل داده می‌شوند. زمان تحویل بسته به شهر شما بین ۲ تا ۵ روز کاری متغیر است.', likes: 8, dislikes: 1 },
+        { question: 'آیا این مدل رجیستر می‌شود؟', answer: 'بله، این گوشی نسخه بین‌الملل است و از تمامی شبکه‌های مخابراتی ایران پشتیبانی می‌کند. همچنین قابلیت رجیستری دارد.', likes: 15, dislikes: 2 },
+        { question: 'شارژر داخل جعبه هست؟', answer: 'بسته به نوع گارانتی انتخابی، در گارانتی VIP آداپتور شارژ ۲۰ وات USB-C نیز داخل جعبه قرار دارد.', likes: 6, dislikes: 0 },
+        { question: 'فرق گارانتی طلایی و شرکتی چیه؟', answer: 'گارانتی طلایی ۲۴ ماهه است و خدمات بیشتری مانند تعویض سریع را شامل می‌شود.', likes: 10, dislikes: 1 }
+    ];
+
+    function showAllReviews() {
+        const modal = document.getElementById('allItemsModal');
+        const title = document.getElementById('allItemsTitle');
+        const body = document.getElementById('allItemsBody');
+        title.textContent = `همه نظرات (${allReviews.length})`;
+        body.innerHTML = allReviews.map(r => `
+            <div class="modal-review-card">
+                <div class="review-top">
+                    <div class="review-user-info">
+                        <div class="review-avatar-circle">${r.name.charAt(0)}</div>
+                        <div>
+                            <div class="review-user-name">${r.name}</div>
+                            <div class="review-date">${r.date} | خریداری کرده</div>
+                        </div>
+                    </div>
+                    <div class="stars-gold">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+                </div>
+                <p class="review-text-content">${r.text}</p>
+                <div class="review-votes" data-vote-state="">
+                    <button class="vote-btn" onclick="toggleVote(this, 'like', 'review')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                        <span class="count">${r.likes}</span>
+                    </button>
+                    <button class="vote-btn" onclick="toggleVote(this, 'dislike', 'review')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                        <span class="count">${r.dislikes}</span>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+        modal.classList.add('active');
+    }
+
+    function showAllQA() {
+        const modal = document.getElementById('allItemsModal');
+        const title = document.getElementById('allItemsTitle');
+        const body = document.getElementById('allItemsBody');
+        title.textContent = `همه پرسش‌ها (${allQAs.length})`;
+        body.innerHTML = allQAs.map(q => `
+            <div class="modal-qa-card">
+                <p class="qa-question">❓ ${q.question}</p>
+                <p class="qa-answer">✅ ${q.answer}</p>
+                <div class="qa-votes" data-vote-state="">
+                    <button class="vote-btn" onclick="toggleVote(this, 'like', 'qa')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                        <span class="count">${q.likes}</span>
+                    </button>
+                    <button class="vote-btn" onclick="toggleVote(this, 'dislike', 'qa')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                        <span class="count">${q.dislikes}</span>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+        modal.classList.add('active');
+    }
+
+    function closeAllItemsModal() {
+        document.getElementById('allItemsModal').classList.remove('active');
+    }
+    document.getElementById('allItemsModal').addEventListener('click', function(e) {
+        if (e.target === this) closeAllItemsModal();
+    });
+
+    function toggleAnswers(btn) {
+        const card = btn.closest('.qa-card');
+        const list = card.querySelector('.qa-answers-list');
+        if (list) {
+            if (list.style.display === 'none') {
+                list.style.display = 'block';
+                btn.textContent = 'پنهان کردن پاسخ‌ها';
+            } else {
+                list.style.display = 'none';
+                const count = list.querySelectorAll('.qa-answer-item').length;
+                btn.textContent = 'مشاهده پاسخ‌ها (' + count + ')';
+            }
+        }
+    }
+
+    function showReplyForm(btn) {
+        const card = btn.closest('.qa-card');
+        const form = card.querySelector('.reply-form');
+        if (form) form.style.display = 'block';
+        btn.style.display = 'none';
+    }
+
+    function submitReply(btn) {
+        const form = btn.closest('.reply-form');
+        const textarea = form.querySelector('textarea');
+        const text = textarea.value.trim();
+        if (!text) { showToast('لطفاً پاسخ خود را وارد کنید', 'warning'); return; }
+        const card = form.closest('.qa-card');
+        const list = card.querySelector('.qa-answers-list');
+        if (!list) {
+            const newList = document.createElement('div');
+            newList.className = 'qa-answers-list';
+            card.appendChild(newList);
+        }
+        const answerItem = document.createElement('div');
+        answerItem.className = 'qa-answer-item';
+        answerItem.textContent = 'پاسخ: ' + text;
+        card.querySelector('.qa-answers-list').appendChild(answerItem);
+        textarea.value = '';
+        form.style.display = 'none';
+        const replyBtn = card.querySelector('.btn-reply');
+        if (replyBtn) replyBtn.style.display = 'inline-block';
+        const toggleBtn = card.querySelector('.btn-toggle-answers');
+        if (toggleBtn) {
+            const count = card.querySelectorAll('.qa-answer-item').length;
+            toggleBtn.textContent = 'مشاهده پاسخ‌ها (' + count + ')';
+            if (card.querySelector('.qa-answers-list').style.display !== 'none') {
+                toggleBtn.textContent = 'پنهان کردن پاسخ‌ها';
+            }
+        }
+        showToast('پاسخ شما ثبت شد', 'success');
+    }
+
+    function submitReview() {
+        const name = document.getElementById('reviewName').value.trim();
+        const rating = document.getElementById('reviewRating').value;
+        const text = document.getElementById('reviewText').value.trim();
+        if (!name || !text) { showToast('لطفاً نام و نظر خود را وارد کنید', 'warning'); return; }
+        showToast('نظر شما با موفقیت ثبت شد و پس از تأیید نمایش داده می‌شود', 'success');
+        document.getElementById('reviewName').value = '';
+        document.getElementById('reviewText').value = '';
+    }
+
+    function submitQuestion() {
+        const name = document.getElementById('qaName').value.trim();
+        const text = document.getElementById('qaText').value.trim();
+        if (!name || !text) { showToast('لطفاً نام و پرسش خود را وارد کنید', 'warning'); return; }
+        showToast('پرسش شما با موفقیت ثبت شد و پس از تأیید نمایش داده می‌شود', 'success');
+        document.getElementById('qaName').value = '';
+        document.getElementById('qaText').value = '';
+    }
+
+    // Drag to scroll for grids (mouse)
+    document.querySelectorAll('.scrollable-grid').forEach(grid => {
+        let isDown = false, startX, scrollLeft;
+        grid.addEventListener('mousedown', (e) => {
+            isDown = true;
+            grid.style.cursor = 'grabbing';
+            startX = e.pageX - grid.offsetLeft;
+            scrollLeft = grid.scrollLeft;
+        });
+        grid.addEventListener('mouseleave', () => { isDown = false; grid.style.cursor = 'grab'; });
+        grid.addEventListener('mouseup', () => { isDown = false; grid.style.cursor = 'grab'; });
+        grid.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - grid.offsetLeft;
+            const walk = (x - startX) * 2;
+            grid.scrollLeft = scrollLeft - walk;
+        });
+    });
+
+    // Drag to scroll for tabs header
+    const tabsHeader = document.querySelector('.tabs-header');
+    if (tabsHeader) {
+        let isDown = false, startX, scrollLeft;
+        tabsHeader.addEventListener('mousedown', (e) => {
+            isDown = true;
+            tabsHeader.style.cursor = 'grabbing';
+            startX = e.pageX - tabsHeader.offsetLeft;
+            scrollLeft = tabsHeader.scrollLeft;
+        });
+        tabsHeader.addEventListener('mouseleave', () => { isDown = false; tabsHeader.style.cursor = 'grab'; });
+        tabsHeader.addEventListener('mouseup', () => { isDown = false; tabsHeader.style.cursor = 'grab'; });
+        tabsHeader.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - tabsHeader.offsetLeft;
+            const walk = (x - startX) * 2;
+            tabsHeader.scrollLeft = scrollLeft - walk;
+        });
+    }
+
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+</script>
+</body>
+</html>
