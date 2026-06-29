@@ -15,7 +15,7 @@
 برای ارسال تغییرات:
 ```bash
 git add .
-git commit -m "added login page"
+git commit -m "Delete extra files"
 git push
 ```
 
