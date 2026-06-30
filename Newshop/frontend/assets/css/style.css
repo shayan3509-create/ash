@@ -1069,6 +1069,7 @@ body {
     max-width: 1200px;
     margin: 400px auto;
     padding: 0 20px;
+    margin-bottom: 0;
 }
 
 .slider-wrapper {
@@ -1591,7 +1592,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 1200px;
-    margin: 800px auto; /* از 40px به 80px تغییر دادیم */
+    margin: 150px auto;
     padding: 0 20px;
 }
 
@@ -1780,5 +1781,1534 @@ body {
     to {
         opacity: 1;
         transform: scaleX(1);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ==================== پرفروش‌ترین‌های هفته ==================== */
+.best-sellers {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 0 20px;
+    opacity: 0;
+    transform: translateY(80px);
+    transition: 
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.best-sellers.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* هدر بخش */
+.best-sellers__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.best-sellers__title {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.best-sellers__view-all {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 50px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s var(--bounce);
+    text-decoration: none;
+}
+
+.best-sellers__view-all:hover {
+    transform: translateX(-5px);
+    background: var(--action-hover);
+    box-shadow: 0 8px 20px var(--glass-shadow-outer);
+}
+
+.best-sellers__view-all svg {
+    transition: transform 0.3s ease;
+}
+
+.best-sellers__view-all:hover svg {
+    transform: translateX(-4px);
+}
+
+/* Marquee Container */
+.marquee {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.marquee-track {
+    display: flex;
+    gap: 20px;
+    animation: marqueeScroll 60s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* کارت محصول */
+.marquee-card {
+    flex-shrink: 0;
+    width: 220px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s var(--bounce);
+    box-shadow:
+        0 10px 30px -10px var(--glass-shadow-outer),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.marquee-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow:
+        0 20px 40px -10px var(--glass-shadow-outer),
+        0 0 0 2px rgba(76, 201, 240, 0.3),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+}
+
+.marquee-card__image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(76, 201, 240, 0.05));
+}
+
+.marquee-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.marquee-card:hover .marquee-card__image {
+    transform: scale(1.08);
+}
+
+.marquee-card__badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(247, 37, 133, 0.4);
+}
+
+.marquee-card__info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.marquee-card__name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 42px;
+}
+
+.marquee-card__price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.marquee-card__price-current {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--color-blue);
+}
+
+[data-theme="dark"] .marquee-card__price-current {
+    color: var(--color-cyan);
+}
+
+.marquee-card__price-old {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.marquee-card__price-unit {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ==================== ریسپانسیو ==================== */
+@media (max-width: 768px) {
+    .best-sellers {
+        margin: 60px auto;
+    }
+
+    .best-sellers__title {
+        font-size: 22px;
+    }
+
+    .best-sellers__view-all {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .marquee-card {
+        width: 160px;
+    }
+
+    .marquee-card__image-wrapper {
+        height: 150px;
+    }
+
+    .marquee-card__name {
+        font-size: 13px;
+        min-height: 36px;
+    }
+
+    .marquee-card__price-current {
+        font-size: 14px;
+    }
+
+    .marquee-card__info {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .best-sellers__header {
+        margin-bottom: 20px;
+    }
+
+    .marquee-card {
+        width: 140px;
+    }
+
+    .marquee-card__image-wrapper {
+        height: 130px;
+    }
+}
+
+
+
+
+
+
+/* Marquee Container */
+.marquee {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 20px 0;
+    direction: ltr; /* اضافه کن - برای درست کار کردن حرکت */
+}
+
+.marquee-track {
+    display: flex;
+    gap: 20px;
+    animation: marqueeScroll 60s linear infinite;
+    direction: ltr; /* اضافه کن */
+}
+
+.marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* کارت محصول - RTL بمونه */
+.marquee-card {
+    direction: rtl; /* اضافه کن - تا محتوای کارت RTL باشه */
+    flex-shrink: 0;
+    width: 220px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s var(--bounce);
+    box-shadow:
+        0 10px 30px -10px var(--glass-shadow-outer),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+/* جدیدترین  */
+
+/* ==================== جدیدترین محصولات ==================== */
+.new-arrivals {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 0 20px;
+    opacity: 0;
+    transform: translateY(80px);
+    transition: 
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.new-arrivals.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.new-arrivals__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.new-arrivals__title {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.new-arrivals__view-all {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 50px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s var(--bounce);
+    text-decoration: none;
+}
+
+.new-arrivals__view-all:hover {
+    transform: translateX(-5px);
+    background: var(--action-hover);
+    box-shadow: 0 8px 20px var(--glass-shadow-outer);
+}
+
+.new-arrivals__view-all svg {
+    transition: transform 0.3s ease;
+}
+
+.new-arrivals__view-all:hover svg {
+    transform: translateX(-4px);
+}
+
+@media (max-width: 768px) {
+    .new-arrivals {
+        margin: 60px auto;
+    }
+
+    .new-arrivals__title {
+        font-size: 22px;
+    }
+
+    .new-arrivals__view-all {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .new-arrivals__header {
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+/* دسته بندی */
+
+/* ==================== دسته‌بندی‌ها ==================== */
+
+
+
+
+/* ==================== دسته‌بندی‌ها ==================== */
+.categories {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 0 20px;
+    opacity: 0;
+    transform: translateY(80px);
+    transition: 
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.categories.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.categories__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 20px;
+}
+
+.categories__title {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.categories__view-all {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 50px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s var(--bounce);
+    text-decoration: none;
+}
+
+.categories__view-all:hover {
+    transform: translateX(-5px);
+    background: var(--action-hover);
+    box-shadow: 0 8px 20px var(--glass-shadow-outer);
+}
+
+.categories__view-all svg {
+    transition: transform 0.3s ease;
+}
+
+.categories__view-all:hover svg {
+    transform: translateX(-4px);
+}
+
+/* گرید دسته‌بندی‌ها */
+.categories__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+/* کارت دسته‌بندی */
+.category-card {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    border-radius: 28px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s var(--bounce);
+    
+    /* Border زیبا با gradient */
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    box-shadow:
+        0 10px 30px -10px var(--glass-shadow-outer),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+    
+    /* انیمیشن ورود stagger */
+    opacity: 0;
+    transform: translateY(60px) scale(0.9);
+}
+
+.categories.is-visible .category-card {
+    animation: categoryCardIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.categories.is-visible .category-card:nth-child(1) { animation-delay: 0.15s; }
+.categories.is-visible .category-card:nth-child(2) { animation-delay: 0.4s; }
+.categories.is-visible .category-card:nth-child(3) { animation-delay: 0.65s; }
+.categories.is-visible .category-card:nth-child(4) { animation-delay: 0.9s; }
+
+@keyframes categoryCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(60px) scale(0.9);
+    }
+    60% {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Border gradient با pseudo-element */
+.category-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        var(--color-blue),
+        var(--color-cyan),
+        var(--color-purple),
+        var(--color-pink)
+    );
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.category-card:hover::before {
+    opacity: 1;
+    background-size: 200% 200%;
+    animation: borderGradient 3s ease infinite;
+}
+
+@keyframes borderGradient {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* افکت درخشش در hover */
+.category-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(76, 201, 240, 0.15) 0%,
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.category-card:hover::after {
+    opacity: 1;
+}
+
+.category-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow:
+        0 20px 40px -10px var(--glass-shadow-outer),
+        0 0 0 2px rgba(76, 201, 240, 0.3),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+}
+
+/* آیکون دسته‌بندی */
+.category-card__icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        rgba(67, 97, 238, 0.1),
+        rgba(76, 201, 240, 0.1)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s var(--bounce);
+    position: relative;
+    z-index: 2;
+    border: 1.5px solid var(--glass-border);
+}
+
+.category-card:hover .category-card__icon {
+    transform: scale(1.1) rotate(-5deg);
+    background: linear-gradient(
+        135deg,
+        rgba(67, 97, 238, 0.2),
+        rgba(76, 201, 240, 0.2)
+    );
+    box-shadow: 0 10px 25px -5px rgba(67, 97, 238, 0.4);
+}
+
+/* SVG دسته‌بندی */
+.category-svg {
+    width: 45px;
+    height: 45px;
+    color: var(--color-blue);
+    transition: all 0.4s ease;
+}
+
+[data-theme="dark"] .category-svg {
+    color: var(--color-cyan);
+}
+
+.category-card:hover .category-svg {
+    transform: scale(1.1);
+    filter: drop-shadow(0 4px 8px rgba(67, 97, 238, 0.4));
+}
+
+[data-theme="dark"] .category-card:hover .category-svg {
+    filter: drop-shadow(0 4px 8px rgba(76, 201, 240, 0.4));
+}
+
+/* نام دسته‌بندی */
+.category-card__name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.category-card:hover .category-card__name {
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* تعداد محصولات */
+.category-card__count {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 4px 12px;
+    background: rgba(67, 97, 238, 0.08);
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.category-card:hover .category-card__count {
+    background: rgba(76, 201, 240, 0.15);
+    color: var(--color-blue);
+}
+
+[data-theme="dark"] .category-card:hover .category-card__count {
+    color: var(--color-cyan);
+}
+
+/* ==================== ریسپانسیو ==================== */
+@media (max-width: 992px) {
+    .categories__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .categories {
+        margin: 60px auto;
+    }
+
+    .categories__header {
+        margin-bottom: 30px;
+    }
+
+    .categories__title {
+        font-size: 22px;
+    }
+
+    .categories__view-all {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .categories__grid {
+        gap: 16px;
+    }
+
+    .category-card {
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .category-card__icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .category-svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .category-card__name {
+        font-size: 16px;
+    }
+
+    .category-card__count {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .categories__header {
+        margin-bottom: 20px;
+    }
+
+    .category-card {
+        padding: 16px;
+        gap: 10px;
+        border-radius: 22px;
+    }
+
+    .category-card::before {
+        border-radius: 22px;
+    }
+
+    .category-card__icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .category-svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .category-card__name {
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* برند */
+
+/* ==================== برندهای محبوب (اسکرول افقی) ==================== */
+.brands {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 0 20px;
+    opacity: 0;
+    transform: translateY(80px);
+    transition: 
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brands.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.brands__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.brands__title {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.brands__view-all {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 50px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s var(--bounce);
+    text-decoration: none;
+}
+
+.brands__view-all:hover {
+    transform: translateX(-5px);
+    background: var(--action-hover);
+    box-shadow: 0 8px 20px var(--glass-shadow-outer);
+}
+
+.brands__view-all svg {
+    transition: transform 0.3s ease;
+}
+
+.brands__view-all:hover svg {
+    transform: translateX(-4px);
+}
+
+/* Scroll Container */
+
+
+/* Scroll Container */
+.brands__scroll-container {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    padding: 10px 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+}
+
+.brands__scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.brands__scroll-track {
+    display: flex;
+    gap: 20px;
+    user-select: none;
+    width: fit-content;
+    cursor: default;
+}
+
+.brands__scroll-track:active {
+    cursor: grabbing;
+}
+
+.brands__scroll-track.dragging {
+    scroll-behavior: auto;
+    transition: none;
+}
+
+/* کارت برند */
+.brand-scroll-card {
+    flex-shrink: 0;
+    width: 200px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    border-radius: 24px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1.5px solid var(--glass-border);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.4s var(--bounce);
+    box-shadow:
+        0 10px 30px -10px var(--glass-shadow-outer),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+    
+    /* انیمیشن ورود */
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.brands.is-visible .brand-scroll-card {
+    animation: brandScrollCardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.brands.is-visible .brand-scroll-card:nth-child(1) { animation-delay: 0.1s; }
+.brands.is-visible .brand-scroll-card:nth-child(2) { animation-delay: 0.2s; }
+.brands.is-visible .brand-scroll-card:nth-child(3) { animation-delay: 0.3s; }
+.brands.is-visible .brand-scroll-card:nth-child(4) { animation-delay: 0.4s; }
+.brands.is-visible .brand-scroll-card:nth-child(5) { animation-delay: 0.5s; }
+.brands.is-visible .brand-scroll-card:nth-child(6) { animation-delay: 0.6s; }
+.brands.is-visible .brand-scroll-card:nth-child(7) { animation-delay: 0.7s; }
+.brands.is-visible .brand-scroll-card:nth-child(8) { animation-delay: 0.8s; }
+.brands.is-visible .brand-scroll-card:nth-child(9) { animation-delay: 0.9s; }
+.brands.is-visible .brand-scroll-card:nth-child(10) { animation-delay: 1.0s; }
+
+@keyframes brandScrollCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.brand-scroll-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(76, 201, 240, 0.4);
+    box-shadow:
+        0 20px 40px -10px var(--glass-shadow-outer),
+        0 0 0 2px rgba(76, 201, 240, 0.2),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+}
+
+/* لوگو */
+.brand-scroll-card__logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        rgba(67, 97, 238, 0.1),
+        rgba(76, 201, 240, 0.1)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s var(--bounce);
+    border: 1.5px solid var(--glass-border);
+}
+
+.brand-scroll-card__logo svg {
+    width: 45px;
+    height: 45px;
+    color: var(--text-primary);
+    opacity: 0.6;
+    filter: grayscale(100%);
+    transition: all 0.4s ease;
+}
+
+.brand-scroll-card:hover .brand-scroll-card__logo {
+    transform: scale(1.1);
+    background: linear-gradient(
+        135deg,
+        rgba(67, 97, 238, 0.2),
+        rgba(76, 201, 240, 0.2)
+    );
+    box-shadow: 0 10px 25px -5px rgba(67, 97, 238, 0.4);
+}
+
+.brand-scroll-card:hover .brand-scroll-card__logo svg {
+    opacity: 1;
+    filter: grayscale(0%);
+    color: var(--color-blue);
+}
+
+[data-theme="dark"] .brand-scroll-card:hover .brand-scroll-card__logo svg {
+    color: var(--color-cyan);
+}
+
+/* نام برند */
+.brand-scroll-card__name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.brand-scroll-card:hover .brand-scroll-card__name {
+    opacity: 1;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* دکمه‌های ناوبری */
+/* دکمه‌های ناوبری */
+.brands__scroll-btn {
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s var(--bounce);
+    color: var(--text-primary);
+    box-shadow:
+        0 10px 25px -5px var(--glass-shadow-outer),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+    z-index: 20;
+    transform: translateY(-50%);
+}
+
+.brands__scroll-btn--prev {
+    left: -25px;
+}
+
+.brands__scroll-btn--next {
+    right: -25px;
+}
+
+.brands__scroll-btn:hover {
+    transform: translateY(-50%) scale(1.15);
+    background: var(--action-hover);
+    box-shadow:
+        0 15px 35px -5px var(--glass-shadow-outer),
+        0 0 0 3px rgba(76, 201, 240, 0.2);
+}
+
+.brands__scroll-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.brands__scroll-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.5;
+}
+
+/* مخفی کردن دکمه‌ها در موبایل */
+@media (max-width: 768px) {
+    .brands__scroll-btn {
+        display: none;
+    }
+}
+/* ==================== ریسپانسیو ==================== */
+@media (max-width: 992px) {
+    .brand-scroll-card {
+        width: 180px;
+        height: 160px;
+    }
+
+    .brand-scroll-card__logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .brand-scroll-card__logo svg {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .brands {
+        margin: 60px auto;
+        padding: 0 15px;
+    }
+
+    .brands__header {
+        margin-bottom: 20px;
+    }
+
+    .brands__title {
+        font-size: 22px;
+    }
+
+    .brands__view-all {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .brand-scroll-card {
+        width: 160px;
+        height: 150px;
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .brand-scroll-card__logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .brand-scroll-card__logo svg {
+        width: 34px;
+        height: 34px;
+    }
+
+    .brand-scroll-card__name {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brands__header {
+        margin-bottom: 15px;
+    }
+
+    .brand-scroll-card {
+        width: 140px;
+        height: 140px;
+        padding: 16px;
+        gap: 10px;
+        border-radius: 20px;
+    }
+
+    .brand-scroll-card__logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .brand-scroll-card__logo svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .brand-scroll-card__name {
+        font-size: 13px;
+    }
+}
+
+/* Wrapper برای دکمه‌ها */
+.brands__wrapper {
+    position: relative;
+    width: 100%;
+    padding: 0 30px;
+}
+
+
+
+
+/* FOOTER */
+
+
+/* ==================== فوتر ==================== */
+.footer {
+    position: relative;
+    width: 100%;
+    margin-top: 120px;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(67, 97, 238, 0.03) 100%
+    );
+    border-top: 1px solid var(--glass-border);
+}
+
+[data-theme="dark"] .footer {
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(76, 201, 240, 0.03) 100%
+    );
+}
+
+.footer__main {
+    padding: 60px 0 40px;
+}
+
+.footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer__container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+}
+
+/* ستون ۱: درباره ما */
+.footer__logo {
+    margin-bottom: 20px;
+}
+
+.footer__brand {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+}
+
+.footer__tagline {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.footer__description {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.footer__social {
+    display: flex;
+    gap: 12px;
+}
+
+.footer__social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: all 0.3s var(--bounce);
+    text-decoration: none;
+}
+
+.footer__social-link:hover {
+    transform: translateY(-4px) scale(1.1);
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+}
+
+/* ستون‌های لینک */
+.footer__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer__title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    border-radius: 2px;
+}
+
+.footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer__link {
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-right: 0;
+}
+
+.footer__link:hover {
+    color: var(--color-blue);
+    padding-right: 8px;
+}
+
+[data-theme="dark"] .footer__link:hover {
+    color: var(--color-cyan);
+}
+
+/* تماس و خبرنامه */
+.footer__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.footer__contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.footer__contact-item svg {
+    color: var(--color-blue);
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .footer__contact-item svg {
+    color: var(--color-cyan);
+}
+
+.footer__newsletter {
+    margin-top: 20px;
+}
+
+.footer__newsletter-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.footer__newsletter-form {
+    display: flex;
+    gap: 8px;
+}
+
+.footer__newsletter-input {
+    flex: 1;
+    padding: 10px 14px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 13px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.footer__newsletter-input:focus {
+    border-color: var(--color-blue);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+[data-theme="dark"] .footer__newsletter-input:focus {
+    border-color: var(--color-cyan);
+    box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.1);
+}
+
+.footer__newsletter-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--bounce);
+    flex-shrink: 0;
+}
+
+.footer__newsletter-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+}
+
+/* پایین فوتر */
+.footer__bottom {
+    padding: 20px 0;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(67, 97, 238, 0.02);
+}
+
+[data-theme="dark"] .footer__bottom {
+    background: rgba(76, 201, 240, 0.02);
+}
+
+.footer__bottom-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer__copyright {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.footer__bottom-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer__bottom-link {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer__bottom-link:hover {
+    color: var(--color-blue);
+}
+
+[data-theme="dark"] .footer__bottom-link:hover {
+    color: var(--color-cyan);
+}
+
+/* ==================== ریسپانسیو ==================== */
+@media (max-width: 992px) {
+    .footer__container {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 30px;
+    }
+
+    .footer__logo {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        margin-top: 80px;
+    }
+
+    .footer__main {
+        padding: 40px 0 30px;
+    }
+
+    .footer__container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer__brand {
+        font-size: 24px;
+    }
+
+    .footer__description {
+        font-size: 13px;
+    }
+
+    .footer__bottom-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .footer__bottom-links {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer__social {
+        justify-content: center;
+    }
+
+    .footer__newsletter-form {
+        flex-direction: column;
+    }
+
+    .footer__newsletter-btn {
+        width: 100%;
+        height: 44px;
     }
 }
