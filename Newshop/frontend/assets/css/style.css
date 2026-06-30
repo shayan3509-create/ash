@@ -26,7 +26,7 @@
     --color-cyan: #4CC9F0;
     --color-pink: #F72585;
     --color-purple: #B026FF;
-
+    
     --bg-base: #F5F7FA;
     --bg-blob-1: rgba(67, 97, 238, 0.18);
     --bg-blob-2: rgba(76, 201, 240, 0.15);
@@ -1053,4 +1053,732 @@ html {
 
 body {
     -ms-overflow-style: none;
+}
+
+
+
+
+
+
+
+
+/* ==================== اسلایدر بنر ==================== */
+.banner-slider {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 400px auto;
+    padding: 0 20px;
+}
+
+.slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow:
+        0 30px 60px -15px var(--glass-shadow-outer),
+        0 15px 30px -10px var(--glass-shadow-mid);
+}
+
+/* اسلایدها */
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+}
+
+.slide__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.slide__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        transparent 70%
+    );
+}
+
+.slide__content {
+    padding: 40px 60px;
+    max-width: 55%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: slideInLeft 0.7s ease;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide__badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 20px;
+    width: fit-content;
+    box-shadow: 0 4px 15px rgba(247, 37, 133, 0.4);
+}
+
+.slide__title {
+    font-size: 42px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.slide__desc {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.slide__cta {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: fit-content;
+    transition: all 0.3s var(--bounce);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+}
+
+.slide__cta:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(67, 97, 238, 0.6);
+}
+
+/* دکمه‌های ناوبری */
+.slider-btn {
+    width: 60px;
+    height: 60px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s var(--bounce);
+    color: var(--text-primary);
+    box-shadow:
+        0 10px 25px -5px var(--glass-shadow-outer),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.slider-btn:hover {
+    transform: scale(1.15);
+    background: var(--action-hover);
+    box-shadow:
+        0 15px 35px -5px var(--glass-shadow-outer),
+        0 0 0 3px rgba(76, 201, 240, 0.2);
+}
+
+.slider-btn:active {
+    transform: scale(0.95);
+}
+
+.slider-btn svg {
+    width: 28px;
+    height: 28px;
+    stroke-width: 2.5;
+}
+
+/* Dots navigation */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    opacity: 0.3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    opacity: 0.6;
+    transform: scale(1.2);
+}
+
+.dot.active {
+    opacity: 1;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    width: 32px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px var(--color-cyan);
+}
+
+/* Progress bar */
+.slider-progress {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0 0 30px 30px;
+    overflow: hidden;
+}
+
+.slider-progress__bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--color-blue), var(--color-cyan));
+    border-radius: 2px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px var(--color-cyan);
+}
+
+/* ==================== ریسپانسیو ==================== */
+@media (max-width: 768px) {
+    .banner-slider {
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    .slider-wrapper {
+        gap: 10px;
+    }
+
+    .slider-container {
+        height: 350px;
+    }
+
+    .slide__content {
+        padding: 30px 25px;
+        max-width: 70%;
+    }
+
+    .slide__title {
+        font-size: 28px;
+    }
+
+    .slide__desc {
+        font-size: 15px;
+    }
+
+    .slider-btn {
+        width: 45px;
+        height: 45px;
+    }
+
+    .slider-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .dot.active {
+        width: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-container {
+        height: 300px;
+    }
+
+    .slide__content {
+        padding: 25px 20px;
+        max-width: 80%;
+    }
+
+    .slide__title {
+        font-size: 24px;
+    }
+
+    .slide__badge {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .slide__cta {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
+
+
+
+/* اسلایدها */
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 40px 60px;
+    gap: 40px;
+}
+
+.slide__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: slideInLeft 0.7s ease;
+}
+
+.slide.active .slide__text {
+    animation: slideInLeft 0.7s ease;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide__badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 20px;
+    width: fit-content;
+    box-shadow: 0 4px 15px rgba(247, 37, 133, 0.4);
+}
+
+.slide__title {
+    font-size: 42px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+}
+
+.slide__desc {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.slide__cta {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: fit-content;
+    transition: all 0.3s var(--bounce);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+}
+
+.slide__cta:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(67, 97, 238, 0.6);
+}
+
+.slide__image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slideInRight 0.7s ease;
+}
+
+.slide.active .slide__image {
+    animation: slideInRight 0.7s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide__image img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* دکمه‌های ناوبری */
+.slider-btn {
+    width: 60px;
+    height: 60px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s var(--bounce);
+    color: var(--text-primary);
+    box-shadow:
+        0 10px 25px -5px var(--glass-shadow-outer),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+    flex-shrink: 0;
+}
+
+.slider-btn:hover {
+    transform: scale(1.15);
+    background: var(--action-hover);
+    box-shadow:
+        0 15px 35px -5px var(--glass-shadow-outer),
+        0 0 0 3px rgba(76, 201, 240, 0.2);
+}
+
+.slider-btn:active {
+    transform: scale(0.95);
+}
+
+.slider-btn svg {
+    width: 28px;
+    height: 28px;
+    stroke-width: 2.5;
+}
+
+/* Dots navigation */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    opacity: 0.3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    opacity: 0.6;
+    transform: scale(1.2);
+}
+
+.dot.active {
+    opacity: 1;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    width: 32px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px var(--color-cyan);
+}
+
+/* Progress bar */
+/* Progress bar */
+.slider-progress {
+    position: relative; /* تغییر از absolute به relative */
+    width: calc(100% - 40px); /* عرض با در نظر گرفتن padding */
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 15px auto 0; /* margin بالا برای فاصله از dots */
+}
+
+.slider-progress__bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--color-blue), var(--color-cyan));
+    border-radius: 2px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px var(--color-cyan);
+}
+
+
+/* ==================== ریسپانسیو ==================== */
+@media (max-width: 768px) {
+
+
+    .banner-slider {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 800px auto; /* از 40px به 80px تغییر دادیم */
+    padding: 0 20px;
+}
+
+    .slider-wrapper {
+        gap: 10px;
+    }
+
+    .slider-container {
+        height: 350px;
+    }
+
+    .slide__content {
+        flex-direction: column;
+        padding: 30px 25px;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .slide__text {
+        align-items: center;
+    }
+
+    .slide__title {
+        font-size: 28px;
+    }
+
+    .slide__desc {
+        font-size: 15px;
+    }
+
+    .slide__image img {
+        max-height: 180px;
+    }
+
+    .slider-btn {
+        width: 45px;
+        height: 45px;
+    }
+
+    .slider-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .dot.active {
+        width: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-container {
+        height: 320px;
+    }
+
+    .slide__content {
+        padding: 25px 20px;
+    }
+
+    .slide__title {
+        font-size: 24px;
+    }
+
+    .slide__badge {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .slide__cta {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==================== انیمیشن ورود بنر ==================== */
+.banner-slider {
+    opacity: 0;
+    transform: translateY(80px) scale(0.95);
+    transition: 
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.banner-slider.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* انیمیشن برای هر اسلاید */
+.banner-slider.is-visible .slide.active .slide__content {
+    animation: slideContentIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.banner-slider.is-visible .slide.active .slide__image {
+    animation: slideImageIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+@keyframes slideContentIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideImageIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* انیمیشن برای دکمه‌های ناوبری */
+.banner-slider.is-visible .slider-btn {
+    animation: buttonIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+}
+
+.banner-slider.is-visible .slider-btn--next {
+    animation-delay: 0.7s;
+}
+
+@keyframes buttonIn {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* انیمیشن برای dots */
+.banner-slider.is-visible .slider-dots {
+    animation: dotsIn 0.6s ease 0.8s both;
+}
+
+@keyframes dotsIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* انیمیشن برای progress bar */
+.banner-slider.is-visible .slider-progress {
+    animation: progressIn 0.6s ease 1s both;
+}
+
+@keyframes progressIn {
+    from {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
 }

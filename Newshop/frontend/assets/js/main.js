@@ -71,6 +71,215 @@ async function searchOnBackend(query) {
 
 // ==================== توابع اصلی ====================
 document.addEventListener('DOMContentLoaded', async () => {
+
+
+
+
+// ==================== اسلایدر بنر ====================
+
+
+
+
+
+
+// ==================== اسلایدر بنر ====================
+const bannerSlider = document.querySelector('.banner-slider');
+
+if (bannerSlider) {
+    const slides = bannerSlider.querySelectorAll('.slide');
+    const dots = bannerSlider.querySelectorAll('.dot');
+    const prevBtn = bannerSlider.querySelector('.slider-btn--prev');
+    const nextBtn = bannerSlider.querySelector('.slider-btn--next');
+    const progressBar = bannerSlider.querySelector('.slider-progress__bar');
+    
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    const autoPlayInterval = 5000; // 5 ثانیه
+    
+    let autoPlayTimer = null;
+    let progressAnimationId = null;
+    let progressStartTime = null;
+    let isPaused = false;
+
+    // نمایش اسلاید مشخص
+    function showSlide(index) {
+        // حذف active از همه
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // اضافه کردن active به اسلاید فعلی
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        
+        currentSlide = index;
+    }
+
+    // اسلاید بعدی
+    function nextSlide() {
+        const nextIndex = (currentSlide + 1) % totalSlides;
+        showSlide(nextIndex);
+        restartAutoPlay();
+    }
+
+    // اسلاید قبلی
+    function prevSlide() {
+        const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(prevIndex);
+        restartAutoPlay();
+    }
+
+    // شروع progress bar با requestAnimationFrame
+    function startProgress() {
+        progressStartTime = Date.now();
+        
+        function animate() {
+            if (isPaused) {
+                progressAnimationId = requestAnimationFrame(animate);
+                return;
+            }
+            
+            const elapsed = Date.now() - progressStartTime;
+            const progress = (elapsed / autoPlayInterval) * 100;
+            
+            if (progress >= 100) {
+                progressBar.style.width = '0%';
+                nextSlide();
+            } else {
+                progressBar.style.width = `${progress}%`;
+                progressAnimationId = requestAnimationFrame(animate);
+            }
+        }
+        
+        progressAnimationId = requestAnimationFrame(animate);
+    }
+
+    // توقف progress bar
+    function stopProgress() {
+        if (progressAnimationId) {
+            cancelAnimationFrame(progressAnimationId);
+            progressAnimationId = null;
+        }
+    }
+
+    // شروع auto-play
+    function startAutoPlay() {
+        isPaused = false;
+        stopProgress();
+        startProgress();
+    }
+
+    // توقف auto-play
+    function stopAutoPlay() {
+        isPaused = true;
+        stopProgress();
+    }
+
+    // ریست auto-play (برای دکمه‌ها)
+    function restartAutoPlay() {
+        stopProgress();
+        progressStartTime = Date.now();
+        progressBar.style.width = '0%';
+        startProgress();
+    }
+
+    // Event Listeners
+
+    // دکمه قبلی
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            prevSlide();
+        });
+    }
+
+    // دکمه بعدی
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            nextSlide();
+        });
+    }
+
+    // کلیک روی dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showSlide(index);
+            restartAutoPlay();
+        });
+    });
+
+
+
+
+
+
+    // Pause on hover (فقط روی خود بنر)
+const sliderContainer = bannerSlider.querySelector('.slider-container');
+
+sliderContainer.addEventListener('mouseenter', () => {
+    stopAutoPlay();
+});
+
+sliderContainer.addEventListener('mouseleave', () => {
+    startAutoPlay();
+});
+
+
+
+
+
+    // Swipe برای موبایل
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    bannerSlider.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoPlay();
+    }, { passive: true });
+
+    bannerSlider.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoPlay();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+        }
+    });
+
+    // شروع auto-play
+    startAutoPlay();
+}
+
+
+
+
+
+
+
+
+
+
+
+
   const isConnected = await testConnection();
   if (isConnected) console.log('🚀 Backend is ready');
 
@@ -188,3 +397,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 });
+
+
+
+
+
+
+// ==================== انیمیشن ورود بنر هنگام اسکرول ====================
+const bannerSlider = document.querySelector('.banner-slider');
+
+if (bannerSlider) {
+    // Intersection Observer برای تشخیص ورود به viewport
+    const observerOptions = {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.2 // 20% از عنصر دیده بشه
+    };
+
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // اضافه کردن کلاس انیمیشن
+                entry.target.classList.add('is-visible');
+                
+                // بعد از نمایش، observer رو قطع کن (فقط یک بار اجرا بشه)
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    observer.observe(bannerSlider);
+}
