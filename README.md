@@ -15,7 +15,7 @@
 برای ارسال تغییرات:
 ```bash
 git add .
-git commit -m "added login page"
+git commit -m "Delete extra files"
 git push
 ```
 
@@ -29,3 +29,5 @@ git pull
 
 ---
 *این فایل توسط دستیار هوشمند بازنویسی شده است تا نشان دهد به تمام فایل‌های پروژه شما دسترسی دارد.*
+
+
