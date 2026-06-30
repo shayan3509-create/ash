@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نیوشاپ - فروشگاه گجت و کالای دیجیتال</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+</head>
+
+<body>
+    <!-- پس‌زمینه متحرک -->
+    <div class="bg-wrapper">
+        <div class="bg-blob bg-blob--1"></div>
+        <div class="bg-blob bg-blob--2"></div>
+        <div class="bg-blob bg-blob--3"></div>
+    </div>
+
+    <!-- ==================== هدر اصلی ==================== -->
+    <header class="header liquid-nav" id="header">
+        <div class="liquid-glare-container">
+            <div class="liquid-glare" id="glare"></div>
+        </div>
+
+        <div class="header__inner">
+            <!-- دکمه منو (موبایل) - بدون بک‌گراند -->
+            <button class="menu-toggle-btn" id="menu-toggle" aria-label="منو">
+                <img src="../../assets/icons/meno.webp" alt="منو" class="menu-toggle-icon">
+            </button>
+
+            <!-- لوگو -->
+            <a href="#" class="header__logo">
+                <span class="logo__text">نیوشاپ</span>
+
+                <span class="logo__dot-wrapper">
+                    <span class="logo__dot"></span>
+                    <span class="logo__orbit"></span>
+                    <span class="logo__particle logo__particle--1"></span>
+                    <span class="logo__particle logo__particle--2"></span>
+                    <span class="logo__particle logo__particle--3"></span>
+                </span>
+            </a>
+
+            <!-- فرم جستجو (دسکتاپ: کامل / موبایل: فقط آیکون) -->
+            <form class="header__search" id="search-form">
+                <button type="submit" class="search__icon-btn" aria-label="جستجو">
+                    <img src="../../assets/icons/search.webp" alt="جستجو" class="search-icon">
+                </button>
+                <input type="text" class="search__input" placeholder="جستجوی گوشی، لپ‌تاپ، ساعت..." id="search-input">
+            </form>
+
+            <!-- دکمه جستجو (فقط موبایل - آیکون خالی) -->
+            <button class="search-toggle-btn" id="search-toggle" aria-label="جستجو">
+                <img src="../../assets/icons/search.webp" alt="جستجو" class="search-toggle-icon">
+            </button>
+
+            <!-- آیکون نوتیفیکیشن (فقط دسکتاپ) -->
+            <button class="notification-btn" id="notification-btn" aria-label="اعلانات">
+                <img src="../../assets/icons/bell.webp" alt="اعلانات" class="notification-icon">
+                <span class="notification__badge">5</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== Sidebar دسکتاپ (شبیه یوتیوب) ==================== -->
+    <aside class="desktop-sidebar" id="desktop-sidebar">
+        <nav class="sidebar-nav">
+            <!-- نیمه دکمه تم -->
+            <div class="sidebar-item theme-sidebar-item">
+                <button class="theme-half-btn" id="theme-toggle-desktop" aria-label="تغییر تم">
+                    <div class="theme-half-wrapper">
+                        <div class="theme-half theme-half--light">
+                            <img src="../../assets/icons/sun.webp" alt="روشن" class="theme-half-icon">
+                        </div>
+                        <div class="theme-half theme-half--dark">
+                            <img src="../../assets/icons/moon.webp" alt="تاریک" class="theme-half-icon">
+                        </div>
+                    </div>
+                </button>
+                <span class="sidebar-label">تم</span>
+            </div>
+
+            <!-- خانه -->
+            <a href="#" class="sidebar-item active">
+                <img src="../../assets/icons/home.webp" alt="خانه" class="sidebar-icon">
+                <span class="sidebar-label">خانه</span>
+            </a>
+
+            <!-- گالری محصولات (اکسپلور) -->
+            <a href="#" class="sidebar-item">
+                <img src="../../assets/icons/Product-gallery.webp" alt="گالری" class="sidebar-icon">
+                <span class="sidebar-label">گالری</span>
+            </a>
+
+            <!-- وبلاگ -->
+            <a href="#" class="sidebar-item">
+                <img src="../../assets/icons/Blog.webp" alt="وبلاگ" class="sidebar-icon">
+                <span class="sidebar-label">وبلاگ</span>
+            </a>
+
+            <!-- حساب کاربری -->
+            <a href="#" class="sidebar-item">
+                <img src="../../assets/icons/user.webp" alt="حساب کاربری" class="sidebar-icon">
+                <span class="sidebar-label">حساب</span>
+            </a>
+
+            <!-- سبد خرید -->
+            <a href="#" class="sidebar-item sidebar-cart">
+                <img src="../../assets/icons/cart.webp" alt="سبد خرید" class="sidebar-icon">
+                <span class="sidebar-label">سبد</span>
+                <span class="sidebar-badge">3</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- ==================== Bottom Navigation موبایل ==================== -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+        <!-- نیمه دکمه تم -->
+        <div class="bottom-nav-item theme-bottom-item">
+            <button class="theme-half-btn-mobile" id="theme-toggle-mobile" aria-label="تغییر تم">
+                <div class="theme-half-wrapper">
+                    <div class="theme-half theme-half--light">
+                        <img src="../../assets/icons/sun.webp" alt="روشن" class="theme-half-icon">
+                    </div>
+                    <div class="theme-half theme-half--dark">
+                        <img src="../../assets/icons/moon.webp" alt="تاریک" class="theme-half-icon">
+                    </div>
+                </div>
+            </button>
+            <span class="bottom-nav-label">تم</span>
+        </div>
+
+        <!-- خانه -->
+        <a href="#" class="bottom-nav-item active">
+            <img src="../../assets/icons/home.webp" alt="خانه" class="bottom-nav-icon">
+            <span class="bottom-nav-label">خانه</span>
+        </a>
+
+        <!-- گالری محصولات -->
+        <a href="#" class="bottom-nav-item">
+            <img src="../../assets/icons/Product-gallery.webp" alt="گالری" class="bottom-nav-icon">
+            <span class="bottom-nav-label">گالری</span>
+        </a>
+
+        <!-- وبلاگ -->
+        <a href="#" class="bottom-nav-item">
+            <img src="../../assets/icons/blog.webp" alt="وبلاگ" class="bottom-nav-icon">
+            <span class="bottom-nav-label">وبلاگ</span>
+        </a>
+
+        <!-- حساب کاربری -->
+        <a href="#" class="bottom-nav-item">
+            <img src="../../assets/icons/user.webp" alt="حساب کاربری" class="bottom-nav-icon">
+            <span class="bottom-nav-label">حساب</span>
+        </a>
+
+        <!-- سبد خرید -->
+        <a href="#" class="bottom-nav-item bottom-nav-cart">
+            <img src="../../assets/icons/cart.webp" alt="سبد خرید" class="bottom-nav-icon">
+            <span class="bottom-nav-label">سبد</span>
+            <span class="bottom-nav-badge">3</span>
+        </a>
+    </nav>
+
+    <!-- ==================== محتوای اصلی ==================== -->
+    <main class="main-content">
+        <section class="hero">
+
+
+
+
+
+
+
+
+
+            <h1 class="hero__title">آینده تکنولوژی، همینجا</h1>
+            <p class="hero__desc">
+                جدیدترین گجت‌ها را با بهترین قیمت از
+                <span class="hero__highlight">نیوشاپ</span> بخرید
+            </p>
+        </section>
+
+
+
+        <!-- ==================== اسلایدر بنر ==================== -->
+
+
+
+     
+        <!-- ==================== اسلایدر بنر ==================== -->
+<section class="banner-slider" aria-label="اسلایدر بنرها">
+    <div class="slider-wrapper">
+        <!-- دکمه قبلی (چپ) -->
+        <button class="slider-btn slider-btn--prev" aria-label="بنر قبلی">
+
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+
+
+            <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg> -->
+        </button>
+
+        <!-- کانتینر اسلایدها -->
+        <div class="slider-container">
+            <!-- بنر ۱ -->
+            <div class="slide active" data-slide="0">
+                <img src="../../assets/images/banner-1.jpg" alt="بنر ۱" class="slide__image" loading="lazy">
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">پیشنهاد ویژه</span>
+                        <h2 class="slide__title">آیفون ۱۵ پرو مکس</h2>
+                        <p class="slide__desc">قدرتی فراتر از تصور با تراشه A17 Pro</p>
+                        <button class="slide__cta">مشاهده محصول</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بنر ۲ -->
+            <div class="slide" data-slide="1">
+                <img src="../../assets/images/banner-2.jpg" alt="بنر ۲" class="slide__image" loading="lazy">
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">جدید</span>
+                        <h2 class="slide__title">مک‌بوک پرو M3</h2>
+                        <p class="slide__desc">برای حرفه‌ای‌ها با عملکرد بی‌نظیر</p>
+                        <button class="slide__cta">خرید کنید</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بنر ۳ -->
+            <div class="slide" data-slide="2">
+                <img src="../../assets/images/banner-3.jpg" alt="بنر ۳" class="slide__image" loading="lazy">
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">پرفروش</span>
+                        <h2 class="slide__title">گلکسی S24 Ultra</h2>
+                        <p class="slide__desc">هوش مصنوعی در دستان شما</p>
+                        <button class="slide__cta">اطلاعات بیشتر</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بنر ۴ -->
+            <div class="slide" data-slide="3">
+                <img src="../../assets/images/banner-4.jpg" alt="بنر ۴" class="slide__image" loading="lazy">
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">ویژه</span>
+                        <h2 class="slide__title">ایرپادز پرو ۲</h2>
+                        <p class="slide__desc">صدایی بی‌نظیر با نویز کنسلینگ</p>
+                        <button class="slide__cta">همین حالا بخر</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بنر ۵ -->
+            <div class="slide" data-slide="4">
+                <img src="images.jpg" alt="بنر ۵" class="slide__image" loading="lazy">
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">محبوب</span>
+                        <h2 class="slide__title">اپل واچ سری ۹</h2>
+                        <p class="slide__desc">سلامتی در مچ دست شما</p>
+                        <button class="slide__cta">مشاهده</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- دکمه بعدی (راست) -->
+        <button class="slider-btn slider-btn--next" aria-label="بنر بعدی">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg> -->
+
+        </button>
+    </div>
+
+    <!-- Dots navigation -->
+    <div class="slider-dots">
+        <span class="dot active" data-dot="0"></span>
+        <span class="dot" data-dot="1"></span>
+        <span class="dot" data-dot="2"></span>
+        <span class="dot" data-dot="3"></span>
+        <span class="dot" data-dot="4"></span>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="slider-progress">
+        <div class="slider-progress__bar"></div>
+    </div>
+</section>
+
+
+
+
+
+    </main>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+
+</html>
