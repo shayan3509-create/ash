@@ -1783,15 +1783,25 @@ body {
         transform: scaleX(1);
     }
 }
+/* ویدیو در اسلاید */
+.slide__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
+/* انیمیشن ورود ویدیو */
+.banner-slider.is-visible .slide.active .slide__video {
+    animation: slideImageIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
 
-
-
-
-
-
-
-
+/* ریسپانسیو برای ویدیو */
+@media (max-width: 768px) {
+    .slide__video {
+        object-fit: cover;
+    }
+}
 
 
 /* ==================== پرفروش‌ترین‌های هفته ==================== */
@@ -1863,101 +1873,304 @@ body {
 }
 
 /* Marquee Container */
-.marquee {
+.best-sellers .marquee {
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding: 20px 0;
+    padding: 30px 0;
+    direction: ltr;
 }
 
-.marquee-track {
+.best-sellers .marquee-track {
     display: flex;
-    gap: 20px;
-    animation: marqueeScroll 60s linear infinite;
+    gap: 24px;
+    direction: ltr;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: relative;
+    will-change: left;
 }
 
-.marquee:hover .marquee-track {
-    animation-play-state: paused;
+.best-sellers .marquee-track.dragging {
+    cursor: grabbing;
 }
 
-@keyframes marqueeScroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+.best-sellers .marquee-track:active {
+    cursor: grabbing;
 }
 
-/* کارت محصول */
-.marquee-card {
+/* کارت محصول - 25% بزرگ‌تر */
+.best-sellers .marquee-card {
+    direction: rtl;
     flex-shrink: 0;
-    width: 220px;
+    width: 275px;
     background: var(--glass-bg);
     backdrop-filter: blur(30px) saturate(180%);
     -webkit-backdrop-filter: blur(30px) saturate(180%);
     border: 1.5px solid var(--glass-border);
-    border-radius: 24px;
+    border-radius: 28px;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.4s var(--bounce);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow:
         0 10px 30px -10px var(--glass-shadow-outer),
         inset 0 1px 2px -1px var(--glass-highlight-top);
     text-decoration: none;
     color: inherit;
     display: block;
+    -webkit-user-drag: none;
+    user-drag: none;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
-.marquee-card:hover {
-    transform: translateY(-12px) scale(1.03);
+/* Gradient Border متحرک در hover */
+.best-sellers .marquee-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        var(--color-blue),
+        var(--color-cyan),
+        var(--color-purple),
+        var(--color-pink),
+        var(--color-blue)
+    );
+    background-size: 300% 300%;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.best-sellers .marquee-card:hover::before {
+    opacity: 1;
+    animation: borderGradientBest 3s ease infinite;
+}
+
+@keyframes borderGradientBest {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.best-sellers .marquee-card:hover {
+    transform: translateY(-15px) scale(1.05);
     box-shadow:
-        0 20px 40px -10px var(--glass-shadow-outer),
-        0 0 0 2px rgba(76, 201, 240, 0.3),
+        0 25px 50px -12px var(--glass-shadow-outer),
+        0 0 0 3px rgba(76, 201, 240, 0.4),
         inset 0 1px 2px -1px var(--glass-highlight-top);
 }
 
-.marquee-card__image-wrapper {
+/* Wrapper تصویر - بزرگ‌تر */
+.best-sellers .marquee-card__image-wrapper {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 250px;
     overflow: hidden;
     background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(76, 201, 240, 0.05));
+    pointer-events: none;
 }
 
-.marquee-card__image {
+.best-sellers .marquee-card__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
 }
 
-.marquee-card:hover .marquee-card__image {
-    transform: scale(1.08);
+.best-sellers .marquee-card:hover .marquee-card__image {
+    transform: scale(1.12);
 }
 
-.marquee-card__badge {
+/* Badge اصلی (گوشه بالا-راست) */
+.best-sellers .marquee-card__badge {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    padding: 4px 10px;
+    top: 14px;
+    right: 14px;
+    padding: 6px 14px;
     background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
     color: #fff;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(247, 37, 133, 0.4);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(247, 37, 133, 0.5);
+    pointer-events: none;
+    z-index: 3;
 }
 
-.marquee-card__info {
-    padding: 16px;
+/* Badge تخفیف دایره‌ای چرخان (گوشه بالا-چپ) */
+.best-sellers .marquee-card__discount {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #FF416C, #FF4B2B);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
+    pointer-events: none;
+    z-index: 3;
+    animation: rotateDiscountBest 8s linear infinite;
+}
+
+@keyframes rotateDiscountBest {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.best-sellers .marquee-card__discount span {
+    animation: counterRotateBest 8s linear infinite;
+    display: block;
+}
+
+@keyframes counterRotateBest {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+/* Wishlist Heart - فقط در hover ظاهر می‌شه */
+.best-sellers .marquee-card__wishlist {
+    position: absolute;
+    top: 80px;
+    left: 14px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s var(--bounce);
+    z-index: 4;
+    pointer-events: auto;
+    border: none;
+    padding: 0;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.best-sellers .marquee-card:hover .marquee-card__wishlist {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.best-sellers .marquee-card__wishlist.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.best-sellers .marquee-card__wishlist svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-pink);
+    fill: none;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+}
+
+.best-sellers .marquee-card__wishlist:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 15px rgba(247, 37, 133, 0.4);
+}
+
+.best-sellers .marquee-card__wishlist.active svg {
+    fill: var(--color-pink);
+    animation: heartBeatBest 0.6s ease;
+}
+
+@keyframes heartBeatBest {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    75% {
+        transform: scale(1.2);
+    }
+}
+
+/* Rating Stars */
+.best-sellers .marquee-card__rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.best-sellers .marquee-card__stars {
+    display: flex;
+    gap: 2px;
+}
+
+.best-sellers .marquee-card__star {
+    width: 14px;
+    height: 14px;
+    color: #FFD700;
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.6));
+}
+
+.best-sellers .marquee-card__star.empty {
+    color: var(--text-secondary);
+    opacity: 0.3;
+    filter: none;
+}
+
+.best-sellers .marquee-card__rating-count {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-right: 4px;
+}
+
+/* اطلاعات محصول */
+.best-sellers .marquee-card__info {
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
-.marquee-card__name {
-    font-size: 15px;
+.best-sellers .marquee-card__name {
+    font-size: 17px;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.4;
@@ -1965,37 +2178,178 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 42px;
+    min-height: 48px;
+    margin: 0;
 }
 
-.marquee-card__price {
+/* قیمت‌ها */
+.best-sellers .marquee-card__price {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 4px;
+    gap: 10px;
+    margin-top: 6px;
 }
 
-.marquee-card__price-current {
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--color-blue);
+.best-sellers .marquee-card__prices {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 6px;
+    flex-wrap: wrap;
 }
 
-[data-theme="dark"] .marquee-card__price-current {
-    color: var(--color-cyan);
-}
-
-.marquee-card__price-old {
-    font-size: 13px;
+.best-sellers .marquee-card__price-old {
+    font-size: 14px;
+    font-weight: 600;
     color: var(--text-secondary);
     text-decoration: line-through;
-    opacity: 0.7;
+    opacity: 0.6;
+    position: relative;
 }
 
-.marquee-card__price-unit {
-    font-size: 12px;
+.best-sellers .marquee-card__price-old::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
+    transform: translateY(-50%);
+    border-radius: 1px;
+}
+
+.best-sellers .marquee-card__price-current {
+    font-size: 18px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-theme="dark"] .best-sellers .marquee-card__price-current {
+    background: linear-gradient(135deg, var(--color-cyan), var(--color-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.best-sellers .marquee-card__price-unit {
+    font-size: 13px;
     color: var(--text-secondary);
     font-weight: 500;
+}
+
+/* Quick Actions (دکمه‌های سریع از پایین) */
+.best-sellers .marquee-card__actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.4) 70%,
+        transparent 100%
+    );
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 5;
+}
+
+.best-sellers .marquee-card:hover .marquee-card__actions {
+    transform: translateY(0);
+}
+
+.best-sellers .marquee-card__action-btn {
+    flex: 1;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s var(--bounce);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    pointer-events: auto;
+}
+
+.best-sellers .marquee-card__action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.best-sellers .marquee-card__action-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.best-sellers .marquee-card__action-btn--cart {
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    color: #fff;
+}
+
+.best-sellers .marquee-card__action-btn--cart:hover {
+    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.5);
+}
+
+/* Stock Badge (فقط چند عدد باقی‌مانده) */
+.best-sellers .marquee-card__stock {
+    position: absolute;
+    bottom: 80px;
+    left: 14px;
+    padding: 6px 12px;
+    background: rgba(255, 59, 48, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.best-sellers .marquee-card:hover .marquee-card__stock {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.best-sellers .marquee-card__stock::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    animation: pulseBest 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseBest {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.3);
+    }
 }
 
 /* ==================== ریسپانسیو ==================== */
@@ -2013,25 +2367,42 @@ body {
         font-size: 13px;
     }
 
-    .marquee-card {
-        width: 160px;
+    .best-sellers .marquee-card {
+        width: 200px;
     }
 
-    .marquee-card__image-wrapper {
-        height: 150px;
+    .best-sellers .marquee-card__image-wrapper {
+        height: 180px;
     }
 
-    .marquee-card__name {
-        font-size: 13px;
-        min-height: 36px;
-    }
-
-    .marquee-card__price-current {
+    .best-sellers .marquee-card__name {
         font-size: 14px;
+        min-height: 40px;
     }
 
-    .marquee-card__info {
-        padding: 12px;
+    .best-sellers .marquee-card__price-current {
+        font-size: 15px;
+    }
+
+    .best-sellers .marquee-card__info {
+        padding: 14px;
+    }
+
+    .best-sellers .marquee-card__discount {
+        width: 50px;
+        height: 50px;
+        font-size: 12px;
+    }
+
+    .best-sellers .marquee-card__wishlist {
+        width: 36px;
+        height: 36px;
+        top: 70px;
+    }
+
+    .best-sellers .marquee-card__action-btn {
+        padding: 8px;
+        font-size: 12px;
     }
 }
 
@@ -2040,73 +2411,26 @@ body {
         margin-bottom: 20px;
     }
 
-    .marquee-card {
-        width: 140px;
+    .best-sellers .marquee-card {
+        width: 180px;
     }
 
-    .marquee-card__image-wrapper {
-        height: 130px;
+    .best-sellers .marquee-card__image-wrapper {
+        height: 160px;
+    }
+
+    .best-sellers .marquee-card__discount {
+        width: 45px;
+        height: 45px;
+        font-size: 11px;
+    }
+
+    .best-sellers .marquee-card__wishlist {
+        width: 32px;
+        height: 32px;
+        top: 65px;
     }
 }
-
-
-
-
-
-
-/* Marquee Container */
-.marquee {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    padding: 20px 0;
-    direction: ltr; /* اضافه کن - برای درست کار کردن حرکت */
-}
-
-.marquee-track {
-    display: flex;
-    gap: 20px;
-    animation: marqueeScroll 60s linear infinite;
-    direction: ltr; /* اضافه کن */
-}
-
-.marquee:hover .marquee-track {
-    animation-play-state: paused;
-}
-
-@keyframes marqueeScroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-/* کارت محصول - RTL بمونه */
-.marquee-card {
-    direction: rtl; /* اضافه کن - تا محتوای کارت RTL باشه */
-    flex-shrink: 0;
-    width: 220px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    border: 1.5px solid var(--glass-border);
-    border-radius: 24px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.4s var(--bounce);
-    box-shadow:
-        0 10px 30px -10px var(--glass-shadow-outer),
-        inset 0 1px 2px -1px var(--glass-highlight-top);
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
-
-
-
 
 
 
@@ -2114,6 +2438,10 @@ body {
 
 
 /* جدیدترین  */
+
+
+/* ==================== جدیدترین محصولات ==================== */
+/* ==================== جدیدترین محصولات ==================== */
 
 /* ==================== جدیدترین محصولات ==================== */
 .new-arrivals {
@@ -2134,6 +2462,7 @@ body {
     transform: translateY(0);
 }
 
+/* هدر بخش */
 .new-arrivals__header {
     display: flex;
     align-items: center;
@@ -2182,6 +2511,457 @@ body {
     transform: translateX(-4px);
 }
 
+/* Marquee Container */
+.new-arrivals .marquee {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 30px 0;
+    direction: ltr;
+}
+
+.new-arrivals .marquee-track {
+    display: flex;
+    gap: 24px;
+    direction: ltr;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: relative;
+    will-change: left;
+}
+
+.new-arrivals .marquee-track.dragging {
+    cursor: grabbing;
+}
+
+.new-arrivals .marquee-track:active {
+    cursor: grabbing;
+}
+
+/* کارت محصول - 25% بزرگ‌تر */
+.new-arrivals .marquee-card {
+    direction: rtl;
+    flex-shrink: 0;
+    width: 275px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 28px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow:
+        0 10px 30px -10px var(--glass-shadow-outer),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    -webkit-user-drag: none;
+    user-drag: none;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Gradient Border متحرک در hover */
+.new-arrivals .marquee-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        var(--color-blue),
+        var(--color-cyan),
+        var(--color-purple),
+        var(--color-pink),
+        var(--color-blue)
+    );
+    background-size: 300% 300%;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.new-arrivals .marquee-card:hover::before {
+    opacity: 1;
+    animation: borderGradient 3s ease infinite;
+}
+
+@keyframes borderGradient {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.new-arrivals .marquee-card:hover {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow:
+        0 25px 50px -12px var(--glass-shadow-outer),
+        0 0 0 3px rgba(76, 201, 240, 0.4),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+}
+
+/* Wrapper تصویر - بزرگ‌تر */
+.new-arrivals .marquee-card__image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(76, 201, 240, 0.05));
+    pointer-events: none;
+}
+
+.new-arrivals .marquee-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
+}
+
+.new-arrivals .marquee-card:hover .marquee-card__image {
+    transform: scale(1.12);
+}
+
+/* Badge اصلی (گوشه بالا-راست) */
+.new-arrivals .marquee-card__badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(247, 37, 133, 0.5);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Badge تخفیف دایره‌ای چرخان (گوشه بالا-چپ) */
+.new-arrivals .marquee-card__discount {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #FF416C, #FF4B2B);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
+    pointer-events: none;
+    z-index: 3;
+    animation: rotateDiscount 8s linear infinite;
+}
+
+@keyframes rotateDiscount {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.new-arrivals .marquee-card__discount span {
+    animation: counterRotate 8s linear infinite;
+    display: block;
+}
+
+@keyframes counterRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+/* Wishlist Heart - فقط در hover ظاهر می‌شه */
+.new-arrivals .marquee-card__wishlist {
+    position: absolute;
+    top: 80px;
+    left: 14px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s var(--bounce);
+    z-index: 4;
+    pointer-events: auto;
+    border: none;
+    padding: 0;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.new-arrivals .marquee-card:hover .marquee-card__wishlist {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.new-arrivals .marquee-card__wishlist.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.new-arrivals .marquee-card__wishlist svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-pink);
+    fill: none;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+}
+
+.new-arrivals .marquee-card__wishlist:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 15px rgba(247, 37, 133, 0.4);
+}
+
+.new-arrivals .marquee-card__wishlist.active svg {
+    fill: var(--color-pink);
+    animation: heartBeat 0.6s ease;
+}
+
+@keyframes heartBeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    75% {
+        transform: scale(1.2);
+    }
+}
+
+/* Rating Stars */
+.new-arrivals .marquee-card__rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.new-arrivals .marquee-card__stars {
+    display: flex;
+    gap: 2px;
+}
+
+.new-arrivals .marquee-card__star {
+    width: 14px;
+    height: 14px;
+    color: #FFD700;
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.6));
+}
+
+.new-arrivals .marquee-card__star.empty {
+    color: var(--text-secondary);
+    opacity: 0.3;
+    filter: none;
+}
+
+.new-arrivals .marquee-card__rating-count {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-right: 4px;
+}
+
+/* اطلاعات محصول */
+.new-arrivals .marquee-card__info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.new-arrivals .marquee-card__name {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 48px;
+    margin: 0;
+}
+
+.new-arrivals .marquee-card__price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.new-arrivals .marquee-card__price-current {
+    font-size: 18px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-theme="dark"] .new-arrivals .marquee-card__price-current {
+    background: linear-gradient(135deg, var(--color-cyan), var(--color-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.new-arrivals .marquee-card__price-unit {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Quick Actions (دکمه‌های سریع از پایین) */
+.new-arrivals .marquee-card__actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.4) 70%,
+        transparent 100%
+    );
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 5;
+}
+
+.new-arrivals .marquee-card:hover .marquee-card__actions {
+    transform: translateY(0);
+}
+
+.new-arrivals .marquee-card__action-btn {
+    flex: 1;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s var(--bounce);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    pointer-events: auto;
+}
+
+.new-arrivals .marquee-card__action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.new-arrivals .marquee-card__action-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.new-arrivals .marquee-card__action-btn--cart {
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    color: #fff;
+}
+
+.new-arrivals .marquee-card__action-btn--cart:hover {
+    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.5);
+}
+
+/* Stock Badge (فقط چند عدد باقی‌مانده) */
+.new-arrivals .marquee-card__stock {
+    position: absolute;
+    bottom: 80px;
+    left: 14px;
+    padding: 6px 12px;
+    background: rgba(255, 59, 48, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.new-arrivals .marquee-card:hover .marquee-card__stock {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.new-arrivals .marquee-card__stock::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.3);
+    }
+}
+
+/* ==================== ریسپانسیو ==================== */
 @media (max-width: 768px) {
     .new-arrivals {
         margin: 60px auto;
@@ -2195,14 +2975,105 @@ body {
         padding: 8px 14px;
         font-size: 13px;
     }
+
+    .new-arrivals .marquee-card {
+        width: 200px;
+    }
+
+    .new-arrivals .marquee-card__image-wrapper {
+        height: 180px;
+    }
+
+    .new-arrivals .marquee-card__name {
+        font-size: 14px;
+        min-height: 40px;
+    }
+
+    .new-arrivals .marquee-card__price-current {
+        font-size: 15px;
+    }
+
+    .new-arrivals .marquee-card__info {
+        padding: 14px;
+    }
+
+    .new-arrivals .marquee-card__discount {
+        width: 50px;
+        height: 50px;
+        font-size: 12px;
+    }
+
+    .new-arrivals .marquee-card__wishlist {
+        width: 36px;
+        height: 36px;
+        top: 70px;
+    }
+
+    .new-arrivals .marquee-card__action-btn {
+        padding: 8px;
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 480px) {
     .new-arrivals__header {
         margin-bottom: 20px;
     }
+
+    .new-arrivals .marquee-card {
+        width: 180px;
+    }
+
+    .new-arrivals .marquee-card__image-wrapper {
+        height: 160px;
+    }
+
+    .new-arrivals .marquee-card__discount {
+        width: 45px;
+        height: 45px;
+        font-size: 11px;
+    }
+
+    .new-arrivals .marquee-card__wishlist {
+        width: 32px;
+        height: 32px;
+        top: 65px;
+    }
 }
 
+/* قیمت قدیم با خط خوردگی */
+.new-arrivals .marquee-card__price-old {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    opacity: 0.6;
+    position: relative;
+}
+
+.new-arrivals .marquee-card__price-old::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
+    transform: translateY(-50%);
+    border-radius: 1px;
+}
+
+/* قیمت‌ها در کنار هم */
+.new-arrivals .marquee-card__prices {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+/* ==================== جدیدترین محصولات ==================== */
+/* ==================== جدیدترین محصولات ==================== */
 
 
 
@@ -2213,6 +3084,7 @@ body {
 
 
 
+/* ==================== دسته‌بندی‌ها ==================== */
 /* ==================== دسته‌بندی‌ها ==================== */
 .categories {
     position: relative;
@@ -2290,175 +3162,114 @@ body {
 /* کارت دسته‌بندی */
 .category-card {
     position: relative;
-    aspect-ratio: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    padding: 24px;
-    border-radius: 28px;
+    padding: 32px 20px;
     background: var(--glass-bg);
     backdrop-filter: blur(30px) saturate(180%);
     -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 28px;
     text-decoration: none;
     color: inherit;
-    cursor: pointer;
-    overflow: hidden;
-    transition: all 0.4s var(--bounce);
-    
-    /* Border زیبا با gradient */
-    border: 2px solid transparent;
-    background-clip: padding-box;
+    text-align: center;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow:
         0 10px 30px -10px var(--glass-shadow-outer),
         inset 0 1px 2px -1px var(--glass-highlight-top);
+    overflow: hidden;
+    cursor: pointer;
     
-    /* انیمیشن ورود stagger */
+    /* انیمیشن ورود */
     opacity: 0;
-    transform: translateY(60px) scale(0.9);
+    transform: translateY(40px);
 }
 
 .categories.is-visible .category-card {
-    animation: categoryCardIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: categoryCardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.categories.is-visible .category-card:nth-child(1) { animation-delay: 0.15s; }
-.categories.is-visible .category-card:nth-child(2) { animation-delay: 0.4s; }
-.categories.is-visible .category-card:nth-child(3) { animation-delay: 0.65s; }
-.categories.is-visible .category-card:nth-child(4) { animation-delay: 0.9s; }
+.categories.is-visible .category-card:nth-child(1) { animation-delay: 0.1s; }
+.categories.is-visible .category-card:nth-child(2) { animation-delay: 0.2s; }
+.categories.is-visible .category-card:nth-child(3) { animation-delay: 0.3s; }
+.categories.is-visible .category-card:nth-child(4) { animation-delay: 0.4s; }
 
 @keyframes categoryCardIn {
     from {
         opacity: 0;
-        transform: translateY(60px) scale(0.9);
-    }
-    60% {
-        opacity: 1;
+        transform: translateY(40px);
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
 }
 
-/* Border gradient با pseudo-element */
+/* Glow effect در hover */
 .category-card::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 28px;
-    padding: 2px;
-    background: linear-gradient(
-        135deg,
-        var(--color-blue),
-        var(--color-cyan),
-        var(--color-purple),
-        var(--color-pink)
+    background: radial-gradient(
+        ellipse at center,
+        rgba(76, 201, 240, 0.15) 0%,
+        transparent 70%
     );
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.5;
-    transition: opacity 0.4s ease;
+    opacity: 0;
+    transition: opacity 0.5s ease;
     pointer-events: none;
 }
 
 .category-card:hover::before {
     opacity: 1;
-    background-size: 200% 200%;
-    animation: borderGradient 3s ease infinite;
-}
-
-@keyframes borderGradient {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-/* افکت درخشش در hover */
-.category-card::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(
-        circle,
-        rgba(76, 201, 240, 0.15) 0%,
-        transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-}
-
-.category-card:hover::after {
-    opacity: 1;
 }
 
 .category-card:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-12px) scale(1.03);
     box-shadow:
-        0 20px 40px -10px var(--glass-shadow-outer),
+        0 25px 50px -12px var(--glass-shadow-outer),
         0 0 0 2px rgba(76, 201, 240, 0.3),
         inset 0 1px 2px -1px var(--glass-highlight-top);
 }
 
-/* آیکون دسته‌بندی */
+/* آیکون 3D */
 .category-card__icon {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: linear-gradient(
-        135deg,
-        rgba(67, 97, 238, 0.1),
-        rgba(76, 201, 240, 0.1)
-    );
+    position: relative;
+    width: 140px;
+    height: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.4s var(--bounce);
-    position: relative;
-    z-index: 2;
-    border: 1.5px solid var(--glass-border);
+    margin-bottom: 20px;
+    perspective: 500px;
 }
 
-.category-card:hover .category-card__icon {
-    transform: scale(1.1) rotate(-5deg);
-    background: linear-gradient(
-        135deg,
-        rgba(67, 97, 238, 0.2),
-        rgba(76, 201, 240, 0.2)
-    );
-    box-shadow: 0 10px 25px -5px rgba(67, 97, 238, 0.4);
+.category-icon-3d {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.25));
+    transform-style: preserve-3d;
+    animation: iconFloat 4s ease-in-out infinite;
 }
 
-/* SVG دسته‌بندی */
-.category-svg {
-    width: 45px;
-    height: 45px;
-    color: var(--color-blue);
-    transition: all 0.4s ease;
+@keyframes iconFloat {
+    0%, 100% {
+        transform: translateY(0) rotateY(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotateY(10deg);
+    }
 }
 
-[data-theme="dark"] .category-svg {
-    color: var(--color-cyan);
-}
-
-.category-card:hover .category-svg {
-    transform: scale(1.1);
-    filter: drop-shadow(0 4px 8px rgba(67, 97, 238, 0.4));
-}
-
-[data-theme="dark"] .category-card:hover .category-svg {
-    filter: drop-shadow(0 4px 8px rgba(76, 201, 240, 0.4));
+.category-card:hover .category-icon-3d {
+    transform: translateY(-15px) scale(1.15) rotateY(-15deg) rotateX(10deg);
+    filter: drop-shadow(0 25px 35px rgba(67, 97, 238, 0.4));
+    animation-play-state: paused;
 }
 
 /* نام دسته‌بندی */
@@ -2466,9 +3277,7 @@ body {
     font-size: 18px;
     font-weight: 700;
     color: var(--text-primary);
-    text-align: center;
-    position: relative;
-    z-index: 2;
+    margin-bottom: 8px;
     transition: all 0.3s ease;
 }
 
@@ -2477,6 +3286,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    transform: scale(1.05);
 }
 
 /* تعداد محصولات */
@@ -2485,19 +3295,13 @@ body {
     color: var(--text-secondary);
     font-weight: 500;
     padding: 4px 12px;
-    background: rgba(67, 97, 238, 0.08);
-    border-radius: 20px;
-    position: relative;
-    z-index: 2;
+    background: rgba(76, 201, 240, 0.1);
+    border-radius: 12px;
     transition: all 0.3s ease;
 }
 
 .category-card:hover .category-card__count {
-    background: rgba(76, 201, 240, 0.15);
-    color: var(--color-blue);
-}
-
-[data-theme="dark"] .category-card:hover .category-card__count {
+    background: rgba(76, 201, 240, 0.2);
     color: var(--color-cyan);
 }
 
@@ -2514,10 +3318,6 @@ body {
         margin: 60px auto;
     }
 
-    .categories__header {
-        margin-bottom: 30px;
-    }
-
     .categories__title {
         font-size: 22px;
     }
@@ -2527,23 +3327,14 @@ body {
         font-size: 13px;
     }
 
-    .categories__grid {
-        gap: 16px;
-    }
-
     .category-card {
-        padding: 20px;
-        gap: 12px;
+        padding: 24px 16px;
     }
 
     .category-card__icon {
-        width: 70px;
-        height: 70px;
-    }
-
-    .category-svg {
-        width: 36px;
-        height: 36px;
+        width: 110px;
+        height: 110px;
+        margin-bottom: 16px;
     }
 
     .category-card__name {
@@ -2556,42 +3347,25 @@ body {
 }
 
 @media (max-width: 480px) {
-    .categories__header {
-        margin-bottom: 20px;
+    .categories__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
     .category-card {
-        padding: 16px;
-        gap: 10px;
-        border-radius: 22px;
-    }
-
-    .category-card::before {
-        border-radius: 22px;
+        padding: 20px 12px;
     }
 
     .category-card__icon {
-        width: 60px;
-        height: 60px;
-    }
-
-    .category-svg {
-        width: 30px;
-        height: 30px;
+        width: 90px;
+        height: 90px;
+        margin-bottom: 12px;
     }
 
     .category-card__name {
         font-size: 14px;
     }
 }
-
-
-
-
-
-
-
-
 
 
 /* برند */
@@ -2981,7 +3755,7 @@ body {
 
 /* FOOTER */
 
-
+/* ==================== فوتر ==================== */
 /* ==================== فوتر ==================== */
 .footer {
     position: relative;
@@ -3011,9 +3785,6 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-}
-
-.footer__container {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1.5fr;
     gap: 40px;
@@ -3175,8 +3946,36 @@ body {
     border-radius: 12px;
     color: var(--text-primary);
     font-size: 13px;
+    font-family: inherit;
+    direction: rtl;
+    text-align: right;
     outline: none;
     transition: all 0.3s ease;
+}
+
+.footer__newsletter-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.footer__newsletter-input::-webkit-input-placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+    font-family: inherit;
+}
+
+.footer__newsletter-input::-moz-placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+    font-family: inherit;
+}
+
+.footer__newsletter-input:-ms-input-placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+    font-family: inherit;
 }
 
 .footer__newsletter-input:focus {
@@ -3218,6 +4017,10 @@ body {
 
 [data-theme="dark"] .footer__bottom {
     background: rgba(76, 201, 240, 0.02);
+}
+
+.footer__bottom .footer__container {
+    display: block;
 }
 
 .footer__bottom-content {
@@ -3312,3 +4115,630 @@ body {
         height: 44px;
     }
 }
+
+
+
+/* شبکه ی اجتماعی */
+/* ==================== شبکه‌های اجتماعی ==================== */
+.social-section {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 0 20px;
+    opacity: 0;
+    transform: translateY(80px);
+    transition: 
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.social-section__container {
+    width: 100%;
+}
+
+/* هدر بخش */
+.social-section__header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.social-section__title {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+}
+
+.social-section__subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* گرید شبکه‌های اجتماعی */
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* کارت شبکه اجتماعی */
+.social-card {
+    position: relative;
+    display: block;
+    padding: 28px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 24px;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: all 0.4s var(--bounce);
+    box-shadow:
+        0 10px 30px -10px var(--glass-shadow-outer),
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+    
+    /* انیمیشن ورود */
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+}
+
+.social-section.is-visible .social-card {
+    animation: socialCardIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.social-section.is-visible .social-card:nth-child(1) { animation-delay: 0.1s; }
+.social-section.is-visible .social-card:nth-child(2) { animation-delay: 0.25s; }
+.social-section.is-visible .social-card:nth-child(3) { animation-delay: 0.4s; }
+.social-section.is-visible .social-card:nth-child(4) { animation-delay: 0.55s; }
+.social-section.is-visible .social-card:nth-child(5) { animation-delay: 0.7s; }
+.social-section.is-visible .social-card:nth-child(6) { animation-delay: 0.85s; }
+
+@keyframes socialCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+    }
+    50% {
+        opacity: 0.8;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Glow Effect */
+.social-card__glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.social-card:hover .social-card__glow {
+    opacity: 1;
+}
+
+/* رنگ‌های مخصوص هر شبکه */
+.social-card--instagram .social-card__glow {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(225, 48, 108, 0.2) 0%,
+        rgba(252, 175, 69, 0.1) 40%,
+        transparent 70%
+    );
+}
+
+.social-card--telegram .social-card__glow {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 136, 204, 0.2) 0%,
+        rgba(0, 136, 204, 0.1) 40%,
+        transparent 70%
+    );
+}
+
+.social-card--twitter .social-card__glow {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(29, 161, 242, 0.2) 0%,
+        rgba(29, 161, 242, 0.1) 40%,
+        transparent 70%
+    );
+}
+
+.social-card--linkedin .social-card__glow {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(10, 102, 194, 0.2) 0%,
+        rgba(10, 102, 194, 0.1) 40%,
+        transparent 70%
+    );
+}
+
+.social-card--youtube .social-card__glow {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 0, 0, 0.2) 0%,
+        rgba(255, 0, 0, 0.1) 40%,
+        transparent 70%
+    );
+}
+
+.social-card--whatsapp .social-card__glow {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(37, 211, 102, 0.2) 0%,
+        rgba(37, 211, 102, 0.1) 40%,
+        transparent 70%
+    );
+}
+
+/* محتوای کارت */
+.social-card__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.4s var(--bounce);
+}
+
+.social-card:hover .social-card__content {
+    transform: scale(1.05);
+}
+
+/* آیکون */
+.social-card__icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s var(--bounce);
+    border: 2px solid var(--glass-border);
+}
+
+/* رنگ‌های آیکون */
+.social-card--instagram .social-card__icon {
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.15), rgba(252, 175, 69, 0.15));
+    color: #E1306C;
+}
+
+.social-card--telegram .social-card__icon {
+    background: rgba(0, 136, 204, 0.15);
+    color: #0088CC;
+}
+
+.social-card--twitter .social-card__icon {
+    background: rgba(29, 161, 242, 0.15);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .social-card--twitter .social-card__icon {
+    color: #fff;
+}
+
+.social-card--linkedin .social-card__icon {
+    background: rgba(10, 102, 194, 0.15);
+    color: #0A66C2;
+}
+
+.social-card--youtube .social-card__icon {
+    background: rgba(255, 0, 0, 0.15);
+    color: #FF0000;
+}
+
+.social-card--whatsapp .social-card__icon {
+    background: rgba(37, 211, 102, 0.15);
+    color: #25D366;
+}
+
+.social-card:hover .social-card__icon {
+    transform: scale(1.15) rotate(-5deg);
+    box-shadow: 0 10px 25px -5px currentColor;
+}
+
+/* اطلاعات */
+.social-card__info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.social-card__name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.social-card__handle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: 500;
+}
+
+.social-card__followers {
+    font-size: 13px;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* دکمه */
+.social-card__btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s var(--bounce);
+    margin-top: 8px;
+}
+
+/* رنگ‌های دکمه */
+.social-card--instagram .social-card__btn {
+    background: linear-gradient(135deg, #E1306C, #F77737);
+    box-shadow: 0 4px 15px rgba(225, 48, 108, 0.4);
+}
+
+.social-card--telegram .social-card__btn {
+    background: linear-gradient(135deg, #0088CC, #00AAFF);
+    box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+}
+
+.social-card--twitter .social-card__btn {
+    background: linear-gradient(135deg, #1DA1F2, #0D8BD9);
+    box-shadow: 0 4px 15px rgba(29, 161, 242, 0.4);
+}
+
+.social-card--linkedin .social-card__btn {
+    background: linear-gradient(135deg, #0A66C2, #0077B5);
+    box-shadow: 0 4px 15px rgba(10, 102, 194, 0.4);
+}
+
+.social-card--youtube .social-card__btn {
+    background: linear-gradient(135deg, #FF0000, #CC0000);
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+}
+
+.social-card--whatsapp .social-card__btn {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+.social-card__btn:hover {
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Hover کارت */
+.social-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: currentColor;
+    box-shadow:
+        0 25px 50px -12px var(--glass-shadow-outer),
+        0 0 0 2px currentColor,
+        inset 0 1px 2px -1px var(--glass-highlight-top);
+}
+
+/* Border gradient در hover */
+.social-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1.5px;
+    background: linear-gradient(135deg, currentColor, transparent);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.social-card:hover::before {
+    opacity: 0.5;
+}
+
+/* ==================== ریسپانسیو ==================== */
+@media (max-width: 992px) {
+    .social-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .social-section {
+        margin: 60px auto;
+    }
+
+    .social-section__header {
+        margin-bottom: 35px;
+    }
+
+    .social-section__title {
+        font-size: 26px;
+    }
+
+    .social-section__subtitle {
+        font-size: 14px;
+    }
+
+    .social-card {
+        padding: 24px;
+    }
+
+    .social-card__icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .social-card__icon svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .social-card__name {
+        font-size: 16px;
+    }
+
+    .social-card__handle {
+        font-size: 13px;
+    }
+
+    .social-card__followers {
+        font-size: 12px;
+    }
+
+    .social-card__btn {
+        padding: 8px 20px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .social-section__title {
+        font-size: 22px;
+    }
+
+    .social-card {
+        padding: 20px;
+    }
+
+    .social-card__icon {
+        width: 55px;
+        height: 55px;
+    }
+
+    .social-card__icon svg {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+/* انیمیشن ripple برای دکمه‌های شبکه‌های اجتماعی */
+@keyframes rippleEffect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==================== سایدبار در ارتفاع کم ==================== */
+@media (max-height: 720px) and (min-width: 769px) {
+    .desktop-sidebar {
+        top: auto;
+        bottom: 20px; /* چسبیده به پایین */
+        right: 50%;
+        transform: translateX(50%);
+        width: auto;
+        max-width: 90%;
+        flex-direction: row;
+        padding: 10px 15px;
+        gap: 4px;
+        border-radius: 25px;
+        z-index: 998; /* زیر هدر (1000) ولی بالای محتوا */
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .sidebar-item {
+        padding: 8px 10px;
+        gap: 2px;
+    }
+
+    .sidebar-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .sidebar-label {
+        font-size: 9px;
+    }
+
+    .sidebar-item.active::before {
+        right: 50%;
+        top: auto;
+        bottom: -8px;
+        transform: translateX(50%);
+        width: 20px;
+        height: 3px;
+    }
+
+    .sidebar-badge {
+        top: 2px;
+        left: 2px;
+        min-width: 14px;
+        height: 14px;
+        font-size: 8px;
+    }
+
+    /* دکمه تم در حالت افقی */
+    .theme-sidebar-item {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+        border-left: 1px solid var(--sidebar-border);
+        margin-left: 4px;
+        padding-left: 8px;
+    }
+
+    .theme-half-btn {
+        width: 50px;
+        height: 26px;
+    }
+
+    .theme-half-icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+
+
+/* ==================== سایدبار افقی در صفحه‌های باریک‌تر ==================== */
+@media (min-width: 769px) and (max-width: 1300px) {
+    .desktop-sidebar {
+        top: auto;
+        bottom: 20px;
+        right: 50%;
+        transform: translateX(50%);
+        width: auto;
+        max-width: 90%;
+        flex-direction: row;
+        padding: 10px 15px;
+        gap: 4px;
+        border-radius: 25px;
+        z-index: 998;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .sidebar-item {
+        padding: 8px 10px;
+        gap: 2px;
+    }
+
+    .sidebar-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .sidebar-label {
+        font-size: 9px;
+    }
+
+    .sidebar-item.active::before {
+        right: 50%;
+        top: auto;
+        bottom: -8px;
+        transform: translateX(50%);
+        width: 20px;
+        height: 3px;
+    }
+
+    .sidebar-badge {
+        top: 2px;
+        left: 2px;
+        min-width: 14px;
+        height: 14px;
+        font-size: 8px;
+    }
+
+    .theme-sidebar-item {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+        border-left: 1px solid var(--sidebar-border);
+        margin-left: 4px;
+        padding-left: 8px;
+    }
+
+    .theme-half-btn {
+        width: 50px;
+        height: 26px;
+    }
+
+    .theme-half-icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

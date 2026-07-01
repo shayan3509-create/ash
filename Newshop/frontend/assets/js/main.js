@@ -82,89 +82,132 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 // ==================== پرفروش‌ترین‌های هفته ====================
+// ==================== پرفروش‌ترین‌های هفته ====================
+
+// ==================== پرفروش‌ترین‌های هفته ====================
 const bestSellersSection = document.querySelector('.best-sellers');
 
 if (bestSellersSection) {
     const bestSellersData = [
-        {
-            id: 1,
-            name: 'آیفون ۱۵ پرو مکس',
-            price: 75000000,
+        { 
+            id: 1, 
+            name: 'آیفون ۱۵ پرو مکس', 
+            price: 75000000, 
             oldPrice: 82000000,
-            image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop',
-            badge: 'پرفروش'
+            discount: 9,
+            rating: 4.9,
+            ratingCount: 534,
+            stock: 3,
+            image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop', 
+            badge: 'پرفروش' 
         },
-        {
-            id: 2,
-            name: 'مک‌بوک پرو M3',
-            price: 120000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 2, 
+            name: 'مک‌بوک پرو M3', 
+            price: 120000000, 
+            oldPrice: 135000000,
+            discount: 11,
+            rating: 4.8,
+            ratingCount: 289,
+            stock: 5,
+            image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 3,
-            name: 'گلکسی S24 Ultra',
-            price: 65000000,
+        { 
+            id: 3, 
+            name: 'گلکسی S24 Ultra', 
+            price: 65000000, 
             oldPrice: 70000000,
-            image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=400&fit=crop',
-            badge: 'تخفیف'
+            discount: 7,
+            rating: 4.7,
+            ratingCount: 456,
+            stock: 8,
+            image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=400&fit=crop', 
+            badge: 'تخفیف' 
         },
-        {
-            id: 4,
-            name: 'ایرپادز پرو ۲',
-            price: 12000000,
+        { 
+            id: 4, 
+            name: 'ایرپادز پرو ۲', 
+            price: 12000000, 
             oldPrice: 14000000,
-            image: 'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=400&h=400&fit=crop',
-            badge: 'ویژه'
+            discount: 14,
+            rating: 4.6,
+            ratingCount: 712,
+            stock: 15,
+            image: 'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=400&h=400&fit=crop', 
+            badge: 'ویژه' 
         },
-        {
-            id: 5,
-            name: 'اپل واچ سری ۹',
-            price: 28000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop',
-            badge: 'محبوب'
+        { 
+            id: 5, 
+            name: 'اپل واچ سری ۹', 
+            price: 28000000, 
+            oldPrice: 32000000,
+            discount: 13,
+            rating: 4.8,
+            ratingCount: 378,
+            stock: 4,
+            image: 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop', 
+            badge: 'محبوب' 
         },
-        {
-            id: 6,
-            name: 'آیپد پرو M2',
-            price: 55000000,
+        { 
+            id: 6, 
+            name: 'آیپد پرو M2', 
+            price: 55000000, 
             oldPrice: 60000000,
-            image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop',
-            badge: 'پرفروش'
+            discount: 8,
+            rating: 4.7,
+            ratingCount: 298,
+            stock: 6,
+            image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop', 
+            badge: 'پرفروش' 
         },
-        {
-            id: 7,
-            name: 'سونی WH-1000XM5',
-            price: 18000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 7, 
+            name: 'سونی WH-1000XM5', 
+            price: 18000000, 
+            oldPrice: 22000000,
+            discount: 18,
+            rating: 4.9,
+            ratingCount: 445,
+            stock: 2,
+            image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 8,
-            name: 'سامسونگ Galaxy Buds',
-            price: 8500000,
+        { 
+            id: 8, 
+            name: 'سامسونگ Galaxy Buds', 
+            price: 8500000, 
             oldPrice: 9500000,
-            image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop',
-            badge: 'تخفیف'
+            discount: 11,
+            rating: 4.5,
+            ratingCount: 267,
+            stock: 20,
+            image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop', 
+            badge: 'تخفیف' 
         },
-        {
-            id: 9,
-            name: 'لنوو Legion 5',
-            price: 85000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400&h=400&fit=crop',
-            badge: 'گیمینگ'
+        { 
+            id: 9, 
+            name: 'لنوو Legion 5', 
+            price: 85000000, 
+            oldPrice: 95000000,
+            discount: 11,
+            rating: 4.8,
+            ratingCount: 134,
+            stock: 3,
+            image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400&h=400&fit=crop', 
+            badge: 'گیمینگ' 
         },
-        {
-            id: 10,
-            name: 'دوربین Canon EOS R6',
-            price: 95000000,
+        { 
+            id: 10, 
+            name: 'دوربین Canon EOS R6', 
+            price: 95000000, 
             oldPrice: 105000000,
-            image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop',
-            badge: 'حرفه‌ای'
+            discount: 10,
+            rating: 4.9,
+            ratingCount: 89,
+            stock: 1,
+            image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop', 
+            badge: 'حرفه‌ای' 
         }
     ];
 
@@ -172,56 +215,294 @@ if (bestSellersSection) {
         return price.toLocaleString('fa-IR');
     }
 
+    // ساخت ستاره‌های امتیاز
+    function createStars(rating) {
+        let starsHtml = '';
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+        
+        for (let i = 0; i < 5; i++) {
+            if (i < fullStars) {
+                starsHtml += `
+                    <svg class="marquee-card__star" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                `;
+            } else if (i === fullStars && hasHalfStar) {
+                starsHtml += `
+                    <svg class="marquee-card__star" viewBox="0 0 24 24" fill="currentColor">
+                        <defs>
+                            <linearGradient id="halfStarBest${i}">
+                                <stop offset="50%" stop-color="currentColor"/>
+                                <stop offset="50%" stop-color="rgba(0,0,0,0.3)"/>
+                            </linearGradient>
+                        </defs>
+                        <path fill="url(#halfStarBest${i})" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                `;
+            } else {
+                starsHtml += `
+                    <svg class="marquee-card__star empty" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                `;
+            }
+        }
+        
+        return starsHtml;
+    }
+
     function createProductCard(product) {
         const card = document.createElement('a');
         card.href = `#product-${product.id}`;
         card.className = 'marquee-card';
         card.dataset.productId = product.id;
+        card.draggable = false;
 
-        const oldPriceHtml = product.oldPrice 
-            ? `<span class="marquee-card__price-old">${formatPrice(product.oldPrice)}</span>`
+        // Badge تخفیف
+        const discountBadge = product.discount 
+            ? `<div class="marquee-card__discount"><span>-${product.discount}٪</span></div>`
             : '';
+
+        // Stock Badge
+        const stockBadge = product.stock && product.stock <= 5
+            ? `<div class="marquee-card__stock">فقط ${product.stock.toLocaleString('fa-IR')} عدد باقی‌مانده</div>`
+            : '';
+
+        // Rating Stars
+        const ratingHtml = product.rating 
+            ? `
+                <div class="marquee-card__rating">
+                    <div class="marquee-card__stars">
+                        ${createStars(product.rating)}
+                    </div>
+                    <span class="marquee-card__rating-count">(${product.ratingCount.toLocaleString('fa-IR')})</span>
+                </div>
+            `
+            : '';
+
+        // قیمت‌ها (قدیم و جدید)
+        const pricesHtml = product.oldPrice 
+            ? `
+                <div class="marquee-card__prices">
+                    <span class="marquee-card__price-old">${formatPrice(product.oldPrice)}</span>
+                    <span class="marquee-card__price-current">${formatPrice(product.price)}</span>
+                    <span class="marquee-card__price-unit">تومان</span>
+                </div>
+            `
+            : `
+                <div class="marquee-card__price">
+                    <span class="marquee-card__price-current">${formatPrice(product.price)}</span>
+                    <span class="marquee-card__price-unit">تومان</span>
+                </div>
+            `;
 
         card.innerHTML = `
             <div class="marquee-card__image-wrapper">
-                <img src="${product.image}" alt="${product.name}" class="marquee-card__image" loading="lazy">
+                <img src="${product.image}" alt="${product.name}" class="marquee-card__image" loading="lazy" draggable="false">
                 <span class="marquee-card__badge">${product.badge}</span>
+                ${discountBadge}
+                <button class="marquee-card__wishlist" data-product-id="${product.id}">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </button>
+                ${stockBadge}
             </div>
             <div class="marquee-card__info">
                 <h3 class="marquee-card__name">${product.name}</h3>
-                <div class="marquee-card__price">
-                    <span class="marquee-card__price-current">${formatPrice(product.price)}</span>
-                    ${oldPriceHtml}
-                    <span class="marquee-card__price-unit">تومان</span>
-                </div>
+                ${ratingHtml}
+                ${pricesHtml}
+            </div>
+            <div class="marquee-card__actions">
+                <button class="marquee-card__action-btn marquee-card__action-btn--view">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    مشاهده
+                </button>
+                <button class="marquee-card__action-btn marquee-card__action-btn--cart">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                    سبد خرید
+                </button>
             </div>
         `;
 
         return card;
     }
 
-    const marqueeTrack = bestSellersSection.querySelector('.marquee-track');
+    const track = bestSellersSection.querySelector('.best-sellers-track');
 
-    // رندر کارت‌ها (۲ بار برای infinite loop)
+    // رندر کارت‌ها (۲ بار)
     bestSellersData.forEach(product => {
-        marqueeTrack.appendChild(createProductCard(product));
+        track.appendChild(createProductCard(product));
     });
     
     bestSellersData.forEach(product => {
-        marqueeTrack.appendChild(createProductCard(product));
+        track.appendChild(createProductCard(product));
     });
 
-    // کلیک روی کارت
-    marqueeTrack.addEventListener('click', (e) => {
-        const card = e.target.closest('.marquee-card');
-        if (card) {
+    // ===== Wishlist Heart =====
+    track.addEventListener('click', (e) => {
+        const wishlistBtn = e.target.closest('.marquee-card__wishlist');
+        if (wishlistBtn) {
             e.preventDefault();
-            const productId = card.dataset.productId;
-            console.log('مشاهده محصول:', productId);
+            e.stopPropagation();
+            
+            wishlistBtn.classList.toggle('active');
+            
+            const productId = wishlistBtn.dataset.productId;
+            const isActive = wishlistBtn.classList.contains('active');
+            
+            console.log(`${isActive ? 'افزوده به' : 'حذف از'} علاقه‌مندی‌ها: ${productId}`);
         }
     });
 
-    // انیمیشن ورود
+    // ===== Quick Actions =====
+    track.addEventListener('click', (e) => {
+        const viewBtn = e.target.closest('.marquee-card__action-btn--view');
+        if (viewBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const card = viewBtn.closest('.marquee-card');
+            const productId = card.dataset.productId;
+            
+            console.log('مشاهده سریع محصول:', productId);
+        }
+        
+        const cartBtn = e.target.closest('.marquee-card__action-btn--cart');
+        if (cartBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const card = cartBtn.closest('.marquee-card');
+            const productId = card.dataset.productId;
+            
+            console.log('افزودن به سبد خرید:', productId);
+            
+            // افکت بصری
+            cartBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                cartBtn.style.transform = '';
+            }, 200);
+        }
+    });
+
+    // ===== جلوگیری از drag پیش‌فرض =====
+    track.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+    });
+
+    // متغیرهای حرکت
+    let position = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startPos = 0;
+    let animationId;
+    const autoSpeed = -0.8;
+
+    function getTrackWidth() {
+        return track.scrollWidth / 2;
+    }
+
+    // حلقه حرکت خودکار
+    function animate() {
+        if (!isDragging) {
+            position += autoSpeed;
+            
+            if (Math.abs(position) >= getTrackWidth()) {
+                position = 0;
+            }
+        }
+        
+        track.style.left = `${position}px`;
+        animationId = requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // ===== درگ با موس =====
+    track.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startPos = position;
+        track.classList.add('dragging');
+        e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        
+        const diff = e.clientX - startX;
+        position = startPos + diff;
+        
+        const max = getTrackWidth();
+        if (position > 0) position = 0;
+        if (position < -max) position = -max;
+        
+        track.style.left = `${position}px`;
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            track.classList.remove('dragging');
+        }
+    });
+
+    // ===== Swipe با انگشت =====
+    track.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        startPos = position;
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        
+        const diff = e.touches[0].clientX - startX;
+        position = startPos + diff;
+        
+        const max = getTrackWidth();
+        if (position > 0) position = 0;
+        if (position < -max) position = -max;
+        
+        track.style.left = `${position}px`;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+
+    // ===== کلیک روی کارت =====
+    track.addEventListener('click', (e) => {
+        // اگر روی دکمه‌ها کلیک شده، کاری نکن
+        if (e.target.closest('.marquee-card__wishlist') || 
+            e.target.closest('.marquee-card__action-btn')) {
+            return;
+        }
+        
+        const card = e.target.closest('.marquee-card');
+        if (!card) return;
+        
+        if (Math.abs(e.clientX - startX) > 5) {
+            e.preventDefault();
+            return;
+        }
+        
+        e.preventDefault();
+        const productId = card.dataset.productId;
+        console.log('مشاهده محصول:', productId);
+    });
+
+    // ===== انیمیشن ورود =====
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -233,97 +514,131 @@ if (bestSellersSection) {
 
     observer.observe(bestSellersSection);
 }
-
-
-
-
-
-// جدیدترین
-
+// ==================== جدیدترین محصولات ====================
 // ==================== جدیدترین محصولات ====================
 const newArrivalsSection = document.querySelector('.new-arrivals');
 
 if (newArrivalsSection) {
     const newArrivalsData = [
-        {
-            id: 11,
-            name: 'آیفون ۱۶ پرو',
-            price: 85000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1592286927505-1def25115558?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 11, 
+            name: 'آیفون ۱۶ پرو', 
+            price: 85000000, 
+            oldPrice: 95000000,
+            discount: 11,
+            rating: 4.8,
+            ratingCount: 234,
+            stock: 5,
+            image: 'https://images.unsplash.com/photo-1592286927505-1def25115558?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 12,
-            name: 'مک‌بوک ایر M3',
-            price: 95000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 12, 
+            name: 'مک‌بوک ایر M3', 
+            price: 95000000, 
+            oldPrice: 110000000,
+            discount: 14,
+            rating: 4.9,
+            ratingCount: 189,
+            stock: 3,
+            image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 13,
-            name: 'گلکسی Z Fold 6',
-            price: 78000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 13, 
+            name: 'گلکسی Z Fold 6', 
+            price: 78000000, 
+            oldPrice: 89000000,
+            discount: 12,
+            rating: 4.7,
+            ratingCount: 156,
+            stock: 2,
+            image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 14,
-            name: 'ایرپادز مکس',
-            price: 25000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 14, 
+            name: 'ایرپادز مکس', 
+            price: 25000000, 
+            oldPrice: 32000000,
+            discount: 22,
+            rating: 4.6,
+            ratingCount: 312,
+            stock: 8,
+            image: 'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 15,
-            name: 'اپل واچ Ultra 2',
-            price: 45000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 15, 
+            name: 'اپل واچ Ultra 2', 
+            price: 45000000, 
+            oldPrice: 52000000,
+            discount: 13,
+            rating: 4.8,
+            ratingCount: 278,
+            stock: 4,
+            image: 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 16,
-            name: 'آیپد ایر M2',
-            price: 42000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 16, 
+            name: 'آیپد ایر M2', 
+            price: 42000000, 
+            oldPrice: 48000000,
+            discount: 13,
+            rating: 4.7,
+            ratingCount: 198,
+            stock: 6,
+            image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 17,
-            name: 'سونی PS5 Pro',
-            price: 38000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 17, 
+            name: 'سونی PS5 Pro', 
+            price: 38000000, 
+            oldPrice: 45000000,
+            discount: 16,
+            rating: 4.9,
+            ratingCount: 445,
+            stock: 2,
+            image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 18,
-            name: 'نینتندو Switch 2',
-            price: 22000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 18, 
+            name: 'نینتندو Switch 2', 
+            price: 22000000, 
+            oldPrice: 28000000,
+            discount: 21,
+            rating: 4.5,
+            ratingCount: 167,
+            stock: 10,
+            image: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 19,
-            name: 'دوربین Sony A7 IV',
-            price: 110000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 19, 
+            name: 'دوربین Sony A7 IV', 
+            price: 110000000, 
+            oldPrice: 125000000,
+            discount: 12,
+            rating: 4.9,
+            ratingCount: 89,
+            stock: 1,
+            image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         },
-        {
-            id: 20,
-            name: 'ASUS ROG Strix',
-            price: 125000000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400&h=400&fit=crop',
-            badge: 'جدید'
+        { 
+            id: 20, 
+            name: 'ASUS ROG Strix', 
+            price: 125000000, 
+            oldPrice: 145000000,
+            discount: 14,
+            rating: 4.8,
+            ratingCount: 134,
+            stock: 3,
+            image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400&h=400&fit=crop', 
+            badge: 'جدید' 
         }
     ];
 
@@ -331,51 +646,304 @@ if (newArrivalsSection) {
         return price.toLocaleString('fa-IR');
     }
 
-    function createNewArrivalCard(product) {
-        const card = document.createElement('a');
-        card.href = `#product-${product.id}`;
-        card.className = 'marquee-card';
-        card.dataset.productId = product.id;
+    // ساخت ستاره‌های امتیاز
+    function createStars(rating) {
+        let starsHtml = '';
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+        
+        for (let i = 0; i < 5; i++) {
+            if (i < fullStars) {
+                starsHtml += `
+                    <svg class="marquee-card__star" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                `;
+            } else if (i === fullStars && hasHalfStar) {
+                starsHtml += `
+                    <svg class="marquee-card__star" viewBox="0 0 24 24" fill="currentColor">
+                        <defs>
+                            <linearGradient id="halfStar${i}">
+                                <stop offset="50%" stop-color="currentColor"/>
+                                <stop offset="50%" stop-color="rgba(0,0,0,0.3)"/>
+                            </linearGradient>
+                        </defs>
+                        <path fill="url(#halfStar${i})" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                `;
+            } else {
+                starsHtml += `
+                    <svg class="marquee-card__star empty" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                `;
+            }
+        }
+        
+        return starsHtml;
+    }
 
-        card.innerHTML = `
-            <div class="marquee-card__image-wrapper">
-                <img src="${product.image}" alt="${product.name}" class="marquee-card__image" loading="lazy">
-                <span class="marquee-card__badge">${product.badge}</span>
-            </div>
-            <div class="marquee-card__info">
-                <h3 class="marquee-card__name">${product.name}</h3>
-                <div class="marquee-card__price">
-                    <span class="marquee-card__price-current">${formatPrice(product.price)}</span>
-                    <span class="marquee-card__price-unit">تومان</span>
+
+
+    function createNewArrivalCard(product) {
+    const card = document.createElement('a');
+    card.href = `#product-${product.id}`;
+    card.className = 'marquee-card';
+    card.dataset.productId = product.id;
+    card.draggable = false;
+
+    // Badge تخفیف (اگر تخفیف داشته باشه)
+    const discountBadge = product.discount 
+        ? `<div class="marquee-card__discount"><span>-${product.discount}٪</span></div>`
+        : '';
+
+    // Stock Badge (اگر کمتر از ۵ عدد باقی‌مانده)
+    const stockBadge = product.stock && product.stock <= 5
+        ? `<div class="marquee-card__stock">فقط ${product.stock.toLocaleString('fa-IR')} عدد باقی‌مانده</div>`
+        : '';
+
+    // Rating Stars
+    const ratingHtml = product.rating 
+        ? `
+            <div class="marquee-card__rating">
+                <div class="marquee-card__stars">
+                    ${createStars(product.rating)}
                 </div>
+                <span class="marquee-card__rating-count">(${product.ratingCount.toLocaleString('fa-IR')})</span>
+            </div>
+        `
+        : '';
+
+    // قیمت‌ها (قدیم و جدید)
+    const pricesHtml = product.oldPrice 
+        ? `
+            <div class="marquee-card__prices">
+                <span class="marquee-card__price-old">${formatPrice(product.oldPrice)}</span>
+                <span class="marquee-card__price-current">${formatPrice(product.price)}</span>
+                <span class="marquee-card__price-unit">تومان</span>
+            </div>
+        `
+        : `
+            <div class="marquee-card__price">
+                <span class="marquee-card__price-current">${formatPrice(product.price)}</span>
+                <span class="marquee-card__price-unit">تومان</span>
             </div>
         `;
 
-        return card;
-    }
+    card.innerHTML = `
+        <div class="marquee-card__image-wrapper">
+            <img src="${product.image}" alt="${product.name}" class="marquee-card__image" loading="lazy" draggable="false">
+            <span class="marquee-card__badge">${product.badge}</span>
+            ${discountBadge}
+            <button class="marquee-card__wishlist" data-product-id="${product.id}">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+            </button>
+            ${stockBadge}
+        </div>
+        <div class="marquee-card__info">
+            <h3 class="marquee-card__name">${product.name}</h3>
+            ${ratingHtml}
+            ${pricesHtml}
+        </div>
+        <div class="marquee-card__actions">
+            <button class="marquee-card__action-btn marquee-card__action-btn--view">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                مشاهده
+            </button>
+            <button class="marquee-card__action-btn marquee-card__action-btn--cart">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"/>
+                    <circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+                سبد خرید
+            </button>
+        </div>
+    `;
 
-    const newArrivalsTrack = newArrivalsSection.querySelector('.new-arrivals-track');
+    return card;
+}
+
+
+
+
+
+    const track = newArrivalsSection.querySelector('.new-arrivals-track');
 
     // رندر کارت‌ها (۲ بار)
     newArrivalsData.forEach(product => {
-        newArrivalsTrack.appendChild(createNewArrivalCard(product));
+        track.appendChild(createNewArrivalCard(product));
     });
     
     newArrivalsData.forEach(product => {
-        newArrivalsTrack.appendChild(createNewArrivalCard(product));
+        track.appendChild(createNewArrivalCard(product));
     });
 
-    // کلیک روی کارت
-    newArrivalsTrack.addEventListener('click', (e) => {
-        const card = e.target.closest('.marquee-card');
-        if (card) {
+    // ===== Wishlist Heart =====
+    track.addEventListener('click', (e) => {
+        const wishlistBtn = e.target.closest('.marquee-card__wishlist');
+        if (wishlistBtn) {
             e.preventDefault();
-            const productId = card.dataset.productId;
-            console.log('مشاهده محصول جدید:', productId);
+            e.stopPropagation();
+            
+            wishlistBtn.classList.toggle('active');
+            
+            const productId = wishlistBtn.dataset.productId;
+            const isActive = wishlistBtn.classList.contains('active');
+            
+            console.log(`${isActive ? 'افزوده به' : 'حذف از'} علاقه‌مندی‌ها: ${productId}`);
+            
+            // اینجا می‌تونی API call کنی یا localStorage رو آپدیت کنی
         }
     });
 
-    // انیمیشن ورود
+    // ===== Quick Actions =====
+    track.addEventListener('click', (e) => {
+        const viewBtn = e.target.closest('.marquee-card__action-btn--view');
+        if (viewBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const card = viewBtn.closest('.marquee-card');
+            const productId = card.dataset.productId;
+            
+            console.log('مشاهده سریع محصول:', productId);
+            // اینجا می‌تونی modal باز کنی
+        }
+        
+        const cartBtn = e.target.closest('.marquee-card__action-btn--cart');
+        if (cartBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const card = cartBtn.closest('.marquee-card');
+            const productId = card.dataset.productId;
+            
+            console.log('افزودن به سبد خرید:', productId);
+            // اینجا می‌تونی سبد خرید رو آپدیت کنی
+            
+            // افکت بصری
+            cartBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                cartBtn.style.transform = '';
+            }, 200);
+        }
+    });
+
+    // ===== جلوگیری از drag پیش‌فرض =====
+    track.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+    });
+
+    // متغیرهای حرکت
+    let position = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startPos = 0;
+    let animationId;
+    const autoSpeed = -0.8;
+
+    function getTrackWidth() {
+        return track.scrollWidth / 2;
+    }
+
+    // حلقه حرکت خودکار با left
+    function animate() {
+        if (!isDragging) {
+            position += autoSpeed;
+            
+            if (Math.abs(position) >= getTrackWidth()) {
+                position = 0;
+            }
+        }
+        
+        track.style.left = `${position}px`;
+        animationId = requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // ===== درگ با موس =====
+    track.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startPos = position;
+        track.classList.add('dragging');
+        e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        
+        const diff = e.clientX - startX;
+        position = startPos + diff;
+        
+        const max = getTrackWidth();
+        if (position > 0) position = 0;
+        if (position < -max) position = -max;
+        
+        track.style.left = `${position}px`;
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            track.classList.remove('dragging');
+        }
+    });
+
+    // ===== Swipe با انگشت =====
+    track.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        startPos = position;
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        
+        const diff = e.touches[0].clientX - startX;
+        position = startPos + diff;
+        
+        const max = getTrackWidth();
+        if (position > 0) position = 0;
+        if (position < -max) position = -max;
+        
+        track.style.left = `${position}px`;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+
+    // ===== کلیک روی کارت =====
+    track.addEventListener('click', (e) => {
+        // اگر روی دکمه‌ها کلیک شده، کاری نکن
+        if (e.target.closest('.marquee-card__wishlist') || 
+            e.target.closest('.marquee-card__action-btn')) {
+            return;
+        }
+        
+        const card = e.target.closest('.marquee-card');
+        if (!card) return;
+        
+        if (Math.abs(e.clientX - startX) > 5) {
+            e.preventDefault();
+            return;
+        }
+        
+        e.preventDefault();
+        const productId = card.dataset.productId;
+        console.log('مشاهده محصول جدید:', productId);
+    });
+
+    // ===== انیمیشن ورود =====
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -387,6 +955,7 @@ if (newArrivalsSection) {
 
     observer.observe(newArrivalsSection);
 }
+
 // ==================== اسلایدر بنر ====================
 //برند
 // ==================== برندها - اسکرول افقی ====================
@@ -402,7 +971,7 @@ if (brandsSection) {
         prevBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const cardWidth = 220;
-            container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            container.scrollBy({ left: -cardWidth, behavior: 'smooth' });بنر
         });
     }
 
@@ -479,6 +1048,13 @@ if (categoriesSection) {
 
 
 // ==================== اسلایدر بنر ====================
+
+
+
+
+
+
+
 const bannerSlider = document.querySelector('.banner-slider');
 
 if (bannerSlider) {
@@ -492,20 +1068,29 @@ if (bannerSlider) {
     const totalSlides = slides.length;
     const autoPlayInterval = 5000; // 5 ثانیه
     
-    let autoPlayTimer = null;
     let progressAnimationId = null;
     let progressStartTime = null;
+    let elapsedBeforePause = 0;
     let isPaused = false;
+
+    // مدیریت ویدیو در اسلاید اول
+    const firstSlideVideo = slides[0].querySelector('.slide__video');
 
     // نمایش اسلاید مشخص
     function showSlide(index) {
-        // حذف active از همه
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
         
-        // اضافه کردن active به اسلاید فعلی
         slides[index].classList.add('active');
         dots[index].classList.add('active');
+        
+        // مدیریت ویدیو
+        if (index === 0 && firstSlideVideo) {
+            firstSlideVideo.currentTime = 0; // ریست ویدیو
+            firstSlideVideo.play().catch(e => console.log('ویدیو پخش نشد:', e));
+        } else if (firstSlideVideo) {
+            firstSlideVideo.pause();
+        }
         
         currentSlide = index;
     }
@@ -524,7 +1109,7 @@ if (bannerSlider) {
         restartAutoPlay();
     }
 
-    // شروع progress bar با requestAnimationFrame
+    // شروع progress bar
     function startProgress() {
         progressStartTime = Date.now();
         
@@ -534,11 +1119,13 @@ if (bannerSlider) {
                 return;
             }
             
-            const elapsed = Date.now() - progressStartTime;
-            const progress = (elapsed / autoPlayInterval) * 100;
+            const currentElapsed = Date.now() - progressStartTime;
+            const totalElapsed = elapsedBeforePause + currentElapsed;
+            const progress = (totalElapsed / autoPlayInterval) * 100;
             
             if (progress >= 100) {
                 progressBar.style.width = '0%';
+                elapsedBeforePause = 0;
                 nextSlide();
             } else {
                 progressBar.style.width = `${progress}%`;
@@ -560,20 +1147,32 @@ if (bannerSlider) {
     // شروع auto-play
     function startAutoPlay() {
         isPaused = false;
-        stopProgress();
         startProgress();
+        
+        // اگر در اسلاید اول هستیم، ویدیو رو پخش کن
+        if (currentSlide === 0 && firstSlideVideo) {
+            firstSlideVideo.play().catch(e => console.log('ویدیو پخش نشد:', e));
+        }
     }
 
-    // توقف auto-play
-    function stopAutoPlay() {
-        isPaused = true;
-        stopProgress();
+    // توقف auto-play (pause)
+    function pauseAutoPlay() {
+        if (!isPaused) {
+            elapsedBeforePause += (Date.now() - progressStartTime);
+            isPaused = true;
+            stopProgress();
+            
+            // اگر در اسلاید اول هستیم، ویدیو رو pause کن
+            if (currentSlide === 0 && firstSlideVideo) {
+                firstSlideVideo.pause();
+            }
+        }
     }
 
-    // ریست auto-play (برای دکمه‌ها)
+    // ریست auto-play
     function restartAutoPlay() {
         stopProgress();
-        progressStartTime = Date.now();
+        elapsedBeforePause = 0;
         progressBar.style.width = '0%';
         startProgress();
     }
@@ -604,25 +1203,16 @@ if (bannerSlider) {
         });
     });
 
+    // Pause on hover
+    const sliderContainer = bannerSlider.querySelector('.slider-container');
 
+    sliderContainer.addEventListener('mouseenter', () => {
+        pauseAutoPlay();
+    });
 
-
-
-
-    // Pause on hover (فقط روی خود بنر)
-const sliderContainer = bannerSlider.querySelector('.slider-container');
-
-sliderContainer.addEventListener('mouseenter', () => {
-    stopAutoPlay();
-});
-
-sliderContainer.addEventListener('mouseleave', () => {
-    startAutoPlay();
-});
-
-
-
-
+    sliderContainer.addEventListener('mouseleave', () => {
+        startAutoPlay();
+    });
 
     // Swipe برای موبایل
     let touchStartX = 0;
@@ -630,7 +1220,7 @@ sliderContainer.addEventListener('mouseleave', () => {
 
     bannerSlider.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
-        stopAutoPlay();
+        pauseAutoPlay();
     }, { passive: true });
 
     bannerSlider.addEventListener('touchend', (e) => {
@@ -666,8 +1256,71 @@ sliderContainer.addEventListener('mouseleave', () => {
 }
 
 
+// شبکه اجتماعی
 
 
+// ==================== شبکه‌های اجتماعی ====================
+const socialSection = document.querySelector('.social-section');
+
+if (socialSection) {
+    // انیمیشن ورود با IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    observer.observe(socialSection);
+
+    // جلوگیری از کلیک روی دکمه (چون داخل لینک هست)
+    const socialButtons = socialSection.querySelectorAll('.social-card__btn');
+    
+    socialButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // پیدا کردن لینک والد
+            const card = btn.closest('.social-card');
+            if (card && card.href) {
+                window.open(card.href, '_blank', 'noopener,noreferrer');
+            }
+        });
+    });
+
+    // افکت ripple روی دکمه‌ها
+    socialButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: rippleEffect 0.6s ease-out;
+                pointer-events: none;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+}
 
 
 
