@@ -959,58 +959,125 @@ if (newArrivalsSection) {
 // ==================== اسلایدر بنر ====================
 //برند
 // ==================== برندها - اسکرول افقی ====================
+// ==================== برندهای محبوب - اسکرول دستی + دکمه‌ها ====================
+// ==================== برندهای محبوب - اسکرول دستی + دکمه‌ها ====================
+// ==================== برندهای محبوب - مارکی پیوسته راست به چپ ====================
+// ==================== برندهای محبوب - مارکی پیوسته راست به چپ ====================
+// ==================== برندهای محبوب - مارکی پیوسته راست به چپ ====================
+// ==================== برندهای محبوب - مارکی پیوسته ====================
 const brandsSection = document.querySelector('.brands');
 
 if (brandsSection) {
-    const container = brandsSection.querySelector('.brands__scroll-container');
-    const prevBtn = brandsSection.querySelector('.brands__scroll-btn--prev');
-    const nextBtn = brandsSection.querySelector('.brands__scroll-btn--next');
+    const track = brandsSection.querySelector('.brands-marquee-track');
 
-    // دکمه‌های ناوبری
-    if (prevBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const cardWidth = 220;
-            container.scrollBy({ left: -cardWidth, behavior: 'smooth' });بنر
-        });
+    if (!track) return;
+
+    // کپی کارت‌ها برای حلقه بی‌نهایت (دقیقاً مثل جدیدترین محصولات)
+    const originalCards = Array.from(track.querySelectorAll('.brand-scroll-card'));
+    originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        track.appendChild(clone);
+    });
+
+    // جلوگیری از drag پیش‌فرض
+    track.addEventListener('dragstart', (e) => e.preventDefault());
+
+    // ==================== متغیرهای حرکت ====================
+    let position = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startPos = 0;
+    let animationId;
+    const autoSpeed = -0.8;
+
+    function getTrackWidth() {
+        return track.scrollWidth / 2;
     }
 
-    if (nextBtn) {
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const cardWidth = 220;
-            container.scrollBy({ left: cardWidth, behavior: 'smooth' });
-        });
-    }
+    // ==================== حلقه حرکت خودکار ====================
+    function animate() {
+        if (!isDragging) {
+            position += autoSpeed;
 
-    // Touch events برای موبایل
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    container.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    container.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-            const cardWidth = 220;
-            if (diff > 0) {
-                container.scrollBy({ left: cardWidth, behavior: 'smooth' });
-            } else {
-                container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            if (Math.abs(position) >= getTrackWidth()) {
+                position = 0;
             }
         }
+
+        track.style.left = `${position}px`;
+        animationId = requestAnimationFrame(animate);
     }
 
-    // انیمیشن ورود
+    animate();
+
+    // ==================== درگ با موس ====================
+    track.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startPos = position;
+        track.classList.add('dragging');
+        e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+
+        const diff = e.clientX - startX;
+        position = startPos + diff;
+
+        const max = getTrackWidth();
+        if (position > 0) position = 0;
+        if (position < -max) position = -max;
+
+        track.style.left = `${position}px`;
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            track.classList.remove('dragging');
+        }
+    });
+
+    // ==================== Swipe با انگشت ====================
+    track.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        startPos = position;
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+
+        const diff = e.touches[0].clientX - startX;
+        position = startPos + diff;
+
+        const max = getTrackWidth();
+        if (position > 0) position = 0;
+        if (position < -max) position = -max;
+
+        track.style.left = `${position}px`;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+
+    // ==================== کلیک روی کارت برند ====================
+    track.addEventListener('click', (e) => {
+        const card = e.target.closest('.brand-scroll-card');
+        if (!card) return;
+
+        if (Math.abs(e.clientX - startX) > 5) {
+            e.preventDefault();
+            return;
+        }
+
+        console.log('مشاهده برند:', card.querySelector('.brand-scroll-card__name')?.textContent);
+    });
+
+    // ==================== انیمیشن ورود ====================
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -1254,6 +1321,96 @@ if (bannerSlider) {
     // شروع auto-play
     startAutoPlay();
 }
+
+
+
+// Intro
+
+
+// ==================== ویدیو با اسکرول ====================
+// ==================== ویدیو با اسکرول (بهینه) ====================
+// ==================== ویدیو با اسکرول (نسخه نرم) ====================
+// ==================== ویدیو سینمایی ====================
+const cinematicSection = document.getElementById('cinematic-video');
+const cinematicVideo = document.querySelector('.cinematic-video');
+const cinematicStart = document.getElementById('cinematic-start');
+const cinematicPlayBtn = document.getElementById('cinematic-play-btn');
+const cinematicLoading = document.getElementById('cinematic-loading');
+
+if (cinematicSection && cinematicVideo) {
+    // قفل کردن اسکرول
+    document.body.classList.add('video-locked');
+    
+    // صبر تا ویدیو لود بشه
+    cinematicVideo.addEventListener('canplaythrough', () => {
+        if (cinematicLoading) {
+            cinematicLoading.classList.add('hidden');
+        }
+    });
+    
+    // کلیک روی صفحه شروع
+    if (cinematicStart) {
+        cinematicStart.addEventListener('click', startCinematicVideo);
+    }
+    
+    if (cinematicPlayBtn) {
+        cinematicPlayBtn.addEventListener('click', startCinematicVideo);
+    }
+    
+    function startCinematicVideo() {
+        // مخفی کردن صفحه شروع
+        if (cinematicStart) {
+            cinematicStart.classList.add('hidden');
+        }
+        
+        // پخش ویدیو با صدا
+        cinematicVideo.muted = false;
+        cinematicVideo.volume = 1;
+        
+        const playPromise = cinematicVideo.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('پخش با صدا ممکن نیست، با بی‌صدا امتحان می‌کنم:', error);
+                // fallback: با بی‌صدا پخش کن
+                cinematicVideo.muted = true;
+                cinematicVideo.play();
+            });
+        }
+    }
+    
+    // وقتی ویدیو تموم شد
+    cinematicVideo.addEventListener('ended', () => {
+        // انیمیشن محو شدن
+        cinematicSection.classList.add('fade-out');
+        
+        // آزاد کردن اسکرول
+        setTimeout(() => {
+            document.body.classList.remove('video-locked');
+            
+            // حذف کامل بخش ویدیو از DOM
+            cinematicSection.remove();
+            
+            // اسکرول نرم به پایین
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }, 800);
+    });
+    
+    // جلوگیری از pause با کلیک روی ویدیو
+    cinematicVideo.addEventListener('click', (e) => {
+        e.preventDefault();
+    });
+    
+    // جلوگیری از context menu
+    cinematicVideo.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
+}
+
+
 
 
 // شبکه اجتماعی

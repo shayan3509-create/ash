@@ -2,6 +2,12 @@
 <html lang="fa" dir="rtl" data-theme="light">
 
 <head>
+        <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
     <!-- Favicon تاتل -->
      <!-- Favicon تاتل - دایره با T آبی -->
 <!-- Favicon تاتل - دایره با N آبی -->
@@ -67,107 +73,112 @@
     </header>
 
     <!-- ==================== Sidebar دسکتاپ (شبیه یوتیوب) ==================== -->
-    <aside class="desktop-sidebar" id="desktop-sidebar">
-        <nav class="sidebar-nav">
-            <!-- نیمه دکمه تم -->
-            <div class="sidebar-item theme-sidebar-item">
-                <button class="theme-half-btn" id="theme-toggle-desktop" aria-label="تغییر تم">
-                    <div class="theme-half-wrapper">
-                        <div class="theme-half theme-half--light">
-                            <img src="../../assets/icons/sun.webp" alt="Light" class="theme-half-icon">
-                        </div>
-                        <div class="theme-half theme-half--dark">
-                            <img src="../../assets/icons/moon.webp" alt="Dark" class="theme-half-icon">
-                        </div>
-                    </div>
-                </button>
-                <span class="sidebar-label">تم</span>
-            </div>
-
-            <!-- خانه -->
-            <a href="#" class="sidebar-item active">
-                <img src="../../assets/icons/home.webp" alt="Home" class="sidebar-icon">
-                <span class="sidebar-label">خانه</span>
-            </a>
-
-            <!-- گالری محصولات (اکسپلور) -->
-            <a href="#" class="sidebar-item">
-                <img src="../../assets/icons/Product-gallery.webp" alt="Gallery" class="sidebar-icon">
-                <span class="sidebar-label">گالری</span>
-            </a>
-
-            <!-- وبلاگ -->
-            <a href="#" class="sidebar-item">
-                <img src="../../assets/icons/Blog.webp" alt="Blog" class="sidebar-icon">
-                <span class="sidebar-label">وبلاگ</span>
-            </a>
-
-            <!-- حساب کاربری -->
-            <a href="#" class="sidebar-item">
-                <img src="../../assets/icons/user.webp" alt="Account" class="sidebar-icon">
-                <span class="sidebar-label">حساب</span>
-            </a>
-
-            <!-- سبد خرید -->
-            <a href="#" class="sidebar-item sidebar-cart">
-                <img src="../../assets/icons/cart.webp" alt="Cart" class="sidebar-icon">
-                <span class="sidebar-label">سبد</span>
-                <span class="sidebar-badge">3</span>
-            </a>
-        </nav>
-    </aside>
-
-    <!-- ==================== Bottom Navigation موبایل ==================== -->
-    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+<!-- ==================== Sidebar دسکتاپ (شبیه یوتیوب) ==================== -->
+<aside class="desktop-sidebar" id="desktop-sidebar">
+    <nav class="sidebar-nav">
         <!-- نیمه دکمه تم -->
-        <div class="bottom-nav-item theme-bottom-item">
-            <button class="theme-half-btn-mobile" id="theme-toggle-mobile" aria-label="تغییر تم">
+        <div class="sidebar-item theme-sidebar-item">
+            <button class="theme-half-btn" id="theme-toggle-desktop" aria-label="تغییر تم">
                 <div class="theme-half-wrapper">
                     <div class="theme-half theme-half--light">
-                        <img src="../../assets/icons/sun.webp" alt="Light" class="theme-half-icon">
+                        <img src="../../assets/icons/sun.webp" alt="Light" class="theme-half-icon" loading="lazy" draggable="false">
                     </div>
                     <div class="theme-half theme-half--dark">
-                        <img src="../../assets/icons/moon.webp" alt="Dark" class="theme-half-icon">
+                        <img src="../../assets/icons/moon.webp" alt="Dark" class="theme-half-icon" loading="lazy" draggable="false">
                     </div>
                 </div>
             </button>
-            <span class="bottom-nav-label">تم</span>
+            <span class="sidebar-label">تم</span>
         </div>
 
         <!-- خانه -->
-        <a href="#" class="bottom-nav-item active">
-            <img src="../../assets/icons/home.webp" alt="Home" class="bottom-nav-icon">
-            <span class="bottom-nav-label">خانه</span>
+        <a href="#" class="sidebar-item active">
+            <img src="../../assets/icons/home.webp" alt="Home" class="sidebar-icon" loading="lazy" draggable="false">
+            <span class="sidebar-label">خانه</span>
         </a>
 
         <!-- گالری محصولات -->
-        <a href="#" class="bottom-nav-item">
-            <img src="../../assets/icons/Product-gallery.webp" alt="Gallery" class="bottom-nav-icon">
-            <span class="bottom-nav-label">گالری</span>
+        <a href="#" class="sidebar-item">
+            <img src="../../assets/icons/Product-gallery.webp" alt="Gallery" class="sidebar-icon" loading="lazy" draggable="false">
+            <span class="sidebar-label">گالری</span>
         </a>
 
         <!-- وبلاگ -->
-        <a href="#" class="bottom-nav-item">
-            <img src="../../assets/icons/blog.webp" alt="Blog" class="bottom-nav-icon">
-            <span class="bottom-nav-label">وبلاگ</span>
+        <a href="#" class="sidebar-item">
+            <img src="../../assets/icons/Blog.webp" alt="Blog" class="sidebar-icon" loading="lazy" draggable="false">
+            <span class="sidebar-label">وبلاگ</span>
         </a>
 
         <!-- حساب کاربری -->
-        <a href="#" class="bottom-nav-item">
-            <img src="../../assets/icons/user.webp" alt="Account" class="bottom-nav-icon">
-            <span class="bottom-nav-label">حساب</span>
+        <a href="#" class="sidebar-item">
+            <img src="../../assets/icons/user.webp" alt="Account" class="sidebar-icon" loading="lazy" draggable="false">
+            <span class="sidebar-label">حساب</span>
         </a>
 
         <!-- سبد خرید -->
-        <a href="#" class="bottom-nav-item bottom-nav-cart">
-            <img src="../../assets/icons/cart.webp" alt="Cart" class="bottom-nav-icon">
-            <span class="bottom-nav-label">سبد</span>
-            <span class="bottom-nav-badge">3</span>
+        <a href="#" class="sidebar-item sidebar-cart">
+            <img src="../../assets/icons/cart.webp" alt="Cart" class="sidebar-icon" loading="lazy" draggable="false">
+            <span class="sidebar-label">سبد</span>
+            <span class="sidebar-badge">3</span>
         </a>
     </nav>
+</aside>
+
+<!-- ==================== Bottom Navigation موبایل ==================== -->
+<nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <!-- نیمه دکمه تم -->
+    <div class="bottom-nav-item theme-bottom-item">
+        <button class="theme-half-btn-mobile" id="theme-toggle-mobile" aria-label="تغییر تم">
+            <div class="theme-half-wrapper">
+                <div class="theme-half theme-half--light">
+                    <img src="../../assets/icons/sun.webp" alt="Light" class="theme-half-icon" loading="lazy" draggable="false">
+                </div>
+                <div class="theme-half theme-half--dark">
+                    <img src="../../assets/icons/moon.webp" alt="Dark" class="theme-half-icon" loading="lazy" draggable="false">
+                </div>
+            </div>
+        </button>
+        <span class="bottom-nav-label">تم</span>
+    </div>
+
+    <!-- خانه -->
+    <a href="#" class="bottom-nav-item active">
+        <img src="../../assets/icons/home.webp" alt="Home" class="bottom-nav-icon" loading="lazy" draggable="false">
+        <span class="bottom-nav-label">خانه</span>
+    </a>
+
+    <!-- گالری محصولات -->
+    <a href="#" class="bottom-nav-item">
+        <img src="../../assets/icons/Product-gallery.webp" alt="Gallery" class="bottom-nav-icon" loading="lazy" draggable="false">
+        <span class="bottom-nav-label">گالری</span>
+    </a>
+
+    <!-- وبلاگ -->
+    <a href="#" class="bottom-nav-item">
+        <img src="../../assets/icons/blog.webp" alt="Blog" class="bottom-nav-icon" loading="lazy" draggable="false">
+        <span class="bottom-nav-label">وبلاگ</span>
+    </a>
+
+    <!-- حساب کاربری -->
+    <a href="#" class="bottom-nav-item">
+        <img src="../../assets/icons/user.webp" alt="Account" class="bottom-nav-icon" loading="lazy" draggable="false">
+        <span class="bottom-nav-label">حساب</span>
+    </a>
+
+    <!-- سبد خرید -->
+    <a href="#" class="bottom-nav-item bottom-nav-cart">
+        <img src="../../assets/icons/cart.webp" alt="Cart" class="bottom-nav-icon" loading="lazy" draggable="false">
+        <span class="bottom-nav-label">سبد</span>
+        <span class="bottom-nav-badge">3</span>
+    </a>
+</nav>
 
     <!-- ==================== محتوای اصلی ==================== -->
     <main class="main-content">
+
+
+
+
         <section class="hero">
             <h1 class="hero__title">آینده تکنولوژی، همینجا</h1>
             <p class="hero__desc">
@@ -177,110 +188,108 @@
         </section>
 
         <!-- ==================== اسلایدر بنر ==================== -->
-        <section class="banner-slider" aria-label="اسلایدر بنرها">
-            <div class="slider-wrapper">
-                <!-- دکمه قبلی (چپ) -->
-                <button class="slider-btn slider-btn--prev" aria-label="بنر قبلی">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
+<section class="banner-slider" aria-label="اسلایدر بنرها">
+    <div class="slider-wrapper">
+        <!-- دکمه قبلی (چپ) -->
+        <button class="slider-btn slider-btn--prev" aria-label="بنر قبلی">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
 
-                <!-- کانتینر اسلایدها -->
-                <div class="slider-container">
-                    <!-- بنر ۱ - ویدیو -->
-                    <div class="slide active" data-slide="0">
-                        <video class="slide__video" autoplay muted loop playsinline preload="auto">
-                            <source src="intro.mp4" type="video/mp4">
-                            <!-- fallback تصویر اگر ویدیو لود نشد -->
-                            <img src="../../assets/images/banner-1.jpg" alt="Banner 1" class="slide__image">
-                        </video>
-                        <div class="slide__overlay">
-                            <div class="slide__content">
-                                <span class="slide__badge">پیشنهاد ویژه</span>
-                                <h2 class="slide__title">به نیوشاپ خوش آمدید</h2>
-                                <p class="slide__desc">بهترین فروشگاه در خاورمیانه</p>
-                                <button class="slide__cta">درباره ی ما</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- بنر ۲ -->
-                    <div class="slide" data-slide="1">
-                        <img src="../../assets/images/banner-2.jpg" alt="Banner 2" class="slide__image" loading="lazy">
-                        <div class="slide__overlay">
-                            <div class="slide__content">
-                                <span class="slide__badge">جدید</span>
-                                <h2 class="slide__title">مک‌بوک پرو M3</h2>
-                                <p class="slide__desc">برای حرفه‌ای‌ها با عملکرد بی‌نظیر</p>
-                                <button class="slide__cta">خرید کنید</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- بنر ۳ -->
-                    <div class="slide" data-slide="2">
-                        <img src="../../assets/images/banner-3.jpg" alt="Banner 3" class="slide__image" loading="lazy">
-                        <div class="slide__overlay">
-                            <div class="slide__content">
-                                <span class="slide__badge">پرفروش</span>
-                                <h2 class="slide__title">گلکسی S24 Ultra</h2>
-                                <p class="slide__desc">هوش مصنوعی در دستان شما</p>
-                                <button class="slide__cta">اطلاعات بیشتر</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- بنر ۴ -->
-                    <div class="slide" data-slide="3">
-                        <img src="../../assets/images/banner-4.jpg" alt="Banner 4" class="slide__image" loading="lazy">
-                        <div class="slide__overlay">
-                            <div class="slide__content">
-                                <span class="slide__badge">ویژه</span>
-                                <h2 class="slide__title">ایرپادز پرو ۲</h2>
-                                <p class="slide__desc">صدایی بی‌نظیر با نویز کنسلینگ</p>
-                                <button class="slide__cta">همین حالا بخر</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- بنر ۵ -->
-                    <div class="slide" data-slide="4">
-                        <img src="images.jpg" alt="Banner 5" class="slide__image" loading="lazy">
-                        <div class="slide__overlay">
-                            <div class="slide__content">
-                                <span class="slide__badge">محبوب</span>
-                                <h2 class="slide__title">اپل واچ سری ۹</h2>
-                                <p class="slide__desc">سلامتی در مچ دست شما</p>
-                                <button class="slide__cta">مشاهده</button>
-                            </div>
-                        </div>
+        <!-- کانتینر اسلایدها -->
+        <div class="slider-container">
+            <!-- بنر ۱ - ویدیو -->
+            <div class="slide active" data-slide="0">
+                <video class="slide__video" autoplay muted loop playsinline preload="auto">
+                    <source src="intro.mp4" type="video/mp4">
+                    <img src="../../assets/images/banner-1.jpg" alt="Banner 1" class="slide__image">
+                </video>
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">پیشنهاد ویژه</span>
+                        <h2 class="slide__title">به نیوشاپ خوش آمدید</h2>
+                        <p class="slide__desc">بهترین فروشگاه در خاورمیانه</p>
+                        <button class="slide__cta">مشاهده جزئیات</button>
                     </div>
                 </div>
-
-                <!-- دکمه بعدی (راست) -->
-                <button class="slider-btn slider-btn--next" aria-label="بنر بعدی">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
             </div>
 
-            <!-- Dots navigation -->
-            <div class="slider-dots">
-                <span class="dot active" data-dot="0"></span>
-                <span class="dot" data-dot="1"></span>
-                <span class="dot" data-dot="2"></span>
-                <span class="dot" data-dot="3"></span>
-                <span class="dot" data-dot="4"></span>
+            <!-- بنر ۲ -->
+            <div class="slide" data-slide="1">
+                <img src="../../assets/images/banner-2.jpg" alt="Banner 2" class="slide__image" loading="lazy">
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">جدید</span>
+                        <h2 class="slide__title">مک‌بوک پرو M3</h2>
+                        <p class="slide__desc">برای حرفه‌ای‌ها با عملکرد بی‌نظیر</p>
+                        <button class="slide__cta">خرید</button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Progress bar -->
-            <div class="slider-progress">
-                <div class="slider-progress__bar"></div>
+            <!-- بنر ۳ -->
+            <div class="slide" data-slide="2">
+                <img src="../../assets/images/banner-3.jpg" alt="Banner 3" class="slide__image" loading="lazy">
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">پرفروش</span>
+                        <h2 class="slide__title">گلکسی S24 Ultra</h2>
+                        <p class="slide__desc">هوش مصنوعی در دستان شما</p>
+                        <button class="slide__cta">مشاهده جزئیات</button>
+                    </div>
+                </div>
             </div>
-        </section>
 
+            <!-- بنر ۴ -->
+            <div class="slide" data-slide="3">
+                <img src="../../assets/images/banner-4.jpg" alt="Banner 4" class="slide__image" loading="lazy">
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">ویژه</span>
+                        <h2 class="slide__title">ایرپادز پرو ۲</h2>
+                        <p class="slide__desc">صدایی بی‌نظیر با نویز کنسلینگ</p>
+                        <button class="slide__cta">خرید</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بنر ۵ -->
+            <div class="slide" data-slide="4">
+                <img src="images.jpg" alt="Banner 5" class="slide__image" loading="lazy">
+                <div class="slide__overlay">
+                    <div class="slide__content">
+                        <span class="slide__badge">محبوب</span>
+                        <h2 class="slide__title">اپل واچ سری ۹</h2>
+                        <p class="slide__desc">سلامتی در مچ دست شما</p>
+                        <button class="slide__cta">مشاهده جزئیات</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- دکمه بعدی (راست) -->
+        <button class="slider-btn slider-btn--next" aria-label="بنر بعدی">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Dots navigation -->
+    <div class="slider-dots">
+        <span class="dot active" data-dot="0"></span>
+        <span class="dot" data-dot="1"></span>
+        <span class="dot" data-dot="2"></span>
+        <span class="dot" data-dot="3"></span>
+        <span class="dot" data-dot="4"></span>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="slider-progress">
+        <div class="slider-progress__bar"></div>
+    </div>
+</section>
         <!-- ==================== پرفروش‌ترین‌های هفته ==================== -->
         <section class="best-sellers scroll-animate" aria-labelledby="best-sellers-title">
             <header class="best-sellers__header">
@@ -318,6 +327,61 @@
                 </div>
             </div>
         </section>
+
+
+        <!-- ==================== برندهای محبوب ==================== -->
+
+<!-- ==================== برندهای محبوب ==================== -->
+ <!-- ==================== برندهای محبوب ==================== -->
+<section class="brands scroll-animate" aria-label="برندهای محبوب">
+    <header class="brands__header">
+        <h2 class="brands__title">برندهای محبوب</h2>
+        <a href="#" class="brands__view-all">
+            مشاهده همه
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18L9 12L15 6"/>
+            </svg>
+        </a>
+    </header>
+
+    <div class="marquee">
+        <div class="marquee-track brands-marquee-track">
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">Apple</span>
+            </a>
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">Samsung</span>
+            </a>
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">LG</span>
+            </a>
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">Xiaomi</span>
+            </a>
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">Huawei</span>
+            </a>
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">Nokia</span>
+            </a>
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">Asus</span>
+            </a>
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">Dell</span>
+            </a>
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">HP</span>
+            </a>
+            <a href="#" class="brand-scroll-card">
+                <span class="brand-scroll-card__name">Lenovo</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
 
         <!-- ==================== دسته‌بندی‌ها ==================== -->
          <!-- ==================== دسته‌بندی‌ها ==================== -->
@@ -369,138 +433,6 @@
             <h3 class="category-card__name">ساعت هوشمند</h3>
             <span class="category-card__count">۴۲ محصول</span>
         </a>
-    </div>
-</section>
-
-        <!-- ==================== برندهای محبوب ==================== -->
-
-        <section class="brands scroll-animate" aria-label="برندهای محبوب">
-    <header class="brands__header">
-        <h2 class="brands__title">برندهای محبوب</h2>
-        <a href="#" class="brands__view-all">
-            مشاهده همه
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-
-            </svg>
-        </a>
-    </header>
-
-    <div class="brands__wrapper">
-        <button class="brands__scroll-btn brands__scroll-btn--prev" aria-label="قبلی">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-            </svg>
-        </button>
-
-        <div class="brands__scroll-container">
-            <div class="brands__scroll-track" id="brandsTrack">
-                <!-- برند ۱: Apple -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">Apple</span>
-                </a>
-
-                <!-- برند ۲: Samsung -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="80" height="30" viewBox="165 78 30 38" fill="currentColor" style="display: block;">
-
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">Samsung</span>
-                </a>
-
-                <!-- برند ۳: LG -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="40" height="40" viewBox="0 0 10.57 17.29" fill="currentColor" style="display: block;">
-
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">LG</span>
-                </a>
-
-                <!-- برند ۴: Xiaomi -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="40" height="40" viewBox="0 0 32 28" fill="currentColor" style="display: block;">
-
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">Xiaomi</span>
-                </a>
-
-                <!-- برند ۵: Huawei -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="40" height="40" viewBox="0 0 25 16" fill="currentColor" style="display: block;">
-
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">Huawei</span>
-                </a>
-
-                <!-- برند ۶: Nokia -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="40" height="40" viewBox="0 0 28 16" fill="currentColor" style="display: block;">
-
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">Nokia</span>
-                </a>
-
-                <!-- برند ۷: Asus -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="60" height="40" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
-
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">Asus</span>
-                </a>
-
-                <!-- برند ۸: Dell -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="60" height="40" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
- 
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">Dell</span>
-                </a>
-
-                <!-- برند ۹: HP -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="60" height="40" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
-
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">HP</span>
-                </a>
-
-                <!-- برند ۱۰: Lenovo -->
-                <a href="#" class="brand-scroll-card">
-                    <div class="brand-scroll-card__logo">
-                        <svg width="60" height="40" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
-
-                        </svg>
-                    </div>
-                    <span class="brand-scroll-card__name">Lenovo</span>
-                </a>
-            </div>
-        </div>
-
-        <button class="brands__scroll-btn brands__scroll-btn--next" aria-label="بعدی">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-            </svg>
-        </button>
     </div>
 </section>
 

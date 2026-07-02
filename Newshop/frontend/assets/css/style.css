@@ -55,7 +55,16 @@
     --action-border: rgba(255, 255, 255, 0.6);
     --cart-bg: rgba(255, 255, 255, 0.5);
 
+
+
+
+
+
+
+
+
     /* متغیرهای جدید برای Sidebar و Bottom Nav */
+
     --sidebar-bg: rgba(255, 255, 255, 0.55);
     --sidebar-border: rgba(255, 255, 255, 0.7);
     --sidebar-item-hover: rgba(67, 97, 238, 0.1);
@@ -76,6 +85,13 @@
     --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
+
+
+
+
+
+
+
 
 /* ==================== متغیرها - دارک مود ==================== */
 [data-theme="dark"] {
@@ -657,331 +673,6 @@ button {
     opacity: 0.5;
 }
 
-/* ==================== Desktop Sidebar (شبیه یوتیوب) ==================== */
-.desktop-sidebar {
-    position: fixed;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    width: var(--sidebar-width);
-    background: var(--sidebar-bg);
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border: 1.5px solid var(--sidebar-border);
-    border-radius: 30px;
-    padding: 20px 10px;
-    z-index: 999;
-    box-shadow:
-        0 20px 50px -10px var(--glass-shadow-outer),
-        0 10px 25px -5px var(--glass-shadow-mid),
-        inset 0 1px 3px -1px var(--glass-highlight-top),
-        inset 0 -1px 3px -1px var(--glass-highlight-bottom);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.4s ease;
-}
-
-.sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-}
-
-.sidebar-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 10px 8px;
-    border-radius: 16px;
-    width: 100%;
-    transition: all 0.3s ease;
-    position: relative;
-    cursor: pointer;
-}
-
-.sidebar-item:hover {
-    background: var(--sidebar-item-hover);
-    transform: scale(1.05);
-}
-
-.sidebar-item.active {
-    background: var(--sidebar-item-active);
-}
-
-.sidebar-item.active::before {
-    content: '';
-    position: absolute;
-    right: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 24px;
-    background: linear-gradient(180deg, var(--color-cyan), var(--color-blue));
-    border-radius: 2px;
-    box-shadow: 0 0 10px var(--color-cyan);
-}
-
-.sidebar-icon {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-.sidebar-item:hover .sidebar-icon {
-    transform: scale(1.15);
-}
-
-.sidebar-label {
-    font-size: 11px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-align: center;
-    transition: color 0.3s ease;
-}
-
-.sidebar-item:hover .sidebar-label,
-.sidebar-item.active .sidebar-label {
-    color: var(--text-primary);
-}
-
-.sidebar-badge {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 4px;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 6px rgba(247, 37, 133, 0.5);
-}
-
-/* ==================== نیمه دکمه تم (Sidebar) ==================== */
-.theme-sidebar-item {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--sidebar-border);
-}
-
-.theme-half-btn {
-    width: 60px;
-    height: 32px;
-    border-radius: 16px;
-    overflow: hidden;
-    background: linear-gradient(135deg, #FFD93D 0%, #6C5CE7 100%);
-    border: 1.5px solid var(--sidebar-border);
-    cursor: pointer;
-    position: relative;
-    transition: all 0.4s ease;
-    padding: 0;
-}
-
-.theme-half-wrapper {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.theme-half {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.4s ease;
-}
-
-.theme-half--light {
-    background: linear-gradient(135deg, #FFD93D 0%, #FFA502 100%);
-}
-
-.theme-half--dark {
-    background: linear-gradient(135deg, #2C3E50 0%, #6C5CE7 100%);
-}
-
-.theme-half-icon {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-}
-
-/* حالت لایت - آیکون خورشید بزرگتر */
-[data-theme="light"] .theme-half--light {
-    flex: 1.5;
-}
-
-[data-theme="light"] .theme-half--dark {
-    flex: 0.5;
-    opacity: 0.6;
-}
-
-/* حالت دارک - آیکون ماه بزرگتر */
-[data-theme="dark"] .theme-half--dark {
-    flex: 1.5;
-}
-
-[data-theme="dark"] .theme-half--light {
-    flex: 0.5;
-    opacity: 0.6;
-}
-
-.theme-half-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.4);
-}
-
-/* ==================== Mobile Bottom Navigation ==================== */
-.mobile-bottom-nav {
-    position: fixed;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 94%;
-    max-width: 500px;
-    height: var(--bottom-nav-height);
-    background: var(--bottom-nav-bg);
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border: 1.5px solid var(--bottom-nav-border);
-    border-radius: 40px;
-    z-index: 999;
-    display: none;
-    /* در دسکتاپ مخفی */
-    align-items: center;
-    justify-content: space-around;
-    padding: 0 10px;
-    box-shadow:
-        0 20px 50px -10px var(--glass-shadow-outer),
-        0 10px 25px -5px var(--glass-shadow-mid),
-        inset 0 1px 3px -1px var(--glass-highlight-top),
-        inset 0 -1px 3px -1px var(--glass-highlight-bottom);
-}
-
-.bottom-nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    padding: 6px 4px;
-    border-radius: 16px;
-    flex: 1;
-    transition: all 0.3s ease;
-    position: relative;
-    cursor: pointer;
-    min-width: 0;
-}
-
-.bottom-nav-item:hover {
-    background: var(--sidebar-item-hover);
-}
-
-.bottom-nav-item.active {
-    background: var(--sidebar-item-active);
-}
-
-.bottom-nav-item.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-cyan), var(--color-blue));
-    border-radius: 2px;
-    box-shadow: 0 0 8px var(--color-cyan);
-}
-
-.bottom-nav-icon {
-    width: 26px;
-    height: 26px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-.bottom-nav-item:hover .bottom-nav-icon,
-.bottom-nav-item.active .bottom-nav-icon {
-    transform: scale(1.15);
-}
-
-.bottom-nav-label {
-    font-size: 10px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-align: center;
-    transition: color 0.3s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-}
-
-.bottom-nav-item:hover .bottom-nav-label,
-.bottom-nav-item.active .bottom-nav-label {
-    color: var(--text-primary);
-}
-
-.bottom-nav-badge {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    min-width: 16px;
-    height: 16px;
-    padding: 0 3px;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
-    color: #fff;
-    font-size: 9px;
-    font-weight: 700;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 6px rgba(247, 37, 133, 0.5);
-}
-
-/* نیمه دکمه تم در موبایل */
-.theme-bottom-item {
-    padding: 4px;
-}
-
-.theme-half-btn-mobile {
-    width: 50px;
-    height: 26px;
-    border-radius: 13px;
-    overflow: hidden;
-    background: linear-gradient(135deg, #FFD93D 0%, #6C5CE7 100%);
-    border: 1px solid var(--sidebar-border);
-    cursor: pointer;
-    position: relative;
-    transition: all 0.4s ease;
-    padding: 0;
-}
-
-.theme-half-btn-mobile .theme-half-icon {
-    width: 16px;
-    height: 16px;
-}
-
-.theme-half-btn-mobile:hover {
-    transform: scale(1.05);
-}
 
 /* ==================== محتوای اصلی ==================== */
 .main-content {
@@ -2961,6 +2652,16 @@ body {
     }
 }
 
+/* ==================== اصلاح دکمه مشاهده در دارک مود ==================== */
+[data-theme="dark"] .marquee-card__action-btn--view {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .marquee-card__action-btn--view:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 /* ==================== ریسپانسیو ==================== */
 @media (max-width: 768px) {
     .new-arrivals {
@@ -3370,7 +3071,8 @@ body {
 
 /* برند */
 
-/* ==================== برندهای محبوب (اسکرول افقی) ==================== */
+
+/* ==================== برندهای محبوب ==================== */
 .brands {
     position: relative;
     width: 100%;
@@ -3379,7 +3081,7 @@ body {
     padding: 0 20px;
     opacity: 0;
     transform: translateY(80px);
-    transition: 
+    transition:
         opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
         transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -3389,6 +3091,7 @@ body {
     transform: translateY(0);
 }
 
+/* هدر */
 .brands__header {
     display: flex;
     align-items: center;
@@ -3437,53 +3140,44 @@ body {
     transform: translateX(-4px);
 }
 
-/* Scroll Container */
-
-
-/* Scroll Container */
-.brands__scroll-container {
+/* Marquee Container - دقیقاً مثل جدیدترین محصولات */
+.brands .marquee {
     position: relative;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     width: 100%;
-    padding: 10px 0;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE */
+    padding: 30px 0;
+    direction: ltr;
 }
 
-.brands__scroll-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
-}
-
-.brands__scroll-track {
+.brands .marquee-track {
     display: flex;
-    gap: 20px;
+    gap: 24px;
+    direction: ltr;
+    cursor: grab;
     user-select: none;
-    width: fit-content;
-    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    position: relative;
+    will-change: left;
 }
 
-.brands__scroll-track:active {
+.brands .marquee-track.dragging {
     cursor: grabbing;
 }
 
-.brands__scroll-track.dragging {
-    scroll-behavior: auto;
-    transition: none;
+.brands .marquee-track:active {
+    cursor: grabbing;
 }
 
-/* کارت برند */
+/* کارت برند - مستطیلی فقط متن */
 .brand-scroll-card {
     flex-shrink: 0;
-    width: 200px;
-    height: 180px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    padding: 24px;
-    border-radius: 24px;
+    padding: 20px 32px;
+    border-radius: 16px;
     background: var(--glass-bg);
     backdrop-filter: blur(30px) saturate(180%);
     -webkit-backdrop-filter: blur(30px) saturate(180%);
@@ -3495,40 +3189,13 @@ body {
     box-shadow:
         0 10px 30px -10px var(--glass-shadow-outer),
         inset 0 1px 2px -1px var(--glass-highlight-top);
-    
-    /* انیمیشن ورود */
-    opacity: 0;
-    transform: translateY(40px);
-}
-
-.brands.is-visible .brand-scroll-card {
-    animation: brandScrollCardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.brands.is-visible .brand-scroll-card:nth-child(1) { animation-delay: 0.1s; }
-.brands.is-visible .brand-scroll-card:nth-child(2) { animation-delay: 0.2s; }
-.brands.is-visible .brand-scroll-card:nth-child(3) { animation-delay: 0.3s; }
-.brands.is-visible .brand-scroll-card:nth-child(4) { animation-delay: 0.4s; }
-.brands.is-visible .brand-scroll-card:nth-child(5) { animation-delay: 0.5s; }
-.brands.is-visible .brand-scroll-card:nth-child(6) { animation-delay: 0.6s; }
-.brands.is-visible .brand-scroll-card:nth-child(7) { animation-delay: 0.7s; }
-.brands.is-visible .brand-scroll-card:nth-child(8) { animation-delay: 0.8s; }
-.brands.is-visible .brand-scroll-card:nth-child(9) { animation-delay: 0.9s; }
-.brands.is-visible .brand-scroll-card:nth-child(10) { animation-delay: 1.0s; }
-
-@keyframes brandScrollCardIn {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    white-space: nowrap;
+    -webkit-user-drag: none;
+    user-drag: none;
 }
 
 .brand-scroll-card:hover {
-    transform: translateY(-8px) scale(1.03);
+    transform: translateY(-6px) scale(1.05);
     border-color: rgba(76, 201, 240, 0.4);
     box-shadow:
         0 20px 40px -10px var(--glass-shadow-outer),
@@ -3536,144 +3203,23 @@ body {
         inset 0 1px 2px -1px var(--glass-highlight-top);
 }
 
-/* لوگو */
-.brand-scroll-card__logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(
-        135deg,
-        rgba(67, 97, 238, 0.1),
-        rgba(76, 201, 240, 0.1)
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.4s var(--bounce);
-    border: 1.5px solid var(--glass-border);
-}
-
-.brand-scroll-card__logo svg {
-    width: 45px;
-    height: 45px;
-    color: var(--text-primary);
-    opacity: 0.6;
-    filter: grayscale(100%);
-    transition: all 0.4s ease;
-}
-
-.brand-scroll-card:hover .brand-scroll-card__logo {
-    transform: scale(1.1);
-    background: linear-gradient(
-        135deg,
-        rgba(67, 97, 238, 0.2),
-        rgba(76, 201, 240, 0.2)
-    );
-    box-shadow: 0 10px 25px -5px rgba(67, 97, 238, 0.4);
-}
-
-.brand-scroll-card:hover .brand-scroll-card__logo svg {
-    opacity: 1;
-    filter: grayscale(0%);
-    color: var(--color-blue);
-}
-
-[data-theme="dark"] .brand-scroll-card:hover .brand-scroll-card__logo svg {
-    color: var(--color-cyan);
-}
-
 /* نام برند */
 .brand-scroll-card__name {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
-    color: var(--text-primary);
-    opacity: 0.6;
+    color: var(--text-secondary);
     transition: all 0.3s ease;
 }
 
 .brand-scroll-card:hover .brand-scroll-card__name {
-    opacity: 1;
+    color: var(--text-primary);
     background: linear-gradient(135deg, var(--color-blue), var(--color-cyan));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* دکمه‌های ناوبری */
-/* دکمه‌های ناوبری */
-.brands__scroll-btn {
-    position: absolute;
-    top: 50%;
-    width: 50px;
-    height: 50px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1.5px solid var(--glass-border);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s var(--bounce);
-    color: var(--text-primary);
-    box-shadow:
-        0 10px 25px -5px var(--glass-shadow-outer),
-        inset 0 1px 2px -1px var(--glass-highlight-top);
-    z-index: 20;
-    transform: translateY(-50%);
-}
-
-.brands__scroll-btn--prev {
-    left: -25px;
-}
-
-.brands__scroll-btn--next {
-    right: -25px;
-}
-
-.brands__scroll-btn:hover {
-    transform: translateY(-50%) scale(1.15);
-    background: var(--action-hover);
-    box-shadow:
-        0 15px 35px -5px var(--glass-shadow-outer),
-        0 0 0 3px rgba(76, 201, 240, 0.2);
-}
-
-.brands__scroll-btn:active {
-    transform: translateY(-50%) scale(0.95);
-}
-
-.brands__scroll-btn svg {
-    width: 24px;
-    height: 24px;
-    stroke-width: 2.5;
-}
-
-/* مخفی کردن دکمه‌ها در موبایل */
-@media (max-width: 768px) {
-    .brands__scroll-btn {
-        display: none;
-    }
-}
 /* ==================== ریسپانسیو ==================== */
-@media (max-width: 992px) {
-    .brand-scroll-card {
-        width: 180px;
-        height: 160px;
-    }
-
-    .brand-scroll-card__logo {
-        width: 70px;
-        height: 70px;
-    }
-
-    .brand-scroll-card__logo svg {
-        width: 40px;
-        height: 40px;
-    }
-}
-
 @media (max-width: 768px) {
     .brands {
         margin: 60px auto;
@@ -3694,24 +3240,11 @@ body {
     }
 
     .brand-scroll-card {
-        width: 160px;
-        height: 150px;
-        padding: 20px;
-        gap: 12px;
-    }
-
-    .brand-scroll-card__logo {
-        width: 60px;
-        height: 60px;
-    }
-
-    .brand-scroll-card__logo svg {
-        width: 34px;
-        height: 34px;
+        padding: 16px 24px;
     }
 
     .brand-scroll-card__name {
-        font-size: 14px;
+        font-size: 15px;
     }
 }
 
@@ -3721,37 +3254,14 @@ body {
     }
 
     .brand-scroll-card {
-        width: 140px;
-        height: 140px;
-        padding: 16px;
-        gap: 10px;
-        border-radius: 20px;
-    }
-
-    .brand-scroll-card__logo {
-        width: 50px;
-        height: 50px;
-    }
-
-    .brand-scroll-card__logo svg {
-        width: 28px;
-        height: 28px;
+        padding: 14px 20px;
+        border-radius: 12px;
     }
 
     .brand-scroll-card__name {
-        font-size: 13px;
+        font-size: 14px;
     }
 }
-
-/* Wrapper برای دکمه‌ها */
-.brands__wrapper {
-    position: relative;
-    width: 100%;
-    padding: 0 30px;
-}
-
-
-
 
 /* FOOTER */
 
@@ -4584,150 +4094,615 @@ body {
 
 
 
+
+
+
+
+
+
+/* ==================== Desktop Sidebar (شبیه یوتیوب) ==================== */
+.desktop-sidebar {
+    position: fixed;
+    top: calc(50% + 40px) !important;
+    right: 20px;
+    transform: translateY(-50%) !important;
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1.5px solid var(--sidebar-border);
+    border-radius: 30px;
+    padding: 20px 10px;
+    z-index: 999;
+    box-shadow:
+        0 20px 50px -10px var(--glass-shadow-outer),
+        0 10px 25px -5px var(--glass-shadow-mid),
+        inset 0 1px 3px -1px var(--glass-highlight-top),
+        inset 0 -1px 3px -1px var(--glass-highlight-bottom);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.4s ease;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.sidebar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 8px;
+    border-radius: 16px;
+    width: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.sidebar-item:hover {
+    background: var(--sidebar-item-hover);
+    transform: scale(1.05);
+}
+
+.sidebar-item.active {
+    background: var(--sidebar-item-active);
+}
+
+.sidebar-item.active::before {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, var(--color-cyan), var(--color-blue));
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--color-cyan);
+}
+
+.sidebar-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.sidebar-item:hover .sidebar-icon {
+    transform: scale(1.15);
+}
+
+.sidebar-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.sidebar-item:hover .sidebar-label,
+.sidebar-item.active .sidebar-label {
+    color: var(--text-primary);
+}
+
+.sidebar-badge {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(247, 37, 133, 0.5);
+}
+
+
+/* ==================== دکمه تم - دسکتاپ ==================== */
+.theme-sidebar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 8px;
+    border-radius: 16px;
+    width: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.theme-sidebar-item:hover {
+    background: var(--sidebar-item-hover);
+    transform: scale(1.05);
+}
+
+.theme-half-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    border: none;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-half-btn:hover {
+    transform: scale(1.15);
+}
+
+.theme-half-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.theme-half {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-half--light {
+    background: linear-gradient(135deg, #FFD93D 0%, #FFA502 100%);
+}
+
+[data-theme="light"] .theme-half--light {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.theme-half--dark {
+    background: linear-gradient(135deg, #2C3E50 0%, #6C5CE7 100%);
+}
+
+[data-theme="dark"] .theme-half--dark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.theme-half-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.theme-sidebar-item .sidebar-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.theme-sidebar-item:hover .sidebar-label {
+    color: var(--text-primary);
+}
+
+
+/* ==================== Mobile Bottom Navigation ==================== */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 94%;
+    max-width: 500px;
+    height: var(--bottom-nav-height);
+    background: var(--bottom-nav-bg);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1.5px solid var(--bottom-nav-border);
+    border-radius: 40px;
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10px;
+    box-shadow:
+        0 20px 50px -10px var(--glass-shadow-outer),
+        0 10px 25px -5px var(--glass-shadow-mid),
+        inset 0 1px 3px -1px var(--glass-highlight-top),
+        inset 0 -1px 3px -1px var(--glass-highlight-bottom);
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 4px;
+    border-radius: 16px;
+    flex: 1;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.bottom-nav-item:hover {
+    background: var(--sidebar-item-hover);
+}
+
+.bottom-nav-item.active {
+    background: var(--sidebar-item-active);
+}
+
+.bottom-nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-cyan), var(--color-blue));
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--color-cyan);
+}
+
+.bottom-nav-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.bottom-nav-item:hover .bottom-nav-icon,
+.bottom-nav-item.active .bottom-nav-icon {
+    transform: scale(1.15);
+}
+
+.bottom-nav-label {
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: center;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.bottom-nav-item:hover .bottom-nav-label,
+.bottom-nav-item.active .bottom-nav-label {
+    color: var(--text-primary);
+}
+
+.bottom-nav-badge {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(247, 37, 133, 0.5);
+}
+
+
+/* ==================== دکمه تم - موبایل ==================== */
+.theme-bottom-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 4px;
+    border-radius: 16px;
+    flex: 1;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.theme-bottom-item:hover {
+    background: var(--sidebar-item-hover);
+}
+
+.theme-half-btn-mobile {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    border: none;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-half-btn-mobile:hover {
+    transform: scale(1.15);
+}
+
+.theme-half-btn-mobile .theme-half-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.theme-half-btn-mobile .theme-half-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.theme-half-btn-mobile .theme-half {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="light"] .theme-half-btn-mobile .theme-half--light {
+    opacity: 1;
+    transform: scale(1);
+}
+
+[data-theme="dark"] .theme-half-btn-mobile .theme-half--dark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.theme-bottom-item .bottom-nav-label {
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.theme-bottom-item:hover .bottom-nav-label {
+    color: var(--text-primary);
+}
+
+
+/* ======================================== */
+/* ⚠️ MEDIA QUERY ها در انتها قرار گرفتن! */
+/* ======================================== */
+
+
+
 /* ==================== سایدبار در ارتفاع کم ==================== */
 @media (max-height: 720px) and (min-width: 769px) {
     .desktop-sidebar {
-        top: auto;
-        bottom: 20px; /* چسبیده به پایین */
-        right: 50%;
-        transform: translateX(50%);
-        width: auto;
-        max-width: 90%;
-        flex-direction: row;
-        padding: 10px 15px;
-        gap: 4px;
-        border-radius: 25px;
-        z-index: 998; /* زیر هدر (1000) ولی بالای محتوا */
+        top: auto !important;
+        bottom: 20px !important;
+        right: 50% !important;
+        transform: translateX(50%) !important;
+        width: auto !important;
+        max-width: 90% !important;
+        flex-direction: row !important;
+        padding: 12px 16px !important;
+        gap: 6px !important;
+        border-radius: 30px !important;
+        z-index: 998 !important;
     }
 
     .sidebar-nav {
-        flex-direction: row;
-        gap: 4px;
+        flex-direction: row !important;
+        gap: 6px !important;
     }
 
     .sidebar-item {
-        padding: 8px 10px;
-        gap: 2px;
+        padding: 8px 12px !important;
+        gap: 4px !important;
     }
 
     .sidebar-icon {
-        width: 24px;
-        height: 24px;
+        width: 28px !important;
+        height: 28px !important;
     }
 
     .sidebar-label {
-        font-size: 9px;
+        font-size: 10px !important;
     }
 
     .sidebar-item.active::before {
-        right: 50%;
-        top: auto;
-        bottom: -8px;
-        transform: translateX(50%);
-        width: 20px;
-        height: 3px;
+        right: 50% !important;
+        top: auto !important;
+        bottom: -8px !important;
+        transform: translateX(50%) !important;
+        width: 20px !important;
+        height: 3px !important;
     }
 
     .sidebar-badge {
-        top: 2px;
-        left: 2px;
-        min-width: 14px;
-        height: 14px;
-        font-size: 8px;
+        top: 2px !important;
+        left: 2px !important;
+        min-width: 14px !important;
+        height: 14px !important;
+        font-size: 8px !important;
     }
 
-    /* دکمه تم در حالت افقی */
-    .theme-sidebar-item {
-        margin-bottom: 0;
-        padding-bottom: 0;
-        border-bottom: none;
-        border-left: 1px solid var(--sidebar-border);
-        margin-left: 4px;
-        padding-left: 8px;
+    /* ✅ دکمه تم - با !important */
+    .desktop-sidebar .theme-sidebar-item {
+        margin-bottom: 0 !important;
+        padding: 8px 12px !important;
+        border-bottom: none !important;
+        border-left: 1px solid var(--sidebar-border) !important;
+        margin-left: 6px !important;
+        padding-left: 12px !important;
+        gap: 4px !important;
     }
 
-    .theme-half-btn {
-        width: 50px;
-        height: 26px;
+    .desktop-sidebar .theme-sidebar-item .theme-half-btn {
+        width: 28px !important;
+        height: 28px !important;
     }
 
-    .theme-half-icon {
-        width: 16px;
-        height: 16px;
+    .desktop-sidebar .theme-sidebar-item .theme-half-icon {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .desktop-sidebar .theme-sidebar-item .sidebar-label {
+        font-size: 10px !important;
     }
 }
 
 
 
-/* ==================== سایدبار افقی در صفحه‌های باریک‌تر ==================== */
-@media (min-width: 769px) and (max-width: 1300px) {
+
+
+
+@media (max-height: 720px) and (min-width: 769px),
+       (min-width: 769px) and (max-width: 1000px) {
+    
     .desktop-sidebar {
-        top: auto;
-        bottom: 20px;
-        right: 50%;
-        transform: translateX(50%);
-        width: auto;
-        max-width: 90%;
-        flex-direction: row;
-        padding: 10px 15px;
-        gap: 4px;
-        border-radius: 25px;
-        z-index: 998;
+        top: auto !important;
+        bottom: 10px !important;
+        right: 50% !important;
+        transform: translateX(50%) !important;
+        width: auto !important;
+        max-width: 90% !important;
+        flex-direction: row !important;
+        padding: 12px 16px !important;
+        gap: 6px !important;
+        border-radius: 30px !important;
+        z-index: 998 !important;
     }
 
     .sidebar-nav {
-        flex-direction: row;
-        gap: 4px;
+        flex-direction: row !important;
+        gap: 6px !important;
     }
 
     .sidebar-item {
-        padding: 8px 10px;
-        gap: 2px;
+        padding: 8px 12px !important;
+        gap: 4px !important;
     }
 
+    /* ✅ همه آیکون‌ها 28px */
     .sidebar-icon {
-        width: 24px;
-        height: 24px;
+        width: 28px !important;
+        height: 28px !important;
     }
 
-    .sidebar-label {
-        font-size: 9px;
-    }
-
-    .sidebar-item.active::before {
-        right: 50%;
-        top: auto;
-        bottom: -8px;
-        transform: translateX(50%);
-        width: 20px;
-        height: 3px;
-    }
-
-    .sidebar-badge {
-        top: 2px;
-        left: 2px;
-        min-width: 14px;
-        height: 14px;
-        font-size: 8px;
-    }
-
-    .theme-sidebar-item {
-        margin-bottom: 0;
-        padding-bottom: 0;
-        border-bottom: none;
-        border-left: 1px solid var(--sidebar-border);
-        margin-left: 4px;
-        padding-left: 8px;
-    }
-
+    /* ✅ دکمه تم هم 28px */
     .theme-half-btn {
-        width: 50px;
-        height: 26px;
+        width: 28px !important;
+        height: 28px !important;
     }
 
     .theme-half-icon {
-        width: 16px;
-        height: 16px;
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .sidebar-label {
+        font-size: 10px !important;
+    }
+
+    .sidebar-item.active::before {
+        right: 50% !important;
+        top: auto !important;
+        bottom: -8px !important;
+        transform: translateX(50%) !important;
+        width: 20px !important;
+        height: 3px !important;
+    }
+
+    .sidebar-badge {
+        top: 2px !important;
+        left: 2px !important;
+        min-width: 14px !important;
+        height: 14px !important;
+        font-size: 8px !important;
+    }
+
+    .theme-sidebar-item {
+        margin-bottom: 0 !important;
+        padding: 8px 12px !important;
+        border-bottom: none !important;
+
+        margin-left: 6px !important;
+        padding-left: 12px !important;
+        gap: 4px !important;
+    }
+}
+
+
+/* ==================== موبایل (آیفون SE و کوچکتر) ==================== */
+@media (max-width: 768px) {
+    /* مخفی کردن سایدبار دسکتاپ */
+    .desktop-sidebar {
+        display: none !important;
+    }
+
+    /* نمایش Bottom Nav موبایل */
+    .mobile-bottom-nav {
+        display: flex !important;
+    }
+
+    /* ✅ همه آیکون‌های موبایل 26px */
+    .bottom-nav-icon,
+    .theme-half-btn-mobile {
+        width: 26px !important;
+        height: 26px !important;
+    }
+
+    .theme-half-btn-mobile .theme-half-icon {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .bottom-nav-label,
+    .theme-bottom-item .bottom-nav-label {
+        font-size: 10px !important;
+    }
+
+    /* تنظیم margin محتوا */
+    .main-content {
+        margin-bottom: 100px !important;
     }
 }
 
@@ -4741,4 +4716,7 @@ body {
 
 
 
-
+/* ==================== اصلاح جهت ستاره‌ها در RTL ==================== */
+.marquee-card__stars {
+    direction: ltr;
+}
