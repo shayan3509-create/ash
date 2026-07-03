@@ -1,5 +1,5 @@
 // main.js - Main script to fetch and render data dynamically
-
+//جمع کردن ریدمال آراد
 import ApiClient from './api.js';
 import * as Style from './style.js';
 document.addEventListener('DOMContentLoaded', () => {
