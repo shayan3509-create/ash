@@ -1,299 +1,256 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="light">
-
+<html lang="fa" dir="rtl">
 <head>
-        <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        })();
-    </script>
-    <!-- Favicon تاتل -->
-     <!-- Favicon تاتل - دایره با T آبی -->
-<!-- Favicon تاتل - دایره با N آبی -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='white'/%3E%3Cpath d='M6 18V6h2.5l5 8.5V6H16v12h-2.5l-5-8.5V18H6z' fill='%234361EE'/%3E%3C/svg%3E">    <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نیوشاپ - فروشگاه آنلاین محصولات دیجیتال با بهترین قیمت و ضمانت اصالت کالا">
     <title>نیوشاپ - فروشگاه گجت و کالای دیجیتال</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <script src="../../assets/js/main.js" defer></script>
 </head>
-
 <body>
-    <!-- پس‌زمینه متحرک -->
+
     <div class="bg-wrapper">
         <div class="bg-blob bg-blob--1"></div>
         <div class="bg-blob bg-blob--2"></div>
         <div class="bg-blob bg-blob--3"></div>
     </div>
 
-    <!-- ==================== هدر اصلی ==================== -->
-    <header class="header liquid-nav" id="header">
-        <div class="liquid-glare-container">
-            <div class="liquid-glare" id="glare"></div>
-        </div>
-
-        <div class="header__inner">
-            <!-- دکمه منو (موبایل) - بدون بک‌گراند -->
-            <button class="menu-toggle-btn" id="menu-toggle" aria-label="منو">
-                <img src="../../assets/icons/meno.webp" alt="Menu" class="menu-toggle-icon">
-            </button>
-
-            <!-- لوگو -->
-            <a href="#" class="header__logo">
-                <span class="logo__text">نیوشاپ</span>
-
-                <span class="logo__dot-wrapper">
-                    <span class="logo__dot"></span>
-                    <span class="logo__orbit"></span>
-                    <span class="logo__particle logo__particle--1"></span>
-                    <span class="logo__particle logo__particle--2"></span>
-                    <span class="logo__particle logo__particle--3"></span>
-                </span>
-            </a>
-
-            <!-- فرم جستجو (دسکتاپ: کامل / موبایل: فقط آیکون) -->
-            <form class="header__search" id="search-form">
-                <button type="submit" class="search__icon-btn" aria-label="جستجو">
-                    <img src="../../assets/icons/search.webp" alt="Search" class="search-icon">
+    <header class="header">
+        <div class="header-left">
+            <div class="header-left__actions">
+                <button class="header__theme-btn">
+                    <img class="header__icon" src="../../assets/icons/sun.webp" alt="تغییر به حالت تاریک">
                 </button>
-                <input type="text" class="search__input" placeholder="جستجوی گوشی، لپ‌تاپ، ساعت..." id="search-input">
-            </form>
 
-            <!-- دکمه جستجو (فقط موبایل - آیکون خالی) -->
-            <button class="search-toggle-btn" id="search-toggle" aria-label="جستجو">
-                <img src="../../assets/icons/search.webp" alt="Search" class="search-toggle-icon">
-            </button>
-
-            <!-- آیکون نوتیفیکیشن (فقط دسکتاپ) -->
-            <button class="notification-btn" id="notification-btn" aria-label="اعلانات">
-                <img src="../../assets/icons/bell.webp" alt="Notifications" class="notification-icon">
-                <span class="notification__badge">5</span>
-            </button>
+                <button class="header__notification-btn">
+                    <img class="header__icon" src="../../assets/icons/bell.webp" alt="اعلانات">
+                </button>
+            </div>
+        </div>
+        
+        <div class="header-center">
+            <h1 class="header__logo">نیوشاپ</h1>
+        </div>
+        
+        <div class="header-right">
+            <div class="search-wrapper">
+                <input type="text" id="search-input" placeholder="جستجو کنید..." class="search-input">
+                <button id="search-button" class="search__btn" aria-label="جستجو">
+                    <img class="search__icon" src="../../assets/icons/search.webp" alt="جستجو">
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- ==================== Sidebar دسکتاپ (شبیه یوتیوب) ==================== -->
-<!-- ==================== Sidebar دسکتاپ (شبیه یوتیوب) ==================== -->
-<aside class="desktop-sidebar" id="desktop-sidebar">
-    <nav class="sidebar-nav">
-        <!-- نیمه دکمه تم -->
-        <div class="sidebar-item theme-sidebar-item">
-            <button class="theme-half-btn" id="theme-toggle-desktop" aria-label="تغییر تم">
-                <div class="theme-half-wrapper">
-                    <div class="theme-half theme-half--light">
-                        <img src="../../assets/icons/sun.webp" alt="Light" class="theme-half-icon" loading="lazy" draggable="false">
+    <main>
+        <!-- بنر -->
+        <section class="banner-slider" aria-label="اسلایدر بنرها">
+            <div class="slider-wrapper">
+                <button class="slider-btn slider-btn--prev" aria-label="بنر قبلی">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <div class="slider-container">
+                    <div class="slide active" data-slide="0">
+                        <img src="../../assets/images/banner-1.jpg" alt="بنر پیشنهاد ویژه نیوشاپ" class="slide__image">
+                        <div class="slide__overlay">
+                            <div class="slide__content">
+                                <span class="slide__badge">پیشنهاد ویژه</span>
+                                <h2 class="slide__title">به نیوشاپ خوش آمدید</h2>
+                                <p class="slide__desc">بهترین فروشگاه در خاورمیانه</p>
+                                <button class="slide__cta">مشاهده جزئیات</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="theme-half theme-half--dark">
-                        <img src="../../assets/icons/moon.webp" alt="Dark" class="theme-half-icon" loading="lazy" draggable="false">
+
+                    <div class="slide" data-slide="1">
+                        <img src="../../assets/images/banner-2.jpg" alt="بنر مک‌بوک پرو M3" class="slide__image" loading="lazy">
+                        <div class="slide__overlay">
+                            <div class="slide__content">
+                                <span class="slide__badge">جدید</span>
+                                <h2 class="slide__title">مک‌بوک پرو M3</h2>
+                                <p class="slide__desc">برای حرفه‌ای‌ها با عملکرد بی‌نظیر</p>
+                                <button class="slide__cta">مشاهده جزئیات</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide" data-slide="2">
+                        <img src="../../assets/images/banner-3.jpg" alt="بنر گلکسی S24 Ultra" class="slide__image" loading="lazy">
+                        <div class="slide__overlay">
+                            <div class="slide__content">
+                                <span class="slide__badge">پرفروش</span>
+                                <h2 class="slide__title">گلکسی S24 Ultra</h2>
+                                <p class="slide__desc">هوش مصنوعی در دستان شما</p>
+                                <button class="slide__cta">مشاهده جزئیات</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide" data-slide="3">
+                        <img src="../../assets/images/banner-4.jpg" alt="بنر ایرپادز پرو ۲" class="slide__image" loading="lazy">
+                        <div class="slide__overlay">
+                            <div class="slide__content">
+                                <span class="slide__badge">ویژه</span>
+                                <h2 class="slide__title">ایرپادز پرو ۲</h2>
+                                <p class="slide__desc">صدایی بی‌نظیر با نویز کنسلینگ</p>
+                                <button class="slide__cta">مشاهده جزئیات</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide" data-slide="4">
+                        <img src="../../assets/images/banner-5.jpg" alt="بنر اپل واچ سری ۹" class="slide__image" loading="lazy">
+                        <div class="slide__overlay">
+                            <div class="slide__content">
+                                <span class="slide__badge">محبوب</span>
+                                <h2 class="slide__title">اپل واچ سری ۹</h2>
+                                <p class="slide__desc">سلامتی در مچ دست شما</p>
+                                <button class="slide__cta">مشاهده جزئیات</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </button>
-            <span class="sidebar-label">تم</span>
-        </div>
 
-        <!-- خانه -->
-        <a href="#" class="sidebar-item active">
-            <img src="../../assets/icons/home.webp" alt="Home" class="sidebar-icon" loading="lazy" draggable="false">
-            <span class="sidebar-label">خانه</span>
-        </a>
-
-        <!-- گالری محصولات -->
-        <a href="#" class="sidebar-item">
-            <img src="../../assets/icons/Product-gallery.webp" alt="Gallery" class="sidebar-icon" loading="lazy" draggable="false">
-            <span class="sidebar-label">گالری</span>
-        </a>
-
-        <!-- وبلاگ -->
-        <a href="#" class="sidebar-item">
-            <img src="../../assets/icons/Blog.webp" alt="Blog" class="sidebar-icon" loading="lazy" draggable="false">
-            <span class="sidebar-label">وبلاگ</span>
-        </a>
-
-        <!-- حساب کاربری -->
-        <a href="#" class="sidebar-item">
-            <img src="../../assets/icons/user.webp" alt="Account" class="sidebar-icon" loading="lazy" draggable="false">
-            <span class="sidebar-label">حساب</span>
-        </a>
-
-        <!-- سبد خرید -->
-        <a href="#" class="sidebar-item sidebar-cart">
-            <img src="../../assets/icons/cart.webp" alt="Cart" class="sidebar-icon" loading="lazy" draggable="false">
-            <span class="sidebar-label">سبد</span>
-            <span class="sidebar-badge">3</span>
-        </a>
-    </nav>
-</aside>
-
-<!-- ==================== Bottom Navigation موبایل ==================== -->
-<nav class="mobile-bottom-nav" id="mobile-bottom-nav">
-    <!-- نیمه دکمه تم -->
-    <div class="bottom-nav-item theme-bottom-item">
-        <button class="theme-half-btn-mobile" id="theme-toggle-mobile" aria-label="تغییر تم">
-            <div class="theme-half-wrapper">
-                <div class="theme-half theme-half--light">
-                    <img src="../../assets/icons/sun.webp" alt="Light" class="theme-half-icon" loading="lazy" draggable="false">
-                </div>
-                <div class="theme-half theme-half--dark">
-                    <img src="../../assets/icons/moon.webp" alt="Dark" class="theme-half-icon" loading="lazy" draggable="false">
-                </div>
+                <button class="slider-btn slider-btn--next" aria-label="بنر بعدی">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
             </div>
-        </button>
-        <span class="bottom-nav-label">تم</span>
-    </div>
-
-    <!-- خانه -->
-    <a href="#" class="bottom-nav-item active">
-        <img src="../../assets/icons/home.webp" alt="Home" class="bottom-nav-icon" loading="lazy" draggable="false">
-        <span class="bottom-nav-label">خانه</span>
-    </a>
-
-    <!-- گالری محصولات -->
-    <a href="#" class="bottom-nav-item">
-        <img src="../../assets/icons/Product-gallery.webp" alt="Gallery" class="bottom-nav-icon" loading="lazy" draggable="false">
-        <span class="bottom-nav-label">گالری</span>
-    </a>
-
-    <!-- وبلاگ -->
-    <a href="#" class="bottom-nav-item">
-        <img src="../../assets/icons/blog.webp" alt="Blog" class="bottom-nav-icon" loading="lazy" draggable="false">
-        <span class="bottom-nav-label">وبلاگ</span>
-    </a>
-
-    <!-- حساب کاربری -->
-    <a href="#" class="bottom-nav-item">
-        <img src="../../assets/icons/user.webp" alt="Account" class="bottom-nav-icon" loading="lazy" draggable="false">
-        <span class="bottom-nav-label">حساب</span>
-    </a>
-
-    <!-- سبد خرید -->
-    <a href="#" class="bottom-nav-item bottom-nav-cart">
-        <img src="../../assets/icons/cart.webp" alt="Cart" class="bottom-nav-icon" loading="lazy" draggable="false">
-        <span class="bottom-nav-label">سبد</span>
-        <span class="bottom-nav-badge">3</span>
-    </a>
-</nav>
-
-    <!-- ==================== محتوای اصلی ==================== -->
-    <main class="main-content">
-
-
-
-
-        <section class="hero">
-            <h1 class="hero__title">آینده تکنولوژی، همینجا</h1>
-            <p class="hero__desc">
-                جدیدترین گجت‌ها را با بهترین قیمت از
-                <span class="hero__highlight">نیوشاپ</span> بخرید
-            </p>
         </section>
 
-        <!-- ==================== اسلایدر بنر ==================== -->
-<section class="banner-slider" aria-label="اسلایدر بنرها">
-    <div class="slider-wrapper">
-        <!-- دکمه قبلی (چپ) -->
-        <button class="slider-btn slider-btn--prev" aria-label="بنر قبلی">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-
-        <!-- کانتینر اسلایدها -->
-        <div class="slider-container">
-            <!-- بنر ۱ - ویدیو -->
-            <div class="slide active" data-slide="0">
-                <video class="slide__video" autoplay muted loop playsinline preload="auto">
-                    <source src="intro.mp4" type="video/mp4">
-                    <img src="../../assets/images/banner-1.jpg" alt="Banner 1" class="slide__image">
-                </video>
-                <div class="slide__overlay">
-                    <div class="slide__content">
-                        <span class="slide__badge">پیشنهاد ویژه</span>
-                        <h2 class="slide__title">به نیوشاپ خوش آمدید</h2>
-                        <p class="slide__desc">بهترین فروشگاه در خاورمیانه</p>
-                        <button class="slide__cta">مشاهده جزئیات</button>
+        <!-- پیشنهاد شگفت‌انگیز -->
+        <section class="amazing-offer">
+            <div class="amazing-offer__container">
+                <div class="amazing-offer__header">
+                    <div class="amazing-offer__title-wrapper">
+                        <h2 class="amazing-offer__title">پیشنهاد شگفت انگیز</h2>
+                        <time class="amazing-offer__timer">12:00:00</time>
+                    </div>
+                    <button class="amazing-offer__view-all">مشاهده همه</button>
+                </div>
+                
+                <div class="amazing-offer__products">
+                    <div class="amazing-offer__product-card">
+                        <div class="amazing-offer__product-image-wrapper">
+                            <img src="../../assets/images/product-1.jpg" alt="گوشی موبایل نوت 12" class="amazing-offer__product-image">
+                        </div>
+                        <div class="amazing-offer__product-info">
+                            <h3 class="amazing-offer__product-name">نوت 12</h3>
+                            <span class="amazing-offer__product-description">گوشی موبایل با کیفیت</span>
+                            <div class="amazing-offer__product-prices">
+                                <span class="amazing-offer__product-price--original">33,000,000</span>
+                                <span class="amazing-offer__product-price--discounted">22,220,000</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- بنر ۲ -->
-            <div class="slide" data-slide="1">
-                <img src="../../assets/images/banner-2.jpg" alt="Banner 2" class="slide__image" loading="lazy">
-                <div class="slide__overlay">
-                    <div class="slide__content">
-                        <span class="slide__badge">جدید</span>
-                        <h2 class="slide__title">مک‌بوک پرو M3</h2>
-                        <p class="slide__desc">برای حرفه‌ای‌ها با عملکرد بی‌نظیر</p>
-                        <button class="slide__cta">خرید</button>
+        <!-- دسته‌بندی -->
+        <section class="categories scroll-animate" aria-labelledby="categories-title">
+            <header class="categories__header">
+                <h2 id="categories-title" class="categories__title">دسته‌بندی محصولات</h2>
+                <a href="#" class="categories__view-all">
+                    مشاهده همه
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </header>
+
+            <div class="categories__grid">
+                <a href="#" class="category-card">
+                    <div class="category-card__icon">
+                        <img src="../../assets/images/mobile.webp" alt="گوشی موبایل" class="category-icon-3d" loading="lazy">
                     </div>
+                    <h3 class="category-card__name">گوشی موبایل</h3>
+                    <span class="category-card__count">۱۲۵ محصول</span>
+                </a>
+
+                <a href="#" class="category-card">
+                    <div class="category-card__icon">
+                        <img src="../../assets/images/laptop.webp" alt="لپ‌تاپ" class="category-icon-3d" loading="lazy">
+                    </div>
+                    <h3 class="category-card__name">لپ‌تاپ</h3>
+                    <span class="category-card__count">۸۷ محصول</span>
+                </a>
+
+                <a href="#" class="category-card">
+                    <div class="category-card__icon">
+                        <img src="../../assets/images/headphone.webp" alt="هدفون و اسپیکر" class="category-icon-3d" loading="lazy">
+                    </div>
+                    <h3 class="category-card__name">هدفون و اسپیکر</h3>
+                    <span class="category-card__count">۶۴ محصول</span>
+                </a>
+
+                <a href="#" class="category-card">
+                    <div class="category-card__icon">
+                        <img src="../../assets/images/watch.webp" alt="ساعت هوشمند" class="category-icon-3d" loading="lazy">
+                    </div>
+                    <h3 class="category-card__name">ساعت هوشمند</h3>
+                    <span class="category-card__count">۴۲ محصول</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- برندهای محبوب -->
+        <section class="brands scroll-animate" aria-label="برندهای محبوب">
+            <header class="brands__header">
+                <h2 class="brands__title">برندهای محبوب</h2>
+                <a href="#" class="brands__view-all">
+                    مشاهده همه
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18L9 12L15 6"/>
+                    </svg>
+                </a>
+            </header>
+
+            <div class="marquee">
+                <div class="marquee-track brands-marquee-track">
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">Apple</span>
+                    </a>
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">Samsung</span>
+                    </a>
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">LG</span>
+                    </a>
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">Xiaomi</span>
+                    </a>
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">Huawei</span>
+                    </a>
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">Nokia</span>
+                    </a>
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">Asus</span>
+                    </a>
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">Dell</span>
+                    </a>
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">HP</span>
+                    </a>
+                    <a href="#" class="brand-scroll-card">
+                        <span class="brand-scroll-card__name">Lenovo</span>
+                    </a>
                 </div>
             </div>
+        </section>
 
-            <!-- بنر ۳ -->
-            <div class="slide" data-slide="2">
-                <img src="../../assets/images/banner-3.jpg" alt="Banner 3" class="slide__image" loading="lazy">
-                <div class="slide__overlay">
-                    <div class="slide__content">
-                        <span class="slide__badge">پرفروش</span>
-                        <h2 class="slide__title">گلکسی S24 Ultra</h2>
-                        <p class="slide__desc">هوش مصنوعی در دستان شما</p>
-                        <button class="slide__cta">مشاهده جزئیات</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بنر ۴ -->
-            <div class="slide" data-slide="3">
-                <img src="../../assets/images/banner-4.jpg" alt="Banner 4" class="slide__image" loading="lazy">
-                <div class="slide__overlay">
-                    <div class="slide__content">
-                        <span class="slide__badge">ویژه</span>
-                        <h2 class="slide__title">ایرپادز پرو ۲</h2>
-                        <p class="slide__desc">صدایی بی‌نظیر با نویز کنسلینگ</p>
-                        <button class="slide__cta">خرید</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بنر ۵ -->
-            <div class="slide" data-slide="4">
-                <img src="images.jpg" alt="Banner 5" class="slide__image" loading="lazy">
-                <div class="slide__overlay">
-                    <div class="slide__content">
-                        <span class="slide__badge">محبوب</span>
-                        <h2 class="slide__title">اپل واچ سری ۹</h2>
-                        <p class="slide__desc">سلامتی در مچ دست شما</p>
-                        <button class="slide__cta">مشاهده جزئیات</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- دکمه بعدی (راست) -->
-        <button class="slider-btn slider-btn--next" aria-label="بنر بعدی">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-    </div>
-
-    <!-- Dots navigation -->
-    <div class="slider-dots">
-        <span class="dot active" data-dot="0"></span>
-        <span class="dot" data-dot="1"></span>
-        <span class="dot" data-dot="2"></span>
-        <span class="dot" data-dot="3"></span>
-        <span class="dot" data-dot="4"></span>
-    </div>
-
-    <!-- Progress bar -->
-    <div class="slider-progress">
-        <div class="slider-progress__bar"></div>
-    </div>
-</section>
-        <!-- ==================== پرفروش‌ترین‌های هفته ==================== -->
+        <!-- پرفروش‌ترین محصولات -->
         <section class="best-sellers scroll-animate" aria-labelledby="best-sellers-title">
             <header class="best-sellers__header">
-                <h2 id="best-sellers-title" class="best-sellers__title">پرفروش‌ترین‌های هفته</h2>
+                <h2 id="best-sellers-title" class="best-sellers__title">پرفروش ترین محصولات</h2>
                 <a href="#" class="best-sellers__view-all">
                     مشاهده همه
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -304,12 +261,76 @@
 
             <div class="marquee">
                 <div class="marquee-track best-sellers-track">
-                    <!-- کارت‌ها با JavaScript اضافه می‌شن -->
+                    <div class="product-card">
+                        <div class="product-card__image-wrapper">
+                            <img src="../../assets/images/headphone-h22.jpg" alt="هدفون بی‌سیم H22" class="product-card__image">
+                        </div>
+                        <div class="product-card__info">
+                            <h3 class="product-card__name">هدفون بی‌سیم H22</h3>
+                            <div class="product-card__prices">
+                                <span class="product-card__price--original">12,000,000</span>
+                                <span class="product-card__price--discounted">9,000,000</span>
+                            </div>
+                            <div class="product-card__actions">
+                                <button class="product-card__like-btn" aria-label="افزودن به علاقه‌مندی‌ها">
+                                    <svg class="like" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                    </svg>
+                                </button>
+                                <button class="product-card__btn product-card__btn--add-to-cart">افزودن به سبد خرید</button>
+                                <button class="product-card__btn product-card__btn--view-details">مشاهده جزئیات</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__image-wrapper">
+                            <img src="../../assets/images/headphone-h22.jpg" alt="هدفون بی‌سیم H22" class="product-card__image">
+                        </div>
+                        <div class="product-card__info">
+                            <h3 class="product-card__name">هدفون بی‌سیم H22</h3>
+                            <div class="product-card__prices">
+                                <span class="product-card__price--original">12,000,000</span>
+                                <span class="product-card__price--discounted">9,000,000</span>
+                            </div>
+                            <div class="product-card__actions">
+                                <button class="product-card__like-btn" aria-label="افزودن به علاقه‌مندی‌ها">
+                                    <svg class="like" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                    </svg>
+                                </button>
+                                <button class="product-card__btn product-card__btn--add-to-cart">افزودن به سبد خرید</button>
+                                <button class="product-card__btn product-card__btn--view-details">مشاهده جزئیات</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__image-wrapper">
+                            <img src="../../assets/images/headphone-h22.jpg" alt="هدفون بی‌سیم H22" class="product-card__image">
+                        </div>
+                        <div class="product-card__info">
+                            <h3 class="product-card__name">هدفون بی‌سیم H22</h3>
+                            <div class="product-card__prices">
+                                <span class="product-card__price--original">12,000,000</span>
+                                <span class="product-card__price--discounted">9,000,000</span>
+                            </div>
+                            <div class="product-card__actions">
+                                <button class="product-card__like-btn" aria-label="افزودن به علاقه‌مندی‌ها">
+                                    <svg class="like" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                    </svg>
+                                </button>
+                                <button class="product-card__btn product-card__btn--add-to-cart">افزودن به سبد خرید</button>
+                                <button class="product-card__btn product-card__btn--view-details">مشاهده جزئیات</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== جدیدترین محصولات ==================== -->
+        <!-- جدیدترین محصولات -->
         <section class="new-arrivals scroll-animate" aria-labelledby="new-arrivals-title">
             <header class="new-arrivals__header">
                 <h2 id="new-arrivals-title" class="new-arrivals__title">جدیدترین محصولات</h2>
@@ -323,233 +344,181 @@
 
             <div class="marquee">
                 <div class="marquee-track new-arrivals-track">
-                    <!-- کارت‌ها با JavaScript اضافه می‌شن -->
+                    <div class="product-card">
+                        <div class="product-card__image-wrapper">
+                            <img src="../../assets/images/headphone-h22.jpg" alt="هدفون بی‌سیم H22" class="product-card__image">
+                        </div>
+                        <div class="product-card__info">
+                            <h3 class="product-card__name">هدفون بی‌سیم H22</h3>
+                            <div class="product-card__prices">
+                                <span class="product-card__price--original">12,000,000</span>
+                                <span class="product-card__price--discounted">9,000,000</span>
+                            </div>
+                            <div class="product-card__actions">
+                                <button class="product-card__like-btn" aria-label="افزودن به علاقه‌مندی‌ها">
+                                    <svg class="like" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                    </svg>
+                                </button>
+                                <button class="product-card__btn product-card__btn--add-to-cart">افزودن به سبد خرید</button>
+                                <button class="product-card__btn product-card__btn--view-details">مشاهده جزئیات</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__image-wrapper">
+                            <img src="../../assets/images/headphone-h22.jpg" alt="هدفون بی‌سیم H22" class="product-card__image">
+                        </div>
+                        <div class="product-card__info">
+                            <h3 class="product-card__name">هدفون بی‌سیم H22</h3>
+                            <div class="product-card__prices">
+                                <span class="product-card__price--original">12,000,000</span>
+                                <span class="product-card__price--discounted">9,000,000</span>
+                            </div>
+                            <div class="product-card__actions">
+                                <button class="product-card__like-btn" aria-label="افزودن به علاقه‌مندی‌ها">
+                                    <svg class="like" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                    </svg>
+                                </button>
+                                <button class="product-card__btn product-card__btn--add-to-cart">افزودن به سبد خرید</button>
+                                <button class="product-card__btn product-card__btn--view-details">مشاهده جزئیات</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card__image-wrapper">
+                            <img src="../../assets/images/headphone-h22.jpg" alt="هدفون بی‌سیم H22" class="product-card__image">
+                        </div>
+                        <div class="product-card__info">
+                            <h3 class="product-card__name">هدفون بی‌سیم H22</h3>
+                            <div class="product-card__prices">
+                                <span class="product-card__price--original">12,000,000</span>
+                                <span class="product-card__price--discounted">9,000,000</span>
+                            </div>
+                            <div class="product-card__actions">
+                                <button class="product-card__like-btn" aria-label="افزودن به علاقه‌مندی‌ها">
+                                    <svg class="like" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                    </svg>
+                                </button>
+                                <button class="product-card__btn product-card__btn--add-to-cart">افزودن به سبد خرید</button>
+                                <button class="product-card__btn product-card__btn--view-details">مشاهده جزئیات</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-
-        <!-- ==================== برندهای محبوب ==================== -->
-
-<!-- ==================== برندهای محبوب ==================== -->
- <!-- ==================== برندهای محبوب ==================== -->
-<section class="brands scroll-animate" aria-label="برندهای محبوب">
-    <header class="brands__header">
-        <h2 class="brands__title">برندهای محبوب</h2>
-        <a href="#" class="brands__view-all">
-            مشاهده همه
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 18L9 12L15 6"/>
-            </svg>
-        </a>
-    </header>
-
-    <div class="marquee">
-        <div class="marquee-track brands-marquee-track">
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">Apple</span>
-            </a>
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">Samsung</span>
-            </a>
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">LG</span>
-            </a>
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">Xiaomi</span>
-            </a>
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">Huawei</span>
-            </a>
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">Nokia</span>
-            </a>
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">Asus</span>
-            </a>
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">Dell</span>
-            </a>
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">HP</span>
-            </a>
-            <a href="#" class="brand-scroll-card">
-                <span class="brand-scroll-card__name">Lenovo</span>
-            </a>
-        </div>
-    </div>
-</section>
-
-
-
-
-        <!-- ==================== دسته‌بندی‌ها ==================== -->
-         <!-- ==================== دسته‌بندی‌ها ==================== -->
-<!-- ==================== دسته‌بندی‌ها ==================== -->
-<section class="categories scroll-animate" aria-labelledby="categories-title">
-    <header class="categories__header">
-        <h2 id="categories-title" class="categories__title">دسته‌بندی محصولات</h2>
-        <a href="#" class="categories__view-all">
-            مشاهده همه
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </a>
-    </header>
-
-    <div class="categories__grid">
-        <!-- دسته‌بندی ۱: گوشی موبایل -->
-        <a href="#" class="category-card">
-            <div class="category-card__icon">
-                <img src="10831861.webp" alt="Mobile Phone" class="category-icon-3d" loading="lazy">
-            </div>
-            <h3 class="category-card__name">گوشی موبایل</h3>
-            <span class="category-card__count">۱۲۵ محصول</span>
-        </a>
-
-        <!-- دسته‌بندی ۲: لپ‌تاپ -->
-        <a href="#" class="category-card">
-            <div class="category-card__icon">
-                <img src="4946701.webp" alt="Laptop" class="category-icon-3d" loading="lazy">
-            </div>
-            <h3 class="category-card__name">لپ‌تاپ</h3>
-            <span class="category-card__count">۸۷ محصول</span>
-        </a>
-
-        <!-- دسته‌بندی ۳: هدفون و اسپیکر -->
-        <a href="#" class="category-card">
-            <div class="category-card__icon">
-                <img src="13012660.webp" alt="Headphone" class="category-icon-3d" loading="lazy">
-            </div>
-            <h3 class="category-card__name">هدفون و اسپیکر</h3>
-            <span class="category-card__count">۶۴ محصول</span>
-        </a>
-
-        <!-- دسته‌بندی ۴: ساعت هوشمند -->
-        <a href="#" class="category-card">
-            <div class="category-card__icon">
-                <img src="10884603.webp" alt="Smart Watch" class="category-icon-3d" loading="lazy">
-            </div>
-            <h3 class="category-card__name">ساعت هوشمند</h3>
-            <span class="category-card__count">۴۲ محصول</span>
-        </a>
-    </div>
-</section>
-
-        <!-- ==================== شبکه‌های اجتماعی ==================== -->
+        <!-- شبکه‌های اجتماعی -->
         <section class="social-section scroll-animate" aria-labelledby="social-title">
             <div class="social-section__container">
-                <!-- هدر بخش -->
                 <div class="social-section__header">
                     <h2 id="social-title" class="social-section__title">ما را دنبال کنید</h2>
                     <p class="social-section__subtitle">در شبکه‌های اجتماعی همراه ما باشید و از آخرین اخبار و تخفیف‌ها باخبر شوید</p>
                 </div>
 
-                <!-- گرید شبکه‌های اجتماعی -->
                 <div class="social-grid">
-                    <!-- اینستاگرام -->
                     <a href="#" class="social-card social-card--instagram" target="_blank" rel="noopener">
                         <div class="social-card__glow"></div>
                         <div class="social-card__content">
                             <div class="social-card__icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="Instagram">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="اینستاگرام">
                                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                                 </svg>
                             </div>
                             <div class="social-card__info">
                                 <h3 class="social-card__name">اینستاگرام</h3>
-                                <p class="social-card__handle"></p>
+                                <p class="social-card__handle">@newshop_ir</p>
                                 <span class="social-card__followers">۱۲.۵K دنبال‌کننده</span>
-                            </div>
-                            <button class="social-card__btn">دنبال کردن</button>
-                        </div>
-                    </a>
-
-                    <!-- تلگرام -->
-                    <a href="#" class="social-card social-card--telegram" target="_blank" rel="noopener">
-                        <div class="social-card__glow"></div>
-                        <div class="social-card__content">
-                            <div class="social-card__icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="Telegram">
-                                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                                </svg>
-                            </div>
-                            <div class="social-card__info">
-                                <h3 class="social-card__name">تلگرام</h3>
-                                <p class="social-card__handle"></p>
-                                <span class="social-card__followers">۸.۲K عضو</span>
                             </div>
                             <button class="social-card__btn">عضویت</button>
                         </div>
                     </a>
 
-                    <!-- توییتر (X) -->
+                    <a href="#" class="social-card social-card--telegram" target="_blank" rel="noopener">
+                        <div class="social-card__glow"></div>
+                        <div class="social-card__content">
+                            <div class="social-card__icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="تلگرام">
+                                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                                </svg>
+                            </div>
+                            <div class="social-card__info">
+                                <h3 class="social-card__name">تلگرام</h3>
+                                <p class="social-card__handle">@newshop_channel</p>
+                                <span class="social-card__followers">۸.۲K دنبال‌کننده</span>
+                            </div>
+                            <button class="social-card__btn">عضویت</button>
+                        </div>
+                    </a>
+
                     <a href="#" class="social-card social-card--twitter" target="_blank" rel="noopener">
                         <div class="social-card__glow"></div>
                         <div class="social-card__content">
                             <div class="social-card__icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="Twitter">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="توییتر">
                                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                                 </svg>
                             </div>
                             <div class="social-card__info">
                                 <h3 class="social-card__name">توییتر</h3>
-                                <p class="social-card__handle"></p>
+                                <p class="social-card__handle">@newshop</p>
                                 <span class="social-card__followers">۵.۷K دنبال‌کننده</span>
                             </div>
-                            <button class="social-card__btn">دنبال کردن</button>
+                            <button class="social-card__btn">عضویت</button>
                         </div>
                     </a>
 
-                    <!-- لینکدین -->
                     <a href="#" class="social-card social-card--linkedin" target="_blank" rel="noopener">
                         <div class="social-card__glow"></div>
                         <div class="social-card__content">
                             <div class="social-card__icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="LinkedIn">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="لینکدین">
                                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                                 </svg>
                             </div>
                             <div class="social-card__info">
                                 <h3 class="social-card__name">لینکدین</h3>
-                                <p class="social-card__handle"></p>
+                                <p class="social-card__handle">@newshop-company</p>
                                 <span class="social-card__followers">۳.۴K دنبال‌کننده</span>
                             </div>
-                            <button class="social-card__btn">اتصال</button>
+                            <button class="social-card__btn">عضویت</button>
                         </div>
                     </a>
 
-                    <!-- یوتیوب -->
                     <a href="#" class="social-card social-card--youtube" target="_blank" rel="noopener">
                         <div class="social-card__glow"></div>
                         <div class="social-card__content">
                             <div class="social-card__icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="YouTube">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="یوتیوب">
                                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                                 </svg>
                             </div>
                             <div class="social-card__info">
                                 <h3 class="social-card__name">یوتیوب</h3>
-                                <p class="social-card__handle"></p>
-                                <span class="social-card__followers">۱۵.۳K مشترک</span>
+                                <p class="social-card__handle">@newshop-tv</p>
+                                <span class="social-card__followers">۱۵.۳K دنبال‌کننده</span>
                             </div>
-                            <button class="social-card__btn">مشترک شدن</button>
+                            <button class="social-card__btn">عضویت</button>
                         </div>
                     </a>
 
-                    <!-- واتساپ -->
                     <a href="#" class="social-card social-card--whatsapp" target="_blank" rel="noopener">
                         <div class="social-card__glow"></div>
                         <div class="social-card__content">
                             <div class="social-card__icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="WhatsApp">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-label="واتساپ">
                                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                                 </svg>
                             </div>
                             <div class="social-card__info">
                                 <h3 class="social-card__name">واتساپ</h3>
-                                <p class="social-card__handle"></p>
-                                <span class="social-card__followers">پاسخگویی سریع</span>
+                                <p class="social-card__handle">پاسخگویی سریع</p>
+                                <span class="social-card__followers">۲۴ ساعته</span>
                             </div>
                             <button class="social-card__btn">پیام دادن</button>
                         </div>
@@ -557,14 +526,11 @@
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- ==================== فوتر ==================== -->
     <footer class="footer">
         <div class="footer__main">
             <div class="footer__container">
-                <!-- ستون ۱: درباره ما -->
                 <div class="footer__column">
                     <div class="footer__logo">
                         <h3 class="footer__brand">نیوشاپ</h3>
@@ -575,7 +541,6 @@
                     </p>
                 </div>
 
-                <!-- ستون ۲: لینک‌های سریع -->
                 <div class="footer__column">
                     <h4 class="footer__title">دسترسی سریع</h4>
                     <ul class="footer__links">
@@ -588,7 +553,6 @@
                     </ul>
                 </div>
 
-                <!-- ستون ۳: دسته‌بندی‌ها -->
                 <div class="footer__column">
                     <h4 class="footer__title">دسته‌بندی محصولات</h4>
                     <ul class="footer__links">
@@ -601,7 +565,6 @@
                     </ul>
                 </div>
 
-                <!-- ستون ۴: تماس و خبرنامه -->
                 <div class="footer__column">
                     <h4 class="footer__title">تماس با ما</h4>
                     <div class="footer__contact">
@@ -643,7 +606,6 @@
             </div>
         </div>
 
-        <!-- پایین فوتر -->
         <div class="footer__bottom">
             <div class="footer__container">
                 <div class="footer__bottom-content">
@@ -660,7 +622,5 @@
         </div>
     </footer>
 
-    <script src="../../assets/js/main.js"></script>
 </body>
-
 </html>
