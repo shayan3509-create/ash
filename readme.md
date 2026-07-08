@@ -1,4 +1,4 @@
 git add .
-git commit -m "file"
+git commit -m "Creating the project root"
 git push
 digitalShop
