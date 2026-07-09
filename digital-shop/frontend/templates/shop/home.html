@@ -1,11 +1,58 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../static/css/style.css">
+  <link rel="stylesheet" href="../../static/css/Responsive.css">
 </head>
 <body>
-  <h1>Welcome to the Digital Shop</h1>
+
+<!-- هدر اصلی -->
+<header class="site-header" dir="rtl">
+  <div class="header-container">
+    
+    <!-- بخش راست: لوگو -->
+    <div class="header-right">
+      <h1 class="header-logo">نیوشاپ</h1>
+    </div>
+
+    <!-- بخش وسط: جستجو -->
+    <div class="header-center">
+      <div class="search-form">
+        <button type="button" class="search-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <input type="search" class="search-input" placeholder="جستجو در نیوشاپ...">
+      </div>
+    </div>
+
+    <!-- بخش چپ: اکشن‌ها -->
+    <div class="header-left">
+      <div class="header-actions">
+        
+        <!-- سبد خرید -->
+        <button class="action-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="action-badge">۲</span>
+        </button>
+
+        <!-- حساب کاربری -->
+        <button class="action-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </button>
+
+        <!-- تغییر تم -->
+        <button class="action-btn theme-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</header>
+
 </body>
 </html>

@@ -1,0 +1,263 @@
+/* فونت وزیرمتن */
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../fonts/Vazir-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../fonts/Vazir-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../fonts/Vazir-Regular.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../fonts/Vazir-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../fonts/Vazir-Bold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* استایل‌های پایه هدر */
+
+/* ریست body برای جلوگیری از مشکل */
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  margin: 0;
+  padding: 0;
+  padding-top: 72px; /* هم‌اندازه ارتفاع هدر */
+  overflow-x: hidden; /* جلوگیری از اسکرول افقی */
+}
+
+
+/* متغیرهای رنگی */
+:root {
+  --header-bg: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --search-bg: #f3f4f6;
+  --primary-gradient: linear-gradient(135deg, #93c5fd 0%, #f9a8d4 100%);
+}
+
+/* استایل‌های پایه هدر */
+
+.site-header {
+  position: fixed; /* تغییر از sticky به fixed */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* لوگو با گرادیانت */
+.header-logo {
+  font-size: 24px;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+
+/* سرچ باکس */
+.header-center:focus {
+  border-radius: 12px;
+}
+
+.search-form {
+  border-radius: 12px;
+  flex: 1;
+  max-width: 1000px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: box-shadow 0.5s ease;
+}
+
+
+.search-input {
+  width: 100%;
+  height: 52px;
+  padding: 0 20px 0 52px;
+  background-color: var(--search-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 15px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.search-input::placeholder {
+  font-family: 'Vazirmatn', sans-serif;
+  font-weight: 400;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.search-input:focus {
+  border-color: transparent;
+}
+
+/* Border گرادیانت سرچ */
+.search-form::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: var(--primary-gradient);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  padding: 2px;
+}
+
+.search-form:focus-within::before {
+  opacity: 1;
+}
+
+/* سایه گرادیانت سرچ */
+.search-form:focus-within {
+  box-shadow: 
+    -3px -3px 6px rgba(147, 197, 253, 0.4),
+    3px 3px 6px rgba(249, 168, 212, 0.4);
+}
+
+.search-btn {
+  position: absolute;
+  left: 16px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color 0.5s ease;
+  z-index: 2;
+}
+
+.search-input:focus ~ .search-btn,
+.search-btn:hover {
+  color: var(--text-primary);
+}
+
+/* اکشن‌ها */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--header-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
+  z-index: 1;
+}
+
+/* Border گرادیانت دکمه‌ها */
+.action-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  padding: 2px;
+}
+
+.action-btn:hover {
+  border-color: transparent;
+  transform: scale(1.05);
+  box-shadow: 
+    -3px -3px 6px rgba(147, 197, 253, 0.4),
+    3px 3px 6px rgba(249, 168, 212, 0.4);
+}
+
+.action-btn:hover::before {
+  opacity: 1;
+}
+
+/* نشانگر سبد خرید */
+.action-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-color: #f9a8d4;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
