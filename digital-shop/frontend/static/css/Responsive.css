@@ -1,29 +1,59 @@
-/* تبلت (768px تا 1024px) */
+/* ========================================
+   ریسپانسیو - تبلت (768px تا 1024px)
+   ======================================== */
 @media (max-width: 1024px) {
+  /* هدر */
   .header-container {
     padding: 0 16px;
     gap: 16px;
-  }
-
-  .search-form {
-    max-width: 500px;
   }
 
   .header-logo {
     font-size: 22px;
   }
 
+  .search-form {
+    max-width: 500px;
+  }
+
   .action-btn {
     width: 40px;
     height: 40px;
   }
+
+  /* اسلایدر */
+  .banner-slider {
+    margin: 30px auto;
+    padding: 0 16px;
+  }
+
+  .slider-container {
+    height: 400px;
+  }
+
+  .slider-controls {
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .slider-btn {
+    width: 42px;
+    height: 42px;
+  }
 }
 
-/* گوشی (480px تا 768px) */
+/* ========================================
+   ریسپانسیو - گوشی (480px تا 768px)
+   ======================================== */
 @media (max-width: 768px) {
+  /* هدر */
   .header-container {
     height: 64px;
     gap: 12px;
+  }
+
+  .header-logo {
+    font-size: 18px;
   }
 
   .search-form {
@@ -42,10 +72,6 @@
     left: 12px;
   }
 
-  .header-logo {
-    font-size: 18px;
-  }
-
   .action-btn {
     width: 40px;
     height: 40px;
@@ -60,13 +86,54 @@
     top: 2px;
     right: 2px;
   }
+
+  /* اسلایدر */
+  .banner-slider {
+    margin: 24px auto;
+    padding: 0 12px;
+  }
+
+  .slider-container {
+    height: 300px;
+    border-radius: 12px;
+  }
+
+  .slider-controls {
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  /* مخفی کردن دکمه‌ها در موبایل */
+  .slider-btn {
+    display: none;
+  }
+
+  .slider-dots {
+    gap: 8px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dot.active {
+    width: 24px;
+  }
 }
 
-/* گوشی کوچک (زیر 480px) */
+/* ========================================
+   ریسپانسیو - گوشی کوچک (زیر 480px)
+   ======================================== */
 @media (max-width: 480px) {
+  /* هدر */
   .header-container {
     padding: 0 12px;
     gap: 8px;
+  }
+
+  .header-logo {
+    font-size: 16px;
   }
 
   .search-form {
@@ -85,10 +152,6 @@
     left: 8px;
   }
 
-  .header-logo {
-    font-size: 16px;
-  }
-
   .header-actions {
     gap: 6px;
   }
@@ -104,5 +167,31 @@
     width: 14px;
     height: 14px;
     font-size: 9px;
+  }
+
+  /* اسلایدر */
+  .banner-slider {
+    margin: 20px auto;
+    padding: 0 12px;
+  }
+
+  .slider-container {
+    height: 240px;
+    border-radius: 10px;
+  }
+
+  .slider-controls {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .slider-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .slider-btn svg {
+    width: 20px;
+    height: 20px;
   }
 }
