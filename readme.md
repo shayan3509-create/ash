@@ -1,4 +1,4 @@
 git add .
-git commit -m "Creating the project root"
+git commit -m "add a user list to admin dashboard"
 git push
 digitalShop
