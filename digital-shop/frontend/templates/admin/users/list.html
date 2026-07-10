@@ -226,37 +226,108 @@
         <div class="page-content">
             <!-- Stats -->
             <div class="stats-row">
-    <div class="stat-card">
-        <div class="stat-icon" style="background:#0d47a1;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <div class="stat-info"><div class="stat-value" id="statTotal">0</div><div class="stat-label">کل کاربران</div></div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-icon" style="background:#10b981;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <div class="stat-info"><div class="stat-value" id="statActive">0</div><div class="stat-label">فعال</div></div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-icon" style="background:#64748b;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
-        <div class="stat-info"><div class="stat-value" id="statInactive">0</div><div class="stat-label">غیرفعال</div></div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-icon" style="background:#ef4444;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-        <div class="stat-info"><div class="stat-value" id="statBanned">0</div><div class="stat-label">مسدود</div></div>
-    </div>
-</div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#0d47a1;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                    <div class="stat-info"><div class="stat-value">{{ stats.total }}</div><div class="stat-label">کل کاربران</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#10b981;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+                    <div class="stat-info"><div class="stat-value">{{ stats.active }}</div><div class="stat-label">فعال</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#64748b;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+                    <div class="stat-info"><div class="stat-value">{{ stats.inactive }}</div><div class="stat-label">غیرفعال</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#ef4444;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+                    <div class="stat-info"><div class="stat-value">{{ stats.banned }}</div><div class="stat-label">مسدود</div></div>
+                </div>
+            </div>
+
             <!-- Main Table -->
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d47a1" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>کاربران (<span id="userCount">0</span>)</span>
-                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-                        <div class="search-box"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="searchInput" placeholder="جستجوی نام، ایمیل یا موبایل..."></div>
-                        <select class="filter-select" id="filterRole" onchange="applyFilters()"><option value="">همه نقش‌ها</option><option value="admin">مدیر کل</option><option value="manager">مدیر</option><option value="editor">ویرایشگر</option><option value="customer">مشتری</option></select>
-                        <select class="filter-select" id="filterStatus" onchange="applyFilters()"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="inactive">غیرفعال</option><option value="banned">مسدود</option></select>
-                        <button class="add-btn" onclick="openUserModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>افزودن کاربر</button>
-                    </div>
+                    <span class="card-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d47a1" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>کاربران ({{ users|length }})</span>
+                    <form method="GET" action="" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                        <div class="search-box">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" name="search" value="{{ search }}" placeholder="جستجوی نام، ایمیل یا موبایل...">
+                        </div>
+                        <select name="role" class="filter-select">
+                            <option value="">همه نقش‌ها</option>
+                            <option value="admin" {% if role == 'admin' %}selected{% endif %}>مدیر کل</option>
+                            <option value="manager" {% if role == 'manager' %}selected{% endif %}>مدیر</option>
+                            <option value="editor" {% if role == 'editor' %}selected{% endif %}>ویرایشگر</option>
+                            <option value="customer" {% if role == 'customer' %}selected{% endif %}>مشتری</option>
+                        </select>
+                        <select name="status" class="filter-select">
+                            <option value="">همه وضعیت‌ها</option>
+                            <option value="active" {% if status == 'active' %}selected{% endif %}>فعال</option>
+                            <option value="inactive" {% if status == 'inactive' %}selected{% endif %}>غیرفعال</option>
+                            <option value="banned" {% if status == 'banned' %}selected{% endif %}>مسدود</option>
+                        </select>
+                        <button type="submit" class="add-btn" style="background:#10b981;">اعمال فیلتر</button>
+                        <button type="button" class="add-btn" onclick="openUserModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>افزودن کاربر</button>
+                    </form>
                 </div>
-                <div class="table-wrap"><table><thead><tr><th onclick="sortTable('name')">نام <span class="sort-icon" id="sort-name"></span></th><th>نقش</th><th>وضعیت</th><th onclick="sortTable('ordersCount')">سفارشات <span class="sort-icon" id="sort-ordersCount"></span></th><th onclick="sortTable('totalSpent')">مجموع خرید <span class="sort-icon" id="sort-totalSpent"></span></th><th onclick="sortTable('joinDate')">تاریخ عضویت <span class="sort-icon" id="sort-joinDate"></span></th><th>عملیات</th></tr></thead><tbody id="usersTable"></tbody></table></div>
-                <div class="no-result" id="noResult">هیچ کاربری یافت نشد</div>
-                <div class="pagination" id="pagination"></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>نام</th>
+                                <th>نقش</th>
+                                <th>وضعیت</th>
+                                <th>سفارشات</th>
+                                <th>مجموع خرید</th>
+                                <th>تاریخ عضویت</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            {% for user in users %}
+                            <tr>
+                                <td data-label="نام">
+                                    <div class="user-info">
+                                        <div class="user-avatar-sm" style="background:#0d47a1">{{ user.name|make_list|first|upper }}</div>
+                                        <div>
+                                            <div class="user-name">{{ user.name }}</div>
+                                            <div class="user-email">{{ user.email }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="نقش"><span class="role-badge role-{{ user.role }}">{{ user.get_role_display }}</span></td>
+                                <td data-label="وضعیت"><span class="status-badge status-{{ user.status }}">{{ user.get_status_display }}</span></td>
+                                <td data-label="سفارشات">{{ user.orders_count }}</td>
+                                <td data-label="مجموع خرید">{{ user.total_spent }} تومان</td>
+                                <td data-label="تاریخ عضویت">{{ user.join_date|date:"Y-m-d" }}</td>
+                                <td data-label="عملیات">
+                                    <div class="action-btns">
+                                        <form action="{% url 'change_status' user.id %}" method="POST" style="display:inline;">
+                                            {% csrf_token %}
+                                            <select name="status" onchange="this.form.submit()" class="filter-select" style="padding:4px 8px;font-size:11px;min-width:80px;">
+                                                <option value="active" {% if user.status == 'active' %}selected{% endif %}>فعال</option>
+                                                <option value="inactive" {% if user.status == 'inactive' %}selected{% endif %}>غیرفعال</option>
+                                                <option value="banned" {% if user.status == 'banned' %}selected{% endif %}>مسدود</option>
+                                            </select>
+                                        </form>
+                                        <a href="{% url 'edit_user' user.id %}" class="action-btn" title="ویرایش">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                        </a>
+                                        <form action="{% url 'delete_user' user.id %}" method="POST" style="display:inline;" onsubmit="return confirm('آیا مطمئن هستید؟');">
+                                            {% csrf_token %}
+                                            <button type="submit" class="action-btn danger" title="حذف">
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/></svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-muted);">هیچ کاربری وجود ندارد</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -264,305 +335,57 @@
     <!-- USER MODAL -->
     <div class="custom-modal" id="userModal">
         <div class="modal-box">
-            <h3 id="userModalTitle">افزودن کاربر جدید</h3>
-            <label class="modal-label">نام کامل</label>
-            <input type="text" id="userName" placeholder="مثال: علی محمدی">
-            <label class="modal-label">ایمیل</label>
-            <input type="email" id="userEmail" placeholder="example@mail.com">
-            <label class="modal-label">موبایل</label>
-            <input type="text" id="userPhone" placeholder="09123456789">
-            <label class="modal-label">نقش</label>
-            <select id="userRole"><option value="admin">مدیر کل</option><option value="manager">مدیر</option><option value="editor">ویرایشگر</option><option value="customer" selected>مشتری</option></select>
-            <label class="modal-label" id="passwordLabel">رمز عبور</label>
-            <input type="text" id="userPassword" placeholder="حداقل ۶ کاراکتر">
-            <div class="modal-btns">
-                <button class="modal-btn-cancel" onclick="closeUserModal()">انصراف</button>
-                <button class="modal-btn-confirm" id="userSaveBtn" onclick="saveUser()">ذخیره</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- DETAIL MODAL -->
-    <div class="custom-modal" id="detailModal">
-        <div class="modal-box">
-            <h3>جزئیات کاربر</h3>
-            <div id="detailContent"></div>
-            <div class="modal-btns"><button class="modal-btn-cancel" onclick="closeDetailModal()">بستن</button></div>
-        </div>
-    </div>
-
-    <!-- DELETE MODAL -->
-    <div class="custom-modal" id="deleteModal">
-        <div class="modal-box" style="text-align:center;">
-            <h3 id="deleteText">آیا از حذف این کاربر مطمئن هستید؟</h3>
-            <div class="modal-btns">
-                <button class="modal-btn-cancel" onclick="closeDeleteModal()">انصراف</button>
-                <button class="modal-btn-danger" id="deleteConfirmBtn">حذف</button>
-            </div>
+            <h3>افزودن کاربر جدید</h3>
+            <form action="{% url 'create_user' %}" method="POST">
+                {% csrf_token %}
+                <label class="modal-label">نام کامل</label>
+                <input type="text" name="name" placeholder="مثال: علی محمدی" required>
+                <label class="modal-label">ایمیل</label>
+                <input type="email" name="email" placeholder="example@mail.com" required>
+                <label class="modal-label">موبایل</label>
+                <input type="text" name="phone" placeholder="09123456789" required>
+                <label class="modal-label">نقش</label>
+                <select name="role">
+                    <option value="customer">مشتری</option>
+                    <option value="editor">ویرایشگر</option>
+                    <option value="manager">مدیر</option>
+                    <option value="admin">مدیر کل</option>
+                </select>
+                <label class="modal-label">رمز عبور</label>
+                <input type="password" name="password" placeholder="حداقل ۶ کاراکتر" required>
+                <div class="modal-btns">
+                    <button type="button" class="modal-btn-cancel" onclick="closeUserModal()">انصراف</button>
+                    <button type="submit" class="modal-btn-confirm">ذخیره</button>
+                </div>
+            </form>
         </div>
     </div>
 
     <script>
+        // 🌙 تم دارک/لایت
         if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
-
-        let users = [];
-        let filtered = [];
-        let page = 1;
-        const perPage = 10;
-        let editingId = null;
-        let deletingId = null;
-        let sortKey = 'joinDate';
-        let sortDir = 'desc';
-
-        const roles = {
-            admin: 'مدیر کل',
-            manager: 'مدیر',
-            editor: 'ویرایشگر',
-            customer: 'مشتری'
-        };
-
-        const statuses = {
-            active: 'فعال',
-            inactive: 'غیرفعال',
-            banned: 'مسدود'
-        };
-
-        const defaultUsers = [
-            { id:1, name:'علی محمدی', email:'admin@newshop.com', phone:'09121111111', role:'admin', status:'active', joinDate:'2024-01-15', ordersCount:156, totalSpent:156000000, lastLogin:'2024-12-20', avatar:'' },
-            { id:2, name:'سارا احمدی', email:'sara@newshop.com', phone:'09122222222', role:'manager', status:'active', joinDate:'2024-02-01', ordersCount:89, totalSpent:89000000, lastLogin:'2024-12-19', avatar:'' },
-            { id:3, name:'محمد رضایی', email:'mohamad@newshop.com', phone:'09123333333', role:'editor', status:'active', joinDate:'2024-03-10', ordersCount:45, totalSpent:45000000, lastLogin:'2024-12-18', avatar:'' },
-            { id:4, name:'نیلوفر حسینی', email:'niloofar@gmail.com', phone:'09124444444', role:'customer', status:'active', joinDate:'2024-04-05', ordersCount:12, totalSpent:12500000, lastLogin:'2024-12-17', avatar:'' },
-            { id:5, name:'امیر کریمی', email:'amir@gmail.com', phone:'09125555555', role:'customer', status:'inactive', joinDate:'2024-05-20', ordersCount:3, totalSpent:3500000, lastLogin:'2024-10-01', avatar:'' },
-            { id:6, name:'زهرا مرادی', email:'zahra@yahoo.com', phone:'09126666666', role:'customer', status:'active', joinDate:'2024-06-15', ordersCount:28, totalSpent:32000000, lastLogin:'2024-12-20', avatar:'' },
-            { id:7, name:'حسین تقوی', email:'hossein@gmail.com', phone:'09127777777', role:'customer', status:'banned', joinDate:'2024-07-01', ordersCount:5, totalSpent:5000000, lastLogin:'2024-11-15', avatar:'' },
-            { id:8, name:'مریم نادری', email:'maryam@newshop.com', phone:'09128888888', role:'editor', status:'active', joinDate:'2024-08-12', ordersCount:34, totalSpent:38000000, lastLogin:'2024-12-19', avatar:'' },
-            { id:9, name:'پوریا اکبری', email:'pouria@gmail.com', phone:'09129999999', role:'customer', status:'active', joinDate:'2024-09-01', ordersCount:18, totalSpent:21000000, lastLogin:'2024-12-16', avatar:'' },
-            { id:10, name:'نگار صادقی', email:'negar@yahoo.com', phone:'09121000000', role:'customer', status:'active', joinDate:'2024-09-15', ordersCount:7, totalSpent:8500000, lastLogin:'2024-12-14', avatar:'' },
-            { id:11, name:'فرهاد جعفری', email:'farhad@gmail.com', phone:'09121111112', role:'customer', status:'inactive', joinDate:'2024-10-01', ordersCount:1, totalSpent:1200000, lastLogin:'2024-10-15', avatar:'' },
-            { id:12, name:'الناز رحیمی', email:'elnaz@newshop.com', phone:'09121111113', role:'manager', status:'active', joinDate:'2024-11-01', ordersCount:62, totalSpent:72000000, lastLogin:'2024-12-20', avatar:'' }
-        ];
-
-        function loadUsers() {
-            const saved = localStorage.getItem('admin_users');
-            users = saved ? JSON.parse(saved) : [...defaultUsers];
-            if (!saved) localStorage.setItem('admin_users', JSON.stringify(users));
-            applyFilters();
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
         }
 
-        function formatPrice(p) { return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان'; }
-
-        function getInitials(name) { return name.split(' ').map(w => w[0]).join('').slice(0, 2); }
-
-        function getAvatarColor(id) {
-            const colors = ['#0d47a1','#4a148c','#c48b9d','#10b981','#f59e0b','#ef4444','#3b82f6','#8b5cf6','#ec4899','#14b8a6','#f97316','#6366f1'];
-            return colors[id % colors.length];
+        // 📱 منوی کناری
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('show');
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('show');
         }
 
-        function applyFilters() {
-            const q = document.getElementById('searchInput').value.trim().toLowerCase();
-            const role = document.getElementById('filterRole').value;
-            const status = document.getElementById('filterStatus').value;
-
-            filtered = users.filter(u => {
-                if (q && !u.name.toLowerCase().includes(q) && !u.email.toLowerCase().includes(q) && !u.phone.includes(q)) return false;
-                if (role && u.role !== role) return false;
-                if (status && u.status !== status) return false;
-                return true;
-            });
-
-            sortFiltered();
-            updateStats();
-            page = Math.min(page, Math.max(1, Math.ceil(filtered.length / perPage)));
-            render();
-        }
-
-        function sortTable(key) {
-            if (sortKey === key) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
-            else { sortKey = key; sortDir = 'desc'; }
-            sortFiltered();
-            render();
-        }
-
-        function sortFiltered() {
-            filtered.sort((a, b) => {
-                let valA = a[sortKey], valB = b[sortKey];
-                if (typeof valA === 'string') valA = valA.toLowerCase();
-                if (typeof valB === 'string') valB = valB.toLowerCase();
-                if (valA < valB) return sortDir === 'asc' ? -1 : 1;
-                if (valA > valB) return sortDir === 'asc' ? 1 : -1;
-                return 0;
-            });
-            document.querySelectorAll('.sort-icon').forEach(el => el.textContent = '');
-            const icon = document.getElementById('sort-' + sortKey);
-            if (icon) icon.textContent = sortDir === 'asc' ? '▲' : '▼';
-        }
-
-        function updateStats() {
-            document.getElementById('statTotal').textContent = users.length;
-            document.getElementById('statActive').textContent = users.filter(u => u.status === 'active').length;
-            document.getElementById('statBanned').textContent = users.filter(u => u.status === 'banned').length;
-            document.getElementById('statInactive').textContent = users.filter(u => u.status === 'inactive').length;
-        }
-        
-
-        function render() {
-            const start = (page - 1) * perPage;
-            const items = filtered.slice(start, start + perPage);
-            document.getElementById('userCount').textContent = filtered.length;
-            document.getElementById('noResult').style.display = filtered.length ? 'none' : 'block';
-            document.getElementById('usersTable').innerHTML = items.map(u => `
-                <tr>
-                    <td data-label="نام"><div class="user-info"><div class="user-avatar-sm" style="background:${getAvatarColor(u.id)}">${getInitials(u.name)}</div><div><div class="user-name" onclick="openDetailModal(${u.id})">${u.name}</div><div class="user-email">${u.email}</div></div></div></td>
-                    <td data-label="نقش"><span class="role-badge role-${u.role}">${roles[u.role]}</span></td>
-                    <td data-label="وضعیت"><span class="status-badge status-${u.status}">${statuses[u.status]}</span></td>
-                    <td data-label="سفارشات">${u.ordersCount}</td>
-                    <td data-label="مجموع خرید">${formatPrice(u.totalSpent)}</td>
-                    <td data-label="تاریخ عضویت">${u.joinDate}</td>
-                    <td data-label="عملیات"><div class="action-btns"><button class="action-btn" onclick="editUser(${u.id})" title="ویرایش"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-
-                        <div class="status-action"><button class="action-btn warning" onclick="toggleStatusMenu(event, ${u.id})" title="تغییر وضعیت"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button><div class="status-menu" id="statusMenu-${u.id}" style="display:none;"><div class="status-option ${u.status === 'active' ? 'selected' : ''}" onclick="setStatus(${u.id}, 'active')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>فعال</div><div class="status-option ${u.status === 'inactive' ? 'selected' : ''}" onclick="setStatus(${u.id}, 'inactive')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>غیرفعال</div><div class="status-option ${u.status === 'banned' ? 'selected' : ''}" onclick="setStatus(${u.id}, 'banned')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>مسدود</div></div></div>
-
-
-                    <button class="action-btn danger" onclick="confirmDelete(${u.id})" title="حذف"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/></svg></button></div></td>
-                </tr>
-            `).join('');
-
-            let totalPages = Math.ceil(filtered.length / perPage);
-            let pagHTML = '';
-            for (let i = 1; i <= totalPages; i++) pagHTML += `<button class="page-btn ${i === page ? 'active' : ''}" onclick="go(${i})">${i}</button>`;
-            document.getElementById('pagination').innerHTML = totalPages > 1 ? pagHTML : '';
-        }
-
-        function go(p) { page = p; render(); }
-        document.getElementById('searchInput').addEventListener('input', () => { page = 1; applyFilters(); });
-
-        // OPEN MODAL
-        function openUserModal(id = null) {
-            editingId = id;
-            document.getElementById('userModalTitle').textContent = id ? 'ویرایش کاربر' : 'افزودن کاربر جدید';
-            document.getElementById('passwordLabel').style.display = id ? 'none' : 'block';
-            document.getElementById('userPassword').style.display = id ? 'none' : 'block';
-            if (id) {
-                const u = users.find(x => x.id === id);
-                document.getElementById('userName').value = u.name;
-                document.getElementById('userEmail').value = u.email;
-                document.getElementById('userPhone').value = u.phone;
-                document.getElementById('userRole').value = u.role;
-                document.getElementById('userPassword').value = '';
-            } else {
-                document.getElementById('userName').value = '';
-                document.getElementById('userEmail').value = '';
-                document.getElementById('userPhone').value = '';
-                document.getElementById('userRole').value = 'customer';
-                document.getElementById('userPassword').value = '';
-            }
+        // 📦 مودال افزودن کاربر
+        function openUserModal() {
             document.getElementById('userModal').classList.add('show');
         }
-
-        function closeUserModal() { document.getElementById('userModal').classList.remove('show'); editingId = null; }
-
-        function saveUser() {
-            const name = document.getElementById('userName').value.trim();
-            const email = document.getElementById('userEmail').value.trim();
-            const phone = document.getElementById('userPhone').value.trim();
-            const role = document.getElementById('userRole').value;
-            const password = document.getElementById('userPassword').value.trim();
-
-            if (!name || !email || !phone) { showToast('لطفاً فیلدهای اصلی را پر کنید', 'error'); return; }
-            if (!editingId && password.length < 6) { showToast('رمز عبور حداقل ۶ کاراکتر باشد', 'error'); return; }
-            if (!editingId && users.find(u => u.email === email)) { showToast('این ایمیل قبلاً ثبت شده', 'error'); return; }
-
-            if (editingId) {
-                const u = users.find(x => x.id === editingId);
-                u.name = name; u.email = email; u.phone = phone; u.role = role;
-            } else {
-                const newId = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
-                users.push({ id: newId, name, email, phone, role, status: 'active', joinDate: new Date().toISOString().slice(0,10), ordersCount: 0, totalSpent: 0, lastLogin: '-', avatar: '' });
-            }
-            saveUsers();
-            closeUserModal();
-            applyFilters();
-            showToast('کاربر با موفقیت ذخیره شد');
+        function closeUserModal() {
+            document.getElementById('userModal').classList.remove('show');
         }
-
-        function editUser(id) { openUserModal(id); }
-
-        // STATUS
-       function toggleStatusMenu(e, id) {
-    e.stopPropagation();
-    document.querySelectorAll('.status-menu').forEach(m => { if (m.id !== 'statusMenu-' + id) m.style.display = 'none'; });
-    const menu = document.getElementById('statusMenu-' + id);
-    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-}
-
-function setStatus(id, newStatus) {
-    const u = users.find(x => x.id === id);
-    u.status = newStatus;
-    saveUsers();
-    applyFilters();
-    showToast('وضعیت به «' + statuses[newStatus] + '» تغییر کرد');
-}
-
-document.addEventListener('click', () => { document.querySelectorAll('.status-menu').forEach(m => m.style.display = 'none'); });
-
-        // DELETE
-        function confirmDelete(id) {
-            deletingId = id;
-            document.getElementById('deleteText').textContent = 'آیا از حذف «' + users.find(x => x.id === id).name + '» مطمئن هستید؟';
-            document.getElementById('deleteModal').classList.add('show');
-        }
-
-        document.getElementById('deleteConfirmBtn').addEventListener('click', () => {
-            if (deletingId) { users = users.filter(x => x.id !== deletingId); saveUsers(); applyFilters(); }
-            document.getElementById('deleteModal').classList.remove('show');
-            deletingId = null;
-            showToast('کاربر حذف شد');
-        });
-
-        function closeDeleteModal() { document.getElementById('deleteModal').classList.remove('show'); }
-
-        // DETAIL
-        function openDetailModal(id) {
-            const u = users.find(x => x.id === id);
-            document.getElementById('detailContent').innerHTML = `
-                <div style="text-align:center;margin-bottom:16px;">
-                    <div style="width:60px;height:60px;border-radius:50%;background:${getAvatarColor(u.id)};color:white;display:inline-flex;align-items:center;justify-content:center;font-size:22px;font-weight:bold;">${getInitials(u.name)}</div>
-                    <h4 style="margin-top:8px;color:var(--text-primary);">${u.name}</h4>
-                    <span class="role-badge role-${u.role}">${roles[u.role]}</span>
-                    <span class="status-badge status-${u.status}" style="margin-right:4px;">${statuses[u.status]}</span>
-                </div>
-                <div class="detail-row"><span class="dl">ایمیل</span><span class="dv">${u.email}</span></div>
-                <div class="detail-row"><span class="dl">موبایل</span><span class="dv">${u.phone}</span></div>
-                <div class="detail-row"><span class="dl">تاریخ عضویت</span><span class="dv">${u.joinDate}</span></div>
-                <div class="detail-row"><span class="dl">سفارشات</span><span class="dv">${u.ordersCount}</span></div>
-                <div class="detail-row"><span class="dl">مجموع خرید</span><span class="dv">${formatPrice(u.totalSpent)}</span></div>
-                <div class="detail-row"><span class="dl">آخرین بازدید</span><span class="dv">${u.lastLogin}</span></div>
-            `;
-            document.getElementById('detailModal').classList.add('show');
-        }
-
-        function closeDetailModal() { document.getElementById('detailModal').classList.remove('show'); }
-
-        function saveUsers() { localStorage.setItem('admin_users', JSON.stringify(users)); }
-
-        function showToast(msg, type) {
-            let t = document.querySelector('.toast');
-            if (t) t.remove();
-            const d = document.createElement('div');
-            d.className = 'toast' + (type === 'error' ? ' error' : '');
-            d.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">' + (type === 'error' ? '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>' : '<path d="M20 6L9 17l-5-5"/>') + '</svg>' + msg;
-            document.body.appendChild(d);
-            setTimeout(() => d.remove(), 3000);
-        }
-
-        function toggleDarkMode() { document.body.classList.toggle('dark'); localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light'); }
-        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
-        function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('show'); }
-
-        window.addEventListener('beforeunload', () => { const s = document.getElementById('sidebar'); if (s) localStorage.setItem('sidebarScroll', s.scrollTop); });
-        window.addEventListener('load', () => { const s = document.getElementById('sidebar'); const sc = localStorage.getItem('sidebarScroll'); if (s && sc) s.scrollTop = parseInt(sc); });
-
-        loadUsers();
     </script>
 </body>
 </html>
