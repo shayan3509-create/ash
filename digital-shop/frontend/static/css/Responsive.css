@@ -1,197 +1,749 @@
-/* ========================================
-   ریسپانسیو - تبلت (768px تا 1024px)
-   ======================================== */
-@media (max-width: 1024px) {
-  /* هدر */
-  .header-container {
-    padding: 0 16px;
-    gap: 16px;
-  }
-
-  .header-logo {
-    font-size: 22px;
-  }
-
-  .search-form {
-    max-width: 500px;
-  }
-
-  .action-btn {
-    width: 40px;
-    height: 40px;
-  }
-
-  /* اسلایدر */
-  .banner-slider {
-    margin: 30px auto;
-    padding: 0 16px;
-  }
-
-  .slider-container {
-    height: 400px;
-  }
-
-  .slider-controls {
-    gap: 14px;
-    margin-top: 20px;
-  }
-
-  .slider-btn {
-    width: 42px;
-    height: 42px;
-  }
+/* ========== موبایل بزرگ (481px - 768px) ========== */
+@media screen and (max-width: 768px) {
+    
+    /* هدر */
+    .header-top {
+        padding: 10px 15px;
+        gap: 10px;
+    }
+    
+    /* سمت راست: فقط لوگو */
+    .header-right {
+        gap: 0;
+        flex: 0;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+    
+    /* سرچ‌باکس - در موبایل مخفی می‌شود */
+    .header-center {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        padding: 15px;
+        background-color: var(--primary-dark);
+        border-top: 1px solid rgba(184, 247, 228, 0.2);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+    
+    .header-center.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .search-box {
+        position: relative;
+        width: 100%;
+    }
+    
+    .search-box input {
+        width: 100%;
+        padding: 12px 45px 12px 15px;
+        border: 2px solid rgba(184, 247, 228, 0.3);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text-light);
+    }
+    
+    .search-box input::placeholder {
+        color: var(--text-muted);
+    }
+    
+    /* دکمه بستن سرچ - در موبایل نمایش داده شود */
+    .search-close {
+        display: block !important;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        color: var(--text-muted);
+        transition: color 0.3s;
+    }
+    
+    .search-close:hover {
+        color: var(--primary-accent);
+    }
+    
+    .search-close svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /* آیکون‌های سمت چپ */
+    .header-left {
+        gap: 5px;
+    }
+    
+    .icon-btn {
+        padding: 6px;
+    }
+    
+    .icon-btn .icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /* دکمه جستجو موبایل - در موبایل نمایش داده می‌شود */
+    .mobile-search-btn {
+        display: block !important;
+    }
+    
+    .badge {
+        min-width: 16px;
+        height: 16px;
+        font-size: 10px;
+    }
+    
+    /* منوی دسته‌بندی - مخفی شود */
+    .header-bottom {
+        display: none;
+    }
+    
+    /* مگا منو */
+    .mega-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .mega-title {
+        font-size: 14px;
+    }
+    
+    .mega-list li a {
+        font-size: 12px;
+    }
+    
+    /* دسته‌بندی */
+    .category-menu {
+        padding-left: 15px;
+    }
+    
+    .category-trigger {
+        font-size: 13px;
+    }
+    
+    .menu-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
 }
 
-/* ========================================
-   ریسپانسیو - گوشی (480px تا 768px)
-   ======================================== */
-@media (max-width: 768px) {
-  /* هدر */
-  .header-container {
-    height: 64px;
-    gap: 12px;
-  }
-
-  .header-logo {
-    font-size: 18px;
-  }
-
-  .search-form {
-    max-width: 280px;
-  }
-
-  .search-input {
-    height: 44px;
-    padding: 0 16px 0 44px;
-    font-size: 14px;
-    background-color: var(--search-bg);
-    border: 2px solid var(--border-color);
-  }
-
-  .search-btn {
-    left: 12px;
-  }
-
-  .action-btn {
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--border-color);
-    background: var(--header-bg);
-  }
-
-  .action-badge {
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
-    top: 2px;
-    right: 2px;
-  }
-
-  /* اسلایدر */
-  .banner-slider {
-    margin: 24px auto;
-    padding: 0 12px;
-  }
-
-  .slider-container {
-    height: 300px;
-    border-radius: 12px;
-  }
-
-  .slider-controls {
-    gap: 12px;
-    margin-top: 16px;
-  }
-
-  /* مخفی کردن دکمه‌ها در موبایل */
-  .slider-btn {
-    display: none;
-  }
-
-  .slider-dots {
-    gap: 8px;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-  }
-
-  .dot.active {
-    width: 24px;
-  }
+/* ========== موبایل کوچک (تا 480px) ========== */
+@media screen and (max-width: 480px) {
+    
+    /* هدر */
+    .header-top {
+        padding: 8px 10px;
+    }
+    
+    .logo {
+        font-size: 18px;
+    }
+    
+    /* سرچ‌باکس */
+    .header-center {
+        padding: 12px 10px;
+    }
+    
+    .search-box input {
+        padding: 10px 40px 10px 12px;
+        font-size: 13px;
+        border-radius: 6px;
+    }
+    
+    .search-close svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* آیکون‌ها */
+    .header-left {
+        gap: 3px;
+    }
+    
+    .icon-btn {
+        padding: 5px;
+        border-radius: 6px;
+    }
+    
+    .icon-btn .icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .badge {
+        min-width: 14px;
+        height: 14px;
+        font-size: 9px;
+        top: 3px;
+        left: 3px;
+    }
+    
+    /* منوی دسته‌بندی */
+    .header-bottom {
+        display: none;
+    }
+    
+    /* مگا منو */
+    .mega-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .mega-column {
+        margin-bottom: 10px;
+    }
+    
+    .mega-title {
+        font-size: 13px;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+    
+    .mega-list {
+        gap: 5px;
+    }
+    
+    .mega-list li a {
+        font-size: 11px;
+        padding: 3px 0;
+    }
+    
+    /* دسته‌بندی */
+    .category-menu {
+        border-left: 1px solid rgba(184, 247, 228, 0.2);
+        padding-left: 10px;
+    }
+    
+    .category-trigger {
+        font-size: 12px;
+        gap: 5px;
+    }
+    
+    .menu-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* متن‌ها */
+    body {
+        font-size: 14px;
+    }
+    
 }
 
-/* ========================================
-   ریسپانسیو - گوشی کوچک (زیر 480px)
-   ======================================== */
-@media (max-width: 480px) {
-  /* هدر */
-  .header-container {
-    padding: 0 12px;
-    gap: 8px;
-  }
 
-  .header-logo {
-    font-size: 16px;
-  }
 
-  .search-form {
-    max-width: 160px;
-  }
 
-  .search-input {
-    height: 40px;
-    padding: 0 12px 0 36px;
-    font-size: 13px;
-    background-color: var(--search-bg);
-    border: 2px solid var(--border-color);
-  }
 
-  .search-btn {
-    left: 8px;
-  }
 
-  .header-actions {
-    gap: 6px;
-  }
 
-  .action-btn {
-    width: 38px;
-    height: 38px;
-    border: 2px solid var(--border-color);
-    background: var(--header-bg);
-  }
 
-  .action-badge {
-    width: 14px;
-    height: 14px;
-    font-size: 9px;
-  }
 
-  /* اسلایدر */
-  .banner-slider {
-    margin: 20px auto;
-    padding: 0 12px;
-  }
 
-  .slider-container {
-    height: 240px;
-    border-radius: 10px;
-  }
 
-  .slider-controls {
-    gap: 10px;
-    margin-top: 12px;
-  }
 
-  .slider-btn {
-    width: 38px;
-    height: 38px;
-  }
+/* ===== Responsive Design برای نیوشاپ ===== */
 
-  .slider-btn svg {
-    width: 20px;
-    height: 20px;
-  }
+/* ========== تبلت (768px - 1024px) ========== */
+@media screen and (max-width: 1024px) {
+    
+    /* هدر */
+    .header-top {
+        padding: 12px 20px;
+        gap: 15px;
+    }
+    
+    .logo {
+        font-size: 28px;
+    }
+    
+    /* سرچ‌باکس */
+    .search-box input {
+        padding: 10px 40px 10px 12px;
+        font-size: 13px;
+    }
+    
+    /* آیکون‌ها */
+    .icon-btn {
+        padding: 8px;
+    }
+    
+    .icon-btn .icon {
+        width: 22px;
+        height: 22px;
+    }
+    
+    /* منوی دسته‌بندی */
+    .header-bottom {
+        padding: 0 20px;
+    }
+    
+    .nav-menu {
+        gap: 20px;
+    }
+    
+    .nav-menu li a {
+        font-size: 13px;
+        padding: 12px 0;
+    }
+    
+    /* مگا منو */
+    .mega-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    .category-menu {
+        padding-left: 20px;
+    }
+    
+    .nav-menu li.sell-separator {
+        padding-right: 20px;
+    }
+    
+}
+
+/* ========== موبایل بزرگ (481px - 768px) ========== */
+@media screen and (max-width: 768px) {
+    
+    /* هدر */
+    .header-top {
+        padding: 10px 15px;
+        gap: 10px;
+    }
+    
+    /* سمت راست: فقط لوگو */
+    .header-right {
+        gap: 0;
+        flex: 0;
+    }
+    
+    .logo {
+        font-size: 24px;
+    }
+    
+    /* سرچ‌باکس - در موبایل مخفی می‌شود */
+    .header-center {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        padding: 15px;
+        background-color: var(--bg-header);
+        border-top: 1px solid var(--border-color);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+    
+    .header-center.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .search-box {
+        position: relative;
+        width: 100%;
+    }
+    
+    .search-box input {
+        width: 100%;
+        padding: 12px 45px 12px 15px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+        outline: none;
+        background-color: var(--bg-input);
+        color: var(--text-primary);
+    }
+    
+    .search-box input::placeholder {
+        color: var(--text-muted);
+    }
+    
+    /* دکمه بستن سرچ - در موبایل نمایش داده شود */
+    .search-close {
+        display: block !important;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        color: var(--text-muted);
+        transition: color 0.3s;
+    }
+    
+    .search-close:hover {
+        color: var(--primary-accent);
+    }
+    
+    .search-close svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /* آیکون‌های سمت چپ */
+    .header-left {
+        gap: 5px;
+    }
+    
+    .icon-btn {
+        padding: 6px;
+    }
+    
+    .icon-btn .icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /* دکمه جستجو موبایل */
+    .mobile-search-btn {
+        display: block !important;
+    }
+    
+    /* Badge */
+    .badge {
+        min-width: 16px;
+        height: 16px;
+        font-size: 10px;
+    }
+    
+    /* انیمیشن تم آیکون */
+    .theme-icon-wrapper {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .theme-icon-wrapper .icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /* منوی دسته‌بندی - مخفی شود */
+    .header-bottom {
+        display: none;
+    }
+    
+    /* مگا منو */
+    .mega-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .mega-title {
+        font-size: 14px;
+    }
+    
+    .mega-list li a {
+        font-size: 12px;
+    }
+    
+    /* دسته‌بندی */
+    .category-menu {
+        padding-left: 15px;
+    }
+    
+    .category-trigger {
+        font-size: 13px;
+    }
+    
+    .menu-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+}
+
+/* ========== موبایل کوچک (تا 480px) ========== */
+@media screen and (max-width: 480px) {
+    
+    /* هدر */
+    .header-top {
+        padding: 8px 10px;
+    }
+    
+    /* سمت راست */
+    .header-right {
+        gap: 8px;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+    
+    /* سرچ‌باکس */
+    .header-center {
+        padding: 12px 10px;
+    }
+    
+    .search-box input {
+        padding: 10px 40px 10px 12px;
+        font-size: 13px;
+        border-radius: 6px;
+    }
+    
+    .search-close svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* آیکون‌ها */
+    .header-left {
+        gap: 3px;
+    }
+    
+    .icon-btn {
+        padding: 5px;
+        border-radius: 6px;
+    }
+    
+    .icon-btn .icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* Badge */
+    .badge {
+        min-width: 14px;
+        height: 14px;
+        font-size: 9px;
+        top: 3px;
+        left: 3px;
+    }
+    
+    /* انیمیشن تم آیکون */
+    .theme-icon-wrapper {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .theme-icon-wrapper .icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* منوی دسته‌بندی */
+    .header-bottom {
+        display: none;
+    }
+    
+    /* مگا منو */
+    .mega-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .mega-column {
+        margin-bottom: 10px;
+    }
+    
+    .mega-title {
+        font-size: 13px;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+    
+    .mega-list {
+        gap: 5px;
+    }
+    
+    .mega-list li a {
+        font-size: 11px;
+        padding: 3px 0;
+    }
+    
+    /* دسته‌بندی */
+    .category-menu {
+        border-left: 1px solid var(--border-accent);
+        padding-left: 10px;
+    }
+    
+    .category-trigger {
+        font-size: 12px;
+        gap: 5px;
+    }
+    
+    .menu-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* متن‌ها */
+    body {
+        font-size: 14px;
+    }
+    
+}
+
+/* ========== موبایل خیلی کوچک (تا 360px) ========== */
+@media screen and (max-width: 360px) {
+    
+    /* هدر */
+    .header-top {
+        padding: 6px 8px;
+    }
+    
+    .logo {
+        font-size: 18px;
+    }
+    
+    /* سرچ‌باکس */
+    .search-box input {
+        padding: 7px 28px 7px 7px;
+        font-size: 11px;
+    }
+    
+    /* آیکون‌ها */
+    .header-left {
+        gap: 2px;
+    }
+    
+    .icon-btn {
+        padding: 4px;
+    }
+    
+    .icon-btn .icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .badge {
+        min-width: 12px;
+        height: 12px;
+        font-size: 8px;
+    }
+    
+    /* انیمیشن تم آیکون */
+    .theme-icon-wrapper {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .theme-icon-wrapper .icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* مگا منو */
+    .mega-container {
+        padding: 8px;
+    }
+    
+    .mega-title {
+        font-size: 12px;
+    }
+    
+    .mega-list li a {
+        font-size: 10px;
+    }
+    
+    /* دسته‌بندی */
+    .category-trigger {
+        font-size: 11px;
+    }
+    
+}
+
+/* ========== افقی موبایل (landscape) ========== */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    
+    /* هدر کوچک‌تر */
+    .header-top {
+        padding: 8px 15px;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+    
+    .search-box input {
+        padding: 8px 35px 8px 10px;
+    }
+    
+    /* مگا منو ارتفاع کمتر */
+    .mega-menu {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    
+    .mega-container {
+        padding: 15px;
+    }
+    
+}
+
+/* ========== تنظیمات اضافی برای تاچ ========== */
+@media (hover: none) and (pointer: coarse) {
+    
+    /* برای دستگاه‌های لمسی */
+    .icon-btn:hover {
+        background-color: transparent;
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .icon-btn:active {
+        background: var(--icon-hover);
+    }
+    
+    .nav-menu li a:hover::after {
+        width: 0;
+    }
+    
+    .nav-menu li a:active {
+        color: var(--primary-accent);
+    }
+    
+}
+
+/* ========== پرینت ========== */
+@media print {
+    
+    .main-header {
+        position: static;
+        box-shadow: none;
+        border-bottom: 1px solid #000;
+    }
+    
+    .header-bottom {
+        display: none;
+    }
+    
+    .icon-btn {
+        display: none;
+    }
+    
+    .search-box {
+        display: none;
+    }
+    
 }

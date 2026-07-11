@@ -43,1066 +43,499 @@
 
 
 
-/* مخفی کردن اسکرول‌بار برای همه عناصر */
+
+
+
+
+
+
+
+
+
+
+/* ===== متغیرهای رنگی ===== */
+:root {
+    --primary-accent: #8b9dc3;
+    --primary-dark: #25272C;
+    --icon-hover: #6366F133;
+    
+    --bg-body: #f8f9fa;
+    --bg-header: #ffffff;
+    --bg-card: #ffffff;
+    --bg-input: #f5f5f5;
+    
+    --text-primary: #25272C;
+    --text-secondary: #555555;
+    --text-muted: #888888;
+    --text-header: #25272C;
+    --text-icon: #25272C;
+    
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-accent: rgba(37, 39, 44, 0.15);
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --hover-bg: rgba(0, 0, 0, 0.04);
+}
+
+/* ===== دارک مود ===== */
+html.dark-mode {
+    --primary-accent: #B8F7E4;
+    --primary-dark: #25272C;
+    --text-light: #ffffff;
+    --text-muted: #a0a0a0;
+    --icon-hover: #B8F7E433;
+    
+    --bg-body: #1a1c20;
+    --bg-header: #25272C;
+    --bg-card: #2a2d33;
+    --bg-input: rgba(255, 255, 255, 0.05);
+    
+    --text-primary: #e8e8e8;
+    --text-secondary: #b0b0b0;
+    --text-header: #ffffff;
+    --text-icon: #ffffff;
+    
+    --border-color: rgba(184, 247, 228, 0.15);
+    --border-accent: rgba(184, 247, 228, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --hover-bg: rgba(184, 247, 228, 0.1);
+}
+
+/* ===== ریست ===== */
 * {
-  /* Firefox */
-  scrollbar-width: none;
-  
-  /* IE و Edge قدیمی */
-  -ms-overflow-style: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* WebKit (Chrome, Safari, Edge جدید) */
-*::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
-}
-
-/* برای body هم جداگانه */
-
-body::-webkit-scrollbar {
-  display: none;
-}
-
-/* استایل‌های پایه هدر */
-
-
-
-
-
-/* ریست body برای جلوگیری از مشکل */
 body {
-
-    scrollbar-width: none;
-  -ms-overflow-style: none;
-
-
-  background-color: var(--body-bg);
-  font-family: 'Vazirmatn', sans-serif;
-  margin: 0;
-  padding: 0;
-  padding-top: 72px; /* هم‌اندازه ارتفاع هدر */
-  overflow-x: hidden; /* جلوگیری از اسکرول افقی */
-}
-
-body::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
-}
-
-
-
-
-/* متغیرهای رنگی */
-:root {
-  --body-bg: #f8f9fa;
-  --header-bg: #f8f9fa;
-    --dot-bg: #ced4da;  
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --border-color: #e9ecef;
-  --search-bg: #f8f9fa;
-  --primary-gradient: linear-gradient(135deg, #93c5fd 0%, #f9a8d4 100%);
-  
-  /* رنگ دکمه‌های اسلایدر */
-  --slider-btn-bg: rgba(255, 255, 255, 0.9);
-  --slider-btn-border: #e5e7eb;
-  --slider-btn-color: #1f2937;
-  
-  /* رنگ سرچ باکس */
-  --search-input-bg: #f8f9fa;
-}
-
-
-
-img, a {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
-  pointer-events: none;
-}
-
-
-
-
-
-/* بخش خوش‌آمدگویی */
-.welcome-section {
-  min-height: calc(100vh - 72px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 24px;
-  overflow: hidden;
-}
-
-
-/* عنوان خوش‌آمدگویی */
-.welcome-title {
-  font-size: clamp(48px, 8vw, 96px);
-  font-weight: 800;
-  text-align: center;
-  margin: 0;
-  line-height: 1.3;
-  flex-wrap: wrap;
-  gap: 0 20px;
-  letter-spacing: -1px;
-  direction: rtl; /* ✅ اضافه شد */
-  min-height: calc(100vh - 72px);
-  display: flex;
-  align-items: flex-start; /* ✅ تغییر از center به flex-start */
-  justify-content: center;
-  padding: 40px 24px;
-  padding-top: 15vh; /* ✅ فاصله از بالا */
-  overflow: hidden;
-
-}
-
-/* استایل پایه کلمات - قبل از انیمیشن */
-.word {
-  display: inline-block;
-  background: linear-gradient(to left, #f9a8d4 0%, #93c5fd 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0;
-}
-
-
-
-
-
-/* "به" → از چپ میاد */
-.word-1 {
-  animation: slideFromRight 1s ease-out 0.2s forwards;
-}
-
-/* "نیوشاپ" → از بالا میاد (همون) */
-.word-2 {
-  animation: slideFromTop 1s ease-out 0.5s forwards;
-}
-
-/* "خوش" → از پایین میاد (همون) */
-.word-3 {
-  animation: slideFromBottom 1s ease-out 0.8s forwards;
-}
-
-/* "آمدید" → از راست میاد */
-.word-4 {
-  animation: slideFromLeft 1s ease-out 1.1s forwards;
-}
-
-/* انیمیشن از راست (در RTL) */
-@keyframes slideFromRight {
-  0% {
-    opacity: 0;
-    transform: translateX(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* انیمیشن از بالا */
-@keyframes slideFromTop {
-  0% {
-    opacity: 0;
-    transform: translateY(-100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* انیمیشن از پایین */
-@keyframes slideFromBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* انیمیشن از چپ (در RTL) */
-@keyframes slideFromLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-
-
-/* ریسپانسیو */
-@media (max-width: 768px) {
-  .welcome-title {
-    font-size: clamp(36px, 6vw, 64px);
-    gap: 0 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .welcome-title {
-    font-size: clamp(28px, 5vw, 48px);
-    gap: 0 8px;
-  }
-}
-
-
-
-
-
-/* header */
-/* استایل‌های پایه هدر */
-
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 1000;
-  background-color: var(--header-bg);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
-
-
-
-.header-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-/* لوگو با گرادیانت */
-.header-logo {
-  font-size: 24px;
-  font-weight: 800;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0;
-  letter-spacing: -0.5px;
-}
-
-
-/* سرچ باکس */
-.header-center:focus {
-  border-radius: 12px;
-}
-
-.search-form {
-  border-radius: 12px;
-  flex: 1;
-  max-width: 1000px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  transition: box-shadow 0.5s ease;
-}
-
-
-.search-input {
-  width: 100%;
-  height: 52px;
-  padding: 0 20px 0 52px;
-  background-color: var(--search-input-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 12px;
-  font-family: 'Vazirmatn', sans-serif;
-  font-size: 15px;
-  color: var(--text-primary);
-  outline: none;
-  transition: border-color 0.5s ease;
-  position: relative;
-  z-index: 1;
-}
-
-.search-input::placeholder {
-  font-family: 'Vazirmatn', sans-serif;
-  font-weight: 400;
-  color: var(--text-secondary);
-  opacity: 0.8;
-}
-
-.search-input:focus {
-  border-color: transparent;
-}
-
-/* Border گرادیانت سرچ */
-.search-form::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 14px;
-  background: var(--primary-gradient);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: 0;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  padding: 2px;
-}
-
-.search-form:focus-within::before {
-  opacity: 1;
-}
-
-/* سایه گرادیانت سرچ */
-.search-form:focus-within {
-  box-shadow: 
-    -3px -3px 6px rgba(147, 197, 253, 0.4),
-    3px 3px 6px rgba(249, 168, 212, 0.4);
-}
-
-.search-btn {
-  position: absolute;
-  left: 16px;
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 0;
-  transition: color 0.5s ease;
-  z-index: 2;
-}
-
-.search-input:focus ~ .search-btn,
-.search-btn:hover {
-  color: var(--text-primary);
-}
-
-/* اکشن‌ها */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.action-btn {
-  position: relative;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--header-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 50%;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: border-color 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
-  z-index: 1;
-}
-
-/* Border گرادیانت دکمه‌ها */
-.action-btn::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 50%;
-  background: var(--primary-gradient);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: -1;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  padding: 2px;
-}
-
-.action-btn:hover {
-  border-color: transparent;
-  transform: scale(1.05);
-  box-shadow: 
-    -3px -3px 6px rgba(147, 197, 253, 0.4),
-    3px 3px 6px rgba(249, 168, 212, 0.4);
-}
-
-.action-btn:hover::before {
-  opacity: 1;
-}
-
-/* نشانگر سبد خرید */
-.action-badge {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  background-color: #f9a8d4;
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
-/* endheader */
-
-
-
-
-
-
-
-
-
-
-/* ========================================
-   اسلایدر بنر - افکت Slide
-   ======================================== */
-
-
-
-/* اسلایدها - حالا لینک هستن */
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transform: translateX(100%);
-  transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.6s ease;
-  pointer-events: none;
-  display: block; /* ✅ لینک به صورت block */
-  text-decoration: none; /* ✅ حذف underline */
-  cursor: pointer;
-}
-
-/* اسلاید فعال */
-.slide.active {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-  z-index: 2;
-}
-
-/* اسلایدی که خارج شده به سمت چپ */
-.slide.exit-left {
-  opacity: 0;
-  transform: translateX(-100%);
-  z-index: 1;
-}
-
-/* اسلایدی که خارج شده به سمت راست */
-.slide.exit-right {
-  opacity: 0;
-  transform: translateX(100%);
-  z-index: 1;
-}
-
-/* اسلایدی که از چپ وارد میشه */
-.slide.enter-left {
-  transform: translateX(-100%);
-}
-
-/* اسلایدی که از راست وارد میشه */
-.slide.enter-right {
-  transform: translateX(100%);
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  pointer-events: none; /* ✅ تصویر خودش کلیک نمی‌گیره، لینک می‌گیره */
-}
-
-/* افکت هاور برای اسلاید فعال */
-.slide.active:hover img {
-  filter: brightness(1.05);
-  transition: filter 0.3s ease;
-}
-
-
-
-
-.banner-slider {
-  max-width: 1280px;
-  margin: 40px auto;
-  padding: 0 24px;
-  position: relative;
-}
-
-.slider-container {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  overflow: hidden;
-  border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-touch-callout: none;
-}
-
-.slider-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-/* اسلایدها */
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transform: translateX(100%);
-  transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.6s ease;
-  pointer-events: none;
-}
-
-/* اسلاید فعال */
-.slide.active {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-  z-index: 2;
-}
-
-/* اسلایدی که خارج شده به سمت چپ (بعدی) */
-.slide.exit-left {
-  opacity: 0;
-  transform: translateX(-100%);
-  z-index: 1;
-}
-
-/* اسلایدی که خارج شده به سمت راست (قبلی) */
-.slide.exit-right {
-  opacity: 0;
-  transform: translateX(100%);
-  z-index: 1;
-}
-
-/* اسلایدی که از چپ وارد میشه */
-.slide.enter-left {
-  transform: translateX(-100%);
-}
-
-/* اسلایدی که از راست وارد میشه */
-.slide.enter-right {
-  transform: translateX(100%);
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  pointer-events: none;
-}
-
-/* ========================================
-   انیمیشن ورود بنر هنگام اسکرول
-   ======================================== */
-
-.scroll-animate {
-  opacity: 0;
-  transform: translateY(100px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.scroll-animate.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ========================================
-   دکمه‌ها و Dots
-   ======================================== */
-
-/* Container دکمه‌ها و dots */
-.slider-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-top: 24px;
-  position: relative;
-  z-index: 10;
-}
-
-/* دکمه‌های چپ و راست - فعال و قابل کلیک */
-.slider-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--slider-btn-bg);
-  border: 2px solid var(--border-color);
-  color: var(--text-primary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  position: relative;
-  z-index: 11;
-  pointer-events: auto;
-}
-
-.slider-btn:hover {
-  background: var(--header-bg);
-  border-color: transparent;
-  background-image: linear-gradient(var(--header-bg), var(--header-bg)), var(--primary-gradient);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: 
-    -3px -3px 6px rgba(147, 197, 253, 0.4),
-    3px 3px 6px rgba(249, 168, 212, 0.4);
-  transform: scale(1.05);
-}
-
-/* نقاط پایین - فقط نمادین */
-.slider-dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 0;
-  position: relative;
-  z-index: 11;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--dot-bg);
-  border: none;
-  cursor: default;
-  transition: all 0.3s ease;
-  padding: 0;
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-.dot.active {
-  background: var(--primary-gradient);
-  width: 30px;
-  border-radius: 5px;
-  opacity: 1;
-}
-
-
-
-
-
-
-/* پرفروش */
-
-
-/* ========================================
-   متغیرهای رنگی محصولات
-   ======================================== */
-:root {
-  --product-card-bg: #ffffff;
-  --product-card-shadow: 0 4px 12px rgba(0,0,0,0.06);
-  --product-card-hover-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  --product-price-color: #1f2937;
-  --product-name-color: #6b7280;
-}
-
-/* ========================================
-   سکشن محصولات
-   ======================================== */
-.products-section {
-  max-width: 1280px;
-  margin: 60px auto;
-  padding: 0 24px;
-  direction: rtl;
-}
-
-/* ========================================
-   هدر بخش
-   ======================================== */
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.section-title {
-  font-size: 28px;
-  font-weight: 800;
-  margin: 0;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.5px;
-}
-
-/* دکمه مشاهده همه */
-.view-all-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--header-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 50px;
-  color: var(--text-primary);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.view-all-btn:hover {
-  border-color: transparent;
-  background-image: linear-gradient(var(--header-bg), var(--header-bg)), var(--primary-gradient);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: 
-    -3px -3px 6px rgba(147, 197, 253, 0.4),
-    3px 3px 6px rgba(249, 168, 212, 0.4);
-  transform: translateX(-4px);
-}
-
-.view-all-btn svg {
-  transition: transform 0.3s ease;
-}
-
-.view-all-btn:hover svg {
-  transform: translateX(-4px);
-}
-
-/* ========================================
-   Container محصولات (دکمه‌ها + لیست)
-   ======================================== */
-.products-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-/* ========================================
-   لیست محصولات
-   ======================================== */
-.products-list {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
-
-.products-track {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 20px;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-/* ========================================
-   دکمه‌های ناوبری
-   ======================================== */
-.products-nav {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--header-bg);
-  border: 2px solid var(--border-color);
-  color: var(--text-primary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 2;
-}
-
-.products-nav:hover {
-  border-color: transparent;
-  background-image: linear-gradient(var(--header-bg), var(--header-bg)), var(--primary-gradient);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: 
-    -3px -3px 6px rgba(147, 197, 253, 0.4),
-    3px 3px 6px rgba(249, 168, 212, 0.4);
-  transform: scale(1.05);
-}
-
-.products-nav:active {
-  transform: scale(0.98);
-}
-
-.products-nav svg {
-  transition: transform 0.3s ease;
-}
-
-/* ========================================
-   کارت محصول
-   ======================================== */
-.product-card {
-  flex: 0 0 calc((100% - 60px) / 4);
-  max-width: calc((100% - 60px) / 4);
-  background: var(--product-card-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  direction: rtl;
-  box-sizing: border-box;
-}
-
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--product-card-hover-shadow);
-  border-color: transparent;
-  background-image: linear-gradient(var(--product-card-bg), var(--product-card-bg)), var(--primary-gradient);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+    font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+    direction: rtl;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* تصویر محصول */
-.product-image {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 0.85;
-  overflow: hidden;
-  background: var(--search-bg);
-  position: relative;
+/* ===== هدر اصلی ===== */
+.main-header {
+    background-color: var(--bg-header);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 0 var(--border-color), 0 2px 12px var(--shadow-color);
+    border-bottom: solid 1px var(--border-color);
 }
 
-.product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-  pointer-events: none;
+/* ===== ردیف اول هدر ===== */
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    gap: 20px;
 }
 
-.product-card:hover .product-image img {
-  transform: scale(1.05);
+/* سمت راست: لوگو + سرچ */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
 }
 
-/* اطلاعات محصول */
-.product-info {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: right;
+/* لوگو */
+.logo {
+    font-family: 'Lalezar', 'Vazirmatn', cursive;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--primary-dark);
+    white-space: nowrap;
+    transition: color 0.3s;
+    letter-spacing: 1px;
 }
 
-.product-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 44px;
+html.dark-mode .logo {
+    color: var(--primary-accent);
 }
 
-.product-price {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--product-price-color);
-  margin: 0;
+.logo a {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.3s;
 }
 
-.product-details {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 8px 16px;
-  background: var(--primary-gradient);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  transition: all 0.3s ease;
-  align-self: flex-start;
+.logo a:hover {
+    opacity: 0.8;
 }
 
-.product-details:hover {
-  transform: scale(1.03);
-  box-shadow: 0 4px 12px rgba(147, 197, 253, 0.4);
+/* سرچ‌باکس */
+.header-center {
+    flex-grow: 1;
 }
 
-/* ========================================
-   ریسپانسیو - لپ‌تاپ کوچک
-   ======================================== */
-@media (max-width: 1024px) {
-  .products-section {
-    margin: 50px auto;
-    padding: 0 16px;
-  }
-  
-  .section-title {
-    font-size: 24px;
-  }
-  
-  .products-track {
-    gap: 16px;
-  }
-  
-  .product-card {
-    flex: 0 0 calc((100% - 48px) / 4);
-    max-width: calc((100% - 48px) / 4);
-  }
-  
-  .product-name {
-    font-size: 15px;
-  }
-  
-  .product-price {
-    font-size: 17px;
-  }
+.search-box {
+    width: 100%;
+    position: relative;
 }
 
-/* ========================================
-   ریسپانسیو - تبلت (۳ کارت)
-   ======================================== */
-@media (max-width: 768px) {
-  .products-section {
-    margin: 40px auto;
-    padding: 0 12px;
-  }
-  
-  .section-header {
-    margin-bottom: 24px;
-  }
-  
-  .section-title {
-    font-size: 20px;
-  }
-  
-  .view-all-btn {
-    padding: 8px 16px;
-    font-size: 13px;
-  }
-  
-  .products-container {
-    gap: 10px;
-  }
-  
-  .products-nav {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .products-track {
-    gap: 12px;
-  }
-  
-  .product-card {
-    flex: 0 0 calc((100% - 24px) / 3);
-    max-width: calc((100% - 24px) / 3);
-  }
-  
-  .product-info {
-    padding: 12px;
-  }
-  
-  .product-name {
+.search-box input {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
     font-size: 14px;
-    min-height: 40px;
-  }
-  
-  .product-price {
-    font-size: 16px;
-  }
-  
-  .product-details {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
+    font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+    outline: none;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    transition: all 0.3s;
 }
 
-/* ========================================
-   ریسپانسیو - گوشی (۲ کارت)
-   ======================================== */
-@media (max-width: 580px) {
-  .product-card {
-    flex: 0 0 calc((100% - 12px) / 2);
-    max-width: calc((100% - 12px) / 2);
-  }
-  
-  .products-nav {
-    width: 38px;
-    height: 38px;
-  }
-  
-  .products-nav svg {
+.search-box input::placeholder {
+    font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+    color: var(--text-muted);
+}
+
+.search-box input:focus {
+    border-color: var(--primary-accent);
+    background-color: var(--bg-card);
+    box-shadow: 0 0 0 3px rgba(184, 247, 228, 0.2);
+}
+
+/* دکمه بستن سرچ */
+.search-close {
+    display: none;
+}
+
+/* آیکون‌های سمت چپ */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-btn {
+    position: relative;
+    background: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    color: var(--text-icon);
+}
+
+.icon-btn:hover {
+    background: var(--icon-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--icon-hover);
+    transition: all 0.25s ease;
+}
+
+.icon-btn .icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+/* Badge */
+.badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: var(--primary-accent);
+    color: var(--primary-dark);
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+/* Badge نوتیفیکیشن - قرمز */
+
+
+
+
+/* ===== انیمیشن زنگ زدن نوتیفیکیشن ===== */
+@keyframes bell-shake {
+    0% { transform: rotate(0); }
+    15% { transform: rotate(15deg); }
+    30% { transform: rotate(-15deg); }
+    45% { transform: rotate(10deg); }
+    60% { transform: rotate(-10deg); }
+    75% { transform: rotate(5deg); }
+    100% { transform: rotate(0); }
+}
+
+@keyframes bell-pulse {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.4);
+    }
+    50% { 
+        box-shadow: 0 0 0 10px rgba(255, 59, 59, 0);
+    }
+}
+
+.notification-btn.shake .icon {
+    animation: bell-shake 0.6s ease-in-out;
+    transform-origin: top center;
+}
+
+.notification-btn.shake {
+    animation: bell-pulse 0.6s ease-in-out;
+}
+
+
+
+
+
+
+
+
+
+
+.notification-btn .badge {
+    background-color: #ff3b3b;
+    color: #ffffff;
+}
+
+/* Badge سبد خرید - قرمز */
+.cart-btn .badge {
+    background-color: #ff3b3b;
+    color: #ffffff;
+}
+
+/* دکمه جستجو موبایل */
+.mobile-search-btn {
+    display: none !important;
+}
+
+/* انیمیشن تغییر آیکون تم */
+.theme-icon-wrapper {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+}
+
+.theme-icon-wrapper .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                opacity 0.3s ease,
+                visibility 0.3s ease;
+}
+
+/* لایت مود: خورشید نمایش، ماه مخفی */
+.icon-sun {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.icon-moon {
+    transform: translateY(100%);
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* دارک مود: خورشید مخفی، ماه نمایش */
+html.dark-mode .icon-sun {
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+}
+
+html.dark-mode .icon-moon {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ===== ردیف دوم هدر ===== */
+.header-bottom {
+    border-top: 1px solid var(--border-color);
+    padding: 0 30px;
+    max-height: 60px;
+    overflow: hidden;
+    opacity: 1;
+    transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                padding 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* وقتی اسکرول می‌شود، منوی دوم مخفی می‌شود */
+/* وقتی اسکرول می‌شود، منوی دوم مخفی می‌شود */
+/* وقتی اسکرول می‌شود، منوی دوم کاملاً مخفی می‌شود */
+/* وقتی اسکرول می‌شود، منوی دوم مخفی می‌شود */
+html.scrolled .main-header .header-bottom,
+.main-header.scrolled .header-bottom {
+    max-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none;
+    transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.6s ease;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-menu li {
+    position: relative;
+}
+
+.nav-menu li a {
+    display: block;
+    padding: 15px 0;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.nav-menu li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-accent);
+    transition: width 0.3s ease;
+}
+
+.nav-menu li a:hover {
+    color: var(--primary-dark);
+}
+
+html.dark-mode .nav-menu li a:hover {
+    color: var(--primary-accent);
+}
+
+.nav-menu li a:hover::after {
+    width: 100%;
+}
+
+.nav-menu li.sell-separator {
+    border-right: 1px solid var(--border-accent);
+    padding-right: 30px;
+    margin-right: auto;
+}
+
+/* ===== مگا منو ===== */
+.category-menu {
+    border-left: 1px solid var(--border-accent);
+    padding-left: 30px;
+    position: static !important;
+}
+
+.category-trigger {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.menu-icon {
     width: 20px;
     height: 20px;
-  }
 }
 
-/* ========================================
-   ریسپانسیو - گوشی کوچک (۱ کارت)
-   ======================================== */
-@media (max-width: 400px) {
-  .products-section {
-    margin: 30px auto;
-  }
-  
-  .section-title {
-    font-size: 18px;
-  }
-  
-  .product-card {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-  
-  .products-nav {
-    width: 36px;
-    height: 36px;
-  }
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    background-color: var(--bg-header);
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px var(--shadow-color);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.mega-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mega-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.mega-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.mega-title {
+    color: var(--primary-dark);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    transition: color 0.3s;
+}
+
+html.dark-mode .mega-title {
+    color: var(--primary-accent);
+}
+
+.mega-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mega-list li a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.3s;
+    padding: 5px 0;
+}
+
+.mega-list li a:hover {
+    color: var(--primary-dark);
+    padding-right: 5px;
+}
+
+html.dark-mode .mega-list li a:hover {
+    color: var(--primary-accent);
+}
+
+/* ===== محتوای اصلی ===== */
+.main-content {
+    min-height: 100vh;
+    padding: 30px;
+    background-color: var(--bg-body);
+    transition: background-color 0.3s ease;
 }
