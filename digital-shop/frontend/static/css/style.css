@@ -1,110 +1,145 @@
+/* ═══════════════════════════════════════════════════════════════
+   🎨 نیوشاپ - فایل استایل اصلی
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════════════════════════════════════
+   📝 بخش ۱: فونت‌ها
+   ═══════════════════════════════════════════════════════════════ */
+
 /* فونت وزیرمتن */
 @font-face {
-  font-family: 'Vazirmatn';
-  src: url('../fonts/Vazir-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Vazirmatn';
+    src: url('../fonts/Vazir-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'Vazirmatn';
-  src: url('../fonts/Vazir-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Vazirmatn';
+    src: url('../fonts/Vazir-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'Vazirmatn';
-  src: url('../fonts/Vazir-Regular.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Vazirmatn';
+    src: url('../fonts/Vazir-Regular.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'Vazirmatn';
-  src: url('../fonts/Vazir-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Vazirmatn';
+    src: url('../fonts/Vazir-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'Vazirmatn';
-  src: url('../fonts/Vazir-Bold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Vazirmatn';
+    src: url('../fonts/Vazir-Bold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
 }
 
 
+/* ═══════════════════════════════════════════════════════════════
+   🎨 بخش ۲: متغیرهای رنگی
+   ═══════════════════════════════════════════════════════════════ */
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* ===== متغیرهای رنگی ===== */
+/* ===== Light Mode ===== */
 :root {
-    --primary-accent: #8b9dc3;
+    /* Brand Colors */
+    --primary-accent: #4361EE;
+    --secondary-accent: #4CC9F0;
+    --danger-accent: #F72585;
+    --premium-accent: #B026FF;
     --primary-dark: #25272C;
-    --icon-hover: #6366F133;
-    
-    --bg-body: #f8f9fa;
-    --bg-header: #ffffff;
-    --bg-card: #ffffff;
-    --bg-input: #f5f5f5;
-    
-    --text-primary: #25272C;
-    --text-secondary: #555555;
-    --text-muted: #888888;
-    --text-header: #25272C;
-    --text-icon: #25272C;
-    
-    --border-color: rgba(0, 0, 0, 0.08);
-    --border-accent: rgba(37, 39, 44, 0.15);
-    --shadow-color: rgba(0, 0, 0, 0.08);
-    --hover-bg: rgba(0, 0, 0, 0.04);
+
+    /* Hover */
+    --icon-hover: rgba(67, 97, 238, 0.12);
+    --hover-bg: rgba(67, 97, 238, 0.06);
+
+    /* Background */
+    --bg-body: #F8FAFC;
+    --bg-header: rgba(255, 255, 255, 0.75);
+    --bg-card: #FFFFFF;
+    --bg-input: #F1F5F9;
+
+    /* Text */
+    --text-primary: #1E293B;
+    --text-secondary: #586474;
+    --text-muted: #94A3B8;
+    --text-header: #1E293B;
+    --text-icon: #334155;
+
+    /* Border */
+    --border-color: rgba(67, 97, 238, 0.12);
+    --border-accent: rgba(67, 97, 238, 0.20);
+
+    /* Shadow */
+    --shadow-color: rgba(15, 23, 42, 0.08);
 }
 
-/* ===== دارک مود ===== */
+/* ===== Dark Mode ===== */
 html.dark-mode {
-    --primary-accent: #B8F7E4;
-    --primary-dark: #25272C;
-    --text-light: #ffffff;
-    --text-muted: #a0a0a0;
-    --icon-hover: #B8F7E433;
-    
-    --bg-body: #1a1c20;
-    --bg-header: #25272C;
-    --bg-card: #2a2d33;
-    --bg-input: rgba(255, 255, 255, 0.05);
-    
-    --text-primary: #e8e8e8;
-    --text-secondary: #b0b0b0;
-    --text-header: #ffffff;
-    --text-icon: #ffffff;
-    
-    --border-color: rgba(184, 247, 228, 0.15);
-    --border-accent: rgba(184, 247, 228, 0.2);
-    --shadow-color: rgba(0, 0, 0, 0.5);
-    --hover-bg: rgba(184, 247, 228, 0.1);
+    /* Brand Colors */
+    --primary-accent: #4361EE;
+    --secondary-accent: #4CC9F0;
+    --danger-accent: #F72585;
+    --premium-accent: #B026FF;
+    --primary-dark: #0F172A;
+
+    /* Hover */
+    --icon-hover: rgba(76, 201, 240, 0.15);
+    --hover-bg: rgba(67, 97, 238, 0.12);
+
+    /* Background */
+    --bg-body: #0F172A;
+    --bg-header: rgba(15, 23, 42, 0.80);
+    --bg-card: #172033;
+    --bg-input: #1E293B;
+
+    /* Text */
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    --text-header: #FFFFFF;
+    --text-icon: #FFFFFF;
+
+    /* Border */
+    --border-color: rgba(76, 201, 240, 0.12);
+    --border-accent: rgba(76, 201, 240, 0.20);
+
+    /* Shadow */
+    --shadow-color: rgba(0, 0, 0, 0.45);
 }
 
-/* ===== ریست ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   🔄 بخش ۳: ریست و تنظیمات پایه
+   ═══════════════════════════════════════════════════════════════ */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    background: linear-gradient(135deg, #4361EE, #B026FF);
 }
 
 body {
@@ -116,9 +151,16 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
+/* ═══════════════════════════════════════════════════════════════
+   🏠 بخش ۴: هدر اصلی
+   ═══════════════════════════════════════════════════════════════ */
+
 /* ===== هدر اصلی ===== */
 .main-header {
     background-color: var(--bg-header);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -144,19 +186,21 @@ body {
     flex: 1;
 }
 
-/* لوگو */
+/* ===== لوگو ===== */
 .logo {
     font-family: 'Lalezar', 'Vazirmatn', cursive;
     font-size: 32px;
     font-weight: 400;
-    color: var(--primary-dark);
     white-space: nowrap;
-    transition: color 0.3s;
+    transition: opacity 0.3s;
     letter-spacing: 1px;
-}
-
-html.dark-mode .logo {
-    color: var(--primary-accent);
+    background: linear-gradient(to left,
+        var(--secondary-accent) 0%,
+        var(--danger-accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 .logo a {
@@ -167,9 +211,27 @@ html.dark-mode .logo {
 
 .logo a:hover {
     opacity: 0.8;
+    cursor: default;
 }
 
-/* سرچ‌باکس */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== سرچ‌باکس ===== */
 .header-center {
     flex-grow: 1;
 }
@@ -198,17 +260,60 @@ html.dark-mode .logo {
 }
 
 .search-box input:focus {
-    border-color: var(--primary-accent);
+    border-color: var(--secondary-accent);
     background-color: var(--bg-card);
-    box-shadow: 0 0 0 3px rgba(184, 247, 228, 0.2);
+    box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.18);
 }
 
-/* دکمه بستن سرچ */
-.search-close {
+/* دکمه بستن و تایید سرچ - در دسکتاپ مخفی */
+.search-close,
+.search-submit {
     display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: var(--text-muted);
+    transition: color 0.2s;
 }
 
-/* آیکون‌های سمت چپ */
+/* ===== تنظیمات مخصوص موبایل ===== */
+@media (max-width: 768px) {
+    /* ایجاد فضای خالی در سمت چپ اینپوت تا متن روی دکمه‌ها نیفته */
+    .search-box input {
+        width: 100px;
+        padding-left: 85px;
+        padding-right: 15px;
+    }
+
+    /* نمایش دکمه‌ها */
+    .search-close,
+    .search-submit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* دکمه تایید (ذره‌بین) - چسبیده به لبه چپ */
+    .search-submit {
+        left: 10px;
+    }
+
+    /* دکمه لغو (ضربدر) - کنار ذره‌بین */
+    .search-close {
+        left: 44px;
+    }
+
+    .search-submit:hover,
+    .search-close:hover {
+        color: var(--text-primary);
+    }
+}
+
+/* ===== آیکون‌های سمت چپ ===== */
 .header-left {
     display: flex;
     align-items: center;
@@ -239,13 +344,13 @@ html.dark-mode .logo {
     display: block;
 }
 
-/* Badge */
+/* ===== Badge ===== */
 .badge {
     position: absolute;
     top: 5px;
     left: 5px;
     background-color: var(--primary-accent);
-    color: var(--primary-dark);
+    color: #ffffff;
     font-size: 11px;
     font-weight: 700;
     min-width: 18px;
@@ -258,57 +363,19 @@ html.dark-mode .logo {
 }
 
 /* Badge نوتیفیکیشن - قرمز */
-
-
-
-
-/* ===== انیمیشن زنگ زدن نوتیفیکیشن ===== */
-@keyframes bell-shake {
-    0% { transform: rotate(0); }
-    15% { transform: rotate(15deg); }
-    30% { transform: rotate(-15deg); }
-    45% { transform: rotate(10deg); }
-    60% { transform: rotate(-10deg); }
-    75% { transform: rotate(5deg); }
-    100% { transform: rotate(0); }
-}
-
-@keyframes bell-pulse {
-    0%, 100% { 
-        box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.4);
-    }
-    50% { 
-        box-shadow: 0 0 0 10px rgba(255, 59, 59, 0);
-    }
-}
-
-.notification-btn.shake .icon {
-    animation: bell-shake 0.6s ease-in-out;
-    transform-origin: top center;
-}
-
-.notification-btn.shake {
-    animation: bell-pulse 0.6s ease-in-out;
-}
-
-
-
-
-
-
-
-
-
-
 .notification-btn .badge {
-    background-color: #ff3b3b;
+    background-color: var(--danger-accent);
     color: #ffffff;
+    top: -5px;
+    left: -5px;
 }
 
 /* Badge سبد خرید - قرمز */
 .cart-btn .badge {
-    background-color: #ff3b3b;
+    background-color: var(--danger-accent);
     color: #ffffff;
+    top: -5px;
+    left: -5px;
 }
 
 /* دکمه جستجو موبایل */
@@ -316,7 +383,11 @@ html.dark-mode .logo {
     display: none !important;
 }
 
-/* انیمیشن تغییر آیکون تم */
+
+/* ═══════════════════════════════════════════════════════════════
+   🌓 بخش ۵: انیمیشن تغییر آیکون تم
+   ═══════════════════════════════════════════════════════════════ */
+
 .theme-icon-wrapper {
     position: relative;
     width: 24px;
@@ -362,7 +433,11 @@ html.dark-mode .icon-moon {
     visibility: visible;
 }
 
-/* ===== ردیف دوم هدر ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   📋 بخش ۶: ردیف دوم هدر و منوی ناوبری
+   ═══════════════════════════════════════════════════════════════ */
+
 .header-bottom {
     border-top: 1px solid var(--border-color);
     padding: 0 30px;
@@ -374,10 +449,7 @@ html.dark-mode .icon-moon {
                 opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* وقتی اسکرول می‌شود، منوی دوم مخفی می‌شود */
-/* وقتی اسکرول می‌شود، منوی دوم مخفی می‌شود */
 /* وقتی اسکرول می‌شود، منوی دوم کاملاً مخفی می‌شود */
-/* وقتی اسکرول می‌شود، منوی دوم مخفی می‌شود */
 html.scrolled .main-header .header-bottom,
 .main-header.scrolled .header-bottom {
     max-height: 0 !important;
@@ -418,16 +490,16 @@ html.scrolled .main-header .header-bottom,
     right: 0;
     width: 0;
     height: 2px;
-    background-color: var(--primary-accent);
+    background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
     transition: width 0.3s ease;
 }
 
 .nav-menu li a:hover {
-    color: var(--primary-dark);
+    color: var(--primary-accent);
 }
 
 html.dark-mode .nav-menu li a:hover {
-    color: var(--primary-accent);
+    color: var(--secondary-accent);
 }
 
 .nav-menu li a:hover::after {
@@ -440,7 +512,11 @@ html.dark-mode .nav-menu li a:hover {
     margin-right: auto;
 }
 
-/* ===== مگا منو ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   🗂️ بخش ۷: مگا منو
+   ═══════════════════════════════════════════════════════════════ */
+
 .category-menu {
     border-left: 1px solid var(--border-accent);
     padding-left: 30px;
@@ -465,6 +541,8 @@ html.dark-mode .nav-menu li a:hover {
     right: 0;
     left: 0;
     background-color: var(--bg-header);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-top: 1px solid var(--border-color);
     box-shadow: 0 8px 24px var(--shadow-color);
     opacity: 0;
@@ -472,6 +550,34 @@ html.dark-mode .nav-menu li a:hover {
     transform: translateY(-10px);
     transition: all 0.3s ease;
     z-index: 999;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* اسکرول‌بار اختصاصی برای مگا منو */
+.mega-menu::-webkit-scrollbar {
+    width: 6px;
+    display: block;
+}
+
+.mega-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mega-menu::-webkit-scrollbar-thumb {
+    background: var(--border-accent);
+    border-radius: 3px;
+    transition: background 0.3s;
+}
+
+.mega-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-accent);
+}
+
+/* فایرفاکس */
+.mega-menu {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-accent) transparent;
 }
 
 .mega-menu.active {
@@ -495,7 +601,7 @@ html.dark-mode .nav-menu li a:hover {
 }
 
 .mega-title {
-    color: var(--primary-dark);
+    color: var(--primary-accent);
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 15px;
@@ -524,18 +630,120 @@ html.dark-mode .mega-title {
 }
 
 .mega-list li a:hover {
-    color: var(--primary-dark);
+    color: var(--primary-accent);
     padding-right: 5px;
 }
 
 html.dark-mode .mega-list li a:hover {
-    color: var(--primary-accent);
+    color: var(--secondary-accent);
 }
 
-/* ===== محتوای اصلی ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   📄 بخش ۸: محتوای اصلی
+   ═══════════════════════════════════════════════════════════════ */
+
 .main-content {
     min-height: 100vh;
     padding: 30px;
     background-color: var(--bg-body);
     transition: background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* بکگراند gradient از راست آبی به چپ صورتی */
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(to left,
+        rgba(67, 97, 238, 0.10) 0%,
+        rgba(67, 97, 238, 0.06) 25%,
+        rgba(176, 38, 255, 0.04) 50%,
+        rgba(247, 37, 133, 0.06) 75%,
+        rgba(247, 37, 133, 0.10) 100%);
+}
+
+/* محتوای داخلی باید روی بکگراند باشه */
+.main-content > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* دارک مود - رنگ‌ها پررنگ‌تر */
+html.dark-mode .main-content::before {
+    background: linear-gradient(to left,
+        rgba(67, 97, 238, 0.18) 0%,
+        rgba(67, 97, 238, 0.10) 25%,
+        rgba(176, 38, 255, 0.08) 50%,
+        rgba(247, 37, 133, 0.10) 75%,
+        rgba(247, 37, 133, 0.18) 100%);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   🔔 بخش ۹: انیمیشن‌های نوتیفیکیشن و سبد خرید
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ===== انیمیشن زنگ زدن نوتیفیکیشن ===== */
+@keyframes bell-shake {
+    0% { transform: rotate(0); }
+    15% { transform: rotate(15deg); }
+    30% { transform: rotate(-15deg); }
+    45% { transform: rotate(10deg); }
+    60% { transform: rotate(-10deg); }
+    75% { transform: rotate(5deg); }
+    100% { transform: rotate(0); }
+}
+
+@keyframes bell-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(247, 37, 133, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(247, 37, 133, 0);
+    }
+}
+
+.notification-btn.shake .icon {
+    animation: bell-shake 1s ease-in-out;
+    transform-origin: top center;
+}
+
+.notification-btn.shake {
+    animation: bell-pulse 1s ease-in-out;
+}
+
+/* ===== انیمیشن slide سبد خرید ===== */
+@keyframes cart-slide {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    30% {
+        transform: translateX(150%);
+        opacity: 0;
+    }
+    31% {
+        transform: translateX(-150%);
+        opacity: 0;
+    }
+    70% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.cart-btn.slide .icon {
+    animation: cart-slide 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }

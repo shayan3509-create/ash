@@ -1,269 +1,8 @@
-/* ========== موبایل بزرگ (481px - 768px) ========== */
-@media screen and (max-width: 768px) {
-    
-    /* هدر */
-    .header-top {
-        padding: 10px 15px;
-        gap: 10px;
-    }
-    
-    /* سمت راست: فقط لوگو */
-    .header-right {
-        gap: 0;
-        flex: 0;
-    }
-    
-    .logo {
-        font-size: 20px;
-    }
-    
-    /* سرچ‌باکس - در موبایل مخفی می‌شود */
-    .header-center {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: 0;
-        padding: 15px;
-        background-color: var(--primary-dark);
-        border-top: 1px solid rgba(184, 247, 228, 0.2);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: all 0.3s ease;
-        z-index: 999;
-    }
-    
-    .header-center.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-    
-    .search-box {
-        position: relative;
-        width: 100%;
-    }
-    
-    .search-box input {
-        width: 100%;
-        padding: 12px 45px 12px 15px;
-        border: 2px solid rgba(184, 247, 228, 0.3);
-        border-radius: 8px;
-        font-size: 14px;
-        font-family: 'Vazirmatn', 'Tahoma', sans-serif;
-        outline: none;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: var(--text-light);
-    }
-    
-    .search-box input::placeholder {
-        color: var(--text-muted);
-    }
-    
-    /* دکمه بستن سرچ - در موبایل نمایش داده شود */
-    .search-close {
-        display: block !important;
-        position: absolute;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 5px;
-        color: var(--text-muted);
-        transition: color 0.3s;
-    }
-    
-    .search-close:hover {
-        color: var(--primary-accent);
-    }
-    
-    .search-close svg {
-        width: 20px;
-        height: 20px;
-    }
-    
-    /* آیکون‌های سمت چپ */
-    .header-left {
-        gap: 5px;
-    }
-    
-    .icon-btn {
-        padding: 6px;
-    }
-    
-    .icon-btn .icon {
-        width: 20px;
-        height: 20px;
-    }
-    
-    /* دکمه جستجو موبایل - در موبایل نمایش داده می‌شود */
-    .mobile-search-btn {
-        display: block !important;
-    }
-    
-    .badge {
-        min-width: 16px;
-        height: 16px;
-        font-size: 10px;
-    }
-    
-    /* منوی دسته‌بندی - مخفی شود */
-    .header-bottom {
-        display: none;
-    }
-    
-    /* مگا منو */
-    .mega-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        padding: 15px;
-    }
-    
-    .mega-title {
-        font-size: 14px;
-    }
-    
-    .mega-list li a {
-        font-size: 12px;
-    }
-    
-    /* دسته‌بندی */
-    .category-menu {
-        padding-left: 15px;
-    }
-    
-    .category-trigger {
-        font-size: 13px;
-    }
-    
-    .menu-icon {
-        width: 18px;
-        height: 18px;
-    }
-    
-}
+/* ═══════════════════════════════════════════════════════════════
+   📱 بخش ۱۰: Responsive Design - نسخه نهایی
+   ═══════════════════════════════════════════════════════════════ */
 
-/* ========== موبایل کوچک (تا 480px) ========== */
-@media screen and (max-width: 480px) {
-    
-    /* هدر */
-    .header-top {
-        padding: 8px 10px;
-    }
-    
-    .logo {
-        font-size: 18px;
-    }
-    
-    /* سرچ‌باکس */
-    .header-center {
-        padding: 12px 10px;
-    }
-    
-    .search-box input {
-        padding: 10px 40px 10px 12px;
-        font-size: 13px;
-        border-radius: 6px;
-    }
-    
-    .search-close svg {
-        width: 18px;
-        height: 18px;
-    }
-    
-    /* آیکون‌ها */
-    .header-left {
-        gap: 3px;
-    }
-    
-    .icon-btn {
-        padding: 5px;
-        border-radius: 6px;
-    }
-    
-    .icon-btn .icon {
-        width: 18px;
-        height: 18px;
-    }
-    
-    .badge {
-        min-width: 14px;
-        height: 14px;
-        font-size: 9px;
-        top: 3px;
-        left: 3px;
-    }
-    
-    /* منوی دسته‌بندی */
-    .header-bottom {
-        display: none;
-    }
-    
-    /* مگا منو */
-    .mega-container {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 10px;
-    }
-    
-    .mega-column {
-        margin-bottom: 10px;
-    }
-    
-    .mega-title {
-        font-size: 13px;
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-    }
-    
-    .mega-list {
-        gap: 5px;
-    }
-    
-    .mega-list li a {
-        font-size: 11px;
-        padding: 3px 0;
-    }
-    
-    /* دسته‌بندی */
-    .category-menu {
-        border-left: 1px solid rgba(184, 247, 228, 0.2);
-        padding-left: 10px;
-    }
-    
-    .category-trigger {
-        font-size: 12px;
-        gap: 5px;
-    }
-    
-    .menu-icon {
-        width: 16px;
-        height: 16px;
-    }
-    
-    /* متن‌ها */
-    body {
-        font-size: 14px;
-    }
-    
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/* ===== Responsive Design برای نیوشاپ ===== */
-
-/* ========== تبلت (768px - 1024px) ========== */
+/* ===== تبلت (768px - 1024px) ===== */
 @media screen and (max-width: 1024px) {
     
     /* هدر */
@@ -276,8 +15,19 @@
         font-size: 28px;
     }
     
-    /* سرچ‌باکس */
+    /* سرچ‌باکس - تمام فضای باقی‌مانده */
+    .header-center {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+    
     .search-box input {
+        width: 100%;
+        height: 48px;
         padding: 10px 40px 10px 12px;
         font-size: 13px;
     }
@@ -320,29 +70,44 @@
     .nav-menu li.sell-separator {
         padding-right: 20px;
     }
-    
 }
 
-/* ========== موبایل بزرگ (481px - 768px) ========== */
+/* ===== موبایل بزرگ (481px - 768px) ===== */
 @media screen and (max-width: 768px) {
     
     /* هدر */
     .header-top {
         padding: 10px 15px;
         gap: 10px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    /* سمت راست: فقط لوگو */
+    .header-top.search-active {
+        padding: 15px;
+    }
+    
+    /* سمت راست */
     .header-right {
-        gap: 0;
-        flex: 0;
+        gap: 10px;
+        flex: 0 0 auto;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .logo {
         font-size: 24px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    /* سرچ‌باکس - در موبایل مخفی می‌شود */
+    /* لوگو - در حالت سرچ مخفی */
+    .header-top.search-active .logo {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* ✅ سرچ‌باکس - در حالت عادی مخفی، در حالت فعال نمایش */
     .header-center {
         position: absolute;
         top: 100%;
@@ -354,7 +119,7 @@
         opacity: 0;
         visibility: hidden;
         transform: translateY(-10px);
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 999;
     }
     
@@ -364,14 +129,32 @@
         transform: translateY(0);
     }
     
+    /* حالت سرچ فعال - سرچ‌باکس در جریان */
+    .header-top.search-active .header-center {
+        position: static;
+        flex: 1;
+        min-width: 0;
+        padding: 0;
+        border-top: none;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
     .search-box {
         position: relative;
         width: 100%;
+        display: flex;
+        gap: 8px;
+        align-items: center;
     }
     
     .search-box input {
+        flex: 1;
+        min-width: 0;
         width: 100%;
-        padding: 12px 45px 12px 15px;
+        height: 44px;
+        padding: 0 15px;
         border: 2px solid var(--border-color);
         border-radius: 8px;
         font-size: 14px;
@@ -385,23 +168,55 @@
         color: var(--text-muted);
     }
     
-    /* دکمه بستن سرچ - در موبایل نمایش داده شود */
-    .search-close {
-        display: block !important;
-        position: absolute;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
+    /* دکمه تایید سرچ - فقط در حالت فعال */
+    .search-submit {
+        position: static;
+        transform: none;
+        background: var(--primary-accent);
         border: none;
+        border-radius: 6px;
         cursor: pointer;
-        padding: 5px;
-        color: var(--text-muted);
-        transition: color 0.3s;
+        padding: 10px;
+        color: #ffffff;
+        transition: all 0.3s;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .search-submit:hover {
+        background: var(--primary-dark);
+    }
+    
+    .search-submit svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .header-top.search-active .search-submit {
+        display: flex;
+    }
+    
+    /* دکمه لغو سرچ - فقط در حالت فعال */
+    .search-close {
+        position: static;
+        transform: none;
+        background: #ff3b3b;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 10px;
+        color: #ffffff;
+        transition: all 0.3s;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
     }
     
     .search-close:hover {
-        color: var(--primary-accent);
+        background: #cc0000;
     }
     
     .search-close svg {
@@ -409,9 +224,24 @@
         height: 20px;
     }
     
+    .header-top.search-active .search-close {
+        display: flex;
+    }
+    
     /* آیکون‌های سمت چپ */
     .header-left {
         gap: 5px;
+        flex-shrink: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* آیکون‌ها - در حالت سرچ مخفی */
+    .header-top.search-active .header-left {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
     }
     
     .icon-btn {
@@ -423,9 +253,15 @@
         height: 20px;
     }
     
-    /* دکمه جستجو موبایل */
+    /* ✅ دکمه جستجو موبایل - نمایش در حالت عادی */
     .mobile-search-btn {
-        display: block !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .header-top.search-active .mobile-search-btn {
+        display: none !important;
     }
     
     /* Badge */
@@ -446,7 +282,7 @@
         height: 20px;
     }
     
-    /* منوی دسته‌بندی - مخفی شود */
+    /* منوی دسته‌بندی */
     .header-bottom {
         display: none;
     }
@@ -479,15 +315,19 @@
         width: 18px;
         height: 18px;
     }
-    
 }
 
-/* ========== موبایل کوچک (تا 480px) ========== */
+/* ===== موبایل کوچک (تا 480px) ===== */
 @media screen and (max-width: 480px) {
     
     /* هدر */
     .header-top {
         padding: 8px 10px;
+        gap: 8px;
+    }
+    
+    .header-top.search-active {
+        padding: 10px;
     }
     
     /* سمت راست */
@@ -499,17 +339,33 @@
         font-size: 20px;
     }
     
-    /* سرچ‌باکس */
+    /* سرچ‌باکس - تمام فضا */
     .header-center {
-        padding: 12px 10px;
+        padding: 10px;
+    }
+    
+    .header-top.search-active .header-center {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .search-box {
+        width: 100%;
+        gap: 6px;
     }
     
     .search-box input {
-        padding: 10px 40px 10px 12px;
+        height: 40px;
+        padding: 0 12px;
         font-size: 13px;
-        border-radius: 6px;
     }
     
+    .search-submit,
+    .search-close {
+        padding: 8px;
+    }
+    
+    .search-submit svg,
     .search-close svg {
         width: 18px;
         height: 18px;
@@ -517,12 +373,11 @@
     
     /* آیکون‌ها */
     .header-left {
-        gap: 3px;
+        gap: 4px;
     }
     
     .icon-btn {
         padding: 5px;
-        border-radius: 6px;
     }
     
     .icon-btn .icon {
@@ -530,13 +385,10 @@
         height: 18px;
     }
     
-    /* Badge */
     .badge {
         min-width: 14px;
         height: 14px;
         font-size: 9px;
-        top: 3px;
-        left: 3px;
     }
     
     /* انیمیشن تم آیکون */
@@ -549,67 +401,15 @@
         width: 18px;
         height: 18px;
     }
-    
-    /* منوی دسته‌بندی */
-    .header-bottom {
-        display: none;
-    }
-    
-    /* مگا منو */
-    .mega-container {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 10px;
-    }
-    
-    .mega-column {
-        margin-bottom: 10px;
-    }
-    
-    .mega-title {
-        font-size: 13px;
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-    }
-    
-    .mega-list {
-        gap: 5px;
-    }
-    
-    .mega-list li a {
-        font-size: 11px;
-        padding: 3px 0;
-    }
-    
-    /* دسته‌بندی */
-    .category-menu {
-        border-left: 1px solid var(--border-accent);
-        padding-left: 10px;
-    }
-    
-    .category-trigger {
-        font-size: 12px;
-        gap: 5px;
-    }
-    
-    .menu-icon {
-        width: 16px;
-        height: 16px;
-    }
-    
-    /* متن‌ها */
-    body {
-        font-size: 14px;
-    }
-    
 }
 
-/* ========== موبایل خیلی کوچک (تا 360px) ========== */
+/* ===== موبایل خیلی کوچک (تا 360px) ===== */
 @media screen and (max-width: 360px) {
     
     /* هدر */
     .header-top {
         padding: 6px 8px;
+        gap: 6px;
     }
     
     .logo {
@@ -617,9 +417,29 @@
     }
     
     /* سرچ‌باکس */
+    .header-center {
+        padding: 8px;
+    }
+    
+    .search-box {
+        gap: 4px;
+    }
+    
     .search-box input {
-        padding: 7px 28px 7px 7px;
-        font-size: 11px;
+        height: 38px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+    
+    .search-submit,
+    .search-close {
+        padding: 6px;
+    }
+    
+    .search-submit svg,
+    .search-close svg {
+        width: 16px;
+        height: 16px;
     }
     
     /* آیکون‌ها */
@@ -670,10 +490,9 @@
     .category-trigger {
         font-size: 11px;
     }
-    
 }
 
-/* ========== افقی موبایل (landscape) ========== */
+/* ===== افقی موبایل (landscape) ===== */
 @media screen and (max-height: 500px) and (orientation: landscape) {
     
     /* هدر کوچک‌تر */
@@ -685,8 +504,18 @@
         font-size: 20px;
     }
     
+    /* سرچ‌باکس */
+    .header-center {
+        padding: 10px;
+    }
+    
+    .search-box {
+        max-width: 100%;
+    }
+    
     .search-box input {
-        padding: 8px 35px 8px 10px;
+        height: 36px;
+        padding: 0 10px;
     }
     
     /* مگا منو ارتفاع کمتر */
@@ -698,10 +527,9 @@
     .mega-container {
         padding: 15px;
     }
-    
 }
 
-/* ========== تنظیمات اضافی برای تاچ ========== */
+/* ===== تنظیمات اضافی برای تاچ ===== */
 @media (hover: none) and (pointer: coarse) {
     
     /* برای دستگاه‌های لمسی */
@@ -722,10 +550,9 @@
     .nav-menu li a:active {
         color: var(--primary-accent);
     }
-    
 }
 
-/* ========== پرینت ========== */
+/* ===== پرینت ===== */
 @media print {
     
     .main-header {
@@ -745,5 +572,4 @@
     .search-box {
         display: none;
     }
-    
 }
