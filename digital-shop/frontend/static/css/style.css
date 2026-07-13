@@ -7,7 +7,6 @@
    📝 بخش ۱: فونت‌ها
    ═══════════════════════════════════════════════════════════════ */
 
-/* فونت وزیرمتن */
 @font-face {
     font-family: 'Vazirmatn';
     src: url('../fonts/Vazir-Light.woff2') format('woff2');
@@ -55,69 +54,57 @@
 
 /* ===== Light Mode ===== */
 :root {
-    /* Brand Colors */
     --primary-accent: #4361EE;
     --secondary-accent: #4CC9F0;
     --danger-accent: #F72585;
     --premium-accent: #B026FF;
     --primary-dark: #25272C;
 
-    /* Hover */
     --icon-hover: rgba(67, 97, 238, 0.12);
     --hover-bg: rgba(67, 97, 238, 0.06);
 
-    /* Background */
     --bg-body: #F8FAFC;
     --bg-header: rgba(255, 255, 255, 0.75);
     --bg-card: #FFFFFF;
     --bg-input: #F1F5F9;
 
-    /* Text */
     --text-primary: #1E293B;
     --text-secondary: #586474;
     --text-muted: #94A3B8;
     --text-header: #1E293B;
     --text-icon: #334155;
 
-    /* Border */
     --border-color: rgba(67, 97, 238, 0.12);
     --border-accent: rgba(67, 97, 238, 0.20);
 
-    /* Shadow */
     --shadow-color: rgba(15, 23, 42, 0.08);
 }
 
 /* ===== Dark Mode ===== */
 html.dark-mode {
-    /* Brand Colors */
     --primary-accent: #4361EE;
     --secondary-accent: #4CC9F0;
     --danger-accent: #F72585;
     --premium-accent: #B026FF;
     --primary-dark: #0F172A;
 
-    /* Hover */
     --icon-hover: rgba(76, 201, 240, 0.15);
     --hover-bg: rgba(67, 97, 238, 0.12);
 
-    /* Background */
     --bg-body: #0F172A;
     --bg-header: rgba(15, 23, 42, 0.80);
     --bg-card: #172033;
     --bg-input: #1E293B;
 
-    /* Text */
     --text-primary: #F8FAFC;
     --text-secondary: #CBD5E1;
     --text-muted: #94A3B8;
     --text-header: #FFFFFF;
     --text-icon: #FFFFFF;
 
-    /* Border */
     --border-color: rgba(76, 201, 240, 0.12);
     --border-accent: rgba(76, 201, 240, 0.20);
 
-    /* Shadow */
     --shadow-color: rgba(0, 0, 0, 0.45);
 }
 
@@ -156,7 +143,7 @@ body {
    🏠 بخش ۴: هدر اصلی
    ═══════════════════════════════════════════════════════════════ */
 
-/* ===== هدر اصلی ===== */
+/* ===== ساختار هدر ===== */
 .main-header {
     background-color: var(--bg-header);
     backdrop-filter: blur(12px);
@@ -169,7 +156,6 @@ body {
     border-bottom: solid 1px var(--border-color);
 }
 
-/* ===== ردیف اول هدر ===== */
 .header-top {
     display: flex;
     align-items: center;
@@ -178,12 +164,21 @@ body {
     gap: 20px;
 }
 
-/* سمت راست: لوگو + سرچ */
 .header-right {
     display: flex;
     align-items: center;
     gap: 20px;
     flex: 1;
+}
+
+.header-center {
+    flex-grow: 1;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 /* ===== لوگو ===== */
@@ -214,28 +209,7 @@ body {
     cursor: default;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ===== سرچ‌باکس ===== */
-.header-center {
-    flex-grow: 1;
-}
-
 .search-box {
     width: 100%;
     position: relative;
@@ -265,7 +239,6 @@ body {
     box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.18);
 }
 
-/* دکمه بستن و تایید سرچ - در دسکتاپ مخفی */
 .search-close,
 .search-submit {
     display: none;
@@ -280,46 +253,12 @@ body {
     transition: color 0.2s;
 }
 
-/* ===== تنظیمات مخصوص موبایل ===== */
-@media (max-width: 768px) {
-    /* ایجاد فضای خالی در سمت چپ اینپوت تا متن روی دکمه‌ها نیفته */
-    .search-box input {
-        width: 100px;
-        padding-left: 85px;
-        padding-right: 15px;
-    }
-
-    /* نمایش دکمه‌ها */
-    .search-close,
-    .search-submit {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /* دکمه تایید (ذره‌بین) - چسبیده به لبه چپ */
-    .search-submit {
-        left: 10px;
-    }
-
-    /* دکمه لغو (ضربدر) - کنار ذره‌بین */
-    .search-close {
-        left: 44px;
-    }
-
-    .search-submit:hover,
-    .search-close:hover {
-        color: var(--text-primary);
-    }
+.search-submit:hover,
+.search-close:hover {
+    color: var(--text-primary);
 }
 
-/* ===== آیکون‌های سمت چپ ===== */
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
+/* ===== آیکون‌های هدر ===== */
 .icon-btn {
     position: relative;
     background: none;
@@ -362,15 +301,7 @@ body {
     padding: 0 4px;
 }
 
-/* Badge نوتیفیکیشن - قرمز */
-.notification-btn .badge {
-    background-color: var(--danger-accent);
-    color: #ffffff;
-    top: -5px;
-    left: -5px;
-}
-
-/* Badge سبد خرید - قرمز */
+.notification-btn .badge,
 .cart-btn .badge {
     background-color: var(--danger-accent);
     color: #ffffff;
@@ -378,16 +309,12 @@ body {
     left: -5px;
 }
 
-/* دکمه جستجو موبایل */
+/* ===== دکمه جستجو موبایل ===== */
 .mobile-search-btn {
     display: none !important;
 }
 
-
-/* ═══════════════════════════════════════════════════════════════
-   🌓 بخش ۵: انیمیشن تغییر آیکون تم
-   ═══════════════════════════════════════════════════════════════ */
-
+/* ===== انیمیشن تغییر آیکون تم ===== */
 .theme-icon-wrapper {
     position: relative;
     width: 24px;
@@ -407,7 +334,6 @@ body {
                 visibility 0.3s ease;
 }
 
-/* لایت مود: خورشید نمایش، ماه مخفی */
 .icon-sun {
     transform: translateY(0);
     opacity: 1;
@@ -420,7 +346,6 @@ body {
     visibility: hidden;
 }
 
-/* دارک مود: خورشید مخفی، ماه نمایش */
 html.dark-mode .icon-sun {
     transform: translateY(-100%);
     opacity: 0;
@@ -435,7 +360,7 @@ html.dark-mode .icon-moon {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   📋 بخش ۶: ردیف دوم هدر و منوی ناوبری
+   📋 بخش ۵: منوی ناوبری
    ═══════════════════════════════════════════════════════════════ */
 
 .header-bottom {
@@ -449,7 +374,6 @@ html.dark-mode .icon-moon {
                 opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* وقتی اسکرول می‌شود، منوی دوم کاملاً مخفی می‌شود */
 html.scrolled .main-header .header-bottom,
 .main-header.scrolled .header-bottom {
     max-height: 0 !important;
@@ -514,7 +438,7 @@ html.dark-mode .nav-menu li a:hover {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   🗂️ بخش ۷: مگا منو
+   🗂️ بخش ۶: مگا منو
    ═══════════════════════════════════════════════════════════════ */
 
 .category-menu {
@@ -554,7 +478,6 @@ html.dark-mode .nav-menu li a:hover {
     overflow-y: auto;
 }
 
-/* اسکرول‌بار اختصاصی برای مگا منو */
 .mega-menu::-webkit-scrollbar {
     width: 6px;
     display: block;
@@ -574,7 +497,6 @@ html.dark-mode .nav-menu li a:hover {
     background: var(--primary-accent);
 }
 
-/* فایرفاکس */
 .mega-menu {
     scrollbar-width: thin;
     scrollbar-color: var(--border-accent) transparent;
@@ -640,7 +562,7 @@ html.dark-mode .mega-list li a:hover {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   📄 بخش ۸: محتوای اصلی
+   📄 بخش ۷: محتوای اصلی
    ═══════════════════════════════════════════════════════════════ */
 
 .main-content {
@@ -652,7 +574,6 @@ html.dark-mode .mega-list li a:hover {
     overflow: hidden;
 }
 
-/* بکگراند gradient از راست آبی به چپ صورتی */
 .main-content::before {
     content: '';
     position: absolute;
@@ -670,13 +591,11 @@ html.dark-mode .mega-list li a:hover {
         rgba(247, 37, 133, 0.10) 100%);
 }
 
-/* محتوای داخلی باید روی بکگراند باشه */
 .main-content > * {
     position: relative;
     z-index: 1;
 }
 
-/* دارک مود - رنگ‌ها پررنگ‌تر */
 html.dark-mode .main-content::before {
     background: linear-gradient(to left,
         rgba(67, 97, 238, 0.18) 0%,
@@ -688,10 +607,10 @@ html.dark-mode .main-content::before {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   🔔 بخش ۹: انیمیشن‌های نوتیفیکیشن و سبد خرید
+   🔔 بخش ۸: انیمیشن‌ها
    ═══════════════════════════════════════════════════════════════ */
 
-/* ===== انیمیشن زنگ زدن نوتیفیکیشن ===== */
+/* ===== انیمیشن نوتیفیکیشن ===== */
 @keyframes bell-shake {
     0% { transform: rotate(0); }
     15% { transform: rotate(15deg); }
@@ -720,7 +639,7 @@ html.dark-mode .main-content::before {
     animation: bell-pulse 1s ease-in-out;
 }
 
-/* ===== انیمیشن slide سبد خرید ===== */
+/* ===== انیمیشن سبد خرید ===== */
 @keyframes cart-slide {
     0% {
         transform: translateX(0);
@@ -746,4 +665,464 @@ html.dark-mode .main-content::before {
 
 .cart-btn.slide .icon {
     animation: cart-slide 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   1. بخش اصلی و عنوان
+   ========================================= */
+.carousel-section {
+    padding: 60px 20px 50px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    background: var(--bg-body);
+    transition: background 0.4s ease;
+}
+
+.carousel-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 50px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.title-blue { 
+    color: var(--primary-accent); 
+    margin: 0 10px;
+}
+
+/* =========================================
+   2. کانتینر اصلی
+   ========================================= */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 640px;
+    perspective: 1200px;
+    touch-action: pan-y;
+}
+
+.carousel-track {
+    position: relative;
+    width: 100%;
+    height: 560px;
+}
+
+/* =========================================
+   3. اسلایدها با سایه رنگی
+   ========================================= */
+.carousel-slide {
+    position: absolute;
+    width: 480px;
+    height: 520px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: default;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    background: var(--bg-card);
+    border-radius: 24px;
+    overflow: hidden;
+    /* سایه رنگی کمرنگ */
+    box-shadow: 
+        0 15px 40px rgba(67, 97, 238, 0.12),
+        0 5px 15px rgba(76, 201, 240, 0.08);
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+    display: block;
+    pointer-events: none;
+    -webkit-user-drag: none;
+}
+
+/* اسلاید فعال - سایه رنگی قوی‌تر */
+.carousel-slide.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 10;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 
+        0 20px 50px rgba(67, 97, 238, 0.20),
+        0 10px 25px rgba(76, 201, 240, 0.12),
+        0 0 0 1px var(--border-accent);
+}
+
+/* اسلاید قبلی و بعدی */
+.carousel-slide.prev {
+    opacity: 0.6;
+    transform: translate(-150%, -50%) scale(0.85) rotateY(15deg);
+    z-index: 5;
+    box-shadow: 
+        0 10px 30px rgba(67, 97, 238, 0.08),
+        0 5px 10px rgba(76, 201, 240, 0.05);
+}
+
+.carousel-slide.next {
+    opacity: 0.6;
+    transform: translate(50%, -50%) scale(0.85) rotateY(-15deg);
+    z-index: 5;
+    box-shadow: 
+        0 10px 30px rgba(67, 97, 238, 0.08),
+        0 5px 10px rgba(76, 201, 240, 0.05);
+}
+
+.carousel-slide.far-prev,
+.carousel-slide.far-next {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.7);
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.05);
+}
+
+/* =========================================
+   4. Overlay و متن روی اسلاید
+   ========================================= */
+.slide-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 30px 30px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-title {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    line-height: 1.4;
+}
+
+.slide-subtitle {
+    color: rgba(255,255,255,0.9);
+    font-size: 14px;
+    font-weight: 400;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.slide-badge {
+    background: var(--primary-accent);
+    color: #ffffff;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(67, 97, 238, 0.4);
+}
+
+.badge-danger {
+    background: var(--danger-accent);
+    box-shadow: 0 4px 12px rgba(247, 37, 133, 0.4);
+}
+
+.badge-premium {
+    background: var(--premium-accent);
+    box-shadow: 0 4px 12px rgba(176, 38, 255, 0.4);
+}
+
+.badge-secondary {
+    background: var(--secondary-accent);
+    box-shadow: 0 4px 12px rgba(76, 201, 240, 0.4);
+}
+
+/* =========================================
+   5. کد تخفیف (با دارک مود کامل)
+   ========================================= */
+   /* =========================================
+   5. کد تخفیف (با CSS Variables - دارک مود خودکار)
+   ========================================= */
+.discount-code {
+    /* پس‌زمینه: از رنگ کارت سایت */
+    background: var(--bg-card);
+    
+    /* متن: از رنگ متن اصلی سایت */
+    color: var(--text-primary);
+    
+    padding: 12px 32px;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    
+    /* سایه: از متغیر سایه سایت */
+    box-shadow: 
+        0 4px 15px var(--shadow-color),
+        0 0 0 2px var(--border-accent);
+    
+    /* حاشیه: از رنگ حاشیه سایت */
+    border: 2px dashed var(--border-accent);
+    
+    /* افکت شیشه‌ای */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* تغییر نرم در دارک مود */
+    transition: 
+        background 0.4s ease,
+        color 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+/* هاور روی کد تخفیف */
+.discount-code:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-accent);
+    box-shadow: 
+        0 6px 20px var(--shadow-color),
+        0 0 0 3px var(--icon-hover);
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   6. نقطه‌ها و دکمه‌ها
+   ========================================= */
+.carousel-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 20;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+}
+
+.dot:hover {
+    background: var(--primary-accent);
+    opacity: 0.8;
+    transform: scale(1.2);
+}
+
+.dot.active {
+    background: var(--primary-accent);
+    opacity: 1;
+    transform: scale(1.4);
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.4);
+}
+
+.carousel-nav {
+    position: absolute;
+    bottom: 15px;
+    right: 0;
+    display: flex;
+    gap: 15px;
+    z-index: 20;
+}
+
+.nav-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid var(--border-accent);
+    background: var(--bg-card);
+    color: var(--primary-accent);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 4px 15px rgba(67, 97, 238, 0.15),
+        0 2px 8px rgba(76, 201, 240, 0.1);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+}
+
+.nav-btn:hover {
+    background: var(--primary-accent);
+    color: #ffffff;
+    border-color: var(--primary-accent);
+    transform: translateY(-3px);
+    box-shadow: 
+        0 6px 20px rgba(67, 97, 238, 0.3),
+        0 0 0 4px var(--icon-hover);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   7. ریسپانسیو - دسکتاپ کوچک (992-1199px)
+   ========================================= */
+@media (max-width: 1199px) {
+    .carousel-container { height: 580px; }
+    .carousel-track { height: 500px; }
+    .carousel-slide { width: 420px; height: 460px; }
+    .slide-title { font-size: 18px; }
+    .discount-code { font-size: 20px; padding: 10px 28px; }
+}
+
+/* =========================================
+   8. ریسپانسیو - تبلت (768-991px)
+   ========================================= */
+@media (max-width: 991px) {
+    .carousel-section { padding: 40px 15px 35px 15px; }
+    .carousel-container { height: 520px; }
+    .carousel-track { height: 440px; }
+    .carousel-slide { width: 360px; height: 400px; }
+    
+    .carousel-slide.prev { transform: translate(-130%, -50%) scale(0.85) rotateY(12deg); }
+    .carousel-slide.next { transform: translate(30%, -50%) scale(0.85) rotateY(-12deg); }
+    
+    .slide-title { font-size: 17px; }
+    .slide-subtitle { font-size: 13px; }
+    .discount-code { font-size: 18px; padding: 8px 24px; }
+    
+    .carousel-dots { bottom: 12px; gap: 10px; }
+    .dot { width: 10px; height: 10px; }
+    .carousel-nav { bottom: 12px; gap: 12px; }
+    .nav-btn { width: 44px; height: 44px; }
+}
+
+/* =========================================
+   9. ریسپانسیو - موبایل بزرگ (480-767px)
+   ========================================= */
+@media (max-width: 767px) {
+    .carousel-section { padding: 30px 12px 50px 12px; }
+    .carousel-container { height: 460px; }
+    .carousel-track { height: 380px; }
+    .carousel-slide { width: 300px; height: 340px; border-radius: 20px; }
+    .carousel-slide img { border-radius: 20px; }
+    
+    .carousel-slide.prev { transform: translate(-110%, -50%) scale(0.8) rotateY(10deg); }
+    .carousel-slide.next { transform: translate(10%, -50%) scale(0.8) rotateY(-10deg); }
+    
+    .slide-overlay { padding: 30px 20px 20px; }
+    .slide-title { font-size: 16px; }
+    .slide-subtitle { font-size: 12px; }
+    .slide-badge { font-size: 11px; padding: 5px 14px; }
+    .discount-code { font-size: 16px; padding: 8px 20px; letter-spacing: 1px; }
+    
+    .carousel-dots { bottom: 10px; gap: 8px; }
+    .dot { width: 9px; height: 9px; }
+    
+    .carousel-nav { 
+        bottom: 35px; 
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 15px;
+    }
+    .nav-btn { width: 42px; height: 42px; }
+    .nav-btn svg { width: 16px; height: 16px; }
+}
+
+/* =========================================
+   10. ریسپانسیو - موبایل کوچک (360-479px)
+   ========================================= */
+@media (max-width: 479px) {
+    .carousel-section { padding: 25px 10px 45px 10px; }
+    .carousel-container { height: 420px; }
+    .carousel-track { height: 340px; }
+    .carousel-slide { width: 260px; height: 300px; border-radius: 18px; }
+    .carousel-slide img { border-radius: 18px; }
+    
+    .carousel-slide.prev { transform: translate(-95%, -50%) scale(0.75) rotateY(8deg); }
+    .carousel-slide.next { transform: translate(-5%, -50%) scale(0.75) rotateY(-8deg); }
+    
+    .slide-overlay { padding: 25px 15px 18px; }
+    .slide-title { font-size: 15px; }
+    .slide-subtitle { font-size: 11px; }
+    .discount-code { font-size: 14px; padding: 6px 16px; }
+    
+    .carousel-dots { bottom: 8px; gap: 7px; }
+    .dot { width: 8px; height: 8px; }
+    
+    .carousel-nav { 
+        bottom: 32px; 
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 12px;
+    }
+    .nav-btn { width: 38px; height: 38px; }
+    .nav-btn svg { width: 14px; height: 14px; }
+}
+
+/* =========================================
+   11. ریسپانسیو - موبایل خیلی کوچک (زیر 360px)
+   ========================================= */
+@media (max-width: 359px) {
+    .carousel-container { height: 380px; }
+    .carousel-track { height: 300px; }
+    .carousel-slide { width: 230px; height: 270px; }
+    
+    .slide-title { font-size: 14px; }
+    .discount-code { font-size: 13px; padding: 5px 14px; }
+    
+    .carousel-dots { bottom: 6px; gap: 6px; }
+    .dot { width: 7px; height: 7px; }
+    
+    .carousel-nav { 
+        bottom: 28px; 
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 10px;
+    }
+    .nav-btn { width: 34px; height: 34px; }
+    .nav-btn svg { width: 12px; height: 12px; }
+}
+
+/* =========================================
+   12. انیمیشن ورودی
+   ========================================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.carousel-section {
+    animation: fadeIn 0.8s ease-out;
 }

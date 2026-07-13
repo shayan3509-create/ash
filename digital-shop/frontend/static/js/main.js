@@ -2,7 +2,7 @@ console.log('🚀 فایل main.js شروع شد');
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ DOM آماده است');
-    
+
     try {
         // ===== انیمیشن زنگوله =====
         console.log('🔔 شروع بخش زنگوله');
@@ -309,6 +309,290 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (error) {
         console.error('❌ خطا در بخش Sticky Header:', error);
     }
-    
+
+    // =========================================
+    // 🎠 بخش اسلایدر کاروسل 3D
+    // =========================================
+
+
+
+    // =========================================
+    // 🎠 بخش اسلایدر کاروسل 3D (با دیباگ کامل)
+    // =========================================
+
+
+
+
+
+
+
+
+
+    // =========================================
+    // 🎠 بخش اسلایدر کاروسل 3D (اصلاح شده)
+    // =========================================
+    try {
+        console.log('🎠 ========================================');
+        console.log('🎠 شروع بخش اسلایدر کاروسل');
+        console.log('🎠 ========================================');
+        
+        // ===== انتخاب المان‌ها =====
+        const carouselSlides = document.querySelectorAll('.carousel-slide');
+        const carouselDotsContainer = document.getElementById('carouselDots');
+        const carouselBtnPrev = document.getElementById('btnPrev');
+        const carouselBtnNext = document.getElementById('btnNext');
+        const carouselContainer = document.getElementById('carouselContainer');
+        
+        console.log('🎠 تعداد اسلایدها:', carouselSlides.length);
+        
+        if (!carouselContainer || carouselSlides.length === 0) {
+            console.warn('🎠 ⚠️ اسلایدر در این صفحه وجود ندارد');
+            throw new Error('Carousel not found');
+        }
+        
+        // ===== متغیرهای وضعیت =====
+        let carouselIndex = 0;
+        const carouselTotal = carouselSlides.length;
+        let carouselAutoplay;
+        let carouselAnimating = false;
+        let carouselDragging = false;
+        let carouselStartX = 0;
+        let carouselCurrentX = 0;
+        
+        // ===== ساخت نقطه‌ها =====
+        function createCarouselDots() {
+            if (!carouselDotsContainer) return;
+            carouselDotsContainer.innerHTML = '';
+            for (let i = 0; i < carouselTotal; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🎠 🔵 کلیک روی نقطه:', i);
+                    goToCarouselSlide(i);
+                    resetCarouselAutoplay();
+                });
+                carouselDotsContainer.appendChild(dot);
+            }
+            console.log('🎠 ✅ نقاط ساخته شدند:', carouselTotal);
+        }
+        
+        // ===== به‌روزرسانی موقعیت اسلایدها =====
+        // 🔧 اصلاح: چک carouselAnimating حذف شد تا همیشه اجرا شود
+        function updateCarousel() {
+            console.log('🎠 🔄 updateCarousel - ایندکس:', carouselIndex);
+            
+            carouselSlides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
+                
+                let diff = index - carouselIndex;
+                
+                // مدیریت لوپ بی‌نهایت
+                if (diff > carouselTotal / 2) diff -= carouselTotal;
+                if (diff < -carouselTotal / 2) diff += carouselTotal;
+                
+                if (diff === 0) {
+                    slide.classList.add('active');
+                } else if (diff === 1) {
+                    slide.classList.add('next');
+                } else if (diff === -1) {
+                    slide.classList.add('prev');
+                } else if (diff === 2) {
+                    slide.classList.add('far-next');
+                } else if (diff === -2) {
+                    slide.classList.add('far-prev');
+                }
+            });
+            
+            // به‌روزرسانی نقطه‌ها
+            if (carouselDotsContainer) {
+                const dots = carouselDotsContainer.querySelectorAll('.dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === carouselIndex);
+                });
+            }
+        }
+        
+        // ===== توابع ناوبری =====
+        // 🔧 اصلاح: اول updateCarousel صدا زده می‌شود، بعد قفل فعال می‌شود
+        function nextCarouselSlide() {
+            if (carouselAnimating) {
+                console.log('🎠 ⚠️ در حال انیمیشن، لغو شد');
+                return;
+            }
+            
+            carouselAnimating = true;
+            const oldIndex = carouselIndex;
+            carouselIndex = (carouselIndex + 1) % carouselTotal;
+            console.log('🎠 ➡️ ایندکس:', oldIndex, '→', carouselIndex);
+            
+            updateCarousel();
+            
+            setTimeout(function() { 
+                carouselAnimating = false; 
+            }, 600);
+        }
+        
+        function prevCarouselSlide() {
+            if (carouselAnimating) {
+                console.log('🎠 ⚠️ در حال انیمیشن، لغو شد');
+                return;
+            }
+            
+            carouselAnimating = true;
+            const oldIndex = carouselIndex;
+            carouselIndex = (carouselIndex - 1 + carouselTotal) % carouselTotal;
+            console.log('🎠 ⬅️ ایندکس:', oldIndex, '→', carouselIndex);
+            
+            updateCarousel();
+            
+            setTimeout(function() { 
+                carouselAnimating = false; 
+            }, 600);
+        }
+        
+        function goToCarouselSlide(index) {
+            if (carouselAnimating) {
+                console.log('🎠 ⚠️ در حال انیمیشن، لغو شد');
+                return;
+            }
+            
+            carouselAnimating = true;
+            const oldIndex = carouselIndex;
+            carouselIndex = index;
+            console.log('🎠 🎯 ایندکس:', oldIndex, '→', carouselIndex);
+            
+            updateCarousel();
+            
+            setTimeout(function() { 
+                carouselAnimating = false; 
+            }, 600);
+        }
+        
+        // ===== اتوپلی =====
+        function startCarouselAutoplay() {
+            stopCarouselAutoplay();
+            carouselAutoplay = setInterval(function() {
+                console.log('🎠 ⏰ اتوپلی');
+                nextCarouselSlide();
+            }, 20000);
+            console.log('🎠 ✅ اتوپلی شروع شد');
+        }
+        
+        function stopCarouselAutoplay() {
+            clearInterval(carouselAutoplay);
+        }
+        
+        function resetCarouselAutoplay() {
+            stopCarouselAutoplay();
+            startCarouselAutoplay();
+        }
+        
+        // ===== رویدادهای دکمه‌ها =====
+        if (carouselBtnNext) {
+            carouselBtnNext.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🎠 🔵 کلیک روی btnNext');
+                nextCarouselSlide();
+                resetCarouselAutoplay();
+            });
+            console.log('🎠 ✅ رویداد btnNext متصل شد');
+        }
+        
+        if (carouselBtnPrev) {
+            carouselBtnPrev.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🎠 🔵 کلیک روی btnPrev');
+                prevCarouselSlide();
+                resetCarouselAutoplay();
+            });
+            console.log('🎠 ✅ رویداد btnPrev متصل شد');
+        }
+        
+        // ===== درگ و سوایپ =====
+        // 🔧 اصلاح: استفاده از mousemove روی container به جای window
+        function carouselDragStart(e) {
+            if (carouselAnimating) return;
+            carouselDragging = true;
+            carouselStartX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            carouselCurrentX = carouselStartX;
+            console.log('🎠 👆 درگ شروع - X:', carouselStartX);
+        }
+        
+        function carouselDragMove(e) {
+            if (!carouselDragging) return;
+            carouselCurrentX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            console.log('🎠 👆 درگ حرکت - X:', carouselCurrentX);
+        }
+        
+        function carouselDragEnd() {
+            if (!carouselDragging) return;
+            carouselDragging = false;
+            
+            const diff = carouselStartX - carouselCurrentX;
+            const threshold = 50;
+            
+            console.log('🎠 👆 درگ پایان - اختلاف:', diff);
+            
+            if (diff > threshold) {
+                nextCarouselSlide();
+                resetCarouselAutoplay();
+            } else if (diff < -threshold) {
+                prevCarouselSlide();
+                resetCarouselAutoplay();
+            }
+        }
+        
+        // 🔧 اصلاح: همه رویدادهای موس روی container
+        carouselContainer.addEventListener('mousedown', carouselDragStart);
+        carouselContainer.addEventListener('mousemove', carouselDragMove);
+        carouselContainer.addEventListener('mouseup', carouselDragEnd);
+        carouselContainer.addEventListener('mouseleave', function() {
+            if (carouselDragging) carouselDragEnd();
+        });
+        
+        // رویدادهای تاچ
+        carouselContainer.addEventListener('touchstart', carouselDragStart, { passive: true });
+        carouselContainer.addEventListener('touchmove', carouselDragMove, { passive: true });
+        carouselContainer.addEventListener('touchend', carouselDragEnd);
+        
+        // جلوگیری از درگ و راست‌کلیک
+        carouselSlides.forEach(function(slide) {
+            slide.addEventListener('dragstart', function(e) { e.preventDefault(); });
+            slide.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        });
+        
+        // ===== اجرای اولیه =====
+        createCarouselDots();
+        updateCarousel();
+        startCarouselAutoplay();
+        
+        console.log('🎠 ✅ بخش اسلایدر با موفقیت اجرا شد');
+        
+    } catch (error) {
+        console.error('🎠 ❌ خطا در اسلایدر:', error);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     console.log('🎉 کل فایل main.js با موفقیت اجرا شد!');
 });
