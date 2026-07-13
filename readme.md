@@ -1,3 +1,3 @@
 git add .
-git commit -m "ok link2"
+git commit -m "del lorm"
 git push
