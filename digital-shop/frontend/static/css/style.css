@@ -1,12 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════
-   🎨 نیوشاپ - فایل استایل اصلی
+   🎨 نیوشاپ - فایل استایل اصلی (مرتب‌سازی شده)
    ═══════════════════════════════════════════════════════════════ */
-
 
 /* ═══════════════════════════════════════════════════════════════
    📝 بخش ۱: فونت‌ها
    ═══════════════════════════════════════════════════════════════ */
-
 @font-face {
     font-family: 'Vazirmatn';
     src: url('../fonts/Vazir-Light.woff2') format('woff2');
@@ -14,7 +12,6 @@
     font-style: normal;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Vazirmatn';
     src: url('../fonts/Vazir-Regular.woff2') format('woff2');
@@ -22,7 +19,6 @@
     font-style: normal;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Vazirmatn';
     src: url('../fonts/Vazir-Regular.woff2') format('woff2');
@@ -30,7 +26,6 @@
     font-style: normal;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Vazirmatn';
     src: url('../fonts/Vazir-Bold.woff2') format('woff2');
@@ -38,7 +33,6 @@
     font-style: normal;
     font-display: swap;
 }
-
 @font-face {
     font-family: 'Vazirmatn';
     src: url('../fonts/Vazir-Bold.woff2') format('woff2');
@@ -49,10 +43,8 @@
 
 
 /* ═══════════════════════════════════════════════════════════════
-   🎨 بخش ۲: متغیرهای رنگی
+   🎨 بخش ۲: متغیرهای رنگی (تم روشن و تاریک)
    ═══════════════════════════════════════════════════════════════ */
-
-/* ===== Light Mode ===== */
 :root {
     --primary-accent: #4361EE;
     --secondary-accent: #4CC9F0;
@@ -80,7 +72,6 @@
     --shadow-color: rgba(15, 23, 42, 0.08);
 }
 
-/* ===== Dark Mode ===== */
 html.dark-mode {
     --primary-accent: #4361EE;
     --secondary-accent: #4CC9F0;
@@ -112,7 +103,6 @@ html.dark-mode {
 /* ═══════════════════════════════════════════════════════════════
    🔄 بخش ۳: ریست و تنظیمات پایه
    ═══════════════════════════════════════════════════════════════ */
-
 * {
     margin: 0;
     padding: 0;
@@ -142,8 +132,6 @@ body {
 /* ═══════════════════════════════════════════════════════════════
    🏠 بخش ۴: هدر اصلی
    ═══════════════════════════════════════════════════════════════ */
-
-/* ===== ساختار هدر ===== */
 .main-header {
     background-color: var(--bg-header);
     backdrop-filter: blur(12px);
@@ -181,7 +169,6 @@ body {
     gap: 10px;
 }
 
-/* ===== لوگو ===== */
 .logo {
     font-family: 'Lalezar', 'Vazirmatn', cursive;
     font-size: 32px;
@@ -189,9 +176,7 @@ body {
     white-space: nowrap;
     transition: opacity 0.3s;
     letter-spacing: 1px;
-    background: linear-gradient(to left,
-            var(--secondary-accent) 0%,
-            var(--danger-accent) 100%);
+    background: linear-gradient(to left, var(--secondary-accent) 0%, var(--danger-accent) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -209,7 +194,6 @@ body {
     cursor: default;
 }
 
-/* ===== سرچ‌باکس ===== */
 .search-box {
     width: 100%;
     position: relative;
@@ -253,48 +237,6 @@ body {
     transition: color 0.2s;
 }
 
-/* ===== تنظیمات مخصوص موبایل ===== */
-@media (max-width: 768px) {
-
-    /* ایجاد فضای خالی در سمت چپ اینپوت تا متن روی دکمه‌ها نیفته */
-    .search-box input {
-        width: 100px;
-        padding-left: 85px;
-        padding-right: 15px;
-    }
-
-    /* نمایش دکمه‌ها */
-    .search-close,
-    .search-submit {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /* دکمه تایید (ذره‌بین) - چسبیده به لبه چپ */
-    .search-submit {
-        left: 10px;
-    }
-
-    /* دکمه لغو (ضربدر) - کنار ذره‌بین */
-    .search-close {
-        left: 44px;
-    }
-
-    .search-submit:hover,
-    .search-close:hover {
-        color: var(--text-primary);
-    }
-}
-
-/* ===== آیکون‌های سمت چپ ===== */
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* ===== آیکون‌های هدر ===== */
 .icon-btn {
     position: relative;
     background: none;
@@ -319,7 +261,6 @@ body {
     display: block;
 }
 
-/* ===== Badge ===== */
 .badge {
     position: absolute;
     top: 5px;
@@ -345,12 +286,10 @@ body {
     left: -5px;
 }
 
-/* ===== دکمه جستجو موبایل ===== */
 .mobile-search-btn {
     display: none !important;
 }
 
-/* ===== انیمیشن تغییر آیکون تم ===== */
 .theme-icon-wrapper {
     position: relative;
     width: 24px;
@@ -366,8 +305,8 @@ body {
     height: 24px;
     display: block;
     transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-        opacity 0.3s ease,
-        visibility 0.3s ease;
+                opacity 0.3s ease,
+                visibility 0.3s ease;
 }
 
 .icon-sun {
@@ -398,7 +337,6 @@ html.dark-mode .icon-moon {
 /* ═══════════════════════════════════════════════════════════════
    📋 بخش ۵: منوی ناوبری
    ═══════════════════════════════════════════════════════════════ */
-
 .header-bottom {
     border-top: 1px solid var(--border-color);
     padding: 0 30px;
@@ -406,8 +344,8 @@ html.dark-mode .icon-moon {
     overflow: hidden;
     opacity: 1;
     transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        padding 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                padding 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 html.scrolled .main-header .header-bottom,
@@ -418,8 +356,8 @@ html.scrolled .main-header .header-bottom,
     opacity: 0 !important;
     pointer-events: none;
     transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-        padding 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.6s ease;
+                padding 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.6s ease;
 }
 
 .nav-menu {
@@ -476,7 +414,6 @@ html.dark-mode .nav-menu li a:hover {
 /* ═══════════════════════════════════════════════════════════════
    🗂️ بخش ۶: مگا منو
    ═══════════════════════════════════════════════════════════════ */
-
 .category-menu {
     border-left: 1px solid var(--border-accent);
     padding-left: 30px;
@@ -512,6 +449,8 @@ html.dark-mode .nav-menu li a:hover {
     z-index: 999;
     max-height: 80vh;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-accent) transparent;
 }
 
 .mega-menu::-webkit-scrollbar {
@@ -531,11 +470,6 @@ html.dark-mode .nav-menu li a:hover {
 
 .mega-menu::-webkit-scrollbar-thumb:hover {
     background: var(--primary-accent);
-}
-
-.mega-menu {
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-accent) transparent;
 }
 
 .mega-menu.active {
@@ -600,14 +534,13 @@ html.dark-mode .mega-list li a:hover {
 /* ═══════════════════════════════════════════════════════════════
    📄 بخش ۷: محتوای اصلی
    ═══════════════════════════════════════════════════════════════ */
-
 .main-content {
     min-height: 100vh;
     padding: 30px;
     background-color: var(--bg-body);
     transition: background-color 0.3s ease;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* نکته: اگر اسکرول صفحه نیاز است، این خط را به visible تغییر دهید */
 }
 
 .main-content::before {
@@ -620,75 +553,44 @@ html.dark-mode .mega-list li a:hover {
     z-index: 0;
     pointer-events: none;
     background: linear-gradient(to left,
-            rgba(67, 97, 238, 0.10) 0%,
-            rgba(67, 97, 238, 0.06) 25%,
-            rgba(176, 38, 255, 0.04) 50%,
-            rgba(247, 37, 133, 0.06) 75%,
-            rgba(247, 37, 133, 0.10) 100%);
+        rgba(67, 97, 238, 0.10) 0%,
+        rgba(67, 97, 238, 0.06) 25%,
+        rgba(176, 38, 255, 0.04) 50%,
+        rgba(247, 37, 133, 0.06) 75%,
+        rgba(247, 37, 133, 0.10) 100%);
 }
 
-/*عع
-/* محتوای داخلی باید روی بکگراند باشه */
-.main-content>* {
+.main-content > * {
     position: relative;
     z-index: 1;
 }
 
 html.dark-mode .main-content::before {
     background: linear-gradient(to left,
-            rgba(67, 97, 238, 0.18) 0%,
-            rgba(67, 97, 238, 0.10) 25%,
-            rgba(176, 38, 255, 0.08) 50%,
-            rgba(247, 37, 133, 0.10) 75%,
-            rgba(247, 37, 133, 0.18) 100%);
+        rgba(67, 97, 238, 0.18) 0%,
+        rgba(67, 97, 238, 0.10) 25%,
+        rgba(176, 38, 255, 0.08) 50%,
+        rgba(247, 37, 133, 0.10) 75%,
+        rgba(247, 37, 133, 0.18) 100%);
 }
 
 
 /* ═══════════════════════════════════════════════════════════════
-   🔔 بخش ۸: انیمیشن‌ها
+   🔔 بخش ۸: انیمیشن‌های عمومی
    ═══════════════════════════════════════════════════════════════ */
-
-/* ===== انیمیشن نوتیفیکیشن ===== */
 @keyframes bell-shake {
-    0% {
-        transform: rotate(0);
-    }
-
-    15% {
-        transform: rotate(15deg);
-    }
-
-    30% {
-        transform: rotate(-15deg);
-    }
-
-    45% {
-        transform: rotate(10deg);
-    }
-
-    60% {
-        transform: rotate(-10deg);
-    }
-
-    75% {
-        transform: rotate(5deg);
-    }
-
-    100% {
-        transform: rotate(0);
-    }
+    0% { transform: rotate(0); }
+    15% { transform: rotate(15deg); }
+    30% { transform: rotate(-15deg); }
+    45% { transform: rotate(10deg); }
+    60% { transform: rotate(-10deg); }
+    75% { transform: rotate(5deg); }
+    100% { transform: rotate(0); }
 }
 
 @keyframes bell-pulse {
-
-    0%,
-    100% {
-        box-shadow: 0 0 0 0 rgba(247, 37, 133, 0.4);
-    }
-
-    50% {
-        box-shadow: 0 0 0 10px rgba(247, 37, 133, 0);
-    }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(247, 37, 133, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(247, 37, 133, 0); }
 }
 
 .notification-btn.shake .icon {
@@ -700,32 +602,12 @@ html.dark-mode .main-content::before {
     animation: bell-pulse 1s ease-in-out;
 }
 
-/* ===== انیمیشن سبد خرید ===== */
 @keyframes cart-slide {
-    0% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-
-    30% {
-        transform: translateX(150%);
-        opacity: 0;
-    }
-
-    31% {
-        transform: translateX(-150%);
-        opacity: 0;
-    }
-
-    70% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
+    0% { transform: translateX(0); opacity: 1; }
+    30% { transform: translateX(150%); opacity: 0; }
+    31% { transform: translateX(-150%); opacity: 0; }
+    70% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(0); opacity: 1; }
 }
 
 .cart-btn.slide .icon {
@@ -733,36 +615,16 @@ html.dark-mode .main-content::before {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* =========================================
-   1. بخش اصلی و عنوان
-   ========================================= */
+/* ═══════════════════════════════════════════════════════════════
+   🎠 بخش ۹: اسلایدر کاروسل (استایل‌های پایه)
+   ═══════════════════════════════════════════════════════════════ */
 .carousel-section {
     padding: 60px 20px 50px 20px;
     max-width: 1400px;
     margin: 0 auto;
 
     transition: background 0.4s ease;
+    animation: fadeIn 0.8s ease-out;
 }
 
 .carousel-title {
@@ -778,9 +640,6 @@ html.dark-mode .main-content::before {
     margin: 0 10px;
 }
 
-/* =========================================
-   2. کانتینر اصلی
-   ========================================= */
 .carousel-container {
     position: relative;
     width: 100%;
@@ -795,9 +654,6 @@ html.dark-mode .main-content::before {
     height: 560px;
 }
 
-/* =========================================
-   3. اسلایدها با سایه رنگی
-   ========================================= */
 .carousel-slide {
     position: absolute;
     width: 480px;
@@ -814,10 +670,8 @@ html.dark-mode .main-content::before {
     background: var(--bg-card);
     border-radius: 24px;
     overflow: hidden;
-    /* سایه رنگی کمرنگ */
-    box-shadow: 
-        0 15px 40px rgba(67, 97, 238, 0.12),
-        0 5px 15px rgba(76, 201, 240, 0.08);
+    box-shadow: 0 15px 40px rgba(67, 97, 238, 0.12),
+                0 5px 15px rgba(76, 201, 240, 0.08);
 }
 
 .carousel-slide img {
@@ -830,36 +684,31 @@ html.dark-mode .main-content::before {
     -webkit-user-drag: none;
 }
 
-/* اسلاید فعال - سایه رنگی قوی‌تر */
 .carousel-slide.active {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
     z-index: 10;
     cursor: pointer;
     pointer-events: auto;
-    box-shadow: 
-        0 20px 50px rgba(67, 97, 238, 0.20),
-        0 10px 25px rgba(76, 201, 240, 0.12),
-        0 0 0 1px var(--border-accent);
+    box-shadow: 0 20px 50px rgba(67, 97, 238, 0.20),
+                0 10px 25px rgba(76, 201, 240, 0.12),
+                0 0 0 1px var(--border-accent);
 }
 
-/* اسلاید قبلی و بعدی */
 .carousel-slide.prev {
     opacity: 0.6;
     transform: translate(-150%, -50%) scale(0.85) rotateY(15deg);
     z-index: 5;
-    box-shadow: 
-        0 10px 30px rgba(67, 97, 238, 0.08),
-        0 5px 10px rgba(76, 201, 240, 0.05);
+    box-shadow: 0 10px 30px rgba(67, 97, 238, 0.08),
+                0 5px 10px rgba(76, 201, 240, 0.05);
 }
 
 .carousel-slide.next {
     opacity: 0.6;
     transform: translate(50%, -50%) scale(0.85) rotateY(-15deg);
     z-index: 5;
-    box-shadow: 
-        0 10px 30px rgba(67, 97, 238, 0.08),
-        0 5px 10px rgba(76, 201, 240, 0.05);
+    box-shadow: 0 10px 30px rgba(67, 97, 238, 0.08),
+                0 5px 10px rgba(76, 201, 240, 0.05);
 }
 
 .carousel-slide.far-prev,
@@ -870,9 +719,6 @@ html.dark-mode .main-content::before {
     box-shadow: 0 5px 15px rgba(67, 97, 238, 0.05);
 }
 
-/* =========================================
-   4. Overlay و متن روی اسلاید
-   ========================================= */
 .slide-overlay {
     position: absolute;
     bottom: 0;
@@ -885,6 +731,7 @@ html.dark-mode .main-content::before {
     gap: 8px;
     align-items: center;
     text-align: center;
+    transition: all 0.3s ease;
 }
 
 .slide-title {
@@ -911,6 +758,17 @@ html.dark-mode .main-content::before {
     font-weight: 600;
     margin-bottom: 8px;
     box-shadow: 0 4px 12px rgba(67, 97, 238, 0.4);
+    transition: all 0.3s ease;
+}
+
+.badge-ad {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.badge-coupon {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
 }
 
 .badge-danger {
@@ -928,19 +786,9 @@ html.dark-mode .main-content::before {
     box-shadow: 0 4px 12px rgba(76, 201, 240, 0.4);
 }
 
-/* =========================================
-   5. کد تخفیف (با دارک مود کامل)
-   ========================================= */
-   /* =========================================
-   5. کد تخفیف (با CSS Variables - دارک مود خودکار)
-   ========================================= */
 .discount-code {
-    /* پس‌زمینه: از رنگ کارت سایت */
     background: var(--bg-card);
-    
-    /* متن: از رنگ متن اصلی سایت */
     color: var(--text-primary);
-    
     padding: 12px 32px;
     border-radius: 12px;
     font-size: 22px;
@@ -948,40 +796,40 @@ html.dark-mode .main-content::before {
     font-family: 'Courier New', monospace;
     letter-spacing: 2px;
     margin-bottom: 12px;
-    
-    /* سایه: از متغیر سایه سایت */
-    box-shadow: 
-        0 4px 15px var(--shadow-color),
-        0 0 0 2px var(--border-accent);
-    
-    /* حاشیه: از رنگ حاشیه سایت */
+    box-shadow: 0 4px 15px var(--shadow-color),
+                0 0 0 2px var(--border-accent);
     border: 2px dashed var(--border-accent);
-    
-    /* افکت شیشه‌ای */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    
-    /* تغییر نرم در دارک مود */
-    transition: 
-        background 0.4s ease,
-        color 0.4s ease,
-        border-color 0.4s ease,
-        box-shadow 0.4s ease;
+    transition: background 0.4s ease,
+                color 0.4s ease,
+                border-color 0.4s ease,
+                box-shadow 0.4s ease,
+                transform 0.3s ease;
 }
 
-/* هاور روی کد تخفیف */
 .discount-code:hover {
-    background: var(--hover-bg);
-    border-color: var(--primary-accent);
-    box-shadow: 
-        0 6px 20px var(--shadow-color),
-        0 0 0 3px var(--icon-hover);
     transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--shadow-color),
+                0 0 0 3px var(--icon-hover);
 }
 
-/* =========================================
-   6. نقطه‌ها و دکمه‌ها
-   ========================================= */
+.carousel-slide.card-coupon.copied .discount-code {
+    background: var(--primary-accent);
+    color: #ffffff;
+    border-color: var(--primary-accent);
+    border-style: solid;
+}
+
+.carousel-slide.card-coupon.copied .slide-subtitle {
+    color: #10B981;
+    font-weight: 600;
+}
+
+.carousel-slide.card-coupon.copied .slide-subtitle::before {
+    content: "✓ ";
+}
+
 .carousel-dots {
     position: absolute;
     bottom: 15px;
@@ -1010,6 +858,9 @@ html.dark-mode .main-content::before {
 }
 
 .dot.active {
+    border-radius: 10px;
+    width: 20px;
+    height: 10px;
     background: var(--primary-accent);
     opacity: 1;
     transform: scale(1.4);
@@ -1036,9 +887,8 @@ html.dark-mode .main-content::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 
-        0 4px 15px rgba(67, 97, 238, 0.15),
-        0 2px 8px rgba(76, 201, 240, 0.1);
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.15),
+                0 2px 8px rgba(76, 201, 240, 0.1);
     transition: all 0.3s ease;
     pointer-events: auto;
 }
@@ -1048,146 +898,66 @@ html.dark-mode .main-content::before {
     color: #ffffff;
     border-color: var(--primary-accent);
     transform: translateY(-3px);
-    box-shadow: 
-        0 6px 20px rgba(67, 97, 238, 0.3),
-        0 0 0 4px var(--icon-hover);
+    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3),
+                0 0 0 4px var(--icon-hover);
 }
 
 .nav-btn:active {
     transform: translateY(0);
 }
 
-/* =========================================
-   7. ریسپانسیو - دسکتاپ کوچک (992-1199px)
-   ========================================= */
-@media (max-width: 1199px) {
-    .carousel-container { height: 580px; }
-    .carousel-track { height: 500px; }
-    .carousel-slide { width: 420px; height: 460px; }
-    .slide-title { font-size: 18px; }
-    .discount-code { font-size: 20px; padding: 10px 28px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   🔔 بخش ۱۰: Toast Notification (کپی کد تخفیف)
+   ═══════════════════════════════════════════════════════════════ */
+.carousel-copy-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: 14px 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(67, 97, 238, 0.25),
+                0 0 0 1px var(--border-accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    direction: rtl;
 }
 
-/* =========================================
-   8. ریسپانسیو - تبلت (768-991px)
-   ========================================= */
-@media (max-width: 991px) {
-    .carousel-section { padding: 40px 15px 35px 15px; }
-    .carousel-container { height: 520px; }
-    .carousel-track { height: 440px; }
-    .carousel-slide { width: 360px; height: 400px; }
-    
-    .carousel-slide.prev { transform: translate(-130%, -50%) scale(0.85) rotateY(12deg); }
-    .carousel-slide.next { transform: translate(30%, -50%) scale(0.85) rotateY(-12deg); }
-    
-    .slide-title { font-size: 17px; }
-    .slide-subtitle { font-size: 13px; }
-    .discount-code { font-size: 18px; padding: 8px 24px; }
-    
-    .carousel-dots { bottom: 12px; gap: 10px; }
-    .dot { width: 10px; height: 10px; }
-    .carousel-nav { bottom: 12px; gap: 12px; }
-    .nav-btn { width: 44px; height: 44px; }
+.carousel-copy-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
-/* =========================================
-   9. ریسپانسیو - موبایل بزرگ (480-767px)
-   ========================================= */
-@media (max-width: 767px) {
-    .carousel-section { padding: 30px 12px 50px 12px; }
-    .carousel-container { height: 460px; }
-    .carousel-track { height: 380px; }
-    .carousel-slide { width: 300px; height: 340px; border-radius: 20px; }
-    .carousel-slide img { border-radius: 20px; }
-    
-    .carousel-slide.prev { transform: translate(-110%, -50%) scale(0.8) rotateY(10deg); }
-    .carousel-slide.next { transform: translate(10%, -50%) scale(0.8) rotateY(-10deg); }
-    
-    .slide-overlay { padding: 30px 20px 20px; }
-    .slide-title { font-size: 16px; }
-    .slide-subtitle { font-size: 12px; }
-    .slide-badge { font-size: 11px; padding: 5px 14px; }
-    .discount-code { font-size: 16px; padding: 8px 20px; letter-spacing: 1px; }
-    
-    .carousel-dots { bottom: 10px; gap: 8px; }
-    .dot { width: 9px; height: 9px; }
-    
-    .carousel-nav { 
-        bottom: 35px; 
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        gap: 15px;
-    }
-    .nav-btn { width: 42px; height: 42px; }
-    .nav-btn svg { width: 16px; height: 16px; }
+.carousel-copy-toast svg {
+    color: #10B981;
+    flex-shrink: 0;
 }
 
-/* =========================================
-   10. ریسپانسیو - موبایل کوچک (360-479px)
-   ========================================= */
-@media (max-width: 479px) {
-    .carousel-section { padding: 25px 10px 45px 10px; }
-    .carousel-container { height: 420px; }
-    .carousel-track { height: 340px; }
-    .carousel-slide { width: 260px; height: 300px; border-radius: 18px; }
-    .carousel-slide img { border-radius: 18px; }
-    
-    .carousel-slide.prev { transform: translate(-95%, -50%) scale(0.75) rotateY(8deg); }
-    .carousel-slide.next { transform: translate(-5%, -50%) scale(0.75) rotateY(-8deg); }
-    
-    .slide-overlay { padding: 25px 15px 18px; }
-    .slide-title { font-size: 15px; }
-    .slide-subtitle { font-size: 11px; }
-    .discount-code { font-size: 14px; padding: 6px 16px; }
-    
-    .carousel-dots { bottom: 8px; gap: 7px; }
-    .dot { width: 8px; height: 8px; }
-    
-    .carousel-nav { 
-        bottom: 32px; 
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        gap: 12px;
-    }
-    .nav-btn { width: 38px; height: 38px; }
-    .nav-btn svg { width: 14px; height: 14px; }
+.carousel-copy-toast strong {
+    color: var(--primary-accent);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
 }
 
-/* =========================================
-   11. ریسپانسیو - موبایل خیلی کوچک (زیر 360px)
-   ========================================= */
-@media (max-width: 359px) {
-    .carousel-container { height: 380px; }
-    .carousel-track { height: 300px; }
-    .carousel-slide { width: 230px; height: 270px; }
-    
-    .slide-title { font-size: 14px; }
-    .discount-code { font-size: 13px; padding: 5px 14px; }
-    
-    .carousel-dots { bottom: 6px; gap: 6px; }
-    .dot { width: 7px; height: 7px; }
-    
-    .carousel-nav { 
-        bottom: 28px; 
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        gap: 10px;
-    }
-    .nav-btn { width: 34px; height: 34px; }
-    .nav-btn svg { width: 12px; height: 12px; }
+html.dark-mode .carousel-copy-toast {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 0 1px var(--border-accent);
 }
 
-/* =========================================
-   12. انیمیشن ورودی
-   ========================================= */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-.carousel-section {
-    animation: fadeIn 0.8s ease-out;
-}

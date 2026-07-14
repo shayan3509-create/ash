@@ -1,8 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════
-   📱 بخش ۱۰: Responsive Design - نسخه نهایی
+   📱 فایل ریسپانسیو نیوشاپ - نسخه نهایی (تجمیع شده)
    ═══════════════════════════════════════════════════════════════ */
 
-/* ===== تبلت (768px - 1024px) ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   🖥️ دسکتاپ کوچک (992px تا 1199px) - اسلایدر
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1199px) {
+    .carousel-container { height: 580px; }
+    .carousel-track { height: 500px; }
+    .carousel-slide { width: 420px; height: 460px; }
+    .slide-title { font-size: 18px; }
+    .discount-code { font-size: 20px; padding: 10px 28px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 تبلت (768px تا 1024px) - هدر
+   ═══════════════════════════════════════════════════════════════ */
 @media screen and (max-width: 1024px) {
 
     /* هدر */
@@ -72,7 +87,65 @@
     }
 }
 
-/* ===== موبایل بزرگ (481px - 768px) ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 تبلت (768px تا 991px) - اسلایدر
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 991px) {
+    .carousel-section { padding: 40px 15px 35px 15px; }
+    .carousel-container { height: 520px; }
+    .carousel-track { height: 440px; }
+    .carousel-slide { width: 360px; height: 400px; }
+    
+    .carousel-slide.prev { transform: translate(-130%, -50%) scale(0.85) rotateY(12deg); }
+    .carousel-slide.next { transform: translate(30%, -50%) scale(0.85) rotateY(-12deg); }
+    
+    .slide-title { font-size: 17px; }
+    .slide-subtitle { font-size: 13px; }
+    .discount-code { font-size: 18px; padding: 8px 24px; }
+    
+    .carousel-dots { bottom: 12px; gap: 10px; }
+    .dot { width: 10px; height: 10px; }
+    .carousel-nav { bottom: 12px; gap: 12px; }
+    .nav-btn { width: 44px; height: 44px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 موبایل بزرگ (تا 768px) - سرچ‌باکس
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .search-box input {
+        width: 100px;
+        padding-left: 85px;
+        padding-right: 15px;
+    }
+
+    .search-close,
+    .search-submit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-submit {
+        left: 10px;
+    }
+
+    .search-close {
+        left: 44px;
+    }
+
+    .search-submit:hover,
+    .search-close:hover {
+        color: var(--text-primary);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 موبایل بزرگ (481px تا 768px) - هدر
+   ═══════════════════════════════════════════════════════════════ */
 @media screen and (max-width: 768px) {
 
     /* هدر */
@@ -317,7 +390,44 @@
     }
 }
 
-/* ===== موبایل کوچک (تا 480px) ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 موبایل بزرگ (480px تا 767px) - اسلایدر
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+    .carousel-section { padding: 30px 12px 50px 12px; }
+    .carousel-container { height: 460px; }
+    .carousel-track { height: 380px; }
+    .carousel-slide { width: 300px; height: 340px; border-radius: 20px; }
+    .carousel-slide img { border-radius: 20px; }
+    
+    .carousel-slide.prev { transform: translate(-110%, -50%) scale(0.8) rotateY(10deg); }
+    .carousel-slide.next { transform: translate(10%, -50%) scale(0.8) rotateY(-10deg); }
+    
+    .slide-overlay { padding: 30px 20px 20px; }
+    .slide-title { font-size: 16px; }
+    .slide-subtitle { font-size: 12px; }
+    .slide-badge { font-size: 11px; padding: 5px 14px; }
+    .discount-code { font-size: 16px; padding: 8px 20px; letter-spacing: 1px; }
+    
+    .carousel-dots { bottom: 10px; gap: 8px; }
+    .dot { width: 9px; height: 9px; }
+    
+    .carousel-nav { 
+        bottom: 35px; 
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 15px;
+    }
+    .nav-btn { width: 42px; height: 42px; }
+    .nav-btn svg { width: 16px; height: 16px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 موبایل کوچک (تا 480px) - هدر
+   ═══════════════════════════════════════════════════════════════ */
 @media screen and (max-width: 480px) {
 
     /* هدر */
@@ -403,7 +513,43 @@
     }
 }
 
-/* ===== موبایل خیلی کوچک (تا 360px) ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 موبایل کوچک (360px تا 479px) - اسلایدر
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 479px) {
+    .carousel-section { padding: 25px 10px 45px 10px; }
+    .carousel-container { height: 420px; }
+    .carousel-track { height: 340px; }
+    .carousel-slide { width: 260px; height: 300px; border-radius: 18px; }
+    .carousel-slide img { border-radius: 18px; }
+    
+    .carousel-slide.prev { transform: translate(-95%, -50%) scale(0.75) rotateY(8deg); }
+    .carousel-slide.next { transform: translate(-5%, -50%) scale(0.75) rotateY(-8deg); }
+    
+    .slide-overlay { padding: 25px 15px 18px; }
+    .slide-title { font-size: 15px; }
+    .slide-subtitle { font-size: 11px; }
+    .discount-code { font-size: 14px; padding: 6px 16px; }
+    
+    .carousel-dots { bottom: 8px; gap: 7px; }
+    .dot { width: 8px; height: 8px; }
+    
+    .carousel-nav { 
+        bottom: 32px; 
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 12px;
+    }
+    .nav-btn { width: 38px; height: 38px; }
+    .nav-btn svg { width: 14px; height: 14px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 موبایل خیلی کوچک (تا 360px) - هدر
+   ═══════════════════════════════════════════════════════════════ */
 @media screen and (max-width: 360px) {
 
     /* هدر */
@@ -492,7 +638,36 @@
     }
 }
 
-/* ===== افقی موبایل (landscape) ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 موبایل خیلی کوچک (زیر 360px) - اسلایدر
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 359px) {
+    .carousel-container { height: 380px; }
+    .carousel-track { height: 300px; }
+    .carousel-slide { width: 230px; height: 270px; }
+    
+    .slide-title { font-size: 14px; }
+    .discount-code { font-size: 13px; padding: 5px 14px; }
+    
+    .carousel-dots { bottom: 6px; gap: 6px; }
+    .dot { width: 7px; height: 7px; }
+    
+    .carousel-nav { 
+        bottom: 28px; 
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 10px;
+    }
+    .nav-btn { width: 34px; height: 34px; }
+    .nav-btn svg { width: 12px; height: 12px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 افقی موبایل (landscape)
+   ═══════════════════════════════════════════════════════════════ */
 @media screen and (max-height: 500px) and (orientation: landscape) {
 
     /* هدر کوچک‌تر */
@@ -529,7 +704,10 @@
     }
 }
 
-/* ===== تنظیمات اضافی برای تاچ ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   👆 تنظیمات اضافی برای تاچ
+   ═══════════════════════════════════════════════════════════════ */
 @media (hover: none) and (pointer: coarse) {
 
     /* برای دستگاه‌های لمسی */
@@ -552,7 +730,10 @@
     }
 }
 
-/* ===== پرینت ===== */
+
+/* ═══════════════════════════════════════════════════════════════
+   🖨️ پرینت
+   ═══════════════════════════════════════════════════════════════ */
 @media print {
 
     .main-header {

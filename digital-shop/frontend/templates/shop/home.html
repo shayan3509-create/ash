@@ -9,9 +9,7 @@
     <title>نیوشاپ | فروشگاه اینترنتی</title>
     <meta name="description" content="نیوشاپ، فروشگاه اینترنتی پوشاک و محصولات متنوع با بهترین قیمت">
     
-    <!-- فونت وزیرمتن -->
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-    
+
     <!-- فونت لاله‌زار -->
     <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
     
@@ -267,7 +265,15 @@
 
     
 
-<!-- ============ بخش محصولات و پیشنهادات ویژه نیوشاپ ============ -->
+
+
+
+
+
+
+
+
+<!-- ============ بخش پیشنهادات ویژه نیوشاپ ============ -->
 <section class="carousel-section">
     
     <h2 class="carousel-title">
@@ -279,101 +285,162 @@
     <div class="carousel-container" id="carouselContainer">
         <div class="carousel-track" id="carouselTrack">
 
-            <!-- اسلاید ۱: گوشی موبایل -->
-            <a href="category/mobile.html" class="carousel-slide">
+            <!-- ═══════════════════════════════════════════════
+                 کارت ۱: محصول (لینک به دسته‌بندی گوشی نیوشاپ)
+            ═══════════════════════════════════════════════ -->
+            <a href="https://newshop.ir/category/mobile" 
+               class="carousel-slide card-product"
+               data-type="product">
                 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80" alt="گوشی موبایل">
                 <div class="slide-overlay">
                     <span class="slide-badge">جدید</span>
                     <span class="slide-title">گوشی‌های هوشمند</span>
+                    <span class="slide-subtitle">مشاهده محصولات</span>
                 </div>
             </a>
 
-            <!-- اسلاید : کد تخفیف -->
-            <a href="discount.html" class="carousel-slide">
+            <!-- ═══════════════════════════════════════════════
+                 کارت ۲: کد تخفیف (بدون لینک - فقط کپی)
+            ═══════════════════════════════════════════════ -->
+            <a href="#" 
+               class="carousel-slide card-coupon"
+               data-type="coupon"
+               data-code="NEWSHOP30"
+               data-discount="30">
                 <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?w=800&q=80" alt="کد تخفیف">
                 <div class="slide-overlay">
+                    <span class="slide-badge badge-coupon">کد تخفیف</span>
                     <span class="discount-code">NEWSHOP30</span>
                     <span class="slide-title">۳۰٪ تخفیف ویژه</span>
-                    <span class="slide-subtitle">کد تخفیف اولین خرید</span>
+                    <span class="slide-subtitle">برای کپی کلیک کنید</span>
                 </div>
             </a>
 
-            <!-- اسلاید ۳: لپ‌تاپ -->
-            <a href="category/laptop.html" class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80" alt="لپ‌تاپ">
+            <!-- ═══════════════════════════════════════════════
+                 کارت ۳: تبلیغ (لینک به سایت خارجی)
+            ═══════════════════════════════════════════════ -->
+            <a href="https://www.digikala.com" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="carousel-slide card-ad"
+               data-type="ad">
+                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80" alt="تبلیغ لپ‌تاپ">
                 <div class="slide-overlay">
-                    <span class="slide-title">لپ‌تاپ و کامپیوتر</span>
+                    <span class="slide-badge badge-ad">تبلیغ</span>
+                    <span class="slide-title">لپ‌تاپ‌های گیمینگ</span>
+                    <span class="slide-subtitle">مشاهده در سایت همکار</span>
                 </div>
             </a>
 
-            <!-- اسلاید ۴: پیشنهاد شگفت‌انگیز -->
-            <a href="offers.html" class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80" alt="پیشنهاد ویژه">
-                <div class="slide-overlay">
-                    <span class="slide-badge badge-danger">شگفت‌انگیز</span>
-                    <span class="slide-title">تا ۷۰٪ تخفیف</span>
-                    <span class="slide-subtitle">فقط تا پایان هفته</span>
-                </div>
-            </a>
-
-            <!-- اسلاید : ساعت هوشمند -->
-            <a href="category/smartwatch.html" class="carousel-slide">
+            <!-- ═══════════════════════════════════════════════
+                 کارت ۴: محصول
+            ═══════════════════════════════════════════════ -->
+            <a href="https://newshop.ir/category/smartwatch" 
+               class="carousel-slide card-product"
+               data-type="product">
                 <img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=800&q=80" alt="ساعت هوشمند">
                 <div class="slide-overlay">
                     <span class="slide-title">ساعت‌های هوشمند</span>
+                    <span class="slide-subtitle">مشاهده محصولات</span>
                 </div>
             </a>
 
-            <!-- اسلاید ۶: ارسال رایگان -->
-            <a href="shipping.html" class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" alt="ارسال رایگان">
+            <!-- ═══════════════════════════════════════════════
+                 کارت ۵: کد تخفیف
+            ═══════════════════════════════════════════════ -->
+            <a href="#" 
+               class="carousel-slide card-coupon"
+               data-type="coupon"
+               data-code="TECH20"
+               data-discount="20">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="کد تخفیف دیجیتال">
                 <div class="slide-overlay">
-                    <span class="slide-title">ارسال رایگان</span>
-                    <span class="slide-subtitle">برای خریدهای بالای ۵۰۰ هزار تومان</span>
+                    <span class="slide-badge badge-coupon">کد تخفیف</span>
+                    <span class="discount-code">TECH20</span>
+                    <span class="slide-title">۲۰٪ تخفیف دیجیتال</span>
+                    <span class="slide-subtitle">برای کپی کلیک کنید</span>
                 </div>
             </a>
 
-            <!-- اسلاید ۷: هدفون -->
-            <a href="category/headphone.html" class="carousel-slide">
+            <!-- ══════════════════════════════════════════════
+                 کارت ۶: محصول
+            ══════════════════════════════════════════════ -->
+            <a href="https://newshop.ir/category/headphone" 
+               class="carousel-slide card-product"
+               data-type="product">
                 <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80" alt="هدفون">
                 <div class="slide-overlay">
                     <span class="slide-badge badge-premium">پرمیوم</span>
                     <span class="slide-title">هدفون و ایرپاد</span>
+                    <span class="slide-subtitle">مشاهده محصولات</span>
                 </div>
             </a>
 
-            <!-- اسلاید ۸: کد تخفیف دوم -->
-            <a href="discount2.html" class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="کد تخفیف دیجیتال">
+            <!-- ═══════════════════════════════════════════════
+                 کارت ۷: تبلیغ
+            ═══════════════════════════════════════════════ -->
+            <a href="https://www.amazon.com" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="carousel-slide card-ad"
+               data-type="ad">
+                <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80" alt="تبلیغ ویژه">
                 <div class="slide-overlay">
-                    <span class="discount-code">TECH20</span>
-                    <span class="slide-title">۲۰٪ تخفیف دیجیتال</span>
-                    <span class="slide-subtitle">ویژه محصولات دیجیتال</span>
+                    <span class="slide-badge badge-ad">تبلیغ</span>
+                    <span class="slide-title">فروش ویژه لوازم جانبی</span>
+                    <span class="slide-subtitle">مشاهده در سایت همکار</span>
                 </div>
             </a>
 
-            <!-- اسلاید ۹: تبلت -->
-            <a href="category/tablet.html" class="carousel-slide">
+            <!-- ═══════════════════════════════════════════════
+                 کارت ۸: محصول
+            ═══════════════════════════════════════════════ -->
+            <a href="https://newshop.ir/category/tablet" 
+               class="carousel-slide card-product"
+               data-type="product">
                 <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800&q=80" alt="تبلت">
                 <div class="slide-overlay">
                     <span class="slide-title">تبلت و آیپد</span>
+                    <span class="slide-subtitle">مشاهده محصولات</span>
                 </div>
             </a>
 
-            <!-- اسلاید ۱۰: کمپین ویژه -->
-            <a href="campaign.html" class="carousel-slide">
+            <!-- ═══════════════════════════════════════════════
+                 کارت ۹: تبلیغ
+            ═══════════════════════════════════════════════ -->
+            <a href="https://www.post.ir" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="carousel-slide card-ad"
+               data-type="ad">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" alt="تبلیغ ارسال">
+                <div class="slide-overlay">
+                    <span class="slide-badge badge-ad">تبلیغ</span>
+                    <span class="slide-title">سرویس پست سریع</span>
+                    <span class="slide-subtitle">ارسال فوری به سراسر کشور</span>
+                </div>
+            </a>
+
+            <!-- ═══════════════════════════════════════════════
+                 کارت ۱۰: محصول
+            ═══════════════════════════════════════════════ -->
+            <a href="https://newshop.ir/campaign/summer" 
+               class="carousel-slide card-product"
+               data-type="product">
                 <img src="https://images.unsplash.com/photo-1607083206869-2c3067346477?w=800&q=80" alt="کمپین ویژه">
                 <div class="slide-overlay">
                     <span class="slide-badge badge-secondary">کمپین ویژه</span>
                     <span class="slide-title">جشنواره تابستانه</span>
-                    <span class="slide-subtitle">تخفیف روی هزاران کالا</span>
+                    <span class="slide-subtitle">مشاهده محصولات</span>
                 </div>
             </a>
 
         </div>
 
+        <!-- نقطه‌های نشانگر -->
         <div class="carousel-dots" id="carouselDots"></div>
 
+        <!-- دکمه‌های ناوبری -->
         <div class="carousel-nav">
             <button class="nav-btn nav-prev" id="btnPrev" aria-label="قبلی">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -390,6 +457,8 @@
     </div>
 
 </section>
+
+
 
 
 

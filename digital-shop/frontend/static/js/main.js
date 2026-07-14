@@ -331,10 +331,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // =========================================
     // 🎠 بخش اسلایدر کاروسل 3D (اصلاح شده)
     // =========================================
+
+
+    // =========================================
+    // 🎠 بخش اسلایدر کاروسل 3D - 3 نوع کارت
+    // =========================================
     try {
         console.log('🎠 ========================================');
         console.log('🎠 شروع بخش اسلایدر کاروسل');
-        console.log('🎠 ========================================');
+        console.log(' ========================================');
         
         // ===== انتخاب المان‌ها =====
         const carouselSlides = document.querySelectorAll('.carousel-slide');
@@ -344,9 +349,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const carouselContainer = document.getElementById('carouselContainer');
         
         console.log('🎠 تعداد اسلایدها:', carouselSlides.length);
+        console.log('🎠 carouselContainer:', carouselContainer);
+        console.log('🎠 carouselBtnPrev:', carouselBtnPrev);
+        console.log('🎠 carouselBtnNext:', carouselBtnNext);
         
         if (!carouselContainer || carouselSlides.length === 0) {
-            console.warn('🎠 ⚠️ اسلایدر در این صفحه وجود ندارد');
+            console.warn('🎠 ️ اسلایدر در این صفحه وجود ندارد');
             throw new Error('Carousel not found');
         }
         
@@ -361,25 +369,29 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // ===== ساخت نقطه‌ها =====
         function createCarouselDots() {
+            console.log('🎠 [تابع] createCarouselDots');
             if (!carouselDotsContainer) return;
             carouselDotsContainer.innerHTML = '';
+            
             for (let i = 0; i < carouselTotal; i++) {
                 const dot = document.createElement('span');
                 dot.classList.add('dot');
                 if (i === 0) dot.classList.add('active');
+                
                 dot.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     console.log('🎠 🔵 کلیک روی نقطه:', i);
                     goToCarouselSlide(i);
                     resetCarouselAutoplay();
                 });
+                
                 carouselDotsContainer.appendChild(dot);
             }
             console.log('🎠 ✅ نقاط ساخته شدند:', carouselTotal);
         }
         
         // ===== به‌روزرسانی موقعیت اسلایدها =====
-        // 🔧 اصلاح: چک carouselAnimating حذف شد تا همیشه اجرا شود
         function updateCarousel() {
             console.log('🎠 🔄 updateCarousel - ایندکس:', carouselIndex);
             
@@ -415,10 +427,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // ===== توابع ناوبری =====
-        // 🔧 اصلاح: اول updateCarousel صدا زده می‌شود، بعد قفل فعال می‌شود
         function nextCarouselSlide() {
             if (carouselAnimating) {
-                console.log('🎠 ⚠️ در حال انیمیشن، لغو شد');
+                console.log(' ⚠️ در حال انیمیشن، لغو شد');
                 return;
             }
             
@@ -443,7 +454,7 @@ document.addEventListener('DOMContentLoaded', function() {
             carouselAnimating = true;
             const oldIndex = carouselIndex;
             carouselIndex = (carouselIndex - 1 + carouselTotal) % carouselTotal;
-            console.log('🎠 ⬅️ ایندکس:', oldIndex, '→', carouselIndex);
+            console.log('🎠 ️ ایندکس:', oldIndex, '→', carouselIndex);
             
             updateCarousel();
             
@@ -454,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         function goToCarouselSlide(index) {
             if (carouselAnimating) {
-                console.log('🎠 ⚠️ در حال انیمیشن، لغو شد');
+                console.log(' ⚠️ در حال انیمیشن، لغو شد');
                 return;
             }
             
@@ -470,14 +481,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 600);
         }
         
-        // ===== اتوپلی =====
+        // ===== اتوپلی (هر 20 ثانیه) =====
         function startCarouselAutoplay() {
             stopCarouselAutoplay();
             carouselAutoplay = setInterval(function() {
-                console.log('🎠 ⏰ اتوپلی');
+                console.log('🎠  اتوپلی');
                 nextCarouselSlide();
             }, 20000);
-            console.log('🎠 ✅ اتوپلی شروع شد');
+            console.log('🎠 ✅ اتوپلی شروع شد (هر 20 ثانیه)');
         }
         
         function stopCarouselAutoplay() {
@@ -498,7 +509,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 nextCarouselSlide();
                 resetCarouselAutoplay();
             });
-            console.log('🎠 ✅ رویداد btnNext متصل شد');
+            console.log(' ✅ رویداد btnNext متصل شد');
+        } else {
+            console.error(' ❌ btnNext پیدا نشد!');
         }
         
         if (carouselBtnPrev) {
@@ -510,22 +523,146 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetCarouselAutoplay();
             });
             console.log('🎠 ✅ رویداد btnPrev متصل شد');
+        } else {
+            console.error(' ❌ btnPrev پیدا نشد!');
+        }
+        
+        // =========================================
+        //  مدیریت کلیک روی کارت‌ها (3 نوع رفتار)
+        // =========================================
+        console.log(' [مرحله] مدیریت کلیک کارت‌ها...');
+        
+        carouselSlides.forEach(function(slide, index) {
+            slide.addEventListener('click', function(e) {
+                // تشخیص نوع کارت
+                let cardType = 'product';
+                if (slide.classList.contains('card-coupon')) cardType = 'coupon';
+                else if (slide.classList.contains('card-ad')) cardType = 'ad';
+                
+                console.log('🎠 ️ کلیک روی کارت شماره', index, '- نوع:', cardType);
+                
+                // ===== نوع 1: کد تخفیف (کپی + جلوگیری از لینک) =====
+                if (cardType === 'coupon') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const code = slide.getAttribute('data-code');
+                    const discount = slide.getAttribute('data-discount');
+                    
+                    console.log('🎠 🎫 کد تخفیف:', code, '- درصد:', discount);
+                    
+                    if (code) {
+                        // کپی به کلیپ‌بورد
+                        navigator.clipboard.writeText(code).then(function() {
+                            console.log(' ✅ کد کپی شد:', code);
+                            
+                            // افکت بصری
+                            slide.classList.add('copied');
+                            
+                            // تغییر متن زیرعنوان
+                            const subtitle = slide.querySelector('.slide-subtitle');
+                            if (subtitle) {
+                                const originalText = subtitle.textContent;
+                                subtitle.textContent = '✓ کد کپی شد!';
+                                
+                                setTimeout(function() {
+                                    subtitle.textContent = originalText;
+                                    slide.classList.remove('copied');
+                                }, 2000);
+                            }
+                            
+                            // نمایش Toast
+                            showCopyToast(code);
+                            
+                        }).catch(function(err) {
+                            console.error('🎠 ❌ خطا در کپی:', err);
+                            
+                            // Fallback برای مرورگرهای قدیمی
+                            const textArea = document.createElement('textarea');
+                            textArea.value = code;
+                            textArea.style.position = 'fixed';
+                            textArea.style.opacity = '0';
+                            document.body.appendChild(textArea);
+                            textArea.select();
+                            try {
+                                document.execCommand('copy');
+                                console.log('🎠 ✅ کپی با fallback موفق بود');
+                            } catch (err2) {
+                                console.error(' ❌ fallback هم شکست خورد');
+                            }
+                            document.body.removeChild(textArea);
+                            
+                            slide.classList.add('copied');
+                            setTimeout(function() {
+                                slide.classList.remove('copied');
+                            }, 2000);
+                            
+                            showCopyToast(code);
+                        });
+                    }
+                }
+                
+                // ===== نوع 2: تبلیغ (اجازه بده لینک کار کند) =====
+                else if (cardType === 'ad') {
+                    const href = slide.getAttribute('href');
+                    console.log(' 📢 باز کردن تبلیغ:', href);
+                    // preventDefault نمی‌زنیم - لینک در تب جدید باز می‌شود
+                }
+                
+                // ===== نوع 3: محصول (اجازه بده لینک کار کند) =====
+                else {
+                    const href = slide.getAttribute('href');
+                    console.log('🎠 🛍️ رفتن به محصول:', href);
+                    // preventDefault نمی‌زنیم - لینک داخلی کار می‌کند
+                }
+            });
+        });
+        
+        console.log('🎠 ✅ مدیریت کلیک کارت‌ها اعمال شد');
+        
+        // ===== تابع نمایش Toast برای کپی کد =====
+        function showCopyToast(code) {
+            // حذف toast قبلی اگر وجود دارد
+            const existingToast = document.querySelector('.carousel-copy-toast');
+            if (existingToast) existingToast.remove();
+            
+            // ساخت toast جدید
+            const toast = document.createElement('div');
+            toast.className = 'carousel-copy-toast';
+            toast.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>کد <strong>${code}</strong> کپی شد</span>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // انیمیشن ورود
+            setTimeout(function() {
+                toast.classList.add('show');
+            }, 10);
+            
+            // حذف بعد از 2.5 ثانیه
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() {
+                    if (toast.parentNode) toast.remove();
+                }, 300);
+            }, 2500);
         }
         
         // ===== درگ و سوایپ =====
-        // 🔧 اصلاح: استفاده از mousemove روی container به جای window
         function carouselDragStart(e) {
             if (carouselAnimating) return;
             carouselDragging = true;
             carouselStartX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
             carouselCurrentX = carouselStartX;
-            console.log('🎠 👆 درگ شروع - X:', carouselStartX);
         }
         
         function carouselDragMove(e) {
             if (!carouselDragging) return;
             carouselCurrentX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-            console.log('🎠 👆 درگ حرکت - X:', carouselCurrentX);
         }
         
         function carouselDragEnd() {
@@ -546,7 +683,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // 🔧 اصلاح: همه رویدادهای موس روی container
+        // رویدادهای موس
         carouselContainer.addEventListener('mousedown', carouselDragStart);
         carouselContainer.addEventListener('mousemove', carouselDragMove);
         carouselContainer.addEventListener('mouseup', carouselDragEnd);
@@ -554,12 +691,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (carouselDragging) carouselDragEnd();
         });
         
-        // رویدادهای تاچ
+        // رویدادهای تاچ (موبایل)
         carouselContainer.addEventListener('touchstart', carouselDragStart, { passive: true });
         carouselContainer.addEventListener('touchmove', carouselDragMove, { passive: true });
         carouselContainer.addEventListener('touchend', carouselDragEnd);
         
-        // جلوگیری از درگ و راست‌کلیک
+        // جلوگیری از درگ و راست‌کلیک روی تصاویر
         carouselSlides.forEach(function(slide) {
             slide.addEventListener('dragstart', function(e) { e.preventDefault(); });
             slide.addEventListener('contextmenu', function(e) { e.preventDefault(); });
@@ -570,29 +707,12 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCarousel();
         startCarouselAutoplay();
         
+        console.log('🎠 ========================================');
         console.log('🎠 ✅ بخش اسلایدر با موفقیت اجرا شد');
+        console.log('🎠 ========================================');
         
     } catch (error) {
         console.error('🎠 ❌ خطا در اسلایدر:', error);
+        console.error('🎠 ❌ Stack:', error.stack);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    console.log('🎉 کل فایل main.js با موفقیت اجرا شد!');
-});
+   })
