@@ -1,5 +1,5 @@
 my edit
 
  git add .
- git commit -m "my edit125"
+ git commit -m "add admin panel"
  git push

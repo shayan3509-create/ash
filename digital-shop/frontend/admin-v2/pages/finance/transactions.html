@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="مدیریت تراکنش‌های مالی فروشگاه">
+  <title>تراکنش‌ها | پنل ادمین</title>
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body data-root="../../" data-page="finance-transactions" data-title="تراکنش‌ها" data-subtitle="رصد پرداخت‌ها، بازگشت وجه و تسویه‌ها">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-4 mb-2" aria-label="شاخص‌های تراکنش">
+      <article class="card lift reveal" style="--delay:0ms"><div class="stat"><div><span class="stat-label">تراکنش‌های امروز</span><div class="stat-value">۲۴۸</div><span class="trend">۹۱٪ موفق</span></div><span class="stat-icon"><i class="fas fa-exchange-alt"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:70ms"><div class="stat"><div><span class="stat-label">مبلغ پردازش‌شده</span><div class="stat-value">۱۹۶٫۸ میلیون</div><span class="trend">۱۴٪ بیشتر از دیروز</span></div><span class="stat-icon"><i class="fas fa-credit-card"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:140ms"><div class="stat"><div><span class="stat-label">پرداخت ناموفق</span><div class="stat-value">۱۷</div><span class="trend down">۶٫۸٪ از تراکنش‌ها</span></div><span class="stat-icon"><i class="fas fa-times-circle"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:210ms"><div class="stat"><div><span class="stat-label">در انتظار تسویه</span><div class="stat-value">۳۴٫۲ میلیون</div><span class="trend">تسویه بعدی: فردا</span></div><span class="stat-icon"><i class="fas fa-clock"></i></span></div></article>
+    </section>
+
+    <section class="grid grid-3 mb-2">
+      <article class="card span-2 reveal" style="--delay:280ms">
+        <div class="section-head"><div><h2>حجم تراکنش‌های هفتگی</h2><p>تعداد تراکنش‌های موفق هر روز</p></div><button class="btn btn-secondary btn-sm" type="button" data-toast-message="داده‌های نمودار به‌روزرسانی شد"><i class="fas fa-sync-alt"></i>به‌روزرسانی</button></div>
+        <div class="chart" aria-label="نمودار تراکنش‌های هفتگی">
+          <span class="chart-bar" style="--value:62%" data-label="شنبه" title="۱۸۲ تراکنش"></span>
+          <span class="chart-bar" style="--value:76%" data-label="یکشنبه" title="۲۲۱ تراکنش"></span>
+          <span class="chart-bar" style="--value:69%" data-label="دوشنبه" title="۲۰۳ تراکنش"></span>
+          <span class="chart-bar" style="--value:84%" data-label="سه‌شنبه" title="۲۴۶ تراکنش"></span>
+          <span class="chart-bar" style="--value:91%" data-label="چهارشنبه" title="۲۶۹ تراکنش"></span>
+          <span class="chart-bar" style="--value:96%" data-label="پنجشنبه" title="۲۸۴ تراکنش"></span>
+          <span class="chart-bar" style="--value:72%" data-label="جمعه" title="۲۱۰ تراکنش"></span>
+        </div>
+      </article>
+      <article class="card reveal" style="--delay:340ms">
+        <div class="section-head"><div><h2>سلامت درگاه‌ها</h2><p>نرخ موفقیت ۲۴ ساعت اخیر</p></div></div>
+        <div class="list">
+          <div class="list-item"><span class="list-icon"><i class="fas fa-university"></i></span><div class="list-copy"><strong>درگاه ملت</strong><small>۹۷٫۴٪ موفق</small><div class="progress"><span style="--value:97.4%"></span></div></div><span class="badge success">فعال</span></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-bolt"></i></span><div class="list-copy"><strong>زرین‌پال</strong><small>۹۵٫۸٪ موفق</small><div class="progress"><span style="--value:95.8%"></span></div></div><span class="badge success">فعال</span></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-wallet"></i></span><div class="list-copy"><strong>کیف پول</strong><small>۹۹٫۱٪ موفق</small><div class="progress"><span style="--value:99.1%"></span></div></div><span class="badge info">پایدار</span></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="card reveal" style="--delay:410ms">
+      <div class="section-head"><div><h2>فهرست تراکنش‌ها</h2><p>آخرین فعالیت‌های مالی ثبت‌شده</p></div><button class="btn btn-primary" type="button" data-toast-message="فایل گزارش تراکنش‌ها آماده دانلود شد"><i class="fas fa-download"></i>دریافت گزارش</button></div>
+      <div class="toolbar mb-1">
+        <div class="field"><label for="transaction-search">جست‌وجوی تراکنش</label><input class="input" id="transaction-search" type="search" placeholder="شناسه، مشتری یا کد پیگیری" data-table-search="#transactions-table"></div>
+        <div class="field"><label for="transaction-status">وضعیت</label><select class="select" id="transaction-status" data-table-filter="#transactions-table"><option value="">همه وضعیت‌ها</option><option value="success">موفق</option><option value="pending">در انتظار</option><option value="failed">ناموفق</option><option value="refunded">بازگشت وجه</option></select></div>
+        <button class="btn btn-secondary" type="button" data-toast-message="فیلتر امروز اعمال شد"><i class="fas fa-filter"></i>امروز</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table responsive" id="transactions-table">
+          <thead><tr><th>شناسه</th><th>مشتری</th><th>زمان</th><th>درگاه</th><th>مبلغ</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+          <tbody>
+            <tr data-status="success"><td data-label="شناسه"><strong>#TR-۸۹۳۲۱</strong><br><small class="stat-label">پیگیری ۷۲۸۴۱۹</small></td><td data-label="مشتری">الهام محمودی</td><td data-label="زمان">امروز، ۱۴:۳۵</td><td data-label="درگاه">ملت</td><td data-label="مبلغ">۴٬۷۸۰٬۰۰۰ تومان</td><td data-label="وضعیت"><span class="badge success">موفق</span></td><td data-label="عملیات"><button class="action-btn" type="button" aria-label="مشاهده رسید" data-modal-open="transaction-detail"><i class="fas fa-eye"></i></button></td></tr>
+            <tr data-status="pending"><td data-label="شناسه"><strong>#TR-۸۹۳۲۰</strong><br><small class="stat-label">در حال استعلام</small></td><td data-label="مشتری">رضا اکبری</td><td data-label="زمان">امروز، ۱۴:۲۸</td><td data-label="درگاه">زرین‌پال</td><td data-label="مبلغ">۲٬۱۹۰٬۰۰۰ تومان</td><td data-label="وضعیت"><span class="badge warning">در انتظار</span></td><td data-label="عملیات"><button class="action-btn" type="button" aria-label="استعلام" data-toast-message="استعلام تراکنش ارسال شد"><i class="fas fa-sync"></i></button></td></tr>
+            <tr data-status="failed"><td data-label="شناسه"><strong>#TR-۸۹۳۱۹</strong><br><small class="stat-label">خطای بانکی ۴۱</small></td><td data-label="مشتری">نیلوفر مرادی</td><td data-label="زمان">امروز، ۱۴:۱۶</td><td data-label="درگاه">سامان</td><td data-label="مبلغ">۸۹۰٬۰۰۰ تومان</td><td data-label="وضعیت"><span class="badge danger">ناموفق</span></td><td data-label="عملیات"><button class="action-btn" type="button" aria-label="ارسال لینک پرداخت" data-toast-message="لینک پرداخت مجدد ارسال شد"><i class="fas fa-paper-plane"></i></button></td></tr>
+            <tr data-status="refunded"><td data-label="شناسه"><strong>#TR-۸۹۳۱۸</strong><br><small class="stat-label">بازگشت ۶۵۱۰۲۲</small></td><td data-label="مشتری">فرهاد شریفی</td><td data-label="زمان">امروز، ۱۳:۵۲</td><td data-label="درگاه">کیف پول</td><td data-label="مبلغ">۱٬۳۵۰٬۰۰۰ تومان</td><td data-label="وضعیت"><span class="badge info">بازگشت وجه</span></td><td data-label="عملیات"><button class="action-btn" type="button" aria-label="مشاهده رسید" data-modal-open="transaction-detail"><i class="fas fa-receipt"></i></button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination"><span>نمایش ۴ از ۲۴۸ تراکنش</span><div class="pagination-controls"><button class="page-btn active" type="button">۱</button><button class="page-btn" type="button">۲</button><button class="page-btn" type="button">۳</button></div></div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="transaction-detail" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="transaction-title">
+    <div class="modal"><div class="modal-head"><h2 id="transaction-title">رسید تراکنش #TR-۸۹۳۲۱</h2><button class="action-btn" type="button" aria-label="بستن" data-modal-close><i class="fas fa-times"></i></button></div>
+      <div class="list mb-2">
+        <div class="list-item"><span class="list-icon"><i class="fas fa-user"></i></span><div class="list-copy"><strong>الهام محمودی</strong><small>سفارش #۱۲۹۰۸</small></div></div>
+        <div class="list-item"><span class="list-icon"><i class="fas fa-money-check-alt"></i></span><div class="list-copy"><strong>۴٬۷۸۰٬۰۰۰ تومان</strong><small>درگاه ملت · کد پیگیری ۷۲۸۴۱۹</small></div></div>
+        <div class="list-item"><span class="list-icon"><i class="fas fa-check-circle"></i></span><div class="list-copy"><strong>پرداخت موفق</strong><small>۳۰ شهریور ۱۴۰۵، ساعت ۱۴:۳۵</small></div></div>
+      </div>
+      <button class="btn btn-primary" type="button" data-modal-close data-toast-message="رسید برای مشتری ارسال شد"><i class="fas fa-paper-plane"></i>ارسال رسید</button>
+    </div>
+  </div>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>

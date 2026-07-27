@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="مدیریت دسته‌بندی محصولات">
+  <title>دسته‌بندی محصولات | پنل ادمین</title>
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body data-root="../../" data-page="products-categories" data-title="دسته‌بندی محصولات" data-subtitle="ساختاردهی کاتالوگ برای دسترسی سریع‌تر مشتری و جست‌وجوی بهتر">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-4 mb-2" aria-label="آمار دسته‌بندی">
+      <article class="card lift reveal" style="--delay: 40ms"><div class="stat"><div><span class="stat-label">دسته‌های اصلی</span><div class="stat-value">۱۲</div><span class="trend">همگی فعال</span></div><span class="stat-icon"><i class="fas fa-sitemap"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 100ms"><div class="stat"><div><span class="stat-label">زیردسته‌ها</span><div class="stat-value">۶۸</div><span class="trend">میانگین عمق: ۲٫۳</span></div><span class="stat-icon"><i class="fas fa-project-diagram"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 160ms"><div class="stat"><div><span class="stat-label">بدون دسته‌بندی</span><div class="stat-value">۹</div><span class="trend down">نیازمند اقدام</span></div><span class="stat-icon"><i class="fas fa-question-circle"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 220ms"><div class="stat"><div><span class="stat-label">پربازدیدترین</span><div class="stat-value">موبایل</div><span class="trend">۲۸٪ بازدید کاتالوگ</span></div><span class="stat-icon"><i class="fas fa-chart-line"></i></span></div></article>
+    </section>
+
+    <div class="grid grid-3">
+      <section class="card span-2 reveal" style="--delay: 280ms">
+        <div class="section-head">
+          <div><h2>ساختار دسته‌بندی‌ها</h2><p>تعداد محصول، عمق ساختار و وضعیت نمایش در فروشگاه</p></div>
+          <button class="btn btn-primary" type="button" data-modal-open="new-category"><i class="fas fa-folder-plus"></i> دسته جدید</button>
+        </div>
+        <div class="toolbar mb-1">
+          <div class="field"><label for="category-search">جست‌وجو</label><input class="input" id="category-search" type="search" placeholder="نام یا شناسه دسته..." data-table-search="#categories-table"></div>
+          <div class="field"><label for="category-status">وضعیت نمایش</label><select class="select" id="category-status" data-table-filter="#categories-table"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="hidden">پنهان</option></select></div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table responsive" id="categories-table">
+            <thead><tr><th>دسته‌بندی</th><th>شناسه</th><th>محصولات</th><th>زیردسته</th><th>سهم بازدید</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+            <tbody>
+              <tr data-status="active"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-mobile-alt"></i></span><strong>موبایل و تبلت</strong></div></td><td data-label="شناسه">mobile-tablet</td><td data-label="محصولات">۴۸۲</td><td data-label="زیردسته">۸</td><td data-label="سهم بازدید">۲۸٪</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="زیردسته‌ها نمایش داده شد"><i class="fas fa-sitemap"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr data-status="active"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-laptop"></i></span><strong>کامپیوتر و لپ‌تاپ</strong></div></td><td data-label="شناسه">computer-laptop</td><td data-label="محصولات">۳۷۶</td><td data-label="زیردسته">۹</td><td data-label="سهم بازدید">۲۱٪</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="زیردسته‌ها نمایش داده شد"><i class="fas fa-sitemap"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr data-status="active"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-home"></i></span><strong>خانه و آشپزخانه</strong></div></td><td data-label="شناسه">home-kitchen</td><td data-label="محصولات">۵۹۱</td><td data-label="زیردسته">۱۲</td><td data-label="سهم بازدید">۱۹٪</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="زیردسته‌ها نمایش داده شد"><i class="fas fa-sitemap"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr data-status="active"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-running"></i></span><strong>ورزش و سفر</strong></div></td><td data-label="شناسه">sport-travel</td><td data-label="محصولات">۲۶۴</td><td data-label="زیردسته">۷</td><td data-label="سهم بازدید">۱۳٪</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="زیردسته‌ها نمایش داده شد"><i class="fas fa-sitemap"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr data-status="hidden"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-gift"></i></span><strong>پیشنهادهای مناسبتی</strong></div></td><td data-label="شناسه">seasonal-offers</td><td data-label="محصولات">۴۶</td><td data-label="زیردسته">۳</td><td data-label="سهم بازدید">۲٪</td><td data-label="وضعیت"><span class="badge warning">پنهان</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="دسته‌بندی منتشر شد"><i class="fas fa-eye"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="grid">
+        <section class="card lift reveal" style="--delay: 340ms">
+          <div class="section-head"><div><h3>سلامت ساختار</h3><p>پیشنهادهای بهبود پیمایش کاتالوگ</p></div><span class="badge success">۸۷٪ مطلوب</span></div>
+          <div class="list">
+            <div class="list-item"><span class="list-icon"><i class="fas fa-exclamation"></i></span><div class="list-copy"><strong>۹ محصول بدون دسته</strong><small>اختصاص دسته، نمایش در جست‌وجو را بهتر می‌کند.</small></div><button class="action-btn" data-toast-message="محصولات بدون دسته فیلتر شدند"><i class="fas fa-arrow-left"></i></button></div>
+            <div class="list-item"><span class="list-icon"><i class="fas fa-layer-group"></i></span><div class="list-copy"><strong>۳ دسته با عمق زیاد</strong><small>ساختار بیش از سه سطح برای موبایل مناسب نیست.</small></div></div>
+            <div class="list-item"><span class="list-icon"><i class="fas fa-search"></i></span><div class="list-copy"><strong>۵ عنوان مشابه</strong><small>نام‌های متمایز، تجربه جست‌وجو را شفاف‌تر می‌کند.</small></div></div>
+          </div>
+        </section>
+        <section class="card reveal" style="--delay: 410ms">
+          <div class="section-head"><div><h3>سهم بازدید دسته‌ها</h3><p>۳۰ روز اخیر</p></div></div>
+          <div class="list">
+            <div class="list-item"><div class="list-copy"><strong>موبایل و تبلت — ۲۸٪</strong><div class="progress"><span style="--value: 28%"></span></div></div></div>
+            <div class="list-item"><div class="list-copy"><strong>کامپیوتر و لپ‌تاپ — ۲۱٪</strong><div class="progress"><span style="--value: 21%"></span></div></div></div>
+            <div class="list-item"><div class="list-copy"><strong>خانه و آشپزخانه — ۱۹٪</strong><div class="progress"><span style="--value: 19%"></span></div></div></div>
+            <div class="list-item"><div class="list-copy"><strong>ورزش و سفر — ۱۳٪</strong><div class="progress"><span style="--value: 13%"></span></div></div></div>
+          </div>
+        </section>
+        <section class="card reveal" style="--delay: 480ms">
+          <div class="section-head"><div><h3>مرتب‌سازی ویترین</h3><p>ترتیب دسته‌های صفحه اصلی</p></div></div>
+          <button class="btn btn-secondary" type="button" data-toast-message="حالت مرتب‌سازی دستی فعال شد"><i class="fas fa-sort"></i> مدیریت ترتیب نمایش</button>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <div class="modal-backdrop" id="new-category" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="category-title">
+      <div class="modal-head"><h2 id="category-title">ساخت دسته‌بندی جدید</h2><button class="action-btn" type="button" data-modal-close aria-label="بستن"><i class="fas fa-times"></i></button></div>
+      <form class="form-grid" data-demo-form data-success="دسته‌بندی جدید با موفقیت ایجاد شد">
+        <div class="field field-full"><label for="category-name">نام دسته‌بندی *</label><input class="input" id="category-name" type="text" placeholder="مثلاً لوازم هوشمند خانه" required></div>
+        <div class="field"><label for="category-slug">شناسه انگلیسی *</label><input class="input" id="category-slug" type="text" pattern="[a-z0-9-]+" placeholder="smart-home" required></div>
+        <div class="field"><label for="parent-category">دسته والد</label><select class="select" id="parent-category"><option>بدون والد — دسته اصلی</option><option>خانه و آشپزخانه</option><option>کالای دیجیتال</option><option>ورزش و سفر</option></select></div>
+        <div class="field field-full"><label for="category-description">توضیح کوتاه *</label><textarea class="textarea" id="category-description" placeholder="این دسته شامل چه محصولاتی است؟" required></textarea></div>
+        <div class="field"><label for="category-icon">آیکن</label><select class="select" id="category-icon"><option>خانه</option><option>موبایل</option><option>لپ‌تاپ</option><option>هدیه</option><option>ورزش</option></select></div>
+        <div class="field"><label for="category-order">اولویت نمایش</label><input class="input" id="category-order" type="number" min="1" value="10"></div>
+        <label class="switch field-full"><input type="checkbox" checked><span class="switch-track"></span><span>دسته‌بندی بلافاصله در فروشگاه نمایش داده شود</span></label>
+        <div class="field-full toolbar"><button class="btn btn-primary" type="submit"><i class="fas fa-check"></i> ایجاد دسته</button><button class="btn btn-secondary" type="button" data-modal-close>انصراف</button></div>
+      </form>
+    </div>
+  </div>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>

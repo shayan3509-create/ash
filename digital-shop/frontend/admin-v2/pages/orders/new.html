@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>سفارشات جدید | پنل ادمین</title>
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body data-root="../../" data-page="orders-new" data-title="سفارشات جدید" data-subtitle="بررسی، تأیید و پردازش سفارش‌های تازه">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-4 mb-2" aria-label="خلاصه سفارش‌های جدید">
+      <article class="card lift reveal" style="--delay: 50ms">
+        <div class="stat">
+          <div><span class="stat-label">در انتظار بررسی</span><div class="stat-value" data-persian-number>18</div><span class="trend">۴ سفارش از یک ساعت اخیر</span></div>
+          <span class="stat-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal" style="--delay: 100ms">
+        <div class="stat">
+          <div><span class="stat-label">آماده پردازش</span><div class="stat-value" data-persian-number>12</div><span class="trend">۶۷٪ تأیید خودکار</span></div>
+          <span class="stat-icon"><i class="fas fa-box-open" aria-hidden="true"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal" style="--delay: 150ms">
+        <div class="stat">
+          <div><span class="stat-label">ارزش سفارش‌ها</span><div class="stat-value">۸۶٫۴ م</div><span class="trend">تومان، امروز</span></div>
+          <span class="stat-icon"><i class="fas fa-wallet" aria-hidden="true"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal" style="--delay: 200ms">
+        <div class="stat">
+          <div><span class="stat-label">نیازمند پیگیری</span><div class="stat-value" data-persian-number>3</div><span class="trend down">پرداخت یا موجودی</span></div>
+          <span class="stat-icon"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i></span>
+        </div>
+      </article>
+    </section>
+
+    <section class="card reveal" style="--delay: 250ms">
+      <div class="section-head">
+        <div><h2>صف پردازش سفارش‌ها</h2><p>نمایش سفارش‌های ثبت‌شده در ۲۴ ساعت گذشته</p></div>
+        <button class="btn btn-primary" type="button" data-toast-message="فهرست سفارش‌ها به‌روزرسانی شد"><i class="fas fa-sync-alt" aria-hidden="true"></i>به‌روزرسانی</button>
+      </div>
+      <div class="toolbar mb-1">
+        <div class="field">
+          <label for="order-search">جست‌وجوی سفارش</label>
+          <input class="input" id="order-search" type="search" placeholder="کد، نام یا شماره تماس" data-table-search="#new-orders">
+        </div>
+        <div class="field">
+          <label for="order-status">وضعیت</label>
+          <select class="select" id="order-status" data-table-filter="#new-orders">
+            <option value="">همه وضعیت‌ها</option>
+            <option value="pending">در انتظار بررسی</option>
+            <option value="paid">پرداخت‌شده</option>
+            <option value="issue">نیازمند پیگیری</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary" type="button" data-toast-message="فیلتر بازه زمانی اعمال شد"><i class="fas fa-calendar-alt" aria-hidden="true"></i>امروز</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table responsive" id="new-orders">
+          <thead><tr><th>سفارش</th><th>مشتری</th><th>مبلغ</th><th>زمان ثبت</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+          <tbody>
+            <tr data-status="paid">
+              <td data-label="سفارش"><strong>#۱۲۸۹۴</strong><br><span class="stat-label">۳ قلم کالا</span></td>
+              <td data-label="مشتری"><div class="entity"><span class="entity-avatar"><i class="fas fa-user"></i></span><span>سارا احمدی<br><small class="stat-label">تهران</small></span></div></td>
+              <td data-label="مبلغ">۴٬۸۷۰٬۰۰۰ تومان</td><td data-label="زمان ثبت">۱۴:۳۲</td>
+              <td data-label="وضعیت"><span class="badge success"><i class="fas fa-check-circle"></i>پرداخت‌شده</span></td>
+              <td data-label="عملیات"><div class="actions"><button class="action-btn" type="button" aria-label="جزئیات سفارش" data-modal-open="order-detail"><i class="fas fa-eye"></i></button><button class="action-btn" type="button" aria-label="تأیید سفارش" data-toast-message="سفارش ۱۲۸۹۴ تأیید شد"><i class="fas fa-check"></i></button></div></td>
+            </tr>
+            <tr data-status="pending">
+              <td data-label="سفارش"><strong>#۱۲۸۹۳</strong><br><span class="stat-label">۱ قلم کالا</span></td>
+              <td data-label="مشتری"><div class="entity"><span class="entity-avatar"><i class="fas fa-user"></i></span><span>امیر رضایی<br><small class="stat-label">اصفهان</small></span></div></td>
+              <td data-label="مبلغ">۲٬۳۵۰٬۰۰۰ تومان</td><td data-label="زمان ثبت">۱۴:۱۸</td>
+              <td data-label="وضعیت"><span class="badge warning"><i class="fas fa-clock"></i>در انتظار بررسی</span></td>
+              <td data-label="عملیات"><div class="actions"><button class="action-btn" type="button" aria-label="جزئیات سفارش" data-modal-open="order-detail"><i class="fas fa-eye"></i></button><button class="action-btn" type="button" aria-label="تأیید سفارش" data-toast-message="سفارش ۱۲۸۹۳ تأیید شد"><i class="fas fa-check"></i></button></div></td>
+            </tr>
+            <tr data-status="issue">
+              <td data-label="سفارش"><strong>#۱۲۸۹۲</strong><br><span class="stat-label">۵ قلم کالا</span></td>
+              <td data-label="مشتری"><div class="entity"><span class="entity-avatar"><i class="fas fa-user"></i></span><span>نازنین کریمی<br><small class="stat-label">شیراز</small></span></div></td>
+              <td data-label="مبلغ">۸٬۹۴۰٬۰۰۰ تومان</td><td data-label="زمان ثبت">۱۳:۵۶</td>
+              <td data-label="وضعیت"><span class="badge danger"><i class="fas fa-exclamation-circle"></i>کسری موجودی</span></td>
+              <td data-label="عملیات"><div class="actions"><button class="action-btn" type="button" aria-label="جزئیات سفارش" data-modal-open="order-detail"><i class="fas fa-eye"></i></button><button class="action-btn" type="button" aria-label="تماس با مشتری" data-toast-message="درخواست تماس ثبت شد"><i class="fas fa-phone"></i></button></div></td>
+            </tr>
+            <tr data-status="paid">
+              <td data-label="سفارش"><strong>#۱۲۸۹۱</strong><br><span class="stat-label">۲ قلم کالا</span></td>
+              <td data-label="مشتری"><div class="entity"><span class="entity-avatar"><i class="fas fa-user"></i></span><span>مهدی توکلی<br><small class="stat-label">رشت</small></span></div></td>
+              <td data-label="مبلغ">۳٬۱۲۰٬۰۰۰ تومان</td><td data-label="زمان ثبت">۱۳:۴۱</td>
+              <td data-label="وضعیت"><span class="badge success"><i class="fas fa-check-circle"></i>پرداخت‌شده</span></td>
+              <td data-label="عملیات"><div class="actions"><button class="action-btn" type="button" aria-label="جزئیات سفارش" data-modal-open="order-detail"><i class="fas fa-eye"></i></button><button class="action-btn" type="button" aria-label="تأیید سفارش" data-toast-message="سفارش ۱۲۸۹۱ تأیید شد"><i class="fas fa-check"></i></button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination"><span>نمایش ۴ از ۱۸ سفارش</span><div class="pagination-controls"><button class="page-btn active" type="button">۱</button><button class="page-btn" type="button">۲</button><button class="page-btn" type="button">۳</button></div></div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="order-detail" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="order-detail-title">
+    <div class="modal">
+      <div class="modal-head"><h2 id="order-detail-title">جزئیات سفارش #۱۲۸۹۴</h2><button class="action-btn" type="button" aria-label="بستن" data-modal-close><i class="fas fa-times"></i></button></div>
+      <div class="list mb-2">
+        <div class="list-item"><span class="list-icon"><i class="fas fa-user"></i></span><span class="list-copy"><strong>سارا احمدی</strong><small>۰۹۱۲ ۴۵۶ ۷۸۹۰ · تهران، سعادت‌آباد</small></span></div>
+        <div class="list-item"><span class="list-icon"><i class="fas fa-shopping-bag"></i></span><span class="list-copy"><strong>هدفون بی‌سیم، پاوربانک و کابل</strong><small>۳ قلم · ارسال با پست پیشتاز</small></span></div>
+        <div class="list-item"><span class="list-icon"><i class="fas fa-credit-card"></i></span><span class="list-copy"><strong>۴٬۸۷۰٬۰۰۰ تومان</strong><small>پرداخت آنلاین موفق · کد پیگیری ۶۸۳۹۱۲</small></span></div>
+      </div>
+      <div class="toolbar"><button class="btn btn-primary" type="button" data-modal-close data-toast-message="سفارش برای پردازش تأیید شد"><i class="fas fa-check"></i>تأیید و پردازش</button><button class="btn btn-secondary" type="button" data-modal-close>بستن</button></div>
+    </div>
+  </div>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>
