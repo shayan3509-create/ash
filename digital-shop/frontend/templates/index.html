@@ -1,1138 +1,986 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
-
+<html lang="fa" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فروشگاه آتیس کلاب | مرجع تخصصی تجهیزات کوهنوردی و کمپینگ</title>
+    <title>نیوشاپ | تجربه‌ای لوکس از خرید تکنولوژی</title>
+    
+    <!-- Font: Vazirmatn -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Icons: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/Responsive.css">
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Vazirmatn', 'sans-serif'] },
+                    colors: {
+                        primary: { DEFAULT: '#4361EE', hover: '#3550d6' },
+                        secondary: '#4CC9F0',
+                        accent: '#F72585',
+                        success: '#22C55E',
+                        warning: '#F59E0B',
+                        light: { bg: '#F8FAFC', card: '#FFFFFF', text: '#111827', sub: '#6B7280' },
+                        dark: { bg: '#0F172A', card: '#1E293B', primary: '#60A5FA', text: '#FFFFFF', sub: '#94A3B8' }
+                    },
+                    borderRadius: { '3xl': '24px', '4xl': '32px' },
+                    boxShadow: {
+                        'soft': '0 8px 30px rgba(0, 0, 0, 0.04)',
+                        'glow': '0 0 20px rgba(67, 97, 238, 0.3)'
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            /* --- رنگ‌های اصلی --- */
-            --color-primary: #2E5E3E;
-            --color-primary-dark: #1f4229;
-            --color-primary-light: #4a7c59;
-            --color-primary-lighter: #e8f5e9;
-            
-            /* --- رنگ‌های ثانویه --- */
-            --color-secondary: #6B8E23;
-            --color-secondary-dark: #55701b;
-            --color-secondary-light: #88b02d;
-            
-            /* --- رنگ‌های تأکیدی (طلایی/خاکی) --- */
-            --color-accent: #C89B3C;
-            --color-accent-dark: #a8812f;
-            --color-accent-light: #e0b555;
-            
-            /* --- رنگ‌های پس‌زمینه --- */
-            --color-bg: #F7F5F0;
-            --color-bg-alt: #EFEAE0;
-            --color-bg-dark: #2C2C2C;
-            --color-bg-green: #e8f0e4;
-            --color-surface: #ffffff;
-            
-            /* --- رنگ‌های متن --- */
-            --color-text: #2C2C2C;
-            --color-text-light: #5a5a5a;
-            --color-text-muted: #8a8a8a;
-            --color-text-inverse: #ffffff;
-            
-            /* --- رنگ‌های وضعیت --- */
-            --color-success: #2E5E3E;
-            --color-error: #ef4444;
-            
-            /* --- گرادیانت‌ها --- */
-            --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 50%, var(--color-secondary) 100%);
-            --gradient-secondary: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-alt) 50%, var(--color-bg-green) 100%);
-            --gradient-glass: linear-gradient(135deg, rgba(46, 94, 62, 0.1) 0%, rgba(107, 142, 35, 0.05) 100%);
-            --gradient-nav: linear-gradient(135deg, rgba(46, 94, 62, 0.95) 0%, rgba(107, 142, 35, 0.95) 50%, rgba(46, 94, 62, 0.95) 100%);
-            --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
-            --gradient-success: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-            
-            /* --- سایه‌ها --- */
-            --shadow-sm: 0 4px 6px rgba(46, 94, 62, 0.05);
-            --shadow-md: 0 10px 30px rgba(46, 94, 62, 0.08);
-            --shadow-lg: 0 20px 50px rgba(46, 94, 62, 0.15);
-            --shadow-glow: 0 0 30px rgba(107, 142, 35, 0.5);
-            --shadow-nav: 0 8px 32px rgba(46, 94, 62, 0.3);
-            
-            /* --- حاشیه‌ها و بوردرها --- */
-            --border-light: rgba(255, 255, 255, 0.2);
-            --border-primary: rgba(46, 94, 62, 0.2);
-            --border-accent: rgba(200, 155, 60, 0.3);
-            
-            /* --- تایپوگرافی --- */
-            --font-family: 'Vazirmatn', sans-serif;
-            
-            /* --- شعاع گوشه‌ها --- */
-            --radius-sm: 8px;
-            --radius-md: 16px;
-            --radius-lg: 24px;
-            --radius-xl: 32px;
-            
-            /* --- انیمیشن‌ها --- */
-            --transition-fast: all 0.2s ease;
-            --transition-base: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: all 0.5s ease;
-        }
-
-        * {
-            font-family: var(--font-family);
-        }
-
-        .gradient-primary {
-            background: var(--gradient-primary);
-        }
-
-        .gradient-secondary {
-            background: var(--gradient-secondary);
-        }
-
-        .gradient-glass {
-            background: var(--gradient-glass);
-        }
-
-        .nav-fixed {
-            background: var(--gradient-nav);
+        body { font-feature-settings: "ss01", "ss02", "cv01", "cv02"; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-light);
-            box-shadow: var(--shadow-nav);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.75);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-light);
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .gradient-mesh {
+            background-color: #F8FAFC;
+            background-image: radial-gradient(at 0% 0%, rgba(67, 97, 238, 0.15) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(76, 201, 240, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(247, 37, 133, 0.05) 0px, transparent 50%);
+        }
+        .dark .gradient-mesh {
+            background-color: #0F172A;
+            background-image: radial-gradient(at 0% 0%, rgba(96, 165, 250, 0.1) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(76, 201, 240, 0.05) 0px, transparent 50%);
         }
 
-        .animate-float {
-            animation: float 8s ease-in-out infinite;
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+
+        /* --- 3D Flip Styles --- */
+        .perspective-3d { perspective: 1200px; }
+        .preserve-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        
+        /* Flip فقط با کلاس is-flipped (بدون Hover) */
+        .ns-card.is-flipped .ns-card-inner { transform: rotateY(180deg); }
+
+        .ns-card-inner {
+            transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+            will-change: transform;
         }
 
-        .animate-pulse-slow {
-            animation: pulse 4s ease-in-out infinite;
+        .ns-track {
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
         }
-
-        .animate-rotate-slow {
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            25% { transform: translateY(-20px) rotate(5deg); }
-            50% { transform: translateY(-30px) rotate(0deg); }
-            75% { transform: translateY(-10px) rotate(-5deg); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .hover-glow:hover {
-            box-shadow: var(--shadow-glow);
-        }
-
-        .hover-lift {
-            transition: var(--transition-base);
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-10px) scale(1.02);
-        }
-
-        .text-shadow {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-link {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-text-inverse);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::before {
-            width: 100%;
-        }
-
-        .morphing-blob {
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            animation: morph 15s ease-in-out infinite;
-        }
-
-        @keyframes morph {
-            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-        }
-
-        .btn-primary {
-            background: var(--gradient-success);
-            transition: var(--transition-base);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-secondary-dark) 100%);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--border-light);
-            transition: var(--transition-base);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--color-primary) !important;
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .hero-gradient-text {
-            color: var(--color-text-inverse) !important;
-            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
-            font-weight: 900;
-        }
-
+        .ns-track.is-dragging, .ns-track.is-instant { transition: none; }
     </style>
 </head>
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-300 antialiased">
 
-<body class="bg-[var(--color-bg)] overflow-x-hidden">
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 nav-fixed">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4 space-x-reverse">
-                    <div class="text-2xl font-black text-white">
-                        <i class="fas fa-mountain ml-2 text-[var(--color-accent)] animate-pulse-slow"></i>
-                        آتیس کلاب
-                    </div>
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 z-[55] pointer-events-none">
+        <div id="menu-overlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+        <div id="menu-panel" class="absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-light-card dark:bg-dark-card shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-slate-700">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white text-xl"><i class="fa-solid fa-bolt"></i></div>
+                    <span class="text-xl font-black">نیوشاپ</span>
                 </div>
+                <button id="close-menu" class="w-10 h-10 rounded-full flex items-center justify-center text-light-sub hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <nav class="flex-1 overflow-y-auto p-6">
+                <ul class="space-y-2">
+                    <li><a href="#home" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-light-text dark:text-dark-text hover:bg-primary/10 hover:text-primary transition-colors"><i class="fa-solid fa-house w-5"></i><span class="font-medium">خانه</span></a></li>
+                    <li><a href="#categories" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-light-text dark:text-dark-text hover:bg-primary/10 hover:text-primary transition-colors"><i class="fa-solid fa-grid-2 w-5"></i><span class="font-medium">دسته‌بندی</span></a></li>
+                    <li><a href="#products" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-light-text dark:text-dark-text hover:bg-primary/10 hover:text-primary transition-colors"><i class="fa-solid fa-box w-5"></i><span class="font-medium">محصولات</span></a></li>
+                    <li><a href="#features" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-light-text dark:text-dark-text hover:bg-primary/10 hover:text-primary transition-colors"><i class="fa-solid fa-star w-5"></i><span class="font-medium">ویژگی‌ها</span></a></li>
+                </ul>
+            </nav>
+            <div class="p-6 border-t border-gray-200 dark:border-slate-700">
+                <a href="#" class="block w-full py-3 rounded-2xl bg-primary text-white text-center font-bold hover:bg-primary-hover transition-colors">ورود / ثبت‌نام</a>
+            </div>
+        </div>
+    </div>
 
-                <div class="hidden lg:flex items-center space-x-8 space-x-reverse">
-                    <a href="#home" class="nav-link text-white hover:text-[var(--color-primary-lighter)] font-medium px-4 py-2">خانه</a>
-                    <a href="#products" class="nav-link text-white hover:text-[var(--color-primary-lighter)] font-medium px-4 py-2">محصولات</a>
-                    <a href="#categories" class="nav-link text-white hover:text-[var(--color-primary-lighter)] font-medium px-4 py-2">دسته‌بندی</a>
-                    <a href="#services" class="nav-link text-white hover:text-[var(--color-primary-lighter)] font-medium px-4 py-2">خدمات</a>
-                    <a href="#contact" class="nav-link text-white hover:text-[var(--color-primary-lighter)] font-medium px-4 py-2">تماس</a>
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 w-full z-50 glass transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="#" class="group"><span class="text-xl sm:text-2xl font-black tracking-tight text-light-text dark:text-dark-text">نیوشاپ</span></a>
+                <div class="hidden lg:flex items-center gap-6 xl:gap-8">
+                    <a href="#home" class="text-sm font-medium text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">خانه</a>
+                    <a href="#categories" class="text-sm font-medium text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">دسته‌بندی</a>
+                    <a href="#products" class="text-sm font-medium text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">محصولات</a>
+                    <a href="#features" class="text-sm font-medium text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">ویژگی‌ها</a>
                 </div>
-
-                <div class="flex items-center space-x-6 space-x-reverse">
-                    <div class="relative hidden md:block">
-                        <input type="text" placeholder="جستجو در تجهیزات..."
-                            class="w-64 bg-white/20 text-white placeholder-white/70 px-5 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-sm">
-                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70"></i>
-                    </div>
-
-                    <div class="relative group">
-                        <button class="relative p-3 bg-white/20 rounded-full hover:bg-white/30 transition-all">
-                            <i class="fas fa-shopping-cart text-white text-lg"></i>
-                            <span
-                                class="absolute -top-2 -right-2 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold animate-bounce">
-                                ۳
-                            </span>
-                        </button>
-                    </div>
-
-                    <button class="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-all">
-                        <i class="fas fa-user text-white text-lg"></i>
+                <div class="flex items-center gap-2 sm:gap-3 md:gap-4">
+                    <button id="theme-toggle" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-light-sub dark:text-dark-sub hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300">
+                        <i class="fa-solid fa-moon text-lg sm:text-xl md:text-2xl dark:hidden"></i>
+                        <i class="fa-solid fa-sun text-lg sm:text-xl md:text-2xl hidden dark:block"></i>
                     </button>
+                    <button id="open-search" aria-label="جستجو" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-light-sub dark:text-dark-sub hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300"><i class="fa-solid fa-magnifying-glass text-lg sm:text-xl md:text-2xl"></i></button>
+                    <button class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-light-sub dark:text-dark-sub hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300 relative"><i class="fa-regular fa-heart text-lg sm:text-xl md:text-2xl"></i></button>
+                    <button class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-light-sub dark:text-dark-sub hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300 relative">
+                        <i class="fa-solid fa-bag-shopping text-lg sm:text-xl md:text-2xl"></i>
+                        <span class="absolute top-1 right-1 w-4 h-4 sm:w-5 sm:h-5 bg-accent text-white text-[10px] sm:text-xs font-bold rounded-full flex items-center justify-center shadow-md">۲</span>
+                    </button>
+                    <button id="mobile-menu-toggle" class="lg:hidden w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-light-text dark:text-dark-text hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300"><i class="fa-solid fa-bars text-lg sm:text-xl"></i></button>   
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen gradient-primary relative overflow-hidden flex items-center">
-        <!-- Animated Background Elements -->
-        <div class="absolute inset-0">
-            <div class="absolute top-20 right-20 w-72 h-72 bg-white/10 morphing-blob animate-float"></div>
-            <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-[var(--color-secondary)]/20 rounded-full animate-pulse-slow"></div>
-            <div class="absolute bottom-20 right-1/3 w-64 h-64 bg-white/5 morphing-blob animate-float"
-                style="animation-delay: -3s;"></div>
-            <div class="absolute top-1/4 left-20 w-48 h-48 border-2 border-white/20 rounded-full animate-rotate-slow">
-            </div>
-        </div>
-
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="text-center lg:text-right">
-                    <h1 class="text-6xl lg:text-8xl font-black text-white mb-8 text-shadow">
-                        تجهیزات
-                        <span class="block hero-gradient-text">
-                            ماجراجویی
-                        </span>
+    <section id="home" class="relative pt-20 pb-16 lg:pt-32 lg:pb-32 gradient-mesh overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                <div class="text-center lg:text-right reveal active w-full">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6 border border-primary/20">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> نسل جدید محصولات دیجیتال
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black leading-snug lg:leading-[1.3] mb-6 tracking-tight">
+                        <span class="block mb-2 lg:mb-4">آینده تکنولوژی</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-l from-primary to-secondary">در دستان شماست</span>
                     </h1>
-                    <p class="text-xl lg:text-2xl text-[var(--color-primary-lighter)] mb-12 leading-relaxed max-w-2xl">
-                        تجربه‌ای بی‌نظیر از طبیعت‌گردی با باکیفیت‌ترین تجهیزات کوهنوردی، کمپینگ و سفر در آتیس کلاب
+                    <p class="text-base sm:text-lg text-light-sub dark:text-dark-sub mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        تجربه‌ای بی‌نظیر از خرید آنلاین با گارانتی اصالت، ارسال فوری و پشتیبانی ۲۴ ساعته. بهترین‌های دنیا را در نیوشاپ کشف کنید.
                     </p>
-
-                    <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
-                        <button
-                            class="btn-primary px-12 py-5 text-white font-bold text-lg rounded-2xl hover-lift hover-glow overflow-hidden">
-                            <span class="relative z-10 flex items-center justify-center">
-                                <i class="fas fa-compass ml-3"></i>
-                                شروع خرید
-                            </span>
-                        </button>
-
-                        <button
-                            class="btn-secondary px-12 py-5 text-white font-bold text-lg rounded-2xl transition-all">
-                            <i class="fas fa-play ml-3"></i>
-                            مشاهده کاتالوگ
-                        </button>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#products" class="px-8 py-4 rounded-3xl bg-primary text-white font-bold text-center hover:bg-primary-hover hover:shadow-glow hover:-translate-y-1 transition-all duration-300">مشاهده محصولات <i class="fa-solid fa-arrow-left mr-2"></i></a>
+                        <a href="#features" class="px-8 py-4 rounded-3xl bg-white dark:bg-dark-card text-light-text dark:text-dark-text font-bold border border-gray-200 dark:border-slate-700 text-center hover:-translate-y-1 transition-all duration-300">چرا نیوشاپ؟</a>
+                    </div>
+                    <div class="mt-12 w-full flex flex-wrap lg:flex-nowrap items-center justify-center lg:justify-start gap-4 lg:gap-6 text-light-sub dark:text-dark-sub stats-container overflow-x-auto lg:overflow-visible pb-2 no-scrollbar">
+                        <div class="flex-shrink-0"><p class="text-lg lg:text-xl xl:text-2xl font-black text-light-text dark:text-dark-text whitespace-nowrap">+<span class="counter" data-target="10000">۱۰,۰۰۰</span></p><p class="text-xs lg:text-sm mt-1 whitespace-nowrap">مشتری راضی</p></div>
+                        <div class="hidden lg:block w-px h-10 bg-gray-300 dark:bg-slate-700 flex-shrink-0"></div>
+                        <div class="flex-shrink-0"><p class="text-lg lg:text-xl xl:text-2xl font-black text-light-text dark:text-dark-text whitespace-nowrap">+<span class="counter" data-target="500">۵۰۰</span></p><p class="text-xs lg:text-sm mt-1 whitespace-nowrap">محصول اورجینال</p></div>
+                        <div class="hidden lg:block w-px h-10 bg-gray-300 dark:bg-slate-700 flex-shrink-0"></div>
+                        <div class="flex-shrink-0"><p class="text-lg lg:text-xl xl:text-2xl font-black text-light-text dark:text-dark-text whitespace-nowrap">+<span class="counter" data-target="8">۸</span></p><p class="text-xs lg:text-sm mt-1 whitespace-nowrap">سال تجربه</p></div>
+                        <div class="hidden lg:block w-px h-10 bg-gray-300 dark:bg-slate-700 flex-shrink-0"></div>
+                        <div class="flex-shrink-0"><p class="text-lg lg:text-xl xl:text-2xl font-black text-light-text dark:text-dark-text whitespace-nowrap">+<span class="counter" data-target="50">۵۰</span></p><p class="text-xs lg:text-sm mt-1 whitespace-nowrap">برند معتبر</p></div>
+                        <div class="hidden lg:block w-px h-10 bg-gray-300 dark:bg-slate-700 flex-shrink-0"></div>
+                        <div class="flex-shrink-0"><p class="text-lg lg:text-xl xl:text-2xl font-black text-light-text dark:text-dark-text whitespace-nowrap">+<span class="counter" data-target="300">۳۰۰</span></p><p class="text-xs lg:text-sm mt-1 whitespace-nowrap">شهر تحت پوشش</p></div>
                     </div>
                 </div>
-
-                <div class="relative">
-                    <div class="relative z-10">
-                        <div
-                            class="w-full h-96 bg-gradient-to-br from-white/20 to-[var(--color-secondary)]/20 rounded-3xl backdrop-blur-sm border border-white/30 flex items-center justify-center">
-                            <i class="fas fa-campground text-8xl text-white/80 animate-pulse-slow"></i>
-                        </div>
+                <div class="hidden lg:flex relative lg:h-[600px] items-center justify-center reveal active" style="transition-delay: 200ms;">
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+                    <div class="absolute top-10 right-10 w-20 h-20 bg-secondary/30 rounded-3xl rotate-12 blur-xl"></div>
+                    <div class="relative z-10 w-full max-w-md animate-[float_6s_ease-in-out_infinite]">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop" alt="Premium Headphones" class="w-full h-auto drop-shadow-2xl rounded-3xl">
                     </div>
-                    <div class="absolute -top-8 -right-8 w-32 h-32 bg-[var(--color-accent)]/30 rounded-full animate-float"></div>
-                    <div class="absolute -bottom-8 -left-8 w-24 h-24 bg-[var(--color-secondary)]/30 rounded-full animate-float"
-                        style="animation-delay: -2s;"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Categories Section -->
-    <section id="categories" class="py-24 bg-white relative overflow-hidden">
-        <div class="absolute inset-0 gradient-glass"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl font-black text-[var(--color-text)] mb-6">دسته‌بندی تجهیزات</h2>
-                <p class="text-xl text-[var(--color-text-light)] max-w-3xl mx-auto">از چادر و کیسه خواب تا کوله و کفش، همه چیز را برای یک ماجراجویی ایمن و لذت‌بخش در یک مکان پیدا کنید</p>
+    <section id="categories" class="py-24">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl lg:text-4xl font-black mb-4">دسته‌بندی‌های محبوب</h2>
+                <p class="text-light-sub dark:text-dark-sub max-w-2xl mx-auto">دسترسی سریع به جدیدترین محصولات در دسته‌بندی‌های پرطرفدار</p>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="group cursor-pointer">
-                    <div
-                        class="relative gradient-primary rounded-3xl p-10 text-center hover-lift hover-glow overflow-hidden">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div class="relative z-10">
-                            <div
-                                class="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-transform duration-500">
-                                <i class="fas fa-campground text-4xl text-white"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-white mb-3">چادر کمپینگ</h3>
-                            <p class="text-[var(--color-primary-lighter)]">انواع چادرهای حرفه‌ای و سبک</p>
-                        </div>
-                    </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="group bg-light-card dark:bg-dark-card p-8 rounded-3xl shadow-soft hover:shadow-[0_20px_40px_rgba(67,97,238,0.2)] border border-transparent hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 cursor-pointer reveal">
+                    <div class="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h3 class="text-lg font-bold mb-2">موبایل</h3><p class="text-sm text-light-sub dark:text-dark-sub">+۱۲۰ محصول</p>
                 </div>
-
-                <div class="group cursor-pointer">
-                    <div
-                        class="relative bg-white rounded-3xl p-10 text-center hover-lift shadow-2xl border-2 border-[var(--color-primary)]/20 overflow-hidden">
-                        <div
-                            class="absolute inset-0 gradient-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div class="relative z-10">
-                            <div
-                                class="w-20 h-20 bg-[var(--color-primary)]/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-transform duration-500 group-hover:bg-white/20">
-                                <i
-                                    class="fas fa-person-hiking text-4xl text-[var(--color-primary)] group-hover:text-white transition-colors duration-500"></i>
-                            </div>
-                            <h3
-                                class="text-2xl font-bold text-[var(--color-text)] mb-3 group-hover:text-white transition-colors duration-500">
-                                کوله کوهنوردی</h3>
-                            <p class="text-[var(--color-text-light)] group-hover:text-[var(--color-primary-lighter)] transition-colors duration-500">
-                                سبک، مقاوم و ارگونومیک</p>
-                        </div>
-                    </div>
+                <div class="group bg-light-card dark:bg-dark-card p-8 rounded-3xl shadow-soft hover:shadow-[0_20px_40px_rgba(76,201,240,0.2)] border border-transparent hover:border-secondary/30 dark:hover:border-secondary/40 transition-all duration-300 cursor-pointer reveal" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-secondary group-hover:text-white transition-all duration-300"><i class="fa-solid fa-laptop"></i></div>
+                    <h3 class="text-lg font-bold mb-2">لپ‌تاپ</h3><p class="text-sm text-light-sub dark:text-dark-sub">+۸۵ محصول</p>
                 </div>
-
-                <div class="group cursor-pointer">
-                    <div
-                        class="relative gradient-primary rounded-3xl p-10 text-center hover-lift hover-glow overflow-hidden">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div class="relative z-10">
-                            <div
-                                class="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-transform duration-500">
-                                <i class="fas fa-shoe-prints text-4xl text-white"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-white mb-3">کفش طبیعت‌گردی</h3>
-                            <p class="text-[var(--color-primary-lighter)]">راحت، ضدآب و با دوام</p>
-                        </div>
-                    </div>
+                <div class="group bg-light-card dark:bg-dark-card p-8 rounded-3xl shadow-soft hover:shadow-[0_20px_40px_rgba(247,37,133,0.2)] border border-transparent hover:border-accent/30 dark:hover:border-accent/40 transition-all duration-300 cursor-pointer reveal" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 rounded-2xl bg-accent/10 text-accent flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300"><i class="fa-solid fa-headphones"></i></div>
+                    <h3 class="text-lg font-bold mb-2">صوتی</h3><p class="text-sm text-light-sub dark:text-dark-sub">+۲۰۰ محصول</p>
                 </div>
-
-                <div class="group cursor-pointer">
-                    <div
-                        class="relative bg-white rounded-3xl p-10 text-center hover-lift shadow-2xl border-2 border-[var(--color-primary)]/20 overflow-hidden">
-                        <div
-                            class="absolute inset-0 gradient-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div class="relative z-10">
-                            <div
-                                class="w-20 h-20 bg-[var(--color-primary)]/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-transform duration-500 group-hover:bg-white/20">
-                                <i
-                                    class="fas fa-fire text-4xl text-[var(--color-primary)] group-hover:text-white transition-colors duration-500"></i>
-                            </div>
-                            <h3
-                                class="text-2xl font-bold text-[var(--color-text)] mb-3 group-hover:text-white transition-colors duration-500">
-                                تجهیزات پخت‌وپز</h3>
-                            <p class="text-[var(--color-text-light)] group-hover:text-[var(--color-primary-lighter)] transition-colors duration-500">اجاق و ظروف سفری</p>
-                        </div>
-                    </div>
+                <div class="group bg-light-card dark:bg-dark-card p-8 rounded-3xl shadow-soft hover:shadow-[0_20px_40px_rgba(245,158,11,0.2)] border border-transparent hover:border-warning/30 dark:hover:border-warning/40 transition-all duration-300 cursor-pointer reveal" style="transition-delay: 300ms;">
+                    <div class="w-16 h-16 rounded-2xl bg-warning/10 text-warning flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-warning group-hover:text-white transition-all duration-300"><i class="fa-solid fa-gamepad"></i></div>
+                    <h3 class="text-lg font-bold mb-2">گیمینگ</h3><p class="text-sm text-light-sub dark:text-dark-sub">+۹۰ محصول</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Featured Products -->
-    <section id="products" class="py-24 gradient-secondary relative">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl font-black text-[var(--color-text)] mb-6">محصولات ویژه</h2>
-                <p class="text-xl text-[var(--color-text)] max-w-3xl mx-auto">انتخاب برتر از پرفروش‌ترین و باکیفیت‌ترین تجهیزات طبیعت‌گردی</p>
+    <!-- Featured Products Section (Carousel) -->
+    <section id="products" class="py-16 md:py-24 bg-light-bg dark:bg-dark-bg">
+        <div class="max-w-[1800px] mx-auto px-6 lg:px-12">
+            
+            <!-- Title Only (Buttons moved below) -->
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black mb-8 md:mb-10">محصولات ویژه</h2>
+
+            <!-- Carousel Wrapper -->
+            <div class="ns-wrapper overflow-hidden cursor-grab active:cursor-grabbing py-4 -my-4">
+                <div class="ns-track flex gap-4 sm:gap-5 lg:gap-6 xl:gap-7 2xl:gap-8" id="nsTrack">
+
+                    <!-- Product Card 1 -->
+                    <article class="ns-card flex-shrink-0 w-[calc(100%-0px)] sm:w-[calc((100%-16px)/2)] md:w-[calc((100%-16px)/2)] lg:w-[calc((100%-40px)/3)] xl:w-[calc((100%-84px)/4)] 2xl:w-[calc((100%-128px)/5)] h-[480px] sm:h-[500px] lg:h-[520px] perspective-3d outline-none group" tabindex="0">
+                        <div class="ns-card-inner relative w-full h-full preserve-3d">
+                            <!-- FRONT -->
+                            <div class="absolute inset-0 backface-hidden bg-light-card dark:bg-dark-card rounded-3xl shadow-soft hover:shadow-[0_20px_40px_rgba(67,97,238,0.15)] border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col transition-shadow duration-300">
+                                <div class="relative h-[200px] sm:h-[220px] bg-gray-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                    <span class="absolute top-4 right-4 px-3 py-1.5 bg-accent text-white text-xs font-bold rounded-full z-10 shadow-md">۲۰٪ تخفیف</span>
+                                    <button class="ns-fav absolute top-4 left-4 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-700 backdrop-blur flex items-center justify-center text-light-sub dark:text-dark-sub hover:text-accent hover:scale-110 transition-all z-10 shadow-sm"><i class="fa-regular fa-heart"></i></button>
+                                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600&auto=format&fit=crop" alt="اپل واچ" class="w-3/4 h-auto object-contain group-hover:scale-110 transition-transform duration-500" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-extrabold text-base lg:text-lg mb-2 line-clamp-2">اپل واچ سری ۹ اولترا</h3>
+                                    <div class="flex justify-between items-center text-xs text-light-sub dark:text-dark-sub mb-4">
+                                        <span class="text-warning font-bold"><i class="fa-solid fa-star ml-1"></i>۴.۸</span>
+                                        <span>+۱۲۰ فروش</span>
+                                    </div>
+                                    <div class="mt-auto mb-4 flex flex-col">
+                                        <span class="text-xs text-light-sub dark:text-dark-sub line-through">۲۵,۰۰۰,۰۰۰</span>
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary">۲۰,۰۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                    <button class="ns-flip-btn w-full py-3 bg-primary text-white font-bold rounded-2xl hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-glow transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> مشاهده جزئیات</button>
+                                </div>
+                            </div>
+                            <!-- BACK -->
+                            <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-light-card to-gray-50 dark:from-dark-card dark:to-slate-800 rounded-3xl shadow-soft border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col p-6">
+                                <div class="flex-1 overflow-y-auto">
+                                    <h3 class="font-extrabold text-base mb-4 text-center">اپل واچ سری ۹ اولترا</h3>
+                                    <ul class="space-y-2.5 mb-5 text-right">
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-microchip text-primary w-5"></i>چیپست S9 SiP</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-battery-full text-primary w-5"></i>باتری ۳۶ ساعته</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-shield-halved text-primary w-5"></i>گارانتی ۱۸ ماهه</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-truck-fast text-primary w-5"></i>ارسال رایگان</li>
+                                    </ul>
+                                    <div class="text-center mb-4">
+                                        <span class="text-xs text-light-sub dark:text-dark-sub line-through">۲۵,۰۰۰,۰۰۰</span>
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary block">۲۰,۰۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2.5 mt-auto">
+                                    <button class="ns-back-fav flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-2"><i class="fa-regular fa-heart"></i></button>
+                                    <button class="ns-back-cart flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-success hover:text-success transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-cart-plus"></i></button>
+                                    <a href="#" class="flex-1 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-hover transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-arrow-left"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Product Card 2 -->
+                    <article class="ns-card flex-shrink-0 w-[calc(100%-0px)] sm:w-[calc((100%-16px)/2)] md:w-[calc((100%-16px)/2)] lg:w-[calc((100%-40px)/3)] xl:w-[calc((100%-84px)/4)] 2xl:w-[calc((100%-128px)/5)] h-[480px] sm:h-[500px] lg:h-[520px] perspective-3d outline-none group" tabindex="0">
+                        <div class="ns-card-inner relative w-full h-full preserve-3d">
+                            <div class="absolute inset-0 backface-hidden bg-light-card dark:bg-dark-card rounded-3xl shadow-soft hover:shadow-[0_20px_40px_rgba(67,97,238,0.15)] border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col transition-shadow duration-300">
+                                <div class="relative h-[200px] sm:h-[220px] bg-gray-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                    <span class="absolute top-4 right-4 px-3 py-1.5 bg-success text-white text-xs font-bold rounded-full z-10 shadow-md">جدید</span>
+                                    <button class="ns-fav absolute top-4 left-4 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-700 backdrop-blur flex items-center justify-center text-light-sub dark:text-dark-sub hover:text-accent hover:scale-110 transition-all z-10 shadow-sm"><i class="fa-regular fa-heart"></i></button>
+                                    <img src="https://images.unsplash.com/photo-1593642632823-8f78536788c6?q=80&w=600&auto=format&fit=crop" alt="مک‌بوک" class="w-3/4 h-auto object-contain group-hover:scale-110 transition-transform duration-500" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-extrabold text-base lg:text-lg mb-2 line-clamp-2">مک‌بوک پرو M3 14 اینچ</h3>
+                                    <div class="flex justify-between items-center text-xs text-light-sub dark:text-dark-sub mb-4">
+                                        <span class="text-warning font-bold"><i class="fa-solid fa-star ml-1"></i>۵.۰</span>
+                                        <span>+۸۵ فروش</span>
+                                    </div>
+                                    <div class="mt-auto mb-4 flex flex-col">
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary">۸۵,۰۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                    <button class="ns-flip-btn w-full py-3 bg-primary text-white font-bold rounded-2xl hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-glow transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> مشاهده جزئیات</button>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-light-card to-gray-50 dark:from-dark-card dark:to-slate-800 rounded-3xl shadow-soft border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col p-6">
+                                <div class="flex-1 overflow-y-auto">
+                                    <h3 class="font-extrabold text-base mb-4 text-center">مک‌بوک پرو M3</h3>
+                                    <ul class="space-y-2.5 mb-5 text-right">
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-microchip text-primary w-5"></i>Apple M3 Pro</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-memory text-primary w-5"></i>۱۸GB RAM</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-shield-halved text-primary w-5"></i>گارانتی ۲۴ ماهه</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-truck-fast text-primary w-5"></i>ارسال اکسپرس</li>
+                                    </ul>
+                                    <div class="text-center mb-4">
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary block">۸۵,۰۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2.5 mt-auto">
+                                    <button class="ns-back-fav flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-2"><i class="fa-regular fa-heart"></i></button>
+                                    <button class="ns-back-cart flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-success hover:text-success transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-cart-plus"></i></button>
+                                    <a href="#" class="flex-1 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-hover transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-arrow-left"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Product Card 3 -->
+                    <article class="ns-card flex-shrink-0 w-[calc(100%-0px)] sm:w-[calc((100%-16px)/2)] md:w-[calc((100%-16px)/2)] lg:w-[calc((100%-40px)/3)] xl:w-[calc((100%-84px)/4)] 2xl:w-[calc((100%-128px)/5)] h-[480px] sm:h-[500px] lg:h-[520px] perspective-3d outline-none group" tabindex="0">
+                        <div class="ns-card-inner relative w-full h-full preserve-3d">
+                            <div class="absolute inset-0 backface-hidden bg-light-card dark:bg-dark-card rounded-3xl shadow-soft hover:shadow-[0_20px_40px_rgba(67,97,238,0.15)] border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col transition-shadow duration-300">
+                                <div class="relative h-[200px] sm:h-[220px] bg-gray-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                    <button class="ns-fav absolute top-4 left-4 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-700 backdrop-blur flex items-center justify-center text-light-sub dark:text-dark-sub hover:text-accent hover:scale-110 transition-all z-10 shadow-sm"><i class="fa-regular fa-heart"></i></button>
+                                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=600&auto=format&fit=crop" alt="هدفون سونی" class="w-3/4 h-auto object-contain group-hover:scale-110 transition-transform duration-500" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-extrabold text-base lg:text-lg mb-2 line-clamp-2">هدفون سونی WH-1000XM5</h3>
+                                    <div class="flex justify-between items-center text-xs text-light-sub dark:text-dark-sub mb-4">
+                                        <span class="text-warning font-bold"><i class="fa-solid fa-star ml-1"></i>۴.۷</span>
+                                        <span>+۳۴۰ فروش</span>
+                                    </div>
+                                    <div class="mt-auto mb-4 flex flex-col">
+                                        <span class="text-xs text-light-sub dark:text-dark-sub line-through">۱۶,۰۰۰,۰۰۰</span>
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary">۱۴,۵۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                    <button class="ns-flip-btn w-full py-3 bg-primary text-white font-bold rounded-2xl hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-glow transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> مشاهده جزئیات</button>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-light-card to-gray-50 dark:from-dark-card dark:to-slate-800 rounded-3xl shadow-soft border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col p-6">
+                                <div class="flex-1 overflow-y-auto">
+                                    <h3 class="font-extrabold text-base mb-4 text-center">هدفون سونی WH-1000XM5</h3>
+                                    <ul class="space-y-2.5 mb-5 text-right">
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-volume-xmark text-primary w-5"></i>نویز کنسلینگ فعال</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-battery-full text-primary w-5"></i>۳۰ ساعت پخش</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-shield-halved text-primary w-5"></i>گارانتی ۱۲ ماهه</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-truck-fast text-primary w-5"></i>ارسال رایگان</li>
+                                    </ul>
+                                    <div class="text-center mb-4">
+                                        <span class="text-xs text-light-sub dark:text-dark-sub line-through">۱۶,۰۰۰,۰۰۰</span>
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary block">۱۴,۵۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2.5 mt-auto">
+                                    <button class="ns-back-fav flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-2"><i class="fa-regular fa-heart"></i></button>
+                                    <button class="ns-back-cart flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-success hover:text-success transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-cart-plus"></i></button>
+                                    <a href="#" class="flex-1 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-hover transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-arrow-left"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Product Card 4 -->
+                    <article class="ns-card flex-shrink-0 w-[calc(100%-0px)] sm:w-[calc((100%-16px)/2)] md:w-[calc((100%-16px)/2)] lg:w-[calc((100%-40px)/3)] xl:w-[calc((100%-84px)/4)] 2xl:w-[calc((100%-128px)/5)] h-[480px] sm:h-[500px] lg:h-[520px] perspective-3d outline-none group" tabindex="0">
+                        <div class="ns-card-inner relative w-full h-full preserve-3d">
+                            <div class="absolute inset-0 backface-hidden bg-light-card dark:bg-dark-card rounded-3xl shadow-soft hover:shadow-[0_20px_40px_rgba(67,97,238,0.15)] border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col transition-shadow duration-300">
+                                <div class="relative h-[200px] sm:h-[220px] bg-gray-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                    <span class="absolute top-4 right-4 px-3 py-1.5 bg-accent text-white text-xs font-bold rounded-full z-10 shadow-md">۱۵٪ تخفیف</span>
+                                    <button class="ns-fav absolute top-4 left-4 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-700 backdrop-blur flex items-center justify-center text-light-sub dark:text-dark-sub hover:text-accent hover:scale-110 transition-all z-10 shadow-sm"><i class="fa-regular fa-heart"></i></button>
+                                    <img src="https://images.unsplash.com/photo-1593121925328-369cc8459c08?q=80&w=600&auto=format&fit=crop" alt="سامسونگ" class="w-3/4 h-auto object-contain group-hover:scale-110 transition-transform duration-500" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-extrabold text-base lg:text-lg mb-2 line-clamp-2">سامسونگ گلکسی S24 Ultra</h3>
+                                    <div class="flex justify-between items-center text-xs text-light-sub dark:text-dark-sub mb-4">
+                                        <span class="text-warning font-bold"><i class="fa-solid fa-star ml-1"></i>۴.۹</span>
+                                        <span>+۵۱۰ فروش</span>
+                                    </div>
+                                    <div class="mt-auto mb-4 flex flex-col">
+                                        <span class="text-xs text-light-sub dark:text-dark-sub line-through">۷۰,۰۰۰,۰۰۰</span>
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary">۵۹,۵۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                    <button class="ns-flip-btn w-full py-3 bg-primary text-white font-bold rounded-2xl hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-glow transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> مشاهده جزئیات</button>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-light-card to-gray-50 dark:from-dark-card dark:to-slate-800 rounded-3xl shadow-soft border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col p-6">
+                                <div class="flex-1 overflow-y-auto">
+                                    <h3 class="font-extrabold text-base mb-4 text-center">سامسونگ گلکسی S24 Ultra</h3>
+                                    <ul class="space-y-2.5 mb-5 text-right">
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-microchip text-primary w-5"></i>Snapdragon 8 Gen 3</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-camera text-primary w-5"></i>دوربین ۲۰۰ مگاپیکسل</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-shield-halved text-primary w-5"></i>گارانتی ۱۸ ماهه</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-truck-fast text-primary w-5"></i>ارسال اکسپرس</li>
+                                    </ul>
+                                    <div class="text-center mb-4">
+                                        <span class="text-xs text-light-sub dark:text-dark-sub line-through">۷۰,۰۰۰,۰۰۰</span>
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary block">۵۹,۵۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2.5 mt-auto">
+                                    <button class="ns-back-fav flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-2"><i class="fa-regular fa-heart"></i></button>
+                                    <button class="ns-back-cart flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-success hover:text-success transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-cart-plus"></i></button>
+                                    <a href="#" class="flex-1 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-hover transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-arrow-left"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Product Card 5 -->
+                    <article class="ns-card flex-shrink-0 w-[calc(100%-0px)] sm:w-[calc((100%-16px)/2)] md:w-[calc((100%-16px)/2)] lg:w-[calc((100%-40px)/3)] xl:w-[calc((100%-84px)/4)] 2xl:w-[calc((100%-128px)/5)] h-[480px] sm:h-[500px] lg:h-[520px] perspective-3d outline-none group" tabindex="0">
+                        <div class="ns-card-inner relative w-full h-full preserve-3d">
+                            <div class="absolute inset-0 backface-hidden bg-light-card dark:bg-dark-card rounded-3xl shadow-soft hover:shadow-[0_20px_40px_rgba(67,97,238,0.15)] border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col transition-shadow duration-300">
+                                <div class="relative h-[200px] sm:h-[220px] bg-gray-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                    <span class="absolute top-4 right-4 px-3 py-1.5 bg-success text-white text-xs font-bold rounded-full z-10 shadow-md">جدید</span>
+                                    <button class="ns-fav absolute top-4 left-4 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-700 backdrop-blur flex items-center justify-center text-light-sub dark:text-dark-sub hover:text-accent hover:scale-110 transition-all z-10 shadow-sm"><i class="fa-regular fa-heart"></i></button>
+                                    <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=600&auto=format&fit=crop" alt="آیپد" class="w-3/4 h-auto object-contain group-hover:scale-110 transition-transform duration-500" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-extrabold text-base lg:text-lg mb-2 line-clamp-2">آیپد پرو M4 11 اینچ</h3>
+                                    <div class="flex justify-between items-center text-xs text-light-sub dark:text-dark-sub mb-4">
+                                        <span class="text-warning font-bold"><i class="fa-solid fa-star ml-1"></i>۴.۹</span>
+                                        <span>+۹۵ فروش</span>
+                                    </div>
+                                    <div class="mt-auto mb-4 flex flex-col">
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary">۶۵,۰۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                    <button class="ns-flip-btn w-full py-3 bg-primary text-white font-bold rounded-2xl hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-glow transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> مشاهده جزئیات</button>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-light-card to-gray-50 dark:from-dark-card dark:to-slate-800 rounded-3xl shadow-soft border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col p-6">
+                                <div class="flex-1 overflow-y-auto">
+                                    <h3 class="font-extrabold text-base mb-4 text-center">آیپد پرو M4</h3>
+                                    <ul class="space-y-2.5 mb-5 text-right">
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-microchip text-primary w-5"></i>Apple M4 Chip</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-display text-primary w-5"></i>نمایشگر OLED</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-shield-halved text-primary w-5"></i>گارانتی ۲۴ ماهه</li>
+                                        <li class="flex items-center gap-3 text-sm text-light-sub dark:text-dark-sub"><i class="fa-solid fa-truck-fast text-primary w-5"></i>ارسال رایگان</li>
+                                    </ul>
+                                    <div class="text-center mb-4">
+                                        <span class="text-xl font-black text-primary dark:text-dark-primary block">۶۵,۰۰۰,۰۰۰ <small class="text-xs font-medium text-light-sub dark:text-dark-sub">تومان</small></span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2.5 mt-auto">
+                                    <button class="ns-back-fav flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-2"><i class="fa-regular fa-heart"></i></button>
+                                    <button class="ns-back-cart flex-1 py-2.5 bg-white dark:bg-slate-700 border-2 border-gray-200 dark:border-slate-600 text-light-sub dark:text-dark-sub font-bold rounded-xl hover:border-success hover:text-success transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-cart-plus"></i></button>
+                                    <a href="#" class="flex-1 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-hover transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-arrow-left"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Product 1 -->
-                <div
-                    class="group bg-white rounded-3xl shadow-2xl overflow-hidden hover-lift border-4 border-transparent hover:border-[var(--color-secondary)] transition-all duration-500">
-                    <div class="relative overflow-hidden">
-                        <div class="h-72 gradient-primary flex items-center justify-center relative">
-                            <i
-                                class="fas fa-campground text-7xl text-white group-hover:scale-110 transition-transform duration-500"></i>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            </div>
-                        </div>
-                        <div class="absolute top-4 right-4 flex flex-col gap-2">
-                            <div
-                                class="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-white px-4 py-2 rounded-full text-sm font-bold">
-                                ۲۰٪ تخفیف
-                            </div>
-                            <div
-                                class="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white px-4 py-2 rounded-full text-sm font-bold">
-                                پرفروش
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold text-[var(--color-text)] mb-3 group-hover:text-[var(--color-primary)] transition-colors">
-                            چادر کمپینگ ۴ نفره</h3>
-                        <p class="text-[var(--color-text-light)] mb-6">مقاوم در برابر باد و باران</p>
-                        <div class="flex items-center justify-between mb-6">
-                            <div>
-                                <span class="text-3xl font-black text-[var(--color-primary)]">۴,۵۰۰,۰۰۰</span>
-                                <span class="text-sm text-[var(--color-text-light)] block">تومان</span>
-                            </div>
-                            <div class="flex text-[var(--color-accent)]">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <button class="w-full btn-primary text-white py-4 rounded-2xl font-bold text-lg">
-                            <i class="fas fa-cart-plus ml-2"></i>
-                            افزودن به سبد
-                        </button>
-                    </div>
-                </div>
+            <!-- Navigation Buttons (Moved Below Cards & Fixed Dark Mode) -->
+            <div class="flex justify-center gap-4 mt-8 mb-6">
+                <button class="ns-prev w-12 h-12 rounded-full bg-white dark:bg-dark-card border border-gray-200 dark:border-slate-700 flex items-center justify-center text-light-text dark:text-dark-text hover:bg-primary hover:text-white hover:border-primary dark:hover:border-primary hover:scale-105 transition-all shadow-sm">
+                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                </button>
+                <button class="ns-next w-12 h-12 rounded-full bg-white dark:bg-dark-card border border-gray-200 dark:border-slate-700 flex items-center justify-center text-light-text dark:text-dark-text hover:bg-primary hover:text-white hover:border-primary dark:hover:border-primary hover:scale-105 transition-all shadow-sm">
+                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                </button>
+            </div>
 
-                <!-- Product 2 -->
-                <div
-                    class="group bg-white rounded-3xl shadow-2xl overflow-hidden hover-lift border-4 border-transparent hover:border-[var(--color-secondary)] transition-all duration-500">
-                    <div class="relative overflow-hidden">
-                        <div
-                            class="h-72 bg-gradient-to-br from-[var(--color-bg)] to-[var(--color-bg-alt)] flex items-center justify-center relative">
-                            <i
-                                class="fas fa-person-hiking text-7xl text-[var(--color-primary)] group-hover:scale-110 transition-transform duration-500"></i>
-                        </div>
-                        <div class="absolute top-4 right-4">
-                            <div
-                                class="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white px-4 py-2 rounded-full text-sm font-bold">
-                                جدید
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold text-[var(--color-text)] mb-3 group-hover:text-[var(--color-primary)] transition-colors">
-                            کوله کوهنوردی ۶۵ لیتری</h3>
-                        <p class="text-[var(--color-text-light)] mb-6">سبک و دارای سیستم تهویه پشت</p>
-                        <div class="flex items-center justify-between mb-6">
-                            <div>
-                                <span class="text-3xl font-black text-[var(--color-primary)]">۳,۲۰۰,۰۰۰</span>
-                                <span class="text-sm text-[var(--color-text-light)] block">تومان</span>
-                            </div>
-                            <div class="flex text-[var(--color-accent)]">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <button class="w-full btn-primary text-white py-4 rounded-2xl font-bold text-lg">
-                            <i class="fas fa-cart-plus ml-2"></i>
-                            افزودن به سبد
-                        </button>
-                    </div>
-                </div>
+            <!-- Pagination Dots -->
+            <div class="flex justify-center gap-2" id="nsPagination"></div>
 
-                <!-- Product 3 -->
-                <div
-                    class="group bg-white rounded-3xl shadow-2xl overflow-hidden hover-lift border-4 border-transparent hover:border-[var(--color-secondary)] transition-all duration-500">
-                    <div class="relative overflow-hidden">
-                        <div class="h-72 gradient-primary flex items-center justify-center relative">
-                            <i
-                                class="fas fa-moon text-7xl text-white group-hover:scale-110 transition-transform duration-500"></i>
-                        </div>
-                        <div class="absolute top-4 right-4">
-                            <div
-                                class="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dark)] text-white px-4 py-2 rounded-full text-sm font-bold">
-                                محبوب
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold text-[var(--color-text)] mb-3 group-hover:text-[var(--color-primary)] transition-colors">
-                            کیسه خواب حرفه‌ای</h3>
-                        <p class="text-[var(--color-text-light)] mb-6">مناسب برای دمای منفی ۱۰ درجه</p>
-                        <div class="flex items-center justify-between mb-6">
-                            <div>
-                                <span class="text-3xl font-black text-[var(--color-primary)]">۲,۸۰۰,۰۰۰</span>
-                                <span class="text-sm text-[var(--color-text-light)] block">تومان</span>
-                            </div>
-                            <div class="flex text-[var(--color-accent)]">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <button class="w-full btn-primary text-white py-4 rounded-2xl font-bold text-lg">
-                            <i class="fas fa-cart-plus ml-2"></i>
-                            افزودن به سبد
-                        </button>
-                    </div>
-                </div>
+        </div>
+    </section>
 
-                <!-- Product 4 -->
-                <div
-                    class="group bg-white rounded-3xl shadow-2xl overflow-hidden hover-lift border-4 border-transparent hover:border-[var(--color-secondary)] transition-all duration-500">
-                    <div class="relative overflow-hidden">
-                        <div
-                            class="h-72 bg-gradient-to-br from-[var(--color-bg)] to-[var(--color-bg-alt)] flex items-center justify-center relative">
-                            <i
-                                class="fas fa-shoe-prints text-7xl text-[var(--color-primary)] group-hover:scale-110 transition-transform duration-500"></i>
-                        </div>
-                        <div class="absolute top-4 right-4">
-                            <div
-                                class="bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-bold">
-                                ضدآب
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold text-[var(--color-text)] mb-3 group-hover:text-[var(--color-primary)] transition-colors">
-                            کفش طبیعت‌گردی</h3>
-                        <p class="text-[var(--color-text-light)] mb-6">زیره ویبرام و رویه گورتکس</p>
-                        <div class="flex items-center justify-between mb-6">
-                            <div>
-                                <span class="text-3xl font-black text-[var(--color-primary)]">۵,۹۰۰,۰۰۰</span>
-                                <span class="text-sm text-[var(--color-text-light)] block">تومان</span>
-                            </div>
-                            <div class="flex text-[var(--color-accent)]">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                        <button class="w-full btn-primary text-white py-4 rounded-2xl font-bold text-lg">
-                            <i class="fas fa-cart-plus ml-2"></i>
-                            افزودن به سبد
-                        </button>
-                    </div>
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-light-bg dark:bg-dark-bg">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="flex flex-col items-center text-center p-8 rounded-3xl bg-light-card dark:bg-dark-card shadow-soft reveal">
+                    <div class="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h3 class="text-xl font-bold mb-3">ارسال فوری و رایگان</h3>
+                    <p class="text-light-sub dark:text-dark-sub leading-relaxed">ارسال به سراسر کشور در کمتر از ۲۴ ساعت برای سفارش‌های بالای ۲ میلیون تومان.</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-8 rounded-3xl bg-light-card dark:bg-dark-card shadow-soft reveal" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 rounded-full bg-secondary/10 text-secondary flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="text-xl font-bold mb-3">ضمانت اصالت کالا</h3>
+                    <p class="text-light-sub dark:text-dark-sub leading-relaxed">تمامی محصولات با گارانتی معتبر شرکتی و ضمانت بازگشت ۷ روزه عرضه می‌شوند.</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-8 rounded-3xl bg-light-card dark:bg-dark-card shadow-soft reveal" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 rounded-full bg-accent/10 text-accent flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-headset"></i></div>
+                    <h3 class="text-xl font-bold mb-3">پشتیبانی ۲۴ ساعته</h3>
+                    <p class="text-light-sub dark:text-dark-sub leading-relaxed">تیم متخصص ما در تمام ساعات شبانه‌روز آماده پاسخگویی به سوالات شماست.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-24 bg-white relative overflow-hidden">
-        <div class="absolute inset-0">
-            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[var(--color-primary)]/5 to-transparent"></div>
-        </div>
-
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl font-black text-[var(--color-text)] mb-6">چرا آتیس کلاب؟</h2>
-                <p class="text-xl text-[var(--color-text-light)] max-w-3xl mx-auto">خدمات فوق‌العاده ما تجربه طبیعت‌گردی و خرید شما را به یادماندنی می‌کند</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="group text-center">
-                    <div class="relative mx-auto w-32 h-32 mb-8">
-                        <div
-                            class="absolute inset-0 gradient-primary rounded-3xl rotate-6 group-hover:rotate-12 transition-transform duration-500">
-                        </div>
-                        <div
-                            class="relative bg-white rounded-3xl w-full h-full flex items-center justify-center border-4 border-[var(--color-primary)]/20 group-hover:border-[var(--color-secondary)] transition-colors duration-500">
-                            <i class="fas fa-truck-fast text-5xl text-[var(--color-primary)]"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-[var(--color-text)] mb-4">ارسال سریع</h3>
-                    <p class="text-[var(--color-text-light)] text-lg leading-relaxed">ارسال در کمتر از ۲۴ ساعت به سراسر کشور با بسته‌بندی مخصوص و ایمن</p>
-                </div>
-
-                <div class="group text-center">
-                    <div class="relative mx-auto w-32 h-32 mb-8">
-                        <div
-                            class="absolute inset-0 gradient-primary rounded-3xl -rotate-6 group-hover:-rotate-12 transition-transform duration-500">
-                        </div>
-                        <div
-                            class="relative bg-white rounded-3xl w-full h-full flex items-center justify-center border-4 border-[var(--color-primary)]/20 group-hover:border-[var(--color-secondary)] transition-colors duration-500">
-                            <i class="fas fa-certificate text-5xl text-[var(--color-primary)]"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-[var(--color-text)] mb-4">ضمانت اصالت کالا</h3>
-                    <p class="text-[var(--color-text-light)] text-lg leading-relaxed">تضمین ۱۰۰٪ اصالت و کیفیت تمامی محصولات با گارانتی معتبر و خدمات پس از فروش</p>
-                </div>
-
-                <div class="group text-center">
-                    <div class="relative mx-auto w-32 h-32 mb-8">
-                        <div
-                            class="absolute inset-0 gradient-primary rounded-3xl rotate-6 group-hover:rotate-12 transition-transform duration-500">
-                        </div>
-                        <div
-                            class="relative bg-white rounded-3xl w-full h-full flex items-center justify-center border-4 border-[var(--color-primary)]/20 group-hover:border-[var(--color-secondary)] transition-colors duration-500">
-                            <i class="fas fa-headset text-5xl text-[var(--color-primary)]"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-[var(--color-text)] mb-4">مشاوره تخصصی</h3>
-                    <p class="text-[var(--color-text-light)] text-lg leading-relaxed">تیم متخصص ما آماده راهنمایی شما برای انتخاب بهترین تجهیزات متناسب با نیازتان است</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="py-24 gradient-primary relative overflow-hidden">
-        <div class="absolute inset-0">
-            <div class="absolute top-10 right-10 w-64 h-64 border border-white/20 rounded-full animate-rotate-slow">
-            </div>
-            <div class="absolute bottom-10 left-10 w-48 h-48 bg-white/10 morphing-blob animate-float"></div>
-        </div>
-
-        <div class="container mx-auto px-6 text-center relative z-10">
-            <h2 class="text-5xl font-black text-white mb-8 text-shadow">عضو خانواده آتیس کلاب شوید</h2>
-            <p class="text-2xl text-[var(--color-primary-lighter)] mb-12 max-w-3xl mx-auto">
-                از جدیدترین تجهیزات، تخفیف‌های ویژه طبیعت‌گردی و اخبار هیجان‌انگیز ما مطلع شوید
-            </p>
-
-            <div class="max-w-2xl mx-auto">
-                <div class="flex flex-col sm:flex-row gap-4 p-3 bg-white/20 rounded-3xl backdrop-blur-sm">
-                    <input type="email" placeholder="ایمیل خود را وارد کنید..."
-                        class="flex-1 px-8 py-5 bg-white text-[var(--color-text)] rounded-2xl focus:outline-none focus:ring-4 focus:ring-white/50 text-lg">
-                    <button class="btn-secondary px-12 py-5 font-bold text-lg rounded-2xl">
-                        <i class="fas fa-paper-plane ml-2"></i>
-                        عضویت
-                    </button>
-                </div>
-            </div>
+    <!-- Newsletter Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-primary dark:bg-slate-800"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+        <div class="container mx-auto px-6 lg:px-12 relative z-10 text-center reveal">
+            <h2 class="text-3xl lg:text-4xl font-black text-white mb-4">عضو خانواده نیوشاپ شوید</h2>
+            <p class="text-blue-100 mb-10 max-w-xl mx-auto">برای دریافت جدیدترین اخبار، تخفیف‌های ویژه و کدهای هدیه، ایمیل خود را وارد کنید.</p>
+            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                <input type="email" placeholder="آدرس ایمیل شما..." class="flex-1 px-6 py-4 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-sm transition-all">
+                <button type="button" class="px-8 py-4 rounded-2xl bg-white text-primary font-bold hover:bg-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 whitespace-nowrap">عضویت</button>
+            </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-[var(--color-bg-dark)] text-white py-20 relative">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer class="bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 pt-20 pb-10">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div>
-                    <div class="text-3xl font-black mb-8 flex items-center">
-                        <i class="fas fa-mountain ml-3 text-[var(--color-accent)] animate-pulse-slow"></i>
-                        آتیس کلاب
-                    </div>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                        آتیس کلاب، مرجع تخصصی تجهیزات کوهنوردی، کمپینگ و طبیعت‌گردی. همراه همیشگی شما در دل طبیعت.
-                    </p>
-                    <div class="flex space-x-6 space-x-reverse">
-                        <a href="#"
-                            class="w-12 h-12 bg-[var(--color-primary)] rounded-2xl flex items-center justify-center hover:bg-[var(--color-secondary)] transition-colors">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
-                        <a href="#"
-                            class="w-12 h-12 bg-[var(--color-primary)] rounded-2xl flex items-center justify-center hover:bg-[var(--color-secondary)] transition-colors">
-                            <i class="fab fa-telegram text-xl"></i>
-                        </a>
-                        <a href="#"
-                            class="w-12 h-12 bg-[var(--color-primary)] rounded-2xl flex items-center justify-center hover:bg-[var(--color-secondary)] transition-colors">
-                            <i class="fab fa-twitter text-xl"></i>
-                        </a>
-                        <a href="#"
-                            class="w-12 h-12 bg-[var(--color-primary)] rounded-2xl flex items-center justify-center hover:bg-[var(--color-secondary)] transition-colors">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white text-xl"><i class="fa-solid fa-bolt"></i></div>
+                        <span class="text-2xl font-black tracking-tight">نیوشاپ</span>
+                    </a>
+                    <p class="text-light-sub dark:text-dark-sub leading-relaxed mb-6">مرجع تخصصی بررسی و فروش جدیدترین محصولات دیجیتال با ضمانت بهترین قیمت و اصالت کالا.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-light-sub dark:text-dark-sub hover:bg-primary hover:text-white transition-all duration-300"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-light-sub dark:text-dark-sub hover:bg-primary hover:text-white transition-all duration-300"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-light-sub dark:text-dark-sub hover:bg-primary hover:text-white transition-all duration-300"><i class="fa-brands fa-telegram"></i></a>
                     </div>
                 </div>
-
                 <div>
-                    <h3 class="text-xl font-bold mb-8">لینک‌های مفید</h3>
+                    <h4 class="text-lg font-bold mb-6">دسترسی سریع</h4>
                     <ul class="space-y-4">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">درباره ما</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">تماس با ما</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">فرصت‌های شغلی</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">شرایط استفاده</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">حریم خصوصی</a></li>
+                        <li><a href="#" class="text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">درباره ما</a></li>
+                        <li><a href="#" class="text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">تماس با ما</a></li>
+                        <li><a href="#" class="text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">وبلاگ</a></li>
+                        <li><a href="#" class="text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">فرصت‌های شغلی</a></li>
                     </ul>
                 </div>
-
                 <div>
-                    <h3 class="text-xl font-bold mb-8">خدمات مشتریان</h3>
+                    <h4 class="text-lg font-bold mb-6">خدمات مشتریان</h4>
                     <ul class="space-y-4">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">پیگیری سفارش</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">رویه بازگرداندن کالا</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">راهنمای خرید</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">سوالات متداول</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-lg">گزارش مشکل</a></li>
+                        <li><a href="#" class="text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">پاسخ به پرسش‌های متداول</a></li>
+                        <li><a href="#" class="text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">رویه بازگرداندن کالا</a></li>
+                        <li><a href="#" class="text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">شرایط استفاده</a></li>
+                        <li><a href="#" class="text-light-sub dark:text-dark-sub hover:text-primary dark:hover:text-dark-primary transition-colors">حریم خصوصی</a></li>
                     </ul>
                 </div>
-
                 <div>
-                    <h3 class="text-xl font-bold mb-8">اطلاعات تماس</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <i class="fas fa-map-marker-alt text-[var(--color-secondary)] text-xl mt-1 ml-4"></i>
-                            <div>
-                                <p class="text-gray-400 text-lg">تهران، خیابان ولیعصر</p>
-                                <p class="text-gray-400">پلاک ۱۲۳۴، طبقه ۵</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-phone text-[var(--color-secondary)] text-xl ml-4"></i>
-                            <span class="text-gray-400 text-lg">۰۲۱-۱۲۳۴۵۶۷۸</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-envelope text-[var(--color-secondary)] text-xl ml-4"></i>
-                            <span class="text-gray-400 text-lg">info@atisclub.ir</span>
-                        </div>
-                    </div>
+                    <h4 class="text-lg font-bold mb-6">اطلاعات تماس</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3 text-light-sub dark:text-dark-sub"><i class="fa-solid fa-location-dot mt-1 text-primary"></i><span>تهران، خیابان ولیعصر، برج فناوری، طبقه ۱۲</span></li>
+                        <li class="flex items-center gap-3 text-light-sub dark:text-dark-sub"><i class="fa-solid fa-phone text-primary"></i><span>۰۲۱-۸۸۷۷۶۶۵۵</span></li>
+                        <li class="flex items-center gap-3 text-light-sub dark:text-dark-sub"><i class="fa-solid fa-envelope text-primary"></i><span>support@newshop.ir</span></li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="border-t border-gray-700 mt-16 pt-12 text-center">
-                <p class="text-gray-400 text-lg">
-                    &copy; ۱۴۰۴ فروشگاه آتیس کلاب. تمامی حقوق محفوظ است.
-                </p>
+            <div class="border-t border-gray-100 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-light-sub dark:text-dark-sub">© ۱۴۰۳ تمامی حقوق برای <span class="font-bold text-light-text dark:text-dark-text">نیوشاپ</span> محفوظ است.</p>
+                <div class="flex gap-4">
+                    <div class="w-12 h-8 bg-gray-200 dark:bg-slate-700 rounded flex items-center justify-center text-[10px] text-gray-500">زرین‌پال</div>
+                    <div class="w-12 h-8 bg-gray-200 dark:bg-slate-700 rounded flex items-center justify-center text-[10px] text-gray-500">سامان</div>
+                    <div class="w-12 h-8 bg-gray-200 dark:bg-slate-700 rounded flex items-center justify-center text-[10px] text-gray-500">نشان</div>
+                </div>
             </div>
         </div>
     </footer>
-    
-    <div class="fixed bottom-8 right-8 z-50">
-        <button
-            class="w-16 h-16 bg-[var(--color-primary)] rounded-full shadow-2xl hover-lift hover:bg-[var(--color-secondary)] transition-all flex items-center justify-center">
-            <i class="fab fa-whatsapp text-white text-2xl"></i>
-        </button>
+
+    <!-- Search Modal Overlay -->
+    <div id="search-modal" class="fixed inset-0 z-[60] bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 flex items-start justify-center pt-32 px-4">
+        <div id="search-box" class="w-full max-w-2xl bg-light-card dark:bg-dark-card rounded-3xl shadow-2xl border border-gray-200 dark:border-slate-700 p-2 transform -translate-y-4 transition-all duration-300">
+            <div class="flex items-center gap-3 px-4">
+                <i class="fa-solid fa-magnifying-glass text-light-sub text-xl"></i>
+                <input type="text" id="search-input" placeholder="جستجو در نیوشاپ (مثلاً: آیفون ۱۵، مک‌بوک...)" class="flex-1 bg-transparent border-none outline-none text-lg py-4 text-light-text dark:text-dark-text placeholder-light-sub" autocomplete="off">
+                <button id="close-search" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-light-sub hover:text-accent hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+        </div>
     </div>
 
+    <!-- JavaScript -->
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+        // Dark Mode Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            localStorage.theme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach((element) => {
+                if (element.getBoundingClientRect().top < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Search Modal Functionality
+        const searchModal = document.getElementById('search-modal');
+        const searchBox = document.getElementById('search-box');
+        const openSearchBtn = document.getElementById('open-search');
+        const closeSearchBtn = document.getElementById('close-search');
+        const searchInput = document.getElementById('search-input');
+        function openSearch() {
+            searchModal.classList.remove('opacity-0', 'pointer-events-none');
+            searchBox.classList.remove('-translate-y-4');
+            searchBox.classList.add('translate-y-0');
+            setTimeout(() => searchInput.focus(), 100);
+        }
+        function closeSearch() {
+            searchModal.classList.add('opacity-0', 'pointer-events-none');
+            searchBox.classList.remove('translate-y-0');
+            searchBox.classList.add('-translate-y-4');
+        }
+        openSearchBtn.addEventListener('click', openSearch);
+        closeSearchBtn.addEventListener('click', closeSearch);
+        searchModal.addEventListener('click', (e) => { if (e.target === searchModal) closeSearch(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !searchModal.classList.contains('pointer-events-none')) { closeSearch(); } });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const menuPanel = document.getElementById('menu-panel');
+        const closeMenu = document.getElementById('close-menu');
+        function openMobileMenu() {
+            mobileMenu.classList.remove('pointer-events-none');
+            menuOverlay.classList.remove('opacity-0');
+            menuPanel.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileMenu() {
+            mobileMenu.classList.add('pointer-events-none');
+            menuOverlay.classList.add('opacity-0');
+            menuPanel.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        }
+        mobileMenuToggle.addEventListener('click', openMobileMenu);
+        closeMenu.addEventListener('click', closeMobileMenu);
+        menuOverlay.addEventListener('click', closeMobileMenu);
+        document.querySelectorAll('#menu-panel a').forEach(link => { link.addEventListener('click', closeMobileMenu); });
+
+        // Animated Counters
+        function toPersianNum(num) {
+            const fa = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            return num.toString().replace(/\d/g, x => fa[x]).replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+        }
+        function animateCounter(el) {
+            const target = +el.dataset.target;
+            const finalText = el.innerText;
+            const duration = 2000;
+            const step = 1000 / 60;
+            const total = Math.round(duration / step);
+            let frame = 0;
+            const timer = setInterval(() => {
+                frame++;
+                const progress = 1 - Math.pow(1 - frame / total, 3);
+                const current = Math.round(target * progress);
+                el.innerText = toPersianNum(current);
+                if (frame >= total) {
+                    clearInterval(timer);
+                    el.innerText = finalText;
+                }
+            }, step);
+        }
+        const statsEl = document.querySelector('.stats-container');
+        if (statsEl) {
+            new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.querySelectorAll('.counter').forEach(c => {
+                            if (!c.classList.contains('done')) {
+                                c.classList.add('done');
+                                animateCounter(c);
+                            }
+                        });
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 }).observe(statsEl);
+        }
+
+        // --- NewShop Carousel Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            class NewShopCarousel {
+                constructor() {
+                    this.track = document.getElementById('nsTrack');
+                    this.realCards = Array.from(this.track.querySelectorAll('.ns-card'));
+                    this.originalCount = this.realCards.length;
+                    this.prevBtn = document.querySelector('.ns-prev');
+                    this.nextBtn = document.querySelector('.ns-next');
+                    this.pagination = document.getElementById('nsPagination');
+                    
+                    this.currentIndex = 0;
+                    this.isDragging = false;
+                    this.startPos = 0;
+                    this.currentTranslate = 0;
+                    this.prevTranslate = 0;
+                    this.animationID = 0;
+                    this.dragThreshold = 50;
+                    this.cloneCount = 5;
+                    
+                    this.autoplayInterval = 10000;
+                    this.autoplayTimer = null;
+                    this.isHovering = false;
+                    this.isAnimating = false;
+                    this.clickDebounce = 1000;
+                    
+                    this.init();
+                }
+
+                init() {
+                    this.cloneSlides();
+                    this.createPagination();
+                    this.addEventListeners();
+                    this.currentIndex = this.cloneCount;
+                    this.updateTrackPosition(false);
+                    this.startAutoplay();
+                }
+
+                cloneSlides() {
+                    for (let i = this.originalCount - this.cloneCount; i < this.originalCount; i++) {
+                        const clone = this.realCards[i].cloneNode(true);
+                        clone.setAttribute('aria-hidden', 'true');
+                        this.track.insertBefore(clone, this.track.firstChild);
+                    }
+                    for (let i = 0; i < this.cloneCount; i++) {
+                        const clone = this.realCards[i].cloneNode(true);
+                        clone.setAttribute('aria-hidden', 'true');
+                        this.track.appendChild(clone);
+                    }
+                    this.allCards = Array.from(this.track.querySelectorAll('.ns-card'));
+                }
+
+                getSlideWidth() {
+                    const card = this.allCards[this.cloneCount];
+                    const style = window.getComputedStyle(this.track);
+                    const gap = parseFloat(style.gap) || 0;
+                    return card.offsetWidth + gap;
+                }
+
+                updateTrackPosition(useTransition = true) {
+                    const slideWidth = this.getSlideWidth();
+                    this.currentTranslate = this.currentIndex * slideWidth;
+                    this.prevTranslate = this.currentTranslate;
+                    
+                    if (!useTransition) {
+                        this.track.style.transition = 'none';
+                        this.track.style.transform = `translateX(${this.currentTranslate}px)`;
+                        void this.track.offsetHeight;
+                        requestAnimationFrame(() => { this.track.style.transition = ''; });
+                    } else {
+                        this.track.style.transition = '';
+                        this.track.style.transform = `translateX(${this.currentTranslate}px)`;
+                    }
+                    this.updatePagination();
+                }
+
+                next() {
+                    if (this.isAnimating) return;
+                    this.isAnimating = true;
+                    this.currentIndex++;
+                    this.updateTrackPosition(true);
+                    this.resetAutoplay();
+                    setTimeout(() => { this.isAnimating = false; }, this.clickDebounce);
+                }
+
+                prev() {
+                    if (this.isAnimating) return;
+                    this.isAnimating = true;
+                    this.currentIndex--;
+                    this.updateTrackPosition(true);
+                    this.resetAutoplay();
+                    setTimeout(() => { this.isAnimating = false; }, this.clickDebounce);
+                }
+
+                goTo(index) {
+                    if (this.isAnimating) return;
+                    this.isAnimating = true;
+                    this.currentIndex = this.cloneCount + index;
+                    this.updateTrackPosition(true);
+                    this.resetAutoplay();
+                    setTimeout(() => { this.isAnimating = false; }, this.clickDebounce);
+                }
+
+                handleTransitionEnd = () => {
+                    if (this.isDragging) return;
+                    if (this.currentIndex >= this.originalCount + this.cloneCount) {
+                        this.currentIndex = this.cloneCount;
+                        this.updateTrackPosition(false);
+                    } else if (this.currentIndex < this.cloneCount) {
+                        this.currentIndex = this.originalCount + this.cloneCount - 1;
+                        this.updateTrackPosition(false);
+                    }
+                }
+
+                startAutoplay() {
+                    this.autoplayTimer = setInterval(() => {
+                        if (!this.isHovering && !this.isDragging && !this.isAnimating) {
+                            this.next();
+                        }
+                    }, this.autoplayInterval);
+                }
+
+                stopAutoplay() {
+                    if (this.autoplayTimer) {
+                        clearInterval(this.autoplayTimer);
+                        this.autoplayTimer = null;
+                    }
+                }
+
+                resetAutoplay() {
+                    this.stopAutoplay();
+                    this.startAutoplay();
+                }
+
+                createPagination() {
+                    for (let i = 0; i < this.originalCount; i++) {
+                        const dot = document.createElement('button');
+                        dot.className = 'w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-slate-600 border-0 cursor-pointer transition-all duration-300 hover:bg-primary';
+                        dot.setAttribute('aria-label', `رفتن به اسلاید ${i + 1}`);
+                        dot.addEventListener('click', () => this.goTo(i));
+                        this.pagination.appendChild(dot);
+                    }
+                }
+
+                updatePagination() {
+                    const dots = Array.from(this.pagination.children);
+                    let activeIndex = this.currentIndex - this.cloneCount;
+                    if (activeIndex < 0) activeIndex = this.originalCount - 1;
+                    if (activeIndex >= this.originalCount) activeIndex = 0;
+                    
+                    dots.forEach((dot, index) => {
+                        if (index === activeIndex) {
+                            dot.className = 'w-8 h-2.5 rounded-md bg-primary border-0 cursor-pointer transition-all duration-300';
+                        } else {
+                            dot.className = 'w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-slate-600 border-0 cursor-pointer transition-all duration-300 hover:bg-primary';
+                        }
                     });
                 }
-            });
-        });
 
-        // Add to cart functionality with animation
-        document.querySelectorAll('.btn-primary').forEach(button => {
-            if (button.textContent.includes('افزودن به سبد')) {
-                button.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    this.classList.add('animate-bounce');
-                    setTimeout(() => {
-                        this.classList.remove('animate-bounce');
-                    }, 1000);
-                    showNotification('محصول با موفقیت به سبد خرید اضافه شد!', 'success');
-                    updateCartCounter();
-                });
-            }
-        });
-
-        // Newsletter subscription
-        document.querySelector('.btn-secondary').addEventListener('click', function () {
-            const emailInput = this.parentElement.querySelector('input[type="email"]');
-            const email = emailInput.value.trim();
-            if (email && isValidEmail(email)) {
-                showNotification('با موفقیت در خبرنامه عضو شدید!', 'success');
-                emailInput.value = '';
-            } else {
-                showNotification('لطفاً ایمیل معتبر وارد کنید.', 'error');
-            }
-        });
-
-        // Utility functions
-        function showNotification(message, type) {
-            const notification = document.createElement('div');
-            const bgColor = type === 'success' ? 'var(--color-success)' : 'var(--color-error)';
-            notification.className = `fixed top-24 left-1/2 transform -translate-x-1/2 z-50 px-8 py-4 rounded-2xl shadow-2xl transition-all duration-500 text-white`;
-            notification.style.backgroundColor = bgColor;
-            notification.innerHTML = `
-                <div class="flex items-center">
-                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'} ml-3 text-xl"></i>
-                    <span class="font-medium">${message}</span>
-                </div>
-            `;
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                notification.style.transform = 'translate(-50%, -100px)';
-                notification.style.opacity = '0';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 500);
-            }, 3000);
-        }
-
-        function updateCartCounter() {
-            const counters = document.querySelectorAll('.animate-bounce');
-            counters.forEach(counter => {
-                if (counter.textContent && !isNaN(counter.textContent)) {
-                    counter.textContent = parseInt(counter.textContent) + 1;
-                    counter.classList.add('animate-pulse');
-                    setTimeout(() => {
-                        counter.classList.remove('animate-pulse');
-                    }, 1000);
-                }
-            });
-        }
-
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        // Parallax scroll effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.morphing-blob, .animate-float');
-            parallaxElements.forEach((element, index) => {
-                const speed = 0.5 + (index * 0.1);
-                element.style.transform += ` translateY(${scrolled * speed}px)`;
-            });
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.hover-lift').forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(50px)';
-            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            observer.observe(el);
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-
-(function() {
-    'use strict';
-    
-    // --- Scroll Position Preservation ---
-    let scrollPosition = 0;
-    
-    function lockScroll() {
-        scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollPosition}px`;
-        document.body.style.width = '100%';
-        document.body.style.overflow = 'hidden';
-        document.body.classList.add('menu-open');
-    }
-    
-    function unlockScroll() {
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflow = '';
-        document.body.classList.remove('menu-open');
-        window.scrollTo(0, scrollPosition);
-    }
-    
-    // --- Inject Inline Search (Inside Header) ---
-    function injectInlineSearch() {
-        const navFlex = document.querySelector('.nav-fixed .container > .flex');
-        if (!navFlex || document.querySelector('.header-search-inline')) return;
-        
-        const searchHTML = `
-            <div class="header-search-inline">
-                <div class="relative">
-                    <input type="text" placeholder="جستجو در تجهیزات..." aria-label="جستجو">
-                    <i class="fas fa-search"></i>
-                </div>
-            </div>
-        `;
-        
-        navFlex.insertAdjacentHTML('beforeend', searchHTML);
-    }
-    
-    // --- Inject Mobile Menu & Hamburger ---
-    function injectMobileMenu() {
-        const nav = document.querySelector('.nav-fixed');
-        if (!nav || document.querySelector('.mobile-menu-overlay')) return;
-        
-        const mobileMenuHTML = `
-            <!-- Mobile Menu Overlay -->
-            <div class="mobile-menu-overlay">
-                <div class="mobile-menu-drawer">
-                    <div class="mobile-menu-header">
-                        <div class="text-xl font-black text-white">
-                            <i class="fas fa-mountain ml-2" style="color: var(--color-accent);"></i>
-                            آتیس کلاب
-                        </div>
-                        <button class="close-menu-btn" aria-label="بستن منو">
-                            <i class="fas fa-times text-white text-xl"></i>
-                        </button>
-                    </div>
+                addEventListeners() {
+                    this.track.addEventListener('transitionend', this.handleTransitionEnd);
+                    this.prevBtn.addEventListener('click', () => this.prev());
+                    this.nextBtn.addEventListener('click', () => this.next());
                     
-                    <div class="mobile-menu-links">
-                        <a href="#home" class="mobile-menu-link">
-                            <i class="fas fa-home"></i>
-                            <span>خانه</span>
-                        </a>
-                        <a href="#products" class="mobile-menu-link">
-                            <i class="fas fa-box"></i>
-                            <span>محصولات</span>
-                        </a>
-                        <a href="#categories" class="mobile-menu-link">
-                            <i class="fas fa-th-large"></i>
-                            <span>دسته‌بندی</span>
-                        </a>
-                        <a href="#services" class="mobile-menu-link">
-                            <i class="fas fa-concierge-bell"></i>
-                            <span>خدمات</span>
-                        </a>
-                        <a href="#contact" class="mobile-menu-link">
-                            <i class="fas fa-phone"></i>
-                            <span>تماس با ما</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        nav.insertAdjacentHTML('beforeend', mobileMenuHTML);
-        
-        // Inject Hamburger Button & Search Icon
-        const rightIcons = nav.querySelector('.flex.items-center.space-x-6, .flex.items-center.space-x-4');
-        if (rightIcons && !rightIcons.querySelector('.hamburger-btn')) {
-            const searchIconHTML = `
-                <button class="search-icon-mobile p-3 bg-white/20 rounded-full hover:bg-white/30 transition-all" aria-label="جستجو">
-                    <i class="fas fa-search text-white text-lg"></i>
-                </button>
-            `;
-            const hamburgerHTML = `
-                <button class="hamburger-btn p-3 bg-white/20 rounded-full hover:bg-white/30 transition-all" aria-label="منو">
-                    <i class="fas fa-bars text-white text-xl"></i>
-                </button>
-            `;
-            
-            // Insert search icon before cart
-            const cartBtn = rightIcons.querySelector('.relative.group');
-            if (cartBtn) {
-                cartBtn.insertAdjacentHTML('beforebegin', searchIconHTML);
-            }
-            
-            // Insert hamburger at the end (will be reordered by CSS order)
-            rightIcons.insertAdjacentHTML('beforeend', hamburgerHTML);
-        }
-    }
-    
-    // --- Initialize Mobile Menu ---
-    function initMobileMenu() {
-        const hamburgerBtn = document.querySelector('.hamburger-btn');
-        const overlay = document.querySelector('.mobile-menu-overlay');
-        const drawer = document.querySelector('.mobile-menu-drawer');
-        const closeBtn = document.querySelector('.close-menu-btn');
-        const menuLinks = document.querySelectorAll('.mobile-menu-link');
-        
-        if (!hamburgerBtn || !overlay || !drawer) return;
-        
-        // Open Menu
-        hamburgerBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            overlay.classList.add('active');
-            drawer.classList.add('active');
-            lockScroll();
-        });
-        
-        // Close Menu
-        function closeMenu() {
-            overlay.classList.remove('active');
-            drawer.classList.remove('active');
-            unlockScroll();
-        }
-        
-        // Close Button
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeMenu);
-        }
-        
-        // Click Overlay to Close
-        overlay.addEventListener('click', function(e) {
-            if (e.target === overlay) closeMenu();
-        });
-        
-        // Click Links to Close
-        menuLinks.forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-        
-        // ESC Key to Close
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                if (drawer.classList.contains('active')) closeMenu();
-                
-                const inlineSearch = document.querySelector('.header-search-inline');
-                if (inlineSearch && inlineSearch.classList.contains('active')) {
-                    inlineSearch.classList.remove('active');
+                    this.track.addEventListener('mousedown', this.dragStart.bind(this));
+                    this.track.addEventListener('mousemove', this.dragMove.bind(this));
+                    this.track.addEventListener('mouseup', this.dragEnd.bind(this));
+                    this.track.addEventListener('mouseleave', () => {
+                        if (this.isDragging) this.dragEnd();
+                        this.isHovering = false;
+                    });
+
+                    this.track.addEventListener('touchstart', this.dragStart.bind(this), { passive: true });
+                    this.track.addEventListener('touchmove', this.dragMove.bind(this), { passive: false });
+                    this.track.addEventListener('touchend', this.dragEnd.bind(this));
+
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowLeft') this.next();
+                        if (e.key === 'ArrowRight') this.prev();
+                    });
+
+                    let resizeTimer;
+                    window.addEventListener('resize', () => {
+                        clearTimeout(resizeTimer);
+                        resizeTimer = setTimeout(() => this.updateTrackPosition(false), 200);
+                    });
+
+                    this.track.addEventListener('mouseenter', () => { this.isHovering = true; });
+                    this.track.addEventListener('mouseleave', () => { this.isHovering = false; });
+
+                    this.setupFlipButtons();
+                    this.setupBackButtons();
+                    this.setupFavorites();
+                }
+
+                dragStart(e) {
+                    this.isDragging = true;
+                    this.startPos = this.getPositionX(e);
+                    this.track.style.transition = 'none';
+                    this.animationID = requestAnimationFrame(this.animation.bind(this));
+                    this.stopAutoplay();
+                }
+
+                dragMove(e) {
+                    if (!this.isDragging) return;
+                    const currentPosition = this.getPositionX(e);
+                    const diff = currentPosition - this.startPos;
+                    if (e.type === 'touchmove' && Math.abs(diff) > 10) { e.preventDefault(); }
+                    this.currentTranslate = this.prevTranslate + diff;
+                }
+
+                dragEnd() {
+                    if (!this.isDragging) return;
+                    this.isDragging = false;
+                    cancelAnimationFrame(this.animationID);
+
+                    const movedBy = this.currentTranslate - this.prevTranslate;
+                    if (movedBy < -this.dragThreshold) { this.next(); } 
+                    else if (movedBy > this.dragThreshold) { this.prev(); } 
+                    else { this.updateTrackPosition(true); }
+                    
+                    this.startAutoplay();
+                }
+
+                getPositionX(e) {
+                    return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+                }
+
+                animation() {
+                    if (this.isDragging) {
+                        this.track.style.transform = `translateX(${this.currentTranslate}px)`;
+                        requestAnimationFrame(this.animation.bind(this));
+                    }
+                }
+
+                setupFlipButtons() {
+                    document.querySelectorAll('.ns-flip-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const card = btn.closest('.ns-card');
+                            card.classList.toggle('is-flipped');
+                            this.stopAutoplay();
+                        });
+                    });
+                }
+
+                setupBackButtons() {
+                    document.querySelectorAll('.ns-back-fav').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            btn.classList.toggle('text-accent');
+                            btn.classList.toggle('border-accent');
+                            const icon = btn.querySelector('i');
+                            if (icon.classList.contains('fa-regular')) {
+                                icon.classList.remove('fa-regular');
+                                icon.classList.add('fa-solid');
+                            } else {
+                                icon.classList.remove('fa-solid');
+                                icon.classList.add('fa-regular');
+                            }
+                        });
+                    });
+
+                    document.querySelectorAll('.ns-back-cart').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            btn.classList.add('text-success', 'border-success');
+                            const icon = btn.querySelector('i');
+                            icon.classList.remove('fa-cart-plus');
+                            icon.classList.add('fa-check');
+                            setTimeout(() => {
+                                btn.classList.remove('text-success', 'border-success');
+                                icon.classList.remove('fa-check');
+                                icon.classList.add('fa-cart-plus');
+                            }, 2000);
+                        });
+                    });
+                }
+
+                setupFavorites() {
+                    document.querySelectorAll('.ns-fav').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            btn.classList.toggle('text-accent');
+                            const icon = btn.querySelector('i');
+                            if (icon.classList.contains('fa-regular')) {
+                                icon.classList.remove('fa-regular');
+                                icon.classList.add('fa-solid');
+                            } else {
+                                icon.classList.remove('fa-solid');
+                                icon.classList.add('fa-regular');
+                            }
+                        });
+                    });
                 }
             }
+            new NewShopCarousel();
         });
-    }
-    
-    // --- Initialize Inline Search ---
-    function initInlineSearch() {
-        const searchIcon = document.querySelector('.search-icon-mobile');
-        const inlineSearch = document.querySelector('.header-search-inline');
-        
-        if (!searchIcon || !inlineSearch) return;
-        
-        // Toggle Search
-        searchIcon.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const isActive = inlineSearch.classList.toggle('active');
-            if (isActive) {
-                setTimeout(() => {
-                    const input = inlineSearch.querySelector('input');
-                    if (input) input.focus();
-                }, 300);
-            }
-        });
-        
-        // Close when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!inlineSearch.contains(e.target) && !searchIcon.contains(e.target)) {
-                inlineSearch.classList.remove('active');
-            }
-        });
-        
-        // Close on Enter (optional - could trigger search)
-        const searchInput = inlineSearch.querySelector('input');
-        if (searchInput) {
-            searchInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    inlineSearch.classList.remove('active');
-                    searchInput.blur();
-                }
-            });
-        }
-    }
-    
-    // --- Handle Window Resize ---
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            if (window.innerWidth >= 1024) {
-                const overlay = document.querySelector('.mobile-menu-overlay');
-                const drawer = document.querySelector('.mobile-menu-drawer');
-                const inlineSearch = document.querySelector('.header-search-inline');
-                
-                if (overlay && overlay.classList.contains('active')) {
-                    overlay.classList.remove('active');
-                    drawer.classList.remove('active');
-                    unlockScroll();
-                }
-                
-                if (inlineSearch) {
-                    inlineSearch.classList.remove('active');
-                }
-            }
-        }, 250);
-    });
-    
-    // --- Run on DOM Ready ---
-    function init() {
-        injectMobileMenu();
-        injectInlineSearch();
-        initMobileMenu();
-        initInlineSearch();
-    }
-    
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-})();
-
-
-
-
-
-
-
-
-</script>
+    </script>
 </body>
-
 </html>
