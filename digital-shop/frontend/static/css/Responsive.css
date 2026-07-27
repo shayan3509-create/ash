@@ -1,756 +1,595 @@
-/* ═══════════════════════════════════════════════════════════════
-   📱 فایل ریسپانسیو نیوشاپ - نسخه نهایی (تجمیع شده)
-   ═══════════════════════════════════════════════════════════════ */
+/* =========================================
+   Atis Club - Header Responsive CSS
+   Mobile First Approach
+   ========================================= */
 
-
-/* ═══════════════════════════════════════════════════════════════
-   🖥️ دسکتاپ کوچک (992px تا 1199px) - اسلایدر
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 1199px) {
-    .carousel-container { height: 580px; }
-    .carousel-track { height: 500px; }
-    .carousel-slide { width: 420px; height: 460px; }
-    .slide-title { font-size: 18px; }
-    .discount-code { font-size: 20px; padding: 10px 28px; }
+/* --- Base Styles (Mobile First) --- */
+.nav-fixed {
+    padding: 0.75rem 0 !important;
+    min-height: 60px !important;
 }
 
-
-/* ═══════════════════════════════════════════════════════════════
-   📱 تبلت (768px تا 1024px) - هدر
-   ═══════════════════════════════════════════════════════════════ */
-@media screen and (max-width: 1024px) {
-
-    /* هدر */
-    .header-top {
-        padding: 12px 20px;
-        gap: 15px;
-    }
-
-    .logo {
-        font-size: 28px;
-    }
-
-    /* سرچ‌باکس - تمام فضای باقی‌مانده */
-    .header-center {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .search-box {
-        width: 100%;
-    }
-
-    .search-box input {
-        width: 100%;
-        height: 48px;
-        padding: 10px 40px 10px 12px;
-        font-size: 13px;
-    }
-
-    /* آیکون‌ها */
-    .icon-btn {
-        padding: 8px;
-    }
-
-    .icon-btn .icon {
-        width: 22px;
-        height: 22px;
-    }
-
-    /* منوی دسته‌بندی */
-    .header-bottom {
-        padding: 0 20px;
-    }
-
-    .nav-menu {
-        gap: 20px;
-    }
-
-    .nav-menu li a {
-        font-size: 13px;
-        padding: 12px 0;
-    }
-
-    /* مگا منو */
-    .mega-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .category-menu {
-        padding-left: 20px;
-    }
-
-    .nav-menu li.sell-separator {
-        padding-right: 20px;
-    }
+.nav-fixed .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
 }
 
+/* --- Header Flex Structure --- */
+.nav-fixed .container > .flex {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 0.5rem !important;
+}
 
-/* ═══════════════════════════════════════════════════════════════
-   📱 تبلت (768px تا 991px) - اسلایدر
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 991px) {
-    .carousel-section { padding: 40px 15px 35px 15px; }
-    .carousel-container { height: 520px; }
-    .carousel-track { height: 440px; }
-    .carousel-slide { width: 360px; height: 400px; }
+/* Logo Section - Order 1 */
+.nav-fixed .flex.items-center.space-x-4.space-x-reverse {
+    order: 1 !important;
+    flex: 0 0 auto !important;
+}
+
+.nav-fixed .text-2xl {
+    font-size: 1.25rem !important;
+    white-space: nowrap !important;
+}
+
+.nav-fixed .text-2xl i {
+    font-size: 1.1rem !important;
+}
+
+/* Hide Desktop Menu on Mobile/Tablet */
+.nav-fixed .hidden.lg\:flex {
+    display: none !important;
+}
+
+/* Hide Desktop Search on Mobile/Tablet */
+.nav-fixed .relative.hidden.md\:block {
+    display: none !important;
+}
+
+/* Right Icons Section - Order 3 (pushed to left by auto margin) */
+.nav-fixed .container > .flex > .flex.items-center:last-child {
+    order: 3 !important;
+    margin-right: auto !important;
+    margin-left: 0 !important;
+    gap: 0.25rem !important;
+}
+
+/* Hamburger Button - Order 2 (Right after Logo) */
+.hamburger-btn {
+    order: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 0.625rem !important;
+    cursor: pointer !important;
+    margin-right: 0 !important;
+}
+
+.hamburger-btn i {
+    font-size: 1.25rem !important;
+}
+
+/* Icon Buttons - Touch Friendly */
+.nav-fixed .relative.group button,
+.nav-fixed .search-icon-mobile {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 0.625rem !important;
+}
+
+/* Cart Badge - Mobile Size */
+.nav-fixed .absolute.-top-2.-right-2 {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    font-size: 0.625rem !important;
+    top: -4px !important;
+    right: -4px !important;
+}
+
+/* --- Inline Search (Inside Header) --- */
+.header-search-inline {
+    order: 4 !important;
+    width: 100% !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease !important;
+    opacity: 0 !important;
+    flex-basis: 100% !important;
+}
+
+.header-search-inline.active {
+    max-height: 80px !important;
+    margin-top: 0.75rem !important;
+    opacity: 1 !important;
+}
+
+.header-search-inline .relative {
+    width: 100% !important;
+}
+
+.header-search-inline input {
+    width: 100% !important;
+    min-height: 48px !important;
+    padding: 0.75rem 3rem 0.75rem 1.25rem !important;
+    font-size: 1rem !important;
+    border-radius: 1rem !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.header-search-inline input::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.header-search-inline input:focus {
+    outline: none !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15) !important;
+}
+
+.header-search-inline .fa-search {
+    left: auto !important;
+    right: 1rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    pointer-events: none !important;
+}
+
+/* --- Mobile Menu Overlay --- */
+.mobile-menu-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    z-index: 9998 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* --- Mobile Menu Drawer --- */
+.mobile-menu-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    width: 85% !important;
+    max-width: 320px !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background: linear-gradient(135deg, rgba(46, 94, 62, 0.98) 0%, rgba(107, 142, 35, 0.98) 100%) !important;
+    z-index: 9999 !important;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+.mobile-menu-drawer.active {
+    right: 0 !important;
+}
+
+/* Drawer Header */
+.mobile-menu-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 1.25rem 1.5rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    background: rgba(0, 0, 0, 0.1) !important;
+}
+
+.mobile-menu-header .text-xl {
+    font-size: 1.25rem !important;
+    color: white !important;
+}
+
+.close-menu-btn {
+    min-width: 40px !important;
+    min-height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    transition: background 0.3s ease !important;
+}
+
+.close-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Drawer Search - REMOVED (now in header) */
+
+/* Drawer Links */
+.mobile-menu-links {
+    padding: 0.75rem 0 !important;
+}
+
+.mobile-menu-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: 1rem 1.5rem !important;
+    color: white !important;
+    text-decoration: none !important;
+    font-size: 1.05rem !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    border-right: 3px solid transparent !important;
+    min-height: 52px !important;
+}
+
+.mobile-menu-link:hover,
+.mobile-menu-link:active {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-right-color: var(--color-accent) !important;
+    padding-right: 2rem !important;
+}
+
+.mobile-menu-link i {
+    font-size: 1.15rem !important;
+    width: 28px !important;
+    text-align: center !important;
+}
+
+/* --- Body Scroll Lock (with position preservation) --- */
+body.menu-open {
+    overflow: hidden !important;
+}
+
+/* =========================================
+   Breakpoint: 320px - 374px (Small Mobile)
+   ========================================= */
+@media (max-width: 374px) {
+    .nav-fixed .text-2xl {
+        font-size: 1.1rem !important;
+    }
     
-    .carousel-slide.prev { transform: translate(-130%, -50%) scale(0.85) rotateY(12deg); }
-    .carousel-slide.next { transform: translate(30%, -50%) scale(0.85) rotateY(-12deg); }
+    .nav-fixed .container {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
     
-    .slide-title { font-size: 17px; }
-    .slide-subtitle { font-size: 13px; }
-    .discount-code { font-size: 18px; padding: 8px 24px; }
+    .mobile-menu-drawer {
+        width: 90% !important;
+    }
     
-    .carousel-dots { bottom: 12px; gap: 10px; }
-    .dot { width: 10px; height: 10px; }
-    .carousel-nav { bottom: 12px; gap: 12px; }
-    .nav-btn { width: 44px; height: 44px; }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   📱 موبایل بزرگ (تا 768px) - سرچ‌باکس
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-    .search-box input {
-        width: 100px;
-        padding-left: 85px;
-        padding-right: 15px;
-    }
-
-    .search-close,
-    .search-submit {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .search-submit {
-        left: 10px;
-    }
-
-    .search-close {
-        left: 44px;
-    }
-
-    .search-submit:hover,
-    .search-close:hover {
-        color: var(--text-primary);
+    .nav-fixed .container > .flex {
+        gap: 0.25rem !important;
     }
 }
 
-
-/* ═══════════════════════════════════════════════════════════════
-   📱 موبایل بزرگ (481px تا 768px) - هدر
-   ═══════════════════════════════════════════════════════════════ */
-@media screen and (max-width: 768px) {
-
-    /* هدر */
-    .header-top {
-        padding: 10px 15px;
-        gap: 10px;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* =========================================
+   Breakpoint: 375px - 424px (Standard Mobile)
+   ========================================= */
+@media (min-width: 375px) and (max-width: 424px) {
+    .nav-fixed .text-2xl {
+        font-size: 1.2rem !important;
     }
+}
 
-    .header-top.search-active {
-        padding: 15px;
+/* =========================================
+   Breakpoint: 425px - 639px (Large Mobile)
+   ========================================= */
+@media (min-width: 425px) and (max-width: 639px) {
+    .nav-fixed .text-2xl {
+        font-size: 1.3rem !important;
     }
-
-    /* سمت راست */
-    .header-right {
-        gap: 10px;
-        flex: 0 0 auto;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    .nav-fixed .container {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
     }
+}
 
-    .logo {
-        font-size: 24px;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* =========================================
+   Breakpoint: 640px - 767px (Small Tablet)
+   ========================================= */
+@media (min-width: 640px) and (max-width: 767px) {
+    .nav-fixed {
+        padding: 1rem 0 !important;
+        min-height: 65px !important;
     }
-
-    /* لوگو - در حالت سرچ مخفی */
-    .header-top.search-active .logo {
-        opacity: 0;
-        width: 0;
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
+    
+    .nav-fixed .container {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
     }
-
-    /* ✅ سرچ‌باکس - در حالت عادی مخفی، در حالت فعال نمایش */
-    .header-center {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: 0;
-        padding: 15px;
-        background-color: var(--bg-header);
-        border-top: 1px solid var(--border-color);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 999;
+    
+    .nav-fixed .text-2xl {
+        font-size: 1.4rem !important;
     }
-
-    .header-center.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
+    
+    .nav-fixed .absolute.-top-2.-right-2 {
+        width: 1.35rem !important;
+        height: 1.35rem !important;
+        font-size: 0.7rem !important;
     }
+}
 
-    /* حالت سرچ فعال - سرچ‌باکس در جریان */
-    .header-top.search-active .header-center {
-        position: static;
-        flex: 1;
-        min-width: 0;
-        padding: 0;
-        border-top: none;
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
+/* =========================================
+   Breakpoint: 768px - 1023px (Tablet)
+   ========================================= */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .nav-fixed {
+        padding: 1rem 0 !important;
+        min-height: 70px !important;
     }
-
-    .search-box {
-        position: relative;
-        width: 100%;
-        display: flex;
-        gap: 8px;
-        align-items: center;
+    
+    .nav-fixed .container {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
     }
-
-    .search-box input {
-        flex: 1;
-        min-width: 0;
-        width: 100%;
-        height: 44px;
-        padding: 0 15px;
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        font-size: 14px;
-        font-family: 'Vazirmatn', 'Tahoma', sans-serif;
-        outline: none;
-        background-color: var(--bg-input);
-        color: var(--text-primary);
+    
+    .nav-fixed .text-2xl {
+        font-size: 1.5rem !important;
     }
-
-    .search-box input::placeholder {
-        color: var(--text-muted);
+    
+    .nav-fixed .absolute.-top-2.-right-2 {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+        font-size: 0.75rem !important;
     }
-
-    /* دکمه تایید سرچ - فقط در حالت فعال */
-    .search-submit {
-        position: static;
-        transform: none;
-        background: var(--primary-accent);
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        padding: 10px;
-        color: #ffffff;
-        transition: all 0.3s;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
+    
+    .mobile-menu-drawer {
+        max-width: 360px !important;
     }
+}
 
-    .search-submit:hover {
-        background: var(--primary-dark);
+/* =========================================
+   Breakpoint: 1024px - 1279px (Laptop)
+   ========================================= */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .nav-fixed {
+        padding: 1rem 0 !important;
     }
-
-    .search-submit svg {
-        width: 20px;
-        height: 20px;
+    
+    .nav-fixed .container {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
     }
-
-    .header-top.search-active .search-submit {
-        display: flex;
+    
+    /* Reset flex-wrap for desktop */
+    .nav-fixed .container > .flex {
+        flex-wrap: nowrap !important;
+        gap: 0 !important;
     }
-
-    /* دکمه لغو سرچ - فقط در حالت فعال */
-    .search-close {
-        position: static;
-        transform: none;
-        background: #ff3b3b;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        padding: 10px;
-        color: #ffffff;
-        transition: all 0.3s;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
+    
+    /* Reset order */
+    .nav-fixed .flex.items-center.space-x-4.space-x-reverse,
+    .nav-fixed .hidden.lg\:flex,
+    .nav-fixed .container > .flex > .flex.items-center:last-child {
+        order: 0 !important;
+        margin-right: 0 !important;
     }
-
-    .search-close:hover {
-        background: #cc0000;
-    }
-
-    .search-close svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .header-top.search-active .search-close {
-        display: flex;
-    }
-
-    /* آیکون‌های سمت چپ */
-    .header-left {
-        gap: 5px;
-        flex-shrink: 0;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* آیکون‌ها - در حالت سرچ مخفی */
-    .header-top.search-active .header-left {
-        opacity: 0;
-        width: 0;
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-    }
-
-    .icon-btn {
-        padding: 6px;
-    }
-
-    .icon-btn .icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    /* ✅ دکمه جستجو موبایل - نمایش در حالت عادی */
-    .mobile-search-btn {
+    
+    /* Show Desktop Menu */
+    .nav-fixed .hidden.lg\:flex {
         display: flex !important;
-        align-items: center;
-        justify-content: center;
+        gap: 1.5rem !important;
     }
-
-    .header-top.search-active .mobile-search-btn {
+    
+    .nav-fixed .hidden.lg\:flex a {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.95rem !important;
+    }
+    
+    /* Hide Hamburger */
+    .hamburger-btn {
         display: none !important;
     }
-
-    /* Badge */
-    .badge {
-        min-width: 16px;
-        height: 16px;
-        font-size: 10px;
+    
+    /* Hide Mobile Search Icon */
+    .search-icon-mobile {
+        display: none !important;
     }
-
-    /* انیمیشن تم آیکون */
-    .theme-icon-wrapper {
-        width: 20px;
-        height: 20px;
+    
+    /* Hide Inline Search */
+    .header-search-inline {
+        display: none !important;
     }
-
-    .theme-icon-wrapper .icon {
-        width: 20px;
-        height: 20px;
+    
+    /* Show Desktop Search Box - Smaller */
+    .nav-fixed .relative.hidden.md\:block {
+        display: block !important;
     }
-
-    /* منوی دسته‌بندی */
-    .header-bottom {
-        display: none;
+    
+    .nav-fixed .relative.hidden.md\:block input {
+        width: 12rem !important;
+        padding: 0.625rem 1rem !important;
+        font-size: 0.9rem !important;
     }
-
-    /* مگا منو */
-    .mega-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        padding: 15px;
-    }
-
-    .mega-title {
-        font-size: 14px;
-    }
-
-    .mega-list li a {
-        font-size: 12px;
-    }
-
-    /* دسته‌بندی */
-    .category-menu {
-        padding-left: 15px;
-    }
-
-    .category-trigger {
-        font-size: 13px;
-    }
-
-    .menu-icon {
-        width: 18px;
-        height: 18px;
+    
+    .nav-fixed .absolute.-top-2.-right-2 {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+        font-size: 0.75rem !important;
     }
 }
 
-
-/* ═══════════════════════════════════════════════════════════════
-   📱 موبایل بزرگ (480px تا 767px) - اسلایدر
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 767px) {
-    .carousel-section { padding: 30px 12px 50px 12px; }
-    .carousel-container { height: 460px; }
-    .carousel-track { height: 380px; }
-    .carousel-slide { width: 300px; height: 340px; border-radius: 20px; }
-    .carousel-slide img { border-radius: 20px; }
+/* =========================================
+   Breakpoint: 1280px - 1439px (Desktop)
+   ========================================= */
+@media (min-width: 1280px) and (max-width: 1439px) {
+    .nav-fixed {
+        padding: 1rem 0 !important;
+    }
     
-    .carousel-slide.prev { transform: translate(-110%, -50%) scale(0.8) rotateY(10deg); }
-    .carousel-slide.next { transform: translate(10%, -50%) scale(0.8) rotateY(-10deg); }
+    .nav-fixed .container {
+        padding-left: 2.5rem !important;
+        padding-right: 2.5rem !important;
+    }
     
-    .slide-overlay { padding: 30px 20px 20px; }
-    .slide-title { font-size: 16px; }
-    .slide-subtitle { font-size: 12px; }
-    .slide-badge { font-size: 11px; padding: 5px 14px; }
-    .discount-code { font-size: 16px; padding: 8px 20px; letter-spacing: 1px; }
+    /* Reset flex-wrap for desktop */
+    .nav-fixed .container > .flex {
+        flex-wrap: nowrap !important;
+        gap: 0 !important;
+    }
     
-    .carousel-dots { bottom: 10px; gap: 8px; }
-    .dot { width: 9px; height: 9px; }
+    /* Reset order */
+    .nav-fixed .flex.items-center.space-x-4.space-x-reverse,
+    .nav-fixed .hidden.lg\:flex,
+    .nav-fixed .container > .flex > .flex.items-center:last-child {
+        order: 0 !important;
+        margin-right: 0 !important;
+    }
     
-    .carousel-nav { 
-        bottom: 35px; 
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        gap: 15px;
+    /* Show Desktop Menu */
+    .nav-fixed .hidden.lg\:flex {
+        display: flex !important;
+        gap: 2rem !important;
     }
-    .nav-btn { width: 42px; height: 42px; }
-    .nav-btn svg { width: 16px; height: 16px; }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   📱 موبایل کوچک (تا 480px) - هدر
-   ═══════════════════════════════════════════════════════════════ */
-@media screen and (max-width: 480px) {
-
-    /* هدر */
-    .header-top {
-        padding: 8px 10px;
-        gap: 8px;
+    
+    .nav-fixed .hidden.lg\:flex a {
+        padding: 0.5rem 1rem !important;
+        font-size: 1rem !important;
     }
-
-    .header-top.search-active {
-        padding: 10px;
+    
+    /* Hide Hamburger */
+    .hamburger-btn {
+        display: none !important;
     }
-
-    /* سمت راست */
-    .header-right {
-        gap: 8px;
+    
+    /* Hide Mobile Search Icon */
+    .search-icon-mobile {
+        display: none !important;
     }
-
-    .logo {
-        font-size: 20px;
+    
+    /* Hide Inline Search */
+    .header-search-inline {
+        display: none !important;
     }
-
-    /* سرچ‌باکس - تمام فضا */
-    .header-center {
-        padding: 10px;
+    
+    /* Show Desktop Search Box */
+    .nav-fixed .relative.hidden.md\:block {
+        display: block !important;
     }
-
-    .header-top.search-active .header-center {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .search-box {
-        width: 100%;
-        gap: 6px;
-    }
-
-    .search-box input {
-        height: 40px;
-        padding: 0 12px;
-        font-size: 13px;
-    }
-
-    .search-submit,
-    .search-close {
-        padding: 8px;
-    }
-
-    .search-submit svg,
-    .search-close svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    /* آیکون‌ها */
-    .header-left {
-        gap: 4px;
-    }
-
-    .icon-btn {
-        padding: 5px;
-    }
-
-    .icon-btn .icon {
-        width: 18px;
-        height: 18px;
-    }
-
-    .badge {
-        min-width: 14px;
-        height: 14px;
-        font-size: 9px;
-    }
-
-    /* انیمیشن تم آیکون */
-    .theme-icon-wrapper {
-        width: 18px;
-        height: 18px;
-    }
-
-    .theme-icon-wrapper .icon {
-        width: 18px;
-        height: 18px;
+    
+    .nav-fixed .relative.hidden.md\:block input {
+        width: 14rem !important;
     }
 }
 
-
-/* ═══════════════════════════════════════════════════════════════
-   📱 موبایل کوچک (360px تا 479px) - اسلایدر
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 479px) {
-    .carousel-section { padding: 25px 10px 45px 10px; }
-    .carousel-container { height: 420px; }
-    .carousel-track { height: 340px; }
-    .carousel-slide { width: 260px; height: 300px; border-radius: 18px; }
-    .carousel-slide img { border-radius: 18px; }
+/* =========================================
+   Breakpoint: 1440px+ (Large Desktop)
+   ========================================= */
+@media (min-width: 1440px) {
+    .nav-fixed {
+        padding: 1.25rem 0 !important;
+    }
     
-    .carousel-slide.prev { transform: translate(-95%, -50%) scale(0.75) rotateY(8deg); }
-    .carousel-slide.next { transform: translate(-5%, -50%) scale(0.75) rotateY(-8deg); }
+    .nav-fixed .container {
+        padding-left: 3rem !important;
+        padding-right: 3rem !important;
+    }
     
-    .slide-overlay { padding: 25px 15px 18px; }
-    .slide-title { font-size: 15px; }
-    .slide-subtitle { font-size: 11px; }
-    .discount-code { font-size: 14px; padding: 6px 16px; }
+    /* Reset flex-wrap for desktop */
+    .nav-fixed .container > .flex {
+        flex-wrap: nowrap !important;
+        gap: 0 !important;
+    }
     
-    .carousel-dots { bottom: 8px; gap: 7px; }
-    .dot { width: 8px; height: 8px; }
+    /* Reset order */
+    .nav-fixed .flex.items-center.space-x-4.space-x-reverse,
+    .nav-fixed .hidden.lg\:flex,
+    .nav-fixed .container > .flex > .flex.items-center:last-child {
+        order: 0 !important;
+        margin-right: 0 !important;
+    }
     
-    .carousel-nav { 
-        bottom: 32px; 
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        gap: 12px;
+    /* Show Desktop Menu */
+    .nav-fixed .hidden.lg\:flex {
+        display: flex !important;
+        gap: 2.5rem !important;
     }
-    .nav-btn { width: 38px; height: 38px; }
-    .nav-btn svg { width: 14px; height: 14px; }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   📱 موبایل خیلی کوچک (تا 360px) - هدر
-   ═══════════════════════════════════════════════════════════════ */
-@media screen and (max-width: 360px) {
-
-    /* هدر */
-    .header-top {
-        padding: 6px 8px;
-        gap: 6px;
+    
+    .nav-fixed .hidden.lg\:flex a {
+        padding: 0.5rem 1.25rem !important;
+        font-size: 1.05rem !important;
     }
-
-    .logo {
-        font-size: 18px;
+    
+    /* Hide Hamburger */
+    .hamburger-btn {
+        display: none !important;
     }
-
-    /* سرچ‌باکس */
-    .header-center {
-        padding: 8px;
+    
+    /* Hide Mobile Search Icon */
+    .search-icon-mobile {
+        display: none !important;
     }
-
-    .search-box {
-        gap: 4px;
+    
+    /* Hide Inline Search */
+    .header-search-inline {
+        display: none !important;
     }
-
-    .search-box input {
-        height: 38px;
-        padding: 0 10px;
-        font-size: 12px;
+    
+    /* Show Desktop Search Box */
+    .nav-fixed .relative.hidden.md\:block {
+        display: block !important;
     }
-
-    .search-submit,
-    .search-close {
-        padding: 6px;
+    
+    .nav-fixed .relative.hidden.md\:block input {
+        width: 16rem !important;
     }
-
-    .search-submit svg,
-    .search-close svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    /* آیکون‌ها */
-    .header-left {
-        gap: 2px;
-    }
-
-    .icon-btn {
-        padding: 4px;
-    }
-
-    .icon-btn .icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    .badge {
-        min-width: 12px;
-        height: 12px;
-        font-size: 8px;
-    }
-
-    /* انیمیشن تم آیکون */
-    .theme-icon-wrapper {
-        width: 16px;
-        height: 16px;
-    }
-
-    .theme-icon-wrapper .icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    /* مگا منو */
-    .mega-container {
-        padding: 8px;
-    }
-
-    .mega-title {
-        font-size: 12px;
-    }
-
-    .mega-list li a {
-        font-size: 10px;
-    }
-
-    /* دسته‌بندی */
-    .category-trigger {
-        font-size: 11px;
+    
+    .nav-fixed .text-2xl {
+        font-size: 1.6rem !important;
     }
 }
 
-
-/* ═══════════════════════════════════════════════════════════════
-   📱 موبایل خیلی کوچک (زیر 360px) - اسلایدر
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 359px) {
-    .carousel-container { height: 380px; }
-    .carousel-track { height: 300px; }
-    .carousel-slide { width: 230px; height: 270px; }
+/* =========================================
+   Breakpoint: 1920px+ (Full HD)
+   ========================================= */
+@media (min-width: 1920px) {
+    .nav-fixed .container {
+        max-width: 1600px !important;
+    }
     
-    .slide-title { font-size: 14px; }
-    .discount-code { font-size: 13px; padding: 5px 14px; }
+    .nav-fixed .hidden.lg\:flex {
+        gap: 3rem !important;
+    }
     
-    .carousel-dots { bottom: 6px; gap: 6px; }
-    .dot { width: 7px; height: 7px; }
-    
-    .carousel-nav { 
-        bottom: 28px; 
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        gap: 10px;
-    }
-    .nav-btn { width: 34px; height: 34px; }
-    .nav-btn svg { width: 12px; height: 12px; }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   📱 افقی موبایل (landscape)
-   ═══════════════════════════════════════════════════════════════ */
-@media screen and (max-height: 500px) and (orientation: landscape) {
-
-    /* هدر کوچک‌تر */
-    .header-top {
-        padding: 8px 15px;
-    }
-
-    .logo {
-        font-size: 20px;
-    }
-
-    /* سرچ‌باکس */
-    .header-center {
-        padding: 10px;
-    }
-
-    .search-box {
-        max-width: 100%;
-    }
-
-    .search-box input {
-        height: 36px;
-        padding: 0 10px;
-    }
-
-    /* مگا منو ارتفاع کمتر */
-    .mega-menu {
-        max-height: 70vh;
-        overflow-y: auto;
-    }
-
-    .mega-container {
-        padding: 15px;
+    .nav-fixed .relative.hidden.md\:block input {
+        width: 18rem !important;
     }
 }
 
-
-/* ═══════════════════════════════════════════════════════════════
-   👆 تنظیمات اضافی برای تاچ
-   ═══════════════════════════════════════════════════════════════ */
-@media (hover: none) and (pointer: coarse) {
-
-    /* برای دستگاه‌های لمسی */
-    .icon-btn:hover {
-        background-color: transparent;
-        transform: none;
-        box-shadow: none;
-    }
-
-    .icon-btn:active {
-        background: var(--icon-hover);
-    }
-
-    .nav-menu li a:hover::after {
-        width: 0;
-    }
-
-    .nav-menu li a:active {
-        color: var(--primary-accent);
-    }
+/* =========================================
+   Animations
+   ========================================= */
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
 }
 
+.mobile-menu-drawer.active {
+    animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
 
-/* ═══════════════════════════════════════════════════════════════
-   🖨️ پرینت
-   ═══════════════════════════════════════════════════════════════ */
-@media print {
-
-    .main-header {
-        position: static;
-        box-shadow: none;
-        border-bottom: 1px solid #000;
-    }
-
-    .header-bottom {
-        display: none;
-    }
-
-    .icon-btn {
-        display: none;
-    }
-
-    .search-box {
-        display: none;
-    }
+/* =========================================
+   Accessibility & Focus States
+   ========================================= */
+.mobile-menu-link:focus,
+.close-menu-btn:focus,
+.hamburger-btn:focus,
+.search-icon-mobile:focus,
+.nav-fixed button:focus,
+.header-search-inline input:focus {
+    outline: 2px solid var(--color-accent) !important;
+    outline-offset: 2px !important;
 }
