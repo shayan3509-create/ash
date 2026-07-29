@@ -1,0 +1,225 @@
+/* ==========================
+   NEWSHOP HEADER
+========================== */
+
+.site-header {
+    background: var(--bg-color);
+    padding: 20px;
+}
+
+.header-container {
+    border: 1px solid var(--border);
+    max-width: 1400px;
+    margin: auto;
+    background: var(--card);
+    border-radius: 24px;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, .08);
+}
+
+/* LOGO */
+
+.logo {
+    flex: 0 0 auto;
+}
+
+.logo img {
+    width: 170px;
+    display: block;
+}
+
+
+/* SEARCH */
+
+.search-container {
+    flex: 1;
+    height: 58px;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    background: var(--card);
+
+    backdrop-filter: blur(15px);
+
+    border-radius: 30px;
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .08);
+
+    transition: .3s;
+}
+.search-container input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding-right: 65px;
+    padding-left: 30px;
+    font-family: inherit;
+    color: var(--text-color);
+}
+
+.search-container input::placeholder {
+    color: #00BFFF;
+    
+}
+
+.search-icon {
+    position: absolute;
+    right: 25px;
+}
+
+.search-icon img {
+    width: 27px;
+    height: 27px;
+    filter:
+        invert(52%) sepia(95%) saturate(1800%) hue-rotate(165deg) brightness(105%) contrast(105%);
+}
+
+
+/* BUTTONS */
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.header-btn {
+    min-width: 130px;
+    height: 55px;
+    padding: 0 18px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--card);
+    border: 2px solid #00BFFF;
+    color: #00BFFF;
+    transition: .3s;
+}
+
+.header-btn img {
+    width: 25px;
+    height: 25px;
+    filter:
+        invert(52%) sepia(95%) saturate(1800%) hue-rotate(165deg) brightness(105%) contrast(105%);
+}
+
+.header-btn:hover {
+    background: #00BFFF;
+    color: white;
+    box-shadow: 0 0 20px rgba(0, 191, 255, .35);
+}
+
+.header-btn:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.cart {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #00BFFF;
+    color: white;
+    font-size: 12px;
+}
+
+
+/* CATEGORY */
+
+.category-bar {
+    max-width: 1400px;
+    margin: 15px auto 0;
+    background: var(--card);
+    border-radius: 20px;
+}
+
+.category-container {
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.category-container a {
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+.category-title {
+    font-weight: bold;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.category-title img {
+    width: 24px;
+    height: 24px;
+    filter:
+        invert(52%) sepia(95%) saturate(1800%) hue-rotate(165deg) brightness(105%) contrast(105%);
+}
+
+.special {
+    color: #00BFFF !important;
+    font-weight: bold;
+}
+
+/* THEME BUTTON */
+
+.theme-btn {
+    width: 60px;
+    height: 55px;
+    border-radius: 20px;
+    border: 2px solid #00BFFF;
+    background: var(--card);
+    color: #00BFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: .3s;
+    font-family: inherit;
+    padding: 10px;
+}
+
+.theme-btn img {
+    width: 26px;
+    height: 26px;
+    filter:
+        invert(52%) sepia(95%) saturate(1800%) hue-rotate(165deg) brightness(105%) contrast(105%);
+}
+
+.theme-btn span {
+    font-size: 12px;
+}
+
+.theme-btn:hover {
+    background: #00BFFF;
+    color: white;
+}
+
+.theme-btn:hover img {
+    filter: brightness(0) invert(1);
+}
+

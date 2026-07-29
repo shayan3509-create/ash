@@ -1,0 +1,328 @@
+.category-menu {
+    position: static;
+}
+
+.mega-menu {
+    position: fixed;
+    top: 132px;
+    right: 0;
+    bottom: 0;
+    width: 360px;
+
+    background: var(--card);
+
+    border-radius: 0;
+
+    border-left: 1px solid var(--border);
+
+    padding: 25px 20px;
+
+    overflow-y: scroll;
+
+    transform: translateX(100%);
+
+    transition: .35s ease;
+
+    z-index: 9999;
+
+    box-shadow: -20px 0 60px rgba(0, 0, 0, .2);
+}
+
+
+.mega-menu.active {
+    transform: translateX(0);
+}
+
+
+
+/* CLOSE BUTTON */
+
+.mega-close {
+
+    position: absolute;
+
+    left: 20px;
+
+    top: 20px;
+
+    width: 35px;
+
+    height: 35px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background: rgba(0, 191, 255, .12);
+
+    color: #00BFFF;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+
+.mega-close:hover {
+
+    background: #00BFFF;
+
+    color: white;
+
+}
+
+
+
+
+
+.mega-header {
+
+    padding-bottom: 20px;
+
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+.mega-header h3 {
+
+    font-size: 22px;
+
+    font-weight: 900;
+
+    color: var(--text-color);
+
+}
+
+
+.mega-header p {
+
+    margin-top: 8px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+}
+
+
+
+
+
+.mega-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+
+.mega-item {
+
+    min-height: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 0 15px;
+
+    border-radius: 18px;
+
+    transition: .25s;
+
+}
+
+
+
+.mega-item img {
+
+    width: 30px;
+
+    height: 30px;
+
+}
+
+
+
+.mega-item span {
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+}
+
+
+
+.mega-item:hover {
+
+    background: rgba(0, 191, 255, .1);
+
+    transform: translateX(-7px);
+
+}
+
+
+
+
+
+/* COLORS */
+
+
+.mobile {
+    color: #00BFFF;
+}
+
+.laptop {
+    color: #8b5cf6;
+}
+
+.watch {
+    color: #f59e0b;
+}
+
+.monitor {
+    color: #10b981;
+}
+
+.computer {
+    color: #ef4444;
+}
+
+.headphone {
+    color: #ec4899;
+}
+
+.accessory {
+    color: #6366f1;
+}
+
+.gadget {
+    color: #14b8a6;
+}
+
+.tool {
+    color: #f97316;
+}
+
+.network {
+    color: #2563eb;
+}
+
+.tablet {
+    color: #a855f7;
+}
+
+
+
+/* ICON COLOR */
+
+.mega-item img {
+
+    filter: none;
+
+}
+
+
+.mobile img {
+    filter: invert(52%) sepia(95%) saturate(1800%) hue-rotate(165deg);
+}
+
+
+.laptop img {
+    filter: invert(40%) sepia(90%) saturate(1500%);
+}
+
+
+.watch img {
+    filter: invert(70%) sepia(90%) saturate(1200%);
+}
+
+
+.monitor img {
+    filter: invert(60%) sepia(80%) saturate(900%);
+}
+
+
+.computer img {
+    filter: invert(30%) sepia(80%) saturate(1200%);
+}
+
+
+.headphone img {
+    filter: invert(40%) sepia(90%) saturate(1300%);
+}
+
+
+.accessory img {
+    filter: invert(35%) sepia(90%) saturate(1300%);
+}
+
+
+.gadget img {
+    filter: invert(60%) sepia(80%) saturate(800%);
+}
+
+
+.tool img {
+    filter: invert(60%) sepia(80%) saturate(1000%);
+}
+
+
+.network img {
+    filter: invert(40%) sepia(90%) saturate(1200%);
+}
+
+
+.tablet img {
+    filter: invert(45%) sepia(80%) saturate(1000%);
+}
+
+
+
+
+
+
+/* SCROLLBAR RIGHT */
+
+.mega-menu::-webkit-scrollbar {
+
+    width: 8px;
+
+}
+
+
+.mega-menu::-webkit-scrollbar-track {
+
+    background: transparent;
+
+}
+
+
+.mega-menu::-webkit-scrollbar-thumb {
+
+    background: #00BFFF;
+
+    border-radius: 20px;
+
+}
+
+
+
+.dark .mega-menu {
+
+    box-shadow: -20px 0 70px rgba(0, 0, 0, .7);
+
+}

@@ -1,0 +1,178 @@
+{% load static %}
+
+<header class="site-header">
+
+    <div class="header-container">
+
+        <!-- LOGO -->
+
+        <a href="/" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="نیوشاپ">
+        </a>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-container">
+
+            <div class="search-icon">
+                <img src="{% static 'icons/search.svg' %}" alt="search">
+            </div>
+
+            <input 
+            type="text"
+            placeholder="جستجو ...">
+
+        </div>
+
+
+
+        <!-- ACTIONS -->
+
+        <div class="header-actions">
+
+
+            <a href="#" class="header-btn">
+
+                <img src="{% static 'icons/user.svg' %}" alt="user">
+
+                <span>
+                    حساب کاربری
+                </span>
+
+            </a>
+
+
+
+            <a href="#" class="header-btn cart">
+
+
+                <span class="cart-count">
+                    0
+                </span>
+
+
+                <img src="{% static 'icons/cart.svg' %}" alt="cart">
+
+
+                <span>
+                    سبد خرید
+                </span>
+
+
+            </a>
+
+
+
+            <button class="theme-btn" id="theme-toggle">
+
+                <img 
+                src="{% static 'icons/moon.svg' %}"
+                id="theme-icon">
+
+
+                <span id="theme-text">
+                    تاریک
+                </span>
+
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <!-- CATEGORY NAV -->
+
+
+    <nav class="category-bar">
+
+
+        <div class="category-container">
+
+
+
+            <div class="category-menu">
+
+
+                <button 
+                class="category-btn"
+                id="category-toggle">
+
+
+                    <img 
+                    src="{% static 'icons/menu.svg' %}">
+
+
+                    <span>
+                        دسته‌بندی کالاها
+                    </span>
+
+
+                </button>
+
+
+
+                {% include "includes/mega_menu.html" %}
+
+
+
+            </div>
+
+
+
+
+            <a href="#">
+                موبایل و تبلت
+            </a>
+
+
+            <a href="#">
+                کامپیوتر و لپتاپ
+            </a>
+
+
+            <a href="#">
+                ساعت هوشمند
+            </a>
+
+
+            <a href="#">
+                هدفون و اسپیکر
+            </a>
+
+
+            <a href="#">
+                لوازم جانبی
+            </a>
+
+
+            <a href="#">
+                خانه هوشمند
+            </a>
+
+
+            <a href="#">
+                گیمینگ
+            </a>
+
+
+
+            <a href="#" class="special">
+                تخفیف ویژه
+            </a>
+
+
+
+        </div>
+
+
+    </nav>
+
+
+</header>
