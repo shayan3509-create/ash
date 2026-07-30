@@ -1,6 +1,42 @@
 {% extends "base.html" %}
+{% load static %}
+
 
 {% block content %}
+
+<section class="hero-banner">
+
+    <a href="/shop/" class="banner-link">
+
+        <picture>
+
+            <source 
+            media="(max-width:768px)"
+            srcset="{% static 'images/banners/mobile-banner.webp' %}">
+
+
+            <img 
+            src="{% static 'images/banners/desktop-banner.webp' %}"
+            id="banner-image">
+
+        </picture>
+
+    </a>
+
+
+    <button id="banner-next" class="banner-btn prev">
+        ›
+    </button>
+
+
+    <button id="banner-prev" class="banner-btn next">
+        ‹
+    </button>
+
+
+    <div class="banner-dots" id="banner-dots"></div>
+
+</section>
 
 
 {% endblock %}
