@@ -1,0 +1,57 @@
+{% load static %}
+
+{% with request.path as current_path %}
+
+<nav class="mobile-nav">
+
+
+    <!-- خانه -->
+    <a 
+        href="/" 
+        class="mobile-nav-item {% if current_path == '/' %}active{% endif %}">
+        
+        <img src="{% static 'icons/home.svg' %}">
+        <span>خانه</span>
+
+    </a>
+
+
+
+    <!-- دسته بندی -->
+    <a 
+        href="/category/" 
+        class="mobile-nav-item {% if '/category' in current_path %}active{% endif %}">
+        
+        <img src="{% static 'icons/category.svg' %}">
+        <span>دسته بندی</span>
+
+    </a>
+
+
+
+    <!-- سبد خرید -->
+    <a 
+        href="/cart/" 
+        class="mobile-nav-item {% if '/cart' in current_path %}active{% endif %}">
+        
+        <img src="{% static 'icons/cart.svg' %}">
+        <span>سبد خرید</span>
+
+    </a>
+
+
+
+    <!-- حساب کاربری -->
+    <a 
+        href="/profile/" 
+        class="mobile-nav-item {% if '/profile' in current_path %}active{% endif %}">
+        
+        <img src="{% static 'icons/user.svg' %}">
+        <span>حساب کاربری</span>
+
+    </a>
+
+
+</nav>
+
+{% endwith %}

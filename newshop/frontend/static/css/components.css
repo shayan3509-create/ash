@@ -461,50 +461,42 @@ main {
 
 
 .hero-banner {
-
     max-width: 1430px;
-
     width: calc(100% - 40px);
-
     margin: 30px auto;
-
     position: relative;
 
+    aspect-ratio: 16 / 8;
 }
-
-
 
 .banner-link {
-
     display: block;
-
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 
-
     border-radius: 28px;
-
-
     border: 1px solid var(--border);
-
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, .12);
-
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .12);
 }
 
+
+.banner-link picture,
+.banner-link img {
+
+    width: 100%;
+    height: 100%;
+    display: block;
+
+}
 
 
 .banner-link img {
 
-    width: 100%;
-
-    height: auto;
-
-    display: block;
-
     object-fit: cover;
 
-}.category-bar {
+}
+.category-bar {
     position: relative;
     
 }
@@ -658,51 +650,188 @@ main {
 /* ==========================
    MOBILE
 ========================== */
-
-
 @media(max-width:768px) {
 
 
-    .hero-banner {
+    .site-header {
+        padding: 8px;
+    }
 
-        width: calc(100% - 24px);
 
-        margin: 20px auto;
+    /* کل هدر */
+
+    .header-container {
+
+        direction: ltr;
+
+        width: 100%;
+
+        padding: 10px 12px;
+
+        border-radius: 0 0 18px 18px;
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        align-items: center;
+
+        gap: 10px;
 
     }
 
 
-    .banner-link {
+    /* ردیف اول */
 
-        border-radius: 18px;
+    .logo {
+
+        order: 2;
+
+        flex: 1;
+
+    }
+
+
+    .logo img {
+
+        width: 90px;
 
     }
 
 
 
-    .banner-btn {
+    /* دارک مود */
 
-        width: 35px;
+    .header-actions {
 
-        height: 35px;
+        order: 1;
 
-        font-size: 18px;
-
-    }
-
-
-    .prev {
-
-        left: 20px;
+        display: flex;
 
     }
 
 
-    .next {
 
-        right: 20px;
+    .header-actions .header-btn {
+
+        display: none;
 
     }
 
+
+
+    .theme-btn {
+
+        width: 42px;
+
+        height: 42px;
+
+        padding: 5px;
+
+        border-radius: 12px;
+
+    }
+
+
+
+    .theme-btn img {
+
+        width: 20px;
+
+        height: 20px;
+
+    }
+
+
+    .theme-btn span {
+
+        display: none;
+
+    }
+
+
+
+    /* سرچ ردیف دوم */
+
+    .search-container {
+
+        order: 3;
+
+        flex-basis: 100%;
+
+        width: 100%;
+
+        height: 42px;
+
+        border-radius: 22px;
+
+    }
+
+
+
+    .search-container input {
+
+        font-size: 12px;
+
+        padding-right: 45px;
+
+    }
+
+
+
+    .search-icon {
+
+        right: 15px;
+
+    }
+
+
+
+    .search-icon img {
+
+        width: 18px;
+
+    }
+
+
+
+}
+/* ======================
+   BANNER PROGRESS
+====================== */
+
+
+.banner-progress {
+
+    width: 100%;
+
+    height: 4px;
+
+    background: rgba(0, 191, 255, .15);
+
+    margin-top: 12px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+}
+
+
+.banner-progress span {
+
+    display: block;
+
+    height: 100%;
+
+    width: 0%;
+
+    background: linear-gradient(90deg,
+            #00BFFF,
+            #0077ff);
+
+    border-radius: 20px;
+
+    transition: width .1s linear;
 
 }
