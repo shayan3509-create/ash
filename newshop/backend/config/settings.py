@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.cart',
     'apps.orders',
+    "apps.admin_panel",
 
 ]
 

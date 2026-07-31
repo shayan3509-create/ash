@@ -1,0 +1,85 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="مدیریت نقش‌ها و سطح دسترسی کاربران">
+  <title>نقش‌ها و دسترسی‌ها | پنل ادمین</title>
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body data-root="../../" data-page="users-roles" data-title="نقش‌ها و دسترسی‌ها" data-subtitle="کنترل دقیق مجوزهای تیم بر پایه اصل حداقل دسترسی">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-4 mb-2" aria-label="خلاصه نقش‌ها">
+      <article class="card lift reveal" style="--delay: 40ms"><div class="stat"><div><span class="stat-label">نقش‌های فعال</span><div class="stat-value">۶</div><span class="trend">۲ نقش سیستمی</span></div><span class="stat-icon"><i class="fas fa-user-shield"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 100ms"><div class="stat"><div><span class="stat-label">اعضای تیم</span><div class="stat-value">۳۸</div><span class="trend">در ۴ واحد سازمانی</span></div><span class="stat-icon"><i class="fas fa-users-cog"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 160ms"><div class="stat"><div><span class="stat-label">مجوزهای تعریف‌شده</span><div class="stat-value">۲۴</div><span class="trend">آخرین بازبینی: امروز</span></div><span class="stat-icon"><i class="fas fa-key"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 220ms"><div class="stat"><div><span class="stat-label">درخواست دسترسی</span><div class="stat-value">۳</div><span class="trend down">نیازمند تصمیم مدیر</span></div><span class="stat-icon"><i class="fas fa-user-lock"></i></span></div></article>
+    </section>
+
+    <section class="card reveal mb-2" style="--delay: 280ms">
+      <div class="section-head">
+        <div><h2>نقش‌های سازمانی</h2><p>اعضا و دامنه دسترسی هر نقش را مرور کنید.</p></div>
+        <button class="btn btn-primary" type="button" data-modal-open="new-role"><i class="fas fa-plus"></i> نقش جدید</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table responsive">
+          <thead><tr><th>نقش</th><th>شرح مسئولیت</th><th>اعضا</th><th>دامنه دسترسی</th><th>آخرین تغییر</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+          <tbody>
+            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-crown"></i></span><strong>مدیر ارشد</strong></div></td><td data-label="شرح مسئولیت">کنترل کامل تنظیمات و عملیات</td><td data-label="اعضا">۲ نفر</td><td data-label="دامنه دسترسی"><span class="badge danger">دسترسی کامل</span></td><td data-label="آخرین تغییر">۲۱ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">سیستمی</span></td><td data-label="عملیات"><button class="action-btn" title="مشاهده" data-toast-message="جزئیات نقش مدیر ارشد باز شد"><i class="fas fa-eye"></i></button></td></tr>
+            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-headset"></i></span><strong>سرپرست پشتیبانی</strong></div></td><td data-label="شرح مسئولیت">مدیریت تیکت‌ها و رضایت مشتری</td><td data-label="اعضا">۵ نفر</td><td data-label="دامنه دسترسی"><span class="badge info">۱۲ از ۲۴ مجوز</span></td><td data-label="آخرین تغییر">۱۸ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش نقش آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="نقش سرپرست پشتیبانی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-box-open"></i></span><strong>مدیر محصول</strong></div></td><td data-label="شرح مسئولیت">کاتالوگ، موجودی و دسته‌بندی</td><td data-label="اعضا">۸ نفر</td><td data-label="دامنه دسترسی"><span class="badge info">۹ از ۲۴ مجوز</span></td><td data-label="آخرین تغییر">۱۴ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش نقش آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="نقش مدیر محصول حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-pen-nib"></i></span><strong>کارشناس محتوا</strong></div></td><td data-label="شرح مسئولیت">تولید و انتشار محتوای فروشگاه</td><td data-label="اعضا">۶ نفر</td><td data-label="دامنه دسترسی"><span class="badge warning">۶ از ۲۴ مجوز</span></td><td data-label="آخرین تغییر">۰۹ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش نقش آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="نقش کارشناس محتوا حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-calculator"></i></span><strong>حسابدار</strong></div></td><td data-label="شرح مسئولیت">فاکتورها، تراکنش‌ها و تسویه</td><td data-label="اعضا">۳ نفر</td><td data-label="دامنه دسترسی"><span class="badge info">۸ از ۲۴ مجوز</span></td><td data-label="آخرین تغییر">۰۲ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش نقش آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="نقش حسابدار حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="grid grid-2">
+      <article class="card reveal" style="--delay: 350ms">
+        <div class="section-head"><div><h2>پوشش مجوزها</h2><p>درصد دسترسی هر نقش از کل قابلیت‌های سامانه</p></div></div>
+        <div class="list">
+          <div class="list-item"><span class="list-icon"><i class="fas fa-crown"></i></span><div class="list-copy"><strong>مدیر ارشد — ۱۰۰٪</strong><div class="progress"><span style="--value: 100%"></span></div></div></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-headset"></i></span><div class="list-copy"><strong>سرپرست پشتیبانی — ۵۰٪</strong><div class="progress"><span style="--value: 50%"></span></div></div></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-box-open"></i></span><div class="list-copy"><strong>مدیر محصول — ۳۸٪</strong><div class="progress"><span style="--value: 38%"></span></div></div></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-pen-nib"></i></span><div class="list-copy"><strong>کارشناس محتوا — ۲۵٪</strong><div class="progress"><span style="--value: 25%"></span></div></div></div>
+        </div>
+      </article>
+      <article class="card reveal" style="--delay: 420ms">
+        <div class="section-head"><div><h2>رویدادهای امنیتی اخیر</h2><p>تغییرات حساس دسترسی در هفت روز گذشته</p></div><button class="btn btn-sm btn-secondary" type="button" data-toast-message="گزارش کامل حسابرسی آماده شد">گزارش کامل</button></div>
+        <div class="list">
+          <div class="list-item"><span class="list-icon"><i class="fas fa-user-plus"></i></span><div class="list-copy"><strong>پیوستن الهام مرادی به تیم محصول</strong><small>امروز، ۱۰:۲۴ — توسط مدیر ارشد</small></div><span class="badge info">عضویت</span></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-key"></i></span><div class="list-copy"><strong>افزودن مجوز بازپرداخت محدود</strong><small>دیروز، ۱۶:۱۰ — نقش حسابدار</small></div><span class="badge warning">مجوز</span></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-user-minus"></i></span><div class="list-copy"><strong>لغو دسترسی پیمانکار محتوا</strong><small>۱۸ تیر، ۰۹:۳۵ — پایان همکاری</small></div><span class="badge success">انجام شد</span></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="new-role" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="role-title">
+      <div class="modal-head"><h2 id="role-title">تعریف نقش جدید</h2><button class="action-btn" type="button" data-modal-close aria-label="بستن"><i class="fas fa-times"></i></button></div>
+      <form class="form-grid" data-demo-form data-success="نقش جدید با موفقیت ایجاد شد">
+        <div class="field field-full"><label for="role-name">نام نقش *</label><input class="input" id="role-name" type="text" placeholder="مثلاً کارشناس کنترل کیفیت" required></div>
+        <div class="field field-full"><label for="role-description">شرح مسئولیت *</label><textarea class="textarea" id="role-description" placeholder="دامنه وظایف این نقش را توضیح دهید." required></textarea></div>
+        <div class="field"><label for="role-template">الگوی دسترسی *</label><select class="select" id="role-template" required><option value="">انتخاب کنید</option><option>فقط مشاهده</option><option>عملیاتی محدود</option><option>سفارشی</option></select></div>
+        <div class="field"><label for="role-expiry">انقضای دسترسی</label><select class="select" id="role-expiry"><option>بدون انقضا</option><option>۳۰ روز</option><option>۹۰ روز</option></select></div>
+        <label class="switch field-full"><input type="checkbox" checked><span class="switch-track"></span><span>ثبت تمام فعالیت‌های این نقش در گزارش حسابرسی</span></label>
+        <div class="field-full toolbar"><button class="btn btn-primary" type="submit"><i class="fas fa-check"></i> ایجاد نقش</button><button class="btn btn-secondary" type="button" data-modal-close>انصراف</button></div>
+      </form>
+    </div>
+  </div>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>
+
+
+{% endblock %}

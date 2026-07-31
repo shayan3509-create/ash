@@ -1,0 +1,102 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="تنظیمات عمومی پنل مدیریت">
+  <title>تنظیمات عمومی | پنل ادمین</title>
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body data-root="../../" data-page="settings-general" data-title="تنظیمات عمومی" data-subtitle="مدیریت اطلاعات فروشگاه، منطقه زمانی و تجربه کاربری">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-3 mb-2">
+      <article class="card span-2 reveal" style="--delay:0ms">
+        <div class="section-head"><div><h2>مشخصات فروشگاه</h2><p>این اطلاعات در صورتحساب‌ها و پیام‌های رسمی نمایش داده می‌شود</p></div><span class="badge success"><i class="fas fa-check-circle"></i>تکمیل‌شده</span></div>
+        <form data-demo-form data-success="اطلاعات عمومی فروشگاه ذخیره شد">
+          <div class="form-grid mb-2">
+            <div class="field"><label for="store-name">نام فروشگاه</label><input class="input" id="store-name" required value="فروشگاه هوشمند پارس"></div>
+            <div class="field"><label for="store-slogan">شعار کوتاه</label><input class="input" id="store-slogan" value="خرید مطمئن، تجربه‌ای هوشمند"></div>
+            <div class="field"><label for="store-email">ایمیل پشتیبانی</label><input class="input" id="store-email" type="email" dir="ltr" value="support@parsshop.ir" required></div>
+            <div class="field"><label for="store-phone">تلفن تماس</label><input class="input" id="store-phone" type="tel" value="۰۲۱-۸۸۷۷۶۶۵۵" required></div>
+            <div class="field field-full"><label for="store-address">نشانی</label><textarea class="textarea" id="store-address">تهران، خیابان ولیعصر، بالاتر از میدان ونک، پلاک ۱۲۴</textarea></div>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i>ذخیره اطلاعات</button>
+        </form>
+      </article>
+      <aside class="card reveal" style="--delay:80ms">
+        <div class="section-head"><div><h2>هویت بصری</h2><p>نمایش فعلی برند</p></div></div>
+        <div class="list mb-2">
+          <div class="list-item"><span class="stat-icon"><i class="fas fa-crown"></i></span><div class="list-copy"><strong>نشان فروشگاه</strong><small>فرمت SVG · بهینه</small></div></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-palette"></i></span><div class="list-copy"><strong>رنگ سازمانی</strong><small>طلایی #FFD700</small></div></div>
+        </div>
+        <button class="btn btn-secondary" type="button" data-modal-open="brand-modal"><i class="fas fa-pen"></i>ویرایش هویت بصری</button>
+      </aside>
+    </section>
+
+    <section class="grid grid-2 mb-2">
+      <article class="card reveal" style="--delay:150ms">
+        <div class="section-head"><div><h2>زبان و منطقه</h2><p>تنظیمات محلی نمایش داده‌ها</p></div></div>
+        <form data-demo-form data-success="تنظیمات زبان و منطقه به‌روزرسانی شد">
+          <div class="form-grid mb-2">
+            <div class="field"><label for="language">زبان پنل</label><select class="select" id="language"><option>فارسی</option><option>English</option><option>العربیة</option></select></div>
+            <div class="field"><label for="timezone">منطقه زمانی</label><select class="select" id="timezone"><option>تهران (UTC+۳:۳۰)</option><option>دبی (UTC+۴)</option><option>استانبول (UTC+۳)</option></select></div>
+            <div class="field"><label for="calendar">تقویم</label><select class="select" id="calendar"><option>هجری شمسی</option><option>میلادی</option></select></div>
+            <div class="field"><label for="currency">واحد پول</label><select class="select" id="currency"><option>تومان</option><option>ریال</option><option>دلار</option></select></div>
+          </div>
+          <button class="btn btn-primary" type="submit">اعمال تنظیمات</button>
+        </form>
+      </article>
+
+      <article class="card reveal" style="--delay:220ms">
+        <div class="section-head"><div><h2>رفتار پنل</h2><p>شخصی‌سازی اعلان‌ها و رابط کاربری</p></div></div>
+        <form data-demo-form data-success="تنظیمات تجربه کاربری ذخیره شد">
+          <div class="list mb-2">
+            <div class="list-item"><span class="list-icon"><i class="fas fa-bell"></i></span><div class="list-copy"><strong>اعلان‌های مرورگر</strong><small>نمایش رویدادهای مهم در مرورگر</small></div><label class="switch" aria-label="اعلان‌های مرورگر"><input type="checkbox" checked><span class="switch-track"></span></label></div>
+            <div class="list-item"><span class="list-icon"><i class="fas fa-envelope"></i></span><div class="list-copy"><strong>خلاصه روزانه ایمیلی</strong><small>ارسال گزارش عملکرد در پایان روز</small></div><label class="switch" aria-label="خلاصه روزانه"><input type="checkbox" checked><span class="switch-track"></span></label></div>
+            <div class="list-item"><span class="list-icon"><i class="fas fa-volume-up"></i></span><div class="list-copy"><strong>صدای اعلان</strong><small>پخش صدا برای سفارش جدید</small></div><label class="switch" aria-label="صدای اعلان"><input type="checkbox"><span class="switch-track"></span></label></div>
+            <div class="list-item"><span class="list-icon"><i class="fas fa-magic"></i></span><div class="list-copy"><strong>انیمیشن رابط</strong><small>نمایش حرکت‌های نرم صفحات</small></div><label class="switch" aria-label="انیمیشن رابط"><input type="checkbox" checked><span class="switch-track"></span></label></div>
+          </div>
+          <button class="btn btn-primary" type="submit">ذخیره ترجیحات</button>
+        </form>
+      </article>
+    </section>
+
+    <section class="card reveal" style="--delay:290ms">
+      <div class="section-head"><div><h2>اطلاعات حقوقی</h2><p>شناسه‌های مورد استفاده در اسناد رسمی</p></div></div>
+      <form data-demo-form data-success="اطلاعات حقوقی با موفقیت ذخیره شد">
+        <div class="form-grid mb-2">
+          <div class="field"><label for="legal-name">نام حقوقی</label><input class="input" id="legal-name" value="شرکت تجارت الکترونیک پارس"></div>
+          <div class="field"><label for="national-id">شناسه ملی</label><input class="input" id="national-id" value="۱۰۱۰۳۸۴۵۲۱۱"></div>
+          <div class="field"><label for="economic-code">کد اقتصادی</label><input class="input" id="economic-code" value="۴۱۱۴۵۷۸۹"></div>
+          <div class="field"><label for="registration">شماره ثبت</label><input class="input" id="registration" value="۵۲۸۴۹۱"></div>
+        </div>
+        <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i>ذخیره اطلاعات حقوقی</button>
+      </form>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="brand-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="brand-title">
+    <div class="modal"><div class="modal-head"><h2 id="brand-title">ویرایش هویت بصری</h2><button class="action-btn" type="button" aria-label="بستن" data-modal-close><i class="fas fa-times"></i></button></div>
+      <form data-demo-form data-success="هویت بصری فروشگاه به‌روزرسانی شد">
+        <div class="form-grid mb-2"><div class="field field-full"><label for="logo-file">فایل نشان</label><input class="input" id="logo-file" type="file" accept=".svg,.png,.jpg"></div><div class="field"><label for="brand-color">رنگ اصلی</label><input class="input" id="brand-color" type="color" value="#ffd700"></div><div class="field"><label for="brand-icon">نماد برند</label><select class="select" id="brand-icon"><option>تاج</option><option>ستاره</option><option>الماس</option></select></div></div>
+        <div class="toolbar"><button class="btn btn-primary" type="submit">ذخیره</button><button class="btn btn-secondary" type="button" data-modal-close>انصراف</button></div>
+      </form>
+    </div>
+  </div>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>
+
+
+{% endblock %}
+
+

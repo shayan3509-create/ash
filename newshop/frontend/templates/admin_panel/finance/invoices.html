@@ -1,0 +1,82 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block content %}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="مدیریت صورتحساب‌های فروشگاه">
+  <title>صورتحساب‌ها | پنل ادمین</title>
+ 
+</head>
+<body data-root="../../" data-page="finance-invoices" data-title="صورتحساب‌ها" data-subtitle="صدور، پیگیری و چاپ صورتحساب‌های مشتریان">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-4 mb-2 no-print" aria-label="شاخص‌های صورتحساب">
+      <article class="card lift reveal" style="--delay:0ms"><div class="stat"><div><span class="stat-label">کل صورتحساب‌ها</span><div class="stat-value">۱٬۴۸۶</div><span class="trend">۱۲۸ مورد در این ماه</span></div><span class="stat-icon"><i class="fas fa-file-invoice"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:70ms"><div class="stat"><div><span class="stat-label">پرداخت‌شده</span><div class="stat-value">۹۶۴ میلیون</div><span class="trend">۹۲٪ وصول موفق</span></div><span class="stat-icon"><i class="fas fa-check-circle"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:140ms"><div class="stat"><div><span class="stat-label">در انتظار پرداخت</span><div class="stat-value">۸۴٫۶ میلیون</div><span class="trend down">۲۱ صورتحساب باز</span></div><span class="stat-icon"><i class="fas fa-hourglass-half"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:210ms"><div class="stat"><div><span class="stat-label">سررسید گذشته</span><div class="stat-value">۶</div><span class="trend down">۱۷٫۳ میلیون تومان</span></div><span class="stat-icon"><i class="fas fa-exclamation-triangle"></i></span></div></article>
+    </section>
+
+    <section class="grid grid-3 mb-2 no-print">
+      <article class="card span-2 reveal" style="--delay:280ms">
+        <div class="section-head"><div><h2>وصول صورتحساب‌ها</h2><p>مبلغ وصول‌شده در شش ماه اخیر</p></div><button class="btn btn-secondary btn-sm" type="button" data-modal-open="new-invoice"><i class="fas fa-plus"></i>صورتحساب جدید</button></div>
+        <div class="chart" aria-label="نمودار وصول صورتحساب‌ها">
+          <span class="chart-bar" style="--value:52%" data-label="فروردین" title="۴۸۰ میلیون"></span>
+          <span class="chart-bar" style="--value:64%" data-label="اردیبهشت" title="۵۹۰ میلیون"></span>
+          <span class="chart-bar" style="--value:59%" data-label="خرداد" title="۵۴۲ میلیون"></span>
+          <span class="chart-bar" style="--value:75%" data-label="تیر" title="۶۹۰ میلیون"></span>
+          <span class="chart-bar" style="--value:83%" data-label="مرداد" title="۷۶۳ میلیون"></span>
+          <span class="chart-bar" style="--value:96%" data-label="شهریور" title="۸۸۴ میلیون"></span>
+        </div>
+      </article>
+      <article class="card reveal" style="--delay:340ms">
+        <div class="section-head"><div><h2>وضعیت وصول</h2><p>ترکیب صورتحساب‌های این ماه</p></div></div>
+        <div class="list">
+          <div class="list-item"><span class="list-icon"><i class="fas fa-check"></i></span><div class="list-copy"><strong>پرداخت‌شده</strong><small>۹۸ صورتحساب · ۷۶٪</small><div class="progress"><span style="--value:76%"></span></div></div></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-clock"></i></span><div class="list-copy"><strong>در انتظار</strong><small>۲۴ صورتحساب · ۱۹٪</small><div class="progress"><span style="--value:19%"></span></div></div></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-exclamation"></i></span><div class="list-copy"><strong>سررسید گذشته</strong><small>۶ صورتحساب · ۵٪</small><div class="progress"><span style="--value:5%"></span></div></div></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="card reveal no-print" style="--delay:410ms">
+      <div class="section-head"><div><h2>فهرست صورتحساب‌ها</h2><p>اسناد صادرشده برای سفارش‌ها و مشتریان حقوقی</p></div><button class="btn btn-primary" type="button" data-modal-open="new-invoice"><i class="fas fa-file-medical"></i>صدور صورتحساب</button></div>
+      <div class="toolbar mb-1">
+        <div class="field"><label for="invoice-search">جست‌وجو</label><input class="input" id="invoice-search" type="search" placeholder="شماره صورتحساب یا نام مشتری" data-table-search="#invoices-table"></div>
+        <div class="field"><label for="invoice-status">وضعیت</label><select class="select" id="invoice-status" data-table-filter="#invoices-table"><option value="">همه وضعیت‌ها</option><option value="paid">پرداخت‌شده</option><option value="pending">در انتظار</option><option value="overdue">سررسید گذشته</option></select></div>
+        <button class="btn btn-secondary" type="button" data-toast-message="فیلتر ماه جاری اعمال شد"><i class="fas fa-calendar-alt"></i>ماه جاری</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table responsive" id="invoices-table">
+          <thead><tr><th>شماره</th><th>مشتری</th><th>تاریخ صدور</th><th>سررسید</th><th>مبلغ</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+          <tbody>
+            <tr data-status="paid"><td data-label="شماره"><strong>#INV-۱۴۰۵-۰۲۸۴</strong></td><td data-label="مشتری">شرکت داده‌پرداز پارس</td><td data-label="تاریخ صدور">۳۰ شهریور ۱۴۰۵</td><td data-label="سررسید">۳۰ شهریور</td><td data-label="مبلغ">۲۸٬۴۰۰٬۰۰۰ تومان</td><td data-label="وضعیت"><span class="badge success">پرداخت‌شده</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" type="button" aria-label="پیش‌نمایش" data-modal-open="invoice-preview"><i class="fas fa-eye"></i></button><button class="action-btn" type="button" aria-label="چاپ" onclick="window.print()"><i class="fas fa-print"></i></button></div></td></tr>
+            <tr data-status="pending"><td data-label="شماره"><strong>#INV-۱۴۰۵-۰۲۸۳</strong></td><td data-label="مشتری">آرمان تجارت نوین</td><td data-label="تاریخ صدور">۲۹ شهریور ۱۴۰۵</td><td data-label="سررسید">۵ مهر</td><td data-label="مبلغ">۱۹٬۸۵۰٬۰۰۰ تومان</td><td data-label="وضعیت"><span class="badge warning">در انتظار</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" type="button" aria-label="پیش‌نمایش" data-modal-open="invoice-preview"><i class="fas fa-eye"></i></button><button class="action-btn" type="button" aria-label="یادآوری" data-toast-message="یادآوری پرداخت ارسال شد"><i class="fas fa-bell"></i></button></div></td></tr>
+            <tr data-status="overdue"><td data-label="شماره"><strong>#INV-۱۴۰۵-۰۲۷۶</strong></td><td data-label="مشتری">فروشگاه آفتاب</td><td data-label="تاریخ صدور">۱۸ شهریور ۱۴۰۵</td><td data-label="سررسید">۲۵ شهریور</td><td data-label="مبلغ">۷٬۶۵۰٬۰۰۰ تومان</td><td data-label="وضعیت"><span class="badge danger">سررسید گذشته</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" type="button" aria-label="پیش‌نمایش" data-modal-open="invoice-preview"><i class="fas fa-eye"></i></button><button class="action-btn" type="button" aria-label="یادآوری" data-toast-message="اخطار سررسید ارسال شد"><i class="fas fa-paper-plane"></i></button></div></td></tr>
+            <tr data-status="paid"><td data-label="شماره"><strong>#INV-۱۴۰۵-۰۲۷۵</strong></td><td data-label="مشتری">مجموعه سپهر</td><td data-label="تاریخ صدور">۱۷ شهریور ۱۴۰۵</td><td data-label="سررسید">۲۰ شهریور</td><td data-label="مبلغ">۳۶٬۲۰۰٬۰۰۰ تومان</td><td data-label="وضعیت"><span class="badge success">پرداخت‌شده</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" type="button" aria-label="پیش‌نمایش" data-modal-open="invoice-preview"><i class="fas fa-eye"></i></button><button class="action-btn" type="button" aria-label="چاپ" onclick="window.print()"><i class="fas fa-print"></i></button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination"><span>نمایش ۴ از ۱۲۸ صورتحساب</span><div class="pagination-controls"><button class="page-btn active" type="button">۱</button><button class="page-btn" type="button">۲</button><button class="page-btn" type="button">۳</button></div></div>
+    </section>
+
+    <section class="card reveal" style="--delay:480ms" aria-label="نسخه قابل چاپ صورتحساب">
+      <div class="section-head"><div><h2>صورتحساب #INV-۱۴۰۵-۰۲۸۴</h2><p>تاریخ صدور: ۳۰ شهریور ۱۴۰۵ · شناسه مالیاتی: ۱۴۰۵۰۲۸۴۹۲</p></div><button class="btn btn-primary no-print" type="button" onclick="window.print()"><i class="fas fa-print"></i>چاپ صورتحساب</button></div>
+      <div class="grid grid-2 mb-2">
+        <div><span class="stat-label">فروشنده</span><h3>فروشگاه هوشمند پارس</h3><p class="stat-label">تهران، خیابان ولیعصر · کد اقتصادی ۴۱۱۴۵۷۸۹</p></div>
+        <div><span class="stat-label">خریدار</span><h3>شرکت داده‌پرداز پارس</h3><p class="stat-label">تهران، میدان ونک · شناسه ملی ۱۰۱۰۳۸۴۵۲۱۱</p></div>
+      </div>
+      <div class="table-wrap"><table class="data-table"><thead><tr><th>شرح</th><th>تعداد</th><th>مبلغ واحد</th><th>مالیات</th><th>جمع</th></tr></thead><tbody><tr><td>لپ‌تاپ ایسوس Vivobook</td><td>۲</td><td>۱۲٬۵۰۰٬۰۰۰</td><td>۲٬۲۵۰٬۰۰۰</td><td>۲۷٬۲۵۰٬۰۰۰ تومان</td></tr><tr><td>خدمات نصب و راه‌اندازی</td><td>۱</td><td>۱٬۰۵۵٬۰۰۰</td><td>۹۵٬۰۰۰</td><td>۱٬۱۵۰٬۰۰۰ تومان</td></tr></tbody></table></div>
+      <div class="section-head" style="margin-top:1rem"><span class="stat-label">مبلغ قابل پرداخت</span><strong class="stat-value">۲۸٬۴۰۰٬۰۰۰ تومان</strong></div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="new-invoice" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="new-invoice-title"><div class="modal"><div class="modal-head"><h2 id="new-invoice-title">صدور صورتحساب جدید</h2><button class="action-btn" type="button" aria-label="بستن" data-modal-close><i class="fas fa-times"></i></button></div><form data-demo-form data-success="صورتحساب جدید با موفقیت صادر شد"><div class="form-grid mb-2"><div class="field"><label for="invoice-customer">مشتری</label><input class="input" id="invoice-customer" required placeholder="نام شخص یا شرکت"></div><div class="field"><label for="invoice-amount">مبلغ (تومان)</label><input class="input" id="invoice-amount" type="number" required min="1000"></div><div class="field field-full"><label for="invoice-note">شرح صورتحساب</label><textarea class="textarea" id="invoice-note" required placeholder="شرح کالا یا خدمات"></textarea></div></div><div class="toolbar"><button class="btn btn-primary" type="submit"><i class="fas fa-check"></i>صدور</button><button class="btn btn-secondary" type="button" data-modal-close>انصراف</button></div></form></div></div>
+  <div class="modal-backdrop" id="invoice-preview" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="invoice-preview-title"><div class="modal"><div class="modal-head"><h2 id="invoice-preview-title">پیش‌نمایش صورتحساب</h2><button class="action-btn" type="button" aria-label="بستن" data-modal-close><i class="fas fa-times"></i></button></div><p>صورتحساب #INV-۱۴۰۵-۰۲۸۴ برای شرکت داده‌پرداز پارس به مبلغ ۲۸٬۴۰۰٬۰۰۰ تومان صادر شده است.</p><div class="toolbar"><button class="btn btn-primary" type="button" onclick="window.print()"><i class="fas fa-print"></i>چاپ</button><button class="btn btn-secondary" type="button" data-modal-close>بستن</button></div></div></div>
+  
+</body>
+</html>
+{% endblock %}

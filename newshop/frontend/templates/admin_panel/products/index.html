@@ -1,0 +1,73 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="مدیریت محصولات فروشگاه">
+  <title>لیست محصولات | پنل ادمین</title>
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body data-root="../../" data-page="products-list" data-title="مدیریت محصولات" data-subtitle="کنترل کاتالوگ، قیمت‌گذاری و موجودی فروشگاه">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-4 mb-2" aria-label="آمار محصولات">
+      <article class="card lift reveal" style="--delay: 40ms"><div class="stat"><div><span class="stat-label">کل محصولات</span><div class="stat-value" data-persian-number>2438</div><span class="trend">۱٬۹۷۴ کالای فعال</span></div><span class="stat-icon"><i class="fas fa-boxes"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 100ms"><div class="stat"><div><span class="stat-label">ارزش موجودی</span><div class="stat-value">۱۲٫۸ میلیارد</div><span class="trend">تومان، قیمت خرید</span></div><span class="stat-icon"><i class="fas fa-coins"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 160ms"><div class="stat"><div><span class="stat-label">کم‌موجود</span><div class="stat-value">۲۷</div><span class="trend down">زیر نقطه سفارش</span></div><span class="stat-icon"><i class="fas fa-box-open"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 220ms"><div class="stat"><div><span class="stat-label">پیش‌نویس‌ها</span><div class="stat-value">۱۴</div><span class="trend">۵ مورد آماده انتشار</span></div><span class="stat-icon"><i class="fas fa-edit"></i></span></div></article>
+    </section>
+
+    <section class="card reveal" style="--delay: 280ms">
+      <div class="section-head">
+        <div><h2>کاتالوگ محصولات</h2><p>به‌روزرسانی قیمت، موجودی و وضعیت انتشار کالاها</p></div>
+        <div class="toolbar"><button class="btn btn-secondary" type="button" data-modal-open="inventory-update"><i class="fas fa-layer-group"></i> به‌روزرسانی گروهی</button><a class="btn btn-primary" href="create.html"><i class="fas fa-plus"></i> محصول جدید</a></div>
+      </div>
+      <div class="toolbar mb-1">
+        <div class="field"><label for="product-search">جست‌وجوی محصول</label><input class="input" id="product-search" type="search" placeholder="نام، کد کالا یا برند..." data-table-search="#products-table"></div>
+        <div class="field"><label for="product-status">وضعیت</label><select class="select" id="product-status" data-table-filter="#products-table"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="low">کم‌موجود</option><option value="draft">پیش‌نویس</option></select></div>
+        <button class="btn btn-secondary" type="button" data-toast-message="فیلتر دسته‌بندی و بازه قیمت فعال شد"><i class="fas fa-filter"></i> فیلتر بیشتر</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table responsive" id="products-table">
+          <thead><tr><th>محصول</th><th>کد کالا</th><th>دسته‌بندی</th><th>قیمت فروش</th><th>موجودی</th><th>فروش ۳۰ روز</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+          <tbody>
+            <tr data-status="active"><td data-label="محصول"><div class="entity"><span class="entity-avatar"><i class="fas fa-mobile-alt"></i></span><span><strong>گوشی سامسونگ Galaxy A55</strong><br><small>۱۲۸ گیگابایت، رم ۸</small></span></div></td><td data-label="کد کالا">MB-SAM-A55-128</td><td data-label="دسته‌بندی">موبایل و تبلت</td><td data-label="قیمت فروش">۲۲٬۸۹۰٬۰۰۰ تومان</td><td data-label="موجودی">۴۸ عدد</td><td data-label="فروش ۳۰ روز">۱۷۳ عدد</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="پیش‌نمایش محصول باز شد"><i class="fas fa-eye"></i></button><button class="action-btn" data-toast-message="ویرایش محصول آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="این محصول حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr data-status="low"><td data-label="محصول"><div class="entity"><span class="entity-avatar"><i class="fas fa-headphones"></i></span><span><strong>هدفون بی‌سیم انکر Q45</strong><br><small>مشکی، نویزکنسلینگ</small></span></div></td><td data-label="کد کالا">AU-ANK-Q45-BK</td><td data-label="دسته‌بندی">صوتی و تصویری</td><td data-label="قیمت فروش">۸٬۴۹۰٬۰۰۰ تومان</td><td data-label="موجودی"><span class="badge danger">۴ عدد</span></td><td data-label="فروش ۳۰ روز">۶۱ عدد</td><td data-label="وضعیت"><span class="badge warning">کم‌موجود</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="پیش‌نمایش محصول باز شد"><i class="fas fa-eye"></i></button><button class="action-btn" data-toast-message="ویرایش محصول آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="این محصول حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr data-status="active"><td data-label="محصول"><div class="entity"><span class="entity-avatar"><i class="fas fa-coffee"></i></span><span><strong>اسپرسوساز دلونگی EC685</strong><br><small>فشار ۱۵ بار، نقره‌ای</small></span></div></td><td data-label="کد کالا">HA-DLG-EC685</td><td data-label="دسته‌بندی">خانه و آشپزخانه</td><td data-label="قیمت فروش">۱۴٬۷۵۰٬۰۰۰ تومان</td><td data-label="موجودی">۲۱ عدد</td><td data-label="فروش ۳۰ روز">۳۹ عدد</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="پیش‌نمایش محصول باز شد"><i class="fas fa-eye"></i></button><button class="action-btn" data-toast-message="ویرایش محصول آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="این محصول حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr data-status="draft"><td data-label="محصول"><div class="entity"><span class="entity-avatar"><i class="fas fa-running"></i></span><span><strong>کفش دویدن اسیکس Novablast 4</strong><br><small>سایز ۴۰ تا ۴۵</small></span></div></td><td data-label="کد کالا">SP-ASC-NV4</td><td data-label="دسته‌بندی">ورزش و سفر</td><td data-label="قیمت فروش">۹٬۹۸۰٬۰۰۰ تومان</td><td data-label="موجودی">۳۶ عدد</td><td data-label="فروش ۳۰ روز">—</td><td data-label="وضعیت"><span class="badge info">پیش‌نویس</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="پیش‌نمایش محصول باز شد"><i class="fas fa-eye"></i></button><button class="action-btn" data-toast-message="ویرایش محصول آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="این محصول حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr data-status="active"><td data-label="محصول"><div class="entity"><span class="entity-avatar"><i class="fas fa-book"></i></span><span><strong>کتاب اثر مرکب</strong><br><small>ترجمه فارسی، چاپ بیست‌وهشتم</small></span></div></td><td data-label="کد کالا">BK-CRD-CMP-28</td><td data-label="دسته‌بندی">کتاب و فرهنگ</td><td data-label="قیمت فروش">۳۶۵٬۰۰۰ تومان</td><td data-label="موجودی">۱۲۴ عدد</td><td data-label="فروش ۳۰ روز">۲۸۷ عدد</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="پیش‌نمایش محصول باز شد"><i class="fas fa-eye"></i></button><button class="action-btn" data-toast-message="ویرایش محصول آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="این محصول حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination"><span>نمایش ۱ تا ۵ از ۲٬۴۳۸ محصول</span><div class="pagination-controls"><button class="page-btn"><i class="fas fa-chevron-right"></i></button><button class="page-btn active">۱</button><button class="page-btn">۲</button><button class="page-btn">۳</button><button class="page-btn"><i class="fas fa-chevron-left"></i></button></div></div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="inventory-update" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="inventory-title">
+      <div class="modal-head"><h2 id="inventory-title">به‌روزرسانی گروهی موجودی</h2><button class="action-btn" type="button" data-modal-close aria-label="بستن"><i class="fas fa-times"></i></button></div>
+      <form class="form-grid" data-demo-form data-success="فایل موجودی برای پردازش ارسال شد">
+        <div class="field field-full"><label for="stock-file">فایل اکسل موجودی *</label><input class="input" id="stock-file" type="file" accept=".xlsx,.csv" required></div>
+        <div class="field"><label for="warehouse">انبار مقصد *</label><select class="select" id="warehouse" required><option value="">انتخاب انبار</option><option>انبار مرکزی تهران</option><option>انبار غرب</option><option>انبار اصفهان</option></select></div>
+        <div class="field"><label for="stock-mode">روش اعمال *</label><select class="select" id="stock-mode" required><option>جایگزینی موجودی</option><option>افزایش موجودی فعلی</option></select></div>
+        <label class="switch field-full"><input type="checkbox" checked><span class="switch-track"></span><span>قبل از اعمال، گزارش مغایرت نمایش داده شود</span></label>
+        <div class="field-full toolbar"><button class="btn btn-primary" type="submit"><i class="fas fa-sync"></i> بررسی و اعمال</button><button class="btn btn-secondary" type="button" data-modal-close>انصراف</button></div>
+      </form>
+    </div>
+  </div>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>
+
+
+{% endblock %}
+
+

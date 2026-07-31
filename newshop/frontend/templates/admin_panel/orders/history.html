@@ -1,0 +1,58 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تاریخچه سفارشات | پنل ادمین</title>
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body data-root="../../" data-page="orders-history" data-title="تاریخچه سفارشات" data-subtitle="جست‌وجو و پیگیری چرخه کامل سفارش‌ها">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-4 mb-2" aria-label="خلاصه تاریخچه سفارشات">
+      <article class="card lift reveal" style="--delay: 50ms"><div class="stat"><div><span class="stat-label">کل سفارش‌ها</span><div class="stat-value">۱۲٬۴۸۶</div><span class="trend">از ابتدای سال</span></div><span class="stat-icon"><i class="fas fa-receipt"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 100ms"><div class="stat"><div><span class="stat-label">تحویل موفق</span><div class="stat-value">۹۶٫۲٪</div><span class="trend">۱٫۸٪ رشد</span></div><span class="stat-icon"><i class="fas fa-check-double"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 150ms"><div class="stat"><div><span class="stat-label">میانگین ارسال</span><div class="stat-value">۲٫۴ روز</div><span class="trend">۶ ساعت سریع‌تر</span></div><span class="stat-icon"><i class="fas fa-shipping-fast"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 200ms"><div class="stat"><div><span class="stat-label">مرجوع‌شده</span><div class="stat-value">۱٫۹٪</div><span class="trend down">۲۳۸ سفارش</span></div><span class="stat-icon"><i class="fas fa-undo-alt"></i></span></div></article>
+    </section>
+
+    <section class="card reveal" style="--delay: 250ms">
+      <div class="section-head">
+        <div><h2>آرشیو سفارش‌ها</h2><p>جزئیات سفارش‌های پردازش‌شده و وضعیت ارسال</p></div>
+        <button class="btn btn-secondary" type="button" data-toast-message="فایل خروجی تاریخچه آماده شد"><i class="fas fa-file-export"></i>خروجی اکسل</button>
+      </div>
+      <div class="toolbar mb-1">
+        <div class="field"><label for="history-search">جست‌وجو</label><input class="input" id="history-search" type="search" placeholder="کد سفارش، مشتری یا کد رهگیری" data-table-search="#order-history"></div>
+        <div class="field"><label for="history-status">وضعیت نهایی</label><select class="select" id="history-status" data-table-filter="#order-history"><option value="">همه وضعیت‌ها</option><option value="delivered">تحویل‌شده</option><option value="shipping">در حال ارسال</option><option value="returned">مرجوع‌شده</option><option value="cancelled">لغوشده</option></select></div>
+        <div class="field"><label for="history-period">بازه زمانی</label><select class="select" id="history-period"><option>۳۰ روز اخیر</option><option>سه ماه اخیر</option><option>سال جاری</option></select></div>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table responsive" id="order-history">
+          <thead><tr><th>کد سفارش</th><th>مشتری</th><th>تاریخ ثبت</th><th>مبلغ</th><th>روش ارسال</th><th>وضعیت</th><th>جزئیات</th></tr></thead>
+          <tbody>
+            <tr data-status="delivered"><td data-label="کد سفارش"><strong>#۱۲۸۷۶</strong></td><td data-label="مشتری">علی مرادی<br><small class="stat-label">تبریز</small></td><td data-label="تاریخ ثبت">۲۹ تیر ۱۴۰۵</td><td data-label="مبلغ">۶٬۷۵۰٬۰۰۰ تومان</td><td data-label="روش ارسال">پست پیشتاز</td><td data-label="وضعیت"><span class="badge success"><i class="fas fa-check"></i>تحویل‌شده</span></td><td data-label="جزئیات"><button class="action-btn" type="button" aria-label="مشاهده سفارش" data-toast-message="جزئیات سفارش ۱۲۸۷۶ بارگذاری شد"><i class="fas fa-eye"></i></button></td></tr>
+            <tr data-status="shipping"><td data-label="کد سفارش"><strong>#۱۲۸۵۴</strong></td><td data-label="مشتری">پریسا اکبری<br><small class="stat-label">کرج</small></td><td data-label="تاریخ ثبت">۲۸ تیر ۱۴۰۵</td><td data-label="مبلغ">۳٬۲۱۰٬۰۰۰ تومان</td><td data-label="روش ارسال">تیپاکس</td><td data-label="وضعیت"><span class="badge info"><i class="fas fa-truck"></i>در حال ارسال</span></td><td data-label="جزئیات"><button class="action-btn" type="button" aria-label="رهگیری سفارش" data-toast-message="آخرین موقعیت مرسوله نمایش داده شد"><i class="fas fa-map-marker-alt"></i></button></td></tr>
+            <tr data-status="delivered"><td data-label="کد سفارش"><strong>#۱۲۸۳۱</strong></td><td data-label="مشتری">کیوان نادری<br><small class="stat-label">مشهد</small></td><td data-label="تاریخ ثبت">۲۷ تیر ۱۴۰۵</td><td data-label="مبلغ">۱۱٬۸۰۰٬۰۰۰ تومان</td><td data-label="روش ارسال">باربری ویژه</td><td data-label="وضعیت"><span class="badge success"><i class="fas fa-check"></i>تحویل‌شده</span></td><td data-label="جزئیات"><button class="action-btn" type="button" aria-label="مشاهده سفارش" data-toast-message="جزئیات سفارش ۱۲۸۳۱ بارگذاری شد"><i class="fas fa-eye"></i></button></td></tr>
+            <tr data-status="returned"><td data-label="کد سفارش"><strong>#۱۲۷۹۸</strong></td><td data-label="مشتری">مریم صادقی<br><small class="stat-label">قم</small></td><td data-label="تاریخ ثبت">۲۵ تیر ۱۴۰۵</td><td data-label="مبلغ">۲٬۴۹۰٬۰۰۰ تومان</td><td data-label="روش ارسال">پست پیشتاز</td><td data-label="وضعیت"><span class="badge danger"><i class="fas fa-undo"></i>مرجوع‌شده</span></td><td data-label="جزئیات"><button class="action-btn" type="button" aria-label="علت مرجوعی" data-toast-message="علت مرجوعی: مغایرت رنگ کالا"><i class="fas fa-info-circle"></i></button></td></tr>
+            <tr data-status="cancelled"><td data-label="کد سفارش"><strong>#۱۲۷۶۲</strong></td><td data-label="مشتری">رضا یوسفی<br><small class="stat-label">اهواز</small></td><td data-label="تاریخ ثبت">۲۳ تیر ۱۴۰۵</td><td data-label="مبلغ">۹۸۰٬۰۰۰ تومان</td><td data-label="روش ارسال">پیک شهری</td><td data-label="وضعیت"><span class="badge warning"><i class="fas fa-ban"></i>لغوشده</span></td><td data-label="جزئیات"><button class="action-btn" type="button" aria-label="علت لغو" data-toast-message="علت لغو: انصراف مشتری"><i class="fas fa-info-circle"></i></button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination"><span>نمایش ۵ از ۱۲٬۴۸۶ سفارش</span><div class="pagination-controls"><button class="page-btn" type="button"><i class="fas fa-chevron-right"></i></button><button class="page-btn active" type="button">۱</button><button class="page-btn" type="button">۲</button><button class="page-btn" type="button">۳</button><button class="page-btn" type="button"><i class="fas fa-chevron-left"></i></button></div></div>
+    </section>
+  </main>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>
+
+
+
+{% endblock %}
+
+

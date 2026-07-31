@@ -1,0 +1,105 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="پیکربندی فنی فروشگاه">
+  <title>پیکربندی | پنل ادمین</title>
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body data-root="../../" data-page="settings-config" data-title="پیکربندی سیستم" data-subtitle="مدیریت پرداخت، سفارش، امنیت و سرویس‌های یکپارچه">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-4 mb-2" aria-label="وضعیت سرویس‌ها">
+      <article class="card lift reveal" style="--delay:0ms"><div class="stat"><div><span class="stat-label">سرویس‌های فعال</span><div class="stat-value">۱۲ از ۱۴</div><span class="trend">همه سرویس‌های اصلی پایدار</span></div><span class="stat-icon"><i class="fas fa-server"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:70ms"><div class="stat"><div><span class="stat-label">درگاه پرداخت</span><div class="stat-value">۳ فعال</div><span class="trend">آخرین بررسی ۲ دقیقه پیش</span></div><span class="stat-icon"><i class="fas fa-credit-card"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:140ms"><div class="stat"><div><span class="stat-label">وب‌هوک‌های امروز</span><div class="stat-value">۸٬۴۲۱</div><span class="trend">۹۹٫۸٪ تحویل موفق</span></div><span class="stat-icon"><i class="fas fa-code-branch"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:210ms"><div class="stat"><div><span class="stat-label">حالت نگهداری</span><div class="stat-value">خاموش</div><span class="trend">فروشگاه در دسترس است</span></div><span class="stat-icon"><i class="fas fa-tools"></i></span></div></article>
+    </section>
+
+    <section class="grid grid-2 mb-2">
+      <article class="card reveal" style="--delay:280ms">
+        <div class="section-head"><div><h2>پرداخت و تسویه</h2><p>تنظیمات درگاه و چرخه مالی</p></div><span class="badge success">متصل</span></div>
+        <form data-demo-form data-success="پیکربندی پرداخت ذخیره شد">
+          <div class="form-grid mb-2">
+            <div class="field"><label for="gateway">درگاه پیش‌فرض</label><select class="select" id="gateway"><option>بانک ملت</option><option>زرین‌پال</option><option>بانک سامان</option></select></div>
+            <div class="field"><label for="settlement">چرخه تسویه</label><select class="select" id="settlement"><option>روزانه</option><option>هفتگی</option><option>دستی</option></select></div>
+            <div class="field"><label for="min-payment">حداقل مبلغ پرداخت</label><input class="input" id="min-payment" type="number" value="10000" min="1000"></div>
+            <div class="field"><label for="payment-timeout">مهلت پرداخت (دقیقه)</label><input class="input" id="payment-timeout" type="number" value="15" min="5"></div>
+          </div>
+          <div class="list mb-2">
+            <div class="list-item"><div class="list-copy"><strong>پرداخت با کیف پول</strong><small>استفاده از اعتبار داخلی کاربران</small></div><label class="switch" aria-label="پرداخت با کیف پول"><input type="checkbox" checked><span class="switch-track"></span></label></div>
+            <div class="list-item"><div class="list-copy"><strong>بازپرداخت خودکار</strong><small>بازگشت مبلغ سفارش لغوشده</small></div><label class="switch" aria-label="بازپرداخت خودکار"><input type="checkbox" checked><span class="switch-track"></span></label></div>
+          </div>
+          <button class="btn btn-primary" type="submit">ذخیره پرداخت</button>
+        </form>
+      </article>
+
+      <article class="card reveal" style="--delay:340ms">
+        <div class="section-head"><div><h2>سفارش و موجودی</h2><p>قواعد پردازش سفارش‌ها</p></div></div>
+        <form data-demo-form data-success="قواعد سفارش و موجودی به‌روزرسانی شد">
+          <div class="form-grid mb-2">
+            <div class="field"><label for="order-prefix">پیشوند سفارش</label><input class="input" id="order-prefix" value="ORD"></div>
+            <div class="field"><label for="stock-threshold">آستانه هشدار موجودی</label><input class="input" id="stock-threshold" type="number" value="5" min="0"></div>
+            <div class="field"><label for="cancel-window">مهلت لغو (ساعت)</label><input class="input" id="cancel-window" type="number" value="2" min="0"></div>
+            <div class="field"><label for="default-shipping">روش ارسال پیش‌فرض</label><select class="select" id="default-shipping"><option>پست پیشتاز</option><option>پیک شهری</option><option>تیپاکس</option></select></div>
+          </div>
+          <div class="list mb-2">
+            <div class="list-item"><div class="list-copy"><strong>کسر خودکار موجودی</strong><small>پس از پرداخت موفق سفارش</small></div><label class="switch" aria-label="کسر خودکار موجودی"><input type="checkbox" checked><span class="switch-track"></span></label></div>
+            <div class="list-item"><div class="list-copy"><strong>تأیید خودکار سفارش</strong><small>برای پرداخت‌های معتبر و بدون ریسک</small></div><label class="switch" aria-label="تأیید خودکار سفارش"><input type="checkbox"><span class="switch-track"></span></label></div>
+          </div>
+          <button class="btn btn-primary" type="submit">ذخیره قواعد</button>
+        </form>
+      </article>
+    </section>
+
+    <section class="grid grid-3 mb-2">
+      <article class="card span-2 reveal" style="--delay:410ms">
+        <div class="section-head"><div><h2>امنیت و دسترسی</h2><p>سیاست‌های امنیتی پنل مدیریت</p></div><button class="btn btn-secondary btn-sm" type="button" data-modal-open="security-modal"><i class="fas fa-shield-alt"></i>تنظیمات پیشرفته</button></div>
+        <form data-demo-form data-success="سیاست‌های امنیتی ذخیره شد">
+          <div class="list mb-2">
+            <div class="list-item"><span class="list-icon"><i class="fas fa-mobile-alt"></i></span><div class="list-copy"><strong>ورود دومرحله‌ای مدیران</strong><small>الزام کد یک‌بار مصرف هنگام ورود</small></div><label class="switch" aria-label="ورود دومرحله‌ای"><input type="checkbox" checked><span class="switch-track"></span></label></div>
+            <div class="list-item"><span class="list-icon"><i class="fas fa-user-lock"></i></span><div class="list-copy"><strong>قفل پس از تلاش ناموفق</strong><small>پس از ۵ تلاش ناموفق برای ۳۰ دقیقه</small></div><label class="switch" aria-label="قفل حساب"><input type="checkbox" checked><span class="switch-track"></span></label></div>
+            <div class="list-item"><span class="list-icon"><i class="fas fa-history"></i></span><div class="list-copy"><strong>ثبت رویدادهای حساس</strong><small>نگهداری گزارش فعالیت مدیران</small></div><label class="switch" aria-label="ثبت رویدادها"><input type="checkbox" checked><span class="switch-track"></span></label></div>
+          </div>
+          <button class="btn btn-primary" type="submit">ذخیره سیاست‌ها</button>
+        </form>
+      </article>
+      <article class="card reveal" style="--delay:470ms">
+        <div class="section-head"><div><h2>کش و عملکرد</h2><p>وضعیت بهینه‌سازی سیستم</p></div></div>
+        <div class="list mb-2">
+          <div class="list-item"><span class="list-icon"><i class="fas fa-bolt"></i></span><div class="list-copy"><strong>کش صفحات</strong><small>۱۸۴ مگابایت</small></div><span class="badge success">فعال</span></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-database"></i></span><div class="list-copy"><strong>کش پایگاه داده</strong><small>آخرین پاک‌سازی: ۳ روز پیش</small></div><span class="badge info">پایدار</span></div>
+        </div>
+        <button class="btn btn-secondary" type="button" data-toast-message="کش سیستم با موفقیت پاک شد"><i class="fas fa-broom"></i>پاک‌سازی کش</button>
+      </article>
+    </section>
+
+    <section class="card reveal" style="--delay:540ms">
+      <div class="section-head"><div><h2>یکپارچه‌سازی سرویس‌ها</h2><p>اتصال سرویس‌های جانبی و API</p></div><button class="btn btn-primary" type="button" data-modal-open="integration-modal"><i class="fas fa-plus"></i>افزودن سرویس</button></div>
+      <div class="table-wrap"><table class="data-table responsive"><thead><tr><th>سرویس</th><th>کاربرد</th><th>آخرین ارتباط</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody>
+        <tr><td data-label="سرویس"><div class="entity"><span class="entity-avatar"><i class="fas fa-sms"></i></span><strong>کاوه‌نگار</strong></div></td><td data-label="کاربرد">پیامک تراکنشی</td><td data-label="آخرین ارتباط">۱ دقیقه پیش</td><td data-label="وضعیت"><span class="badge success">متصل</span></td><td data-label="عملیات"><button class="action-btn" type="button" data-toast-message="اتصال کاوه‌نگار آزمایش شد" aria-label="آزمایش اتصال"><i class="fas fa-plug"></i></button></td></tr>
+        <tr><td data-label="سرویس"><div class="entity"><span class="entity-avatar"><i class="fas fa-truck"></i></span><strong>پست ایران</strong></div></td><td data-label="کاربرد">رهگیری مرسوله</td><td data-label="آخرین ارتباط">۱۲ دقیقه پیش</td><td data-label="وضعیت"><span class="badge success">متصل</span></td><td data-label="عملیات"><button class="action-btn" type="button" data-toast-message="اتصال پست آزمایش شد" aria-label="آزمایش اتصال"><i class="fas fa-plug"></i></button></td></tr>
+        <tr><td data-label="سرویس"><div class="entity"><span class="entity-avatar"><i class="fas fa-chart-line"></i></span><strong>متریکس</strong></div></td><td data-label="کاربرد">تحلیل رفتار</td><td data-label="آخرین ارتباط">۲ ساعت پیش</td><td data-label="وضعیت"><span class="badge warning">نیازمند بررسی</span></td><td data-label="عملیات"><button class="action-btn" type="button" data-toast-message="درخواست اتصال مجدد ارسال شد" aria-label="اتصال مجدد"><i class="fas fa-sync"></i></button></td></tr>
+      </tbody></table></div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="security-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="security-title"><div class="modal"><div class="modal-head"><h2 id="security-title">تنظیمات امنیتی پیشرفته</h2><button class="action-btn" type="button" aria-label="بستن" data-modal-close><i class="fas fa-times"></i></button></div><form data-demo-form data-success="تنظیمات امنیتی پیشرفته ذخیره شد"><div class="form-grid mb-2"><div class="field"><label for="session-time">انقضای نشست (دقیقه)</label><input class="input" id="session-time" type="number" value="60" min="10"></div><div class="field"><label for="password-age">اعتبار رمز عبور (روز)</label><input class="input" id="password-age" type="number" value="90" min="30"></div><div class="field field-full"><label for="allowed-ips">IPهای مجاز (اختیاری)</label><textarea class="textarea" id="allowed-ips" dir="ltr" placeholder="192.168.1.10"></textarea></div></div><button class="btn btn-primary" type="submit">ذخیره</button></form></div></div>
+  <div class="modal-backdrop" id="integration-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="integration-title"><div class="modal"><div class="modal-head"><h2 id="integration-title">افزودن سرویس</h2><button class="action-btn" type="button" aria-label="بستن" data-modal-close><i class="fas fa-times"></i></button></div><form data-demo-form data-success="سرویس جدید با موفقیت اضافه شد"><div class="form-grid mb-2"><div class="field"><label for="service-name">نام سرویس</label><input class="input" id="service-name" required></div><div class="field"><label for="service-type">نوع</label><select class="select" id="service-type"><option>پیام‌رسانی</option><option>حمل‌ونقل</option><option>تحلیل</option></select></div><div class="field field-full"><label for="api-key">کلید API</label><input class="input" id="api-key" dir="ltr" type="password" required></div></div><button class="btn btn-primary" type="submit">اتصال سرویس</button></form></div></div>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>
+
+
+{% endblock %}
+
+
+

@@ -835,3 +835,229 @@ main {
     transition: width .1s linear;
 
 }
+/* ==========================
+   CATEGORY COLORS
+========================== */
+
+
+.mobile {
+    --color: #00BFFF;
+}
+
+.laptop {
+    --color: #8B5CF6;
+}
+
+.watch {
+    --color: #10B981;
+}
+
+.monitor {
+    --color: #2563EB;
+}
+
+.headphone {
+    --color: #EC4899;
+}
+
+.accessories {
+    --color: #F97316;
+}
+
+.gaming {
+    --color: #EF4444;
+}
+
+.tools {
+    --color: #EAB308;
+}
+
+.network {
+    --color: #06B6D4;
+}
+
+.tablet {
+    --color: #64748B;
+}
+
+
+
+
+.category-card {
+
+    height: 150px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    text-decoration: none;
+
+    transition: .35s;
+
+}
+
+
+
+.category-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: transparent;
+
+}
+
+
+
+/* موبایل - آبی */
+.mobile .category-icon img {
+
+    filter:
+        invert(48%) sepia(94%) saturate(2200%) hue-rotate(165deg) brightness(105%);
+
+}
+
+
+/* لپ تاپ - بنفش */
+.laptop .category-icon img {
+
+    filter:
+        invert(39%) sepia(90%) saturate(1500%) hue-rotate(240deg) brightness(95%);
+
+}
+
+
+/* ساعت - سبز */
+.watch .category-icon img {
+
+    filter:
+        invert(55%) sepia(80%) saturate(900%) hue-rotate(110deg) brightness(95%);
+
+}
+
+
+/* مانیتور - آبی تیره */
+.monitor .category-icon img {
+
+    filter:
+        invert(30%) sepia(90%) saturate(1700%) hue-rotate(210deg) brightness(95%);
+
+}
+
+
+/* هندزفری - صورتی */
+.headphone .category-icon img {
+
+    filter:
+        invert(40%) sepia(90%) saturate(1700%) hue-rotate(300deg) brightness(100%);
+
+}
+
+
+/* لوازم جانبی - نارنجی */
+.accessories .category-icon img {
+
+    filter:
+        invert(55%) sepia(90%) saturate(1800%) hue-rotate(350deg) brightness(100%);
+
+}
+
+
+/* گیم - قرمز */
+.gaming .category-icon img {
+
+    filter:
+        invert(30%) sepia(90%) saturate(2000%) hue-rotate(330deg) brightness(100%);
+
+}
+
+
+/* ابزار آلات - زرد */
+.tools .category-icon img {
+
+    filter:
+        invert(75%) sepia(90%) saturate(1300%) hue-rotate(10deg) brightness(100%);
+
+}
+
+
+/* شبکه - فیروزه ای */
+.network .category-icon img {
+
+    filter:
+        invert(55%) sepia(90%) saturate(1500%) hue-rotate(150deg) brightness(100%);
+
+}
+
+
+/* تبلت - خاکستری */
+.tablet .category-icon img {
+
+    filter:
+        invert(55%) sepia(10%) saturate(500%) hue-rotate(180deg) brightness(90%);
+
+}
+
+
+
+
+.category-card span {
+
+    color: var(--color);
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+}
+
+
+
+
+.category-card:hover {
+
+    transform: translateY(-8px);
+
+    border-color: var(--color);
+
+    box-shadow:
+
+        0 15px 40px color-mix(in srgb,
+            var(--color) 35%,
+            transparent);
+
+}
+
+
+
+.category-card:hover .category-icon {
+
+    box-shadow:
+
+        0 0 25px color-mix(in srgb,
+            var(--color) 50%,
+            transparent);
+
+}

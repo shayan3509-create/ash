@@ -1,0 +1,99 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="افزودن محصول جدید">
+  <title>افزودن محصول | پنل ادمین</title>
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body data-root="../../" data-page="products-create" data-title="افزودن محصول" data-subtitle="ساخت یک صفحه محصول کامل، قابل جست‌وجو و آماده فروش">
+  <main class="page-content" data-app-shell>
+    <form class="grid grid-3" data-demo-form data-success="محصول جدید با موفقیت ثبت و برای انتشار آماده شد">
+      <div class="span-2 grid">
+        <section class="card reveal" style="--delay: 50ms">
+          <div class="section-head"><div><h2>اطلاعات پایه</h2><p>عنوان روشن و توضیحات دقیق، نرخ تبدیل را افزایش می‌دهد.</p></div><span class="badge info">مرحله ۱ از ۴</span></div>
+          <div class="form-grid">
+            <div class="field field-full"><label for="product-name">نام محصول *</label><input class="input" id="product-name" name="name" type="text" placeholder="مثلاً لپ‌تاپ ایسوس Vivobook 15 مدل X1504" required></div>
+            <div class="field"><label for="product-sku">کد کالا (SKU) *</label><input class="input" id="product-sku" name="sku" type="text" placeholder="LP-ASU-X1504" required></div>
+            <div class="field"><label for="product-brand">برند *</label><input class="input" id="product-brand" name="brand" type="text" placeholder="نام برند" required></div>
+            <div class="field"><label for="product-category">دسته‌بندی *</label><select class="select" id="product-category" name="category" required><option value="">انتخاب دسته‌بندی</option><option>موبایل و تبلت</option><option>کامپیوتر و لپ‌تاپ</option><option>خانه و آشپزخانه</option><option>صوتی و تصویری</option><option>ورزش و سفر</option></select></div>
+            <div class="field"><label for="product-type">نوع محصول *</label><select class="select" id="product-type" name="type" required><option>کالای فیزیکی</option><option>محصول دیجیتال</option><option>خدمت</option></select></div>
+            <div class="field field-full"><label for="short-description">معرفی کوتاه *</label><textarea class="textarea" id="short-description" name="shortDescription" maxlength="280" placeholder="مهم‌ترین مزیت‌های محصول در دو یا سه جمله" required></textarea></div>
+            <div class="field field-full"><label for="full-description">توضیحات کامل *</label><textarea class="textarea" id="full-description" name="description" placeholder="ویژگی‌ها، کاربرد، محتویات بسته‌بندی و شرایط استفاده" required></textarea></div>
+          </div>
+        </section>
+
+        <section class="card reveal" style="--delay: 130ms">
+          <div class="section-head"><div><h2>قیمت‌گذاری و موجودی</h2><p>قیمت‌ها را به تومان وارد کنید.</p></div><span class="badge info">مرحله ۲ از ۴</span></div>
+          <div class="form-grid">
+            <div class="field"><label for="sale-price">قیمت فروش *</label><input class="input" id="sale-price" name="salePrice" type="number" min="1000" step="1000" placeholder="مثلاً ۲۲۹۰۰۰۰۰" required></div>
+            <div class="field"><label for="compare-price">قیمت قبل از تخفیف</label><input class="input" id="compare-price" name="comparePrice" type="number" min="0" step="1000" placeholder="اختیاری"></div>
+            <div class="field"><label for="cost-price">قیمت خرید</label><input class="input" id="cost-price" name="costPrice" type="number" min="0" step="1000" placeholder="فقط برای گزارش سود"></div>
+            <div class="field"><label for="tax-class">نرخ مالیات *</label><select class="select" id="tax-class" name="tax" required><option>معاف از مالیات</option><option>۹ درصد</option><option>۱۰ درصد</option></select></div>
+            <div class="field"><label for="stock">موجودی اولیه *</label><input class="input" id="stock" name="stock" type="number" min="0" placeholder="تعداد قابل فروش" required></div>
+            <div class="field"><label for="low-stock">هشدار کمبود موجودی *</label><input class="input" id="low-stock" name="lowStock" type="number" min="1" value="5" required></div>
+            <label class="switch field-full"><input type="checkbox" name="backorder"><span class="switch-track"></span><span>امکان سفارش هنگام اتمام موجودی فعال باشد</span></label>
+          </div>
+        </section>
+
+        <section class="card reveal" style="--delay: 210ms">
+          <div class="section-head"><div><h2>ارسال و ابعاد</h2><p>اطلاعات دقیق برای محاسبه هزینه حمل ضروری است.</p></div><span class="badge info">مرحله ۳ از ۴</span></div>
+          <div class="form-grid">
+            <div class="field"><label for="weight">وزن بسته (گرم) *</label><input class="input" id="weight" name="weight" type="number" min="1" required></div>
+            <div class="field"><label for="shipping-class">کلاس ارسال *</label><select class="select" id="shipping-class" name="shippingClass" required><option value="">انتخاب کنید</option><option>استاندارد</option><option>شکننده</option><option>سنگین و حجیم</option><option>نیازمند زنجیره سرد</option></select></div>
+            <div class="field"><label for="length">طول (سانتی‌متر)</label><input class="input" id="length" name="length" type="number" min="0"></div>
+            <div class="field"><label for="width">عرض (سانتی‌متر)</label><input class="input" id="width" name="width" type="number" min="0"></div>
+            <div class="field"><label for="height">ارتفاع (سانتی‌متر)</label><input class="input" id="height" name="height" type="number" min="0"></div>
+            <div class="field"><label for="warranty">گارانتی</label><input class="input" id="warranty" name="warranty" type="text" placeholder="مثلاً ۱۸ ماه شرکتی"></div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="grid">
+        <section class="card reveal" style="--delay: 90ms">
+          <div class="section-head"><div><h3>انتشار</h3><p>وضعیت نمایش در فروشگاه</p></div></div>
+          <div class="field mb-1"><label for="publish-status">وضعیت *</label><select class="select" id="publish-status" name="status" required><option value="draft">ذخیره به‌عنوان پیش‌نویس</option><option value="active">انتشار فوری</option><option value="scheduled">زمان‌بندی انتشار</option></select></div>
+          <label class="switch mb-1"><input type="checkbox" name="featured"><span class="switch-track"></span><span>نمایش در محصولات ویژه</span></label>
+          <div class="toolbar"><button class="btn btn-primary" type="submit"><i class="fas fa-check"></i> ذخیره محصول</button><button class="btn btn-secondary" type="button" data-toast-message="پیش‌نمایش محصول در تب جدید آماده شد"><i class="fas fa-eye"></i> پیش‌نمایش</button></div>
+        </section>
+        <section class="card reveal" style="--delay: 170ms">
+          <div class="section-head"><div><h3>تصاویر محصول</h3><p>تصویر نخست به‌عنوان کاور نمایش داده می‌شود.</p></div><span class="badge info">مرحله ۴ از ۴</span></div>
+          <div class="field"><label for="product-images">انتخاب تصاویر *</label><input class="input" id="product-images" name="images" type="file" accept="image/*" multiple required></div>
+          <div class="empty-state"><i class="fas fa-images"></i><strong>تصاویر را انتخاب کنید</strong><p>JPG، PNG یا WebP تا ۵ مگابایت</p></div>
+        </section>
+        <section class="card reveal" style="--delay: 250ms">
+          <div class="section-head"><div><h3>بهینه‌سازی جست‌وجو</h3><p>نمایش بهتر در موتورهای جست‌وجو</p></div></div>
+          <div class="field mb-1"><label for="seo-title">عنوان سئو</label><input class="input" id="seo-title" name="seoTitle" type="text" maxlength="60" placeholder="حداکثر ۶۰ نویسه"></div>
+          <div class="field mb-1"><label for="seo-keywords">کلیدواژه‌ها</label><input class="input" id="seo-keywords" name="keywords" type="text" placeholder="با ویرگول جدا کنید"></div>
+          <div class="field"><label for="seo-description">توضیحات متا</label><textarea class="textarea" id="seo-description" name="seoDescription" maxlength="160" placeholder="حداکثر ۱۶۰ نویسه"></textarea></div>
+        </section>
+        <section class="card lift reveal" style="--delay: 320ms">
+          <div class="section-head"><div><h3>چک‌لیست کیفیت</h3><p>پیش از انتشار بررسی کنید</p></div></div>
+          <div class="list">
+            <div class="list-item"><span class="list-icon"><i class="fas fa-check"></i></span><div class="list-copy"><strong>عنوان و مشخصات دقیق</strong><small>بدون ادعای مبهم یا تکراری</small></div></div>
+            <div class="list-item"><span class="list-icon"><i class="fas fa-camera"></i></span><div class="list-copy"><strong>حداقل سه تصویر</strong><small>پس‌زمینه روشن و وضوح مناسب</small></div></div>
+            <div class="list-item"><span class="list-icon"><i class="fas fa-box"></i></span><div class="list-copy"><strong>موجودی و وزن صحیح</strong><small>برای جلوگیری از خطای ارسال</small></div></div>
+          </div>
+        </section>
+      </aside>
+    </form>
+  </main>
+  <script src="../../assets/js/app.js"></script>
+</body>
+</html>
+
+
+{% endblock %}
+
+
