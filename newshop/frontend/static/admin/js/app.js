@@ -125,14 +125,25 @@ const nav = [
       <div class="app-main">
         <header class="app-header">
           <div class="page-title"><h1>${title}</h1><p>${subtitle}</p></div>
-          <div class="header-actions">
-            <button class="icon-button" type="button" aria-label="اعلان‌ها" data-toast-message="۳ اعلان خوانده‌نشده دارید">
-              <i class="fas fa-bell" aria-hidden="true"></i><span class="notification-dot">۳</span>
-            </button>
-            <button class="btn btn-primary header-profile" type="button" data-toast-message="پروفایل ادمین آماده ویرایش است">
-              <i class="fas fa-user-circle" aria-hidden="true"></i><span>پروفایل</span>
-            </button>
-          </div>
+      <div class="header-actions">
+
+  <button id="theme-toggle"
+          class="icon-button theme-toggle"
+          type="button"
+          aria-label="تغییر تم"
+          title="تغییر تم">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+  </button>
+
+  <button class="icon-button" type="button" aria-label="اعلان‌ها" data-toast-message="۳ اعلان خوانده‌نشده دارید">
+    <i class="fas fa-bell" aria-hidden="true"></i><span class="notification-dot">۳</span>
+  </button>
+
+  <button class="btn btn-primary header-profile" type="button" data-toast-message="پروفایل ادمین آماده ویرایش است">
+    <i class="fas fa-user-circle" aria-hidden="true"></i><span>پروفایل</span>
+  </button>
+
+</div>
         </header>
       </div>
       <div class="toast-stack" aria-live="polite" aria-atomic="true"></div>
@@ -207,23 +218,63 @@ const nav = [
       modal.querySelector("button, input, select, textarea")?.focus();
     });
   });
-  document.querySelectorAll("[data-modal-close]").forEach(trigger => {
-    trigger.addEventListener("click", () => closeModal(trigger.closest(".modal-backdrop")));
-  });
-  document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
-    backdrop.addEventListener("click", event => {
-      if (event.target === backdrop) closeModal(backdrop);
-    });
-  });
 
-  document.querySelectorAll("form[data-demo-form]").forEach(form => {
-    form.addEventListener("submit", event => {
-      event.preventDefault();
-      if (!form.reportValidity()) return;
-      showToast(form.dataset.success || "تغییرات با موفقیت ذخیره شد");
-      form.querySelectorAll("[data-clear-after-submit]").forEach(input => { input.value = ""; });
+
+
+
+
+document.addEventListener("click", function (e) {
+
+    const openBtn = e.target.closest("[data-modal-open]");
+    if (openBtn) {
+        const modal = document.getElementById(openBtn.dataset.modalOpen);
+
+        if (modal) {
+            modal.classList.add("open");
+            modal.setAttribute("aria-hidden", "false");
+            modal.querySelector("input,textarea,select,button")?.focus();
+        }
+
+        return;
+    }
+
+    const closeBtn = e.target.closest("[data-modal-close]");
+    if (closeBtn) {
+        const modal = closeBtn.closest(".modal-backdrop");
+
+        if (modal) {
+            modal.classList.remove("open");
+            modal.setAttribute("aria-hidden", "true");
+        }
+
+        return;
+    }
+
+});
+
+
+
+
+
+  
+
+document.querySelectorAll("form[data-demo-form]").forEach(form => {
+
+    if (form.id === "new-role-form") return;
+
+    form.addEventListener("submit", function () {
+
+        if (!form.reportValidity()) return;
+
+        showToast(form.dataset.success || "تغییرات با موفقیت ذخیره شد");
+
+        form.querySelectorAll("[data-clear-after-submit]").forEach(input => {
+            input.value = "";
+        });
+
     });
-  });
+
+});
 
   document.querySelectorAll("[data-table-search]").forEach(input => {
     const table = document.querySelector(input.dataset.tableSearch);
@@ -245,12 +296,43 @@ const nav = [
     });
   });
 
-  document.querySelectorAll("[data-confirm]").forEach(button => {
-    button.addEventListener("click", () => {
-      if (window.confirm(button.dataset.confirm)) {
+document.addEventListener("click", function (e) {
+    const button = e.target.closest("[data-confirm]");
+    if (!button) return;
+
+    // اگر صفحه خودش حذف را مدیریت می‌کند دخالت نکن
+    if (button.classList.contains("delete-role")) return;
+
+    if (window.confirm(button.dataset.confirm)) {
         button.closest("tr, .list-item")?.remove();
         showToast("عملیات انجام شد");
-      }
-    });
-  });
+    }
+});
+
+
+const themeToggle = document.getElementById("theme-toggle");
+const themeIcon = themeToggle?.querySelector("i");
+
+function updateThemeIcon() {
+  if (!themeIcon) return;
+
+  if (document.body.classList.contains("light-theme")) {
+    themeIcon.classList.remove("fa-moon");
+    themeIcon.classList.add("fa-sun");
+  } else {
+    themeIcon.classList.remove("fa-sun");
+    themeIcon.classList.add("fa-moon");
+  }
+}
+
+updateThemeIcon();
+
+themeToggle?.addEventListener("click", () => {
+  document.body.classList.toggle("light-theme");
+  updateThemeIcon();
+});
+
+
+
+
 })();

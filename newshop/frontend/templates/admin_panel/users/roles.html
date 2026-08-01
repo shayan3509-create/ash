@@ -3,7 +3,6 @@
 
 {% block content %}
 
-
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
@@ -14,14 +13,58 @@
   <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
   <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
   <link rel="stylesheet" href="../../assets/css/app.css">
+  
+  <style>
+    .member-input-group { display: flex; gap: 8px; }
+    .member-input-group .input { flex: 1; }
+    .members-chip-container {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+      max-height: 150px; overflow-y: auto; padding: 10px;
+      border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc;
+    }
+    .members-chip-container::-webkit-scrollbar { width: 6px; }
+    .members-chip-container::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 3px; }
+    .member-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #e0f2fe; color: #0369a1; padding: 6px 12px;
+      border-radius: 9999px; font-size: 0.875rem; font-weight: 500; transition: all 0.2s ease;
+    }
+    .member-chip i.fa-user { font-size: 0.75rem; opacity: 0.8; }
+    .member-chip .remove-member {
+      cursor: pointer; color: #0369a1; transition: all 0.2s ease;
+      display: flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border-radius: 50%; font-size: 0.7rem;
+    }
+    .member-chip .remove-member:hover { background: #fecaca; color: #dc2626; }
+  </style>
 </head>
 <body data-root="../../" data-page="users-roles" data-title="نقش‌ها و دسترسی‌ها" data-subtitle="کنترل دقیق مجوزهای تیم بر پایه اصل حداقل دسترسی">
   <main class="page-content" data-app-shell>
     <section class="grid grid-4 mb-2" aria-label="خلاصه نقش‌ها">
-      <article class="card lift reveal" style="--delay: 40ms"><div class="stat"><div><span class="stat-label">نقش‌های فعال</span><div class="stat-value">۶</div><span class="trend">۲ نقش سیستمی</span></div><span class="stat-icon"><i class="fas fa-user-shield"></i></span></div></article>
-      <article class="card lift reveal" style="--delay: 100ms"><div class="stat"><div><span class="stat-label">اعضای تیم</span><div class="stat-value">۳۸</div><span class="trend">در ۴ واحد سازمانی</span></div><span class="stat-icon"><i class="fas fa-users-cog"></i></span></div></article>
-      <article class="card lift reveal" style="--delay: 160ms"><div class="stat"><div><span class="stat-label">مجوزهای تعریف‌شده</span><div class="stat-value">۲۴</div><span class="trend">آخرین بازبینی: امروز</span></div><span class="stat-icon"><i class="fas fa-key"></i></span></div></article>
-      <article class="card lift reveal" style="--delay: 220ms"><div class="stat"><div><span class="stat-label">درخواست دسترسی</span><div class="stat-value">۳</div><span class="trend down">نیازمند تصمیم مدیر</span></div><span class="stat-icon"><i class="fas fa-user-lock"></i></span></div></article>
+      <article class="card lift reveal" style="--delay: 40ms">
+        <div class="stat">
+          <div><span class="stat-label">نقش‌های فعال</span><div class="stat-value" id="stat-roles">0</div><span class="trend" id="stat-system-roles">0 نقش سیستمی</span></div>
+          <span class="stat-icon"><i class="fas fa-user-shield"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal" style="--delay: 100ms">
+        <div class="stat">
+          <div><span class="stat-label">اعضای تیم</span><div class="stat-value" id="stat-members">0</div><span class="trend">اعضای یکتا در سامانه</span></div>
+          <span class="stat-icon"><i class="fas fa-users-cog"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal" style="--delay: 160ms">
+        <div class="stat">
+          <div><span class="stat-label">مجوزهای تعریف‌شده</span><div class="stat-value" id="stat-permissions">0</div><span class="trend">آخرین بازبینی: امروز</span></div>
+          <span class="stat-icon"><i class="fas fa-key"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal" style="--delay: 220ms">
+        <div class="stat">
+          <div><span class="stat-label">درخواست دسترسی</span><div class="stat-value">3</div><span class="trend down">نیازمند تصمیم مدیر</span></div>
+          <span class="stat-icon"><i class="fas fa-user-lock"></i></span>
+        </div>
+      </article>
     </section>
 
     <section class="card reveal mb-2" style="--delay: 280ms">
@@ -31,14 +74,10 @@
       </div>
       <div class="table-wrap">
         <table class="data-table responsive">
-          <thead><tr><th>نقش</th><th>شرح مسئولیت</th><th>اعضا</th><th>دامنه دسترسی</th><th>آخرین تغییر</th><th>وضعیت</th><th>عملیات</th></tr></thead>
-          <tbody>
-            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-crown"></i></span><strong>مدیر ارشد</strong></div></td><td data-label="شرح مسئولیت">کنترل کامل تنظیمات و عملیات</td><td data-label="اعضا">۲ نفر</td><td data-label="دامنه دسترسی"><span class="badge danger">دسترسی کامل</span></td><td data-label="آخرین تغییر">۲۱ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">سیستمی</span></td><td data-label="عملیات"><button class="action-btn" title="مشاهده" data-toast-message="جزئیات نقش مدیر ارشد باز شد"><i class="fas fa-eye"></i></button></td></tr>
-            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-headset"></i></span><strong>سرپرست پشتیبانی</strong></div></td><td data-label="شرح مسئولیت">مدیریت تیکت‌ها و رضایت مشتری</td><td data-label="اعضا">۵ نفر</td><td data-label="دامنه دسترسی"><span class="badge info">۱۲ از ۲۴ مجوز</span></td><td data-label="آخرین تغییر">۱۸ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش نقش آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="نقش سرپرست پشتیبانی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
-            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-box-open"></i></span><strong>مدیر محصول</strong></div></td><td data-label="شرح مسئولیت">کاتالوگ، موجودی و دسته‌بندی</td><td data-label="اعضا">۸ نفر</td><td data-label="دامنه دسترسی"><span class="badge info">۹ از ۲۴ مجوز</span></td><td data-label="آخرین تغییر">۱۴ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش نقش آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="نقش مدیر محصول حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
-            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-pen-nib"></i></span><strong>کارشناس محتوا</strong></div></td><td data-label="شرح مسئولیت">تولید و انتشار محتوای فروشگاه</td><td data-label="اعضا">۶ نفر</td><td data-label="دامنه دسترسی"><span class="badge warning">۶ از ۲۴ مجوز</span></td><td data-label="آخرین تغییر">۰۹ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش نقش آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="نقش کارشناس محتوا حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
-            <tr><td data-label="نقش"><div class="entity"><span class="entity-avatar"><i class="fas fa-calculator"></i></span><strong>حسابدار</strong></div></td><td data-label="شرح مسئولیت">فاکتورها، تراکنش‌ها و تسویه</td><td data-label="اعضا">۳ نفر</td><td data-label="دامنه دسترسی"><span class="badge info">۸ از ۲۴ مجوز</span></td><td data-label="آخرین تغییر">۰۲ تیر ۱۴۰۵</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش نقش آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-confirm="نقش حسابدار حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
-          </tbody>
+          <thead>
+            <tr><th>نقش</th><th>شرح مسئولیت</th><th>اعضا</th><th>دامنه دسترسی</th><th>آخرین تغییر</th><th>وضعیت</th><th>عملیات</th></tr>
+          </thead>
+          <tbody id="roles-table-body"></tbody>
         </table>
       </div>
     </section>
@@ -46,40 +85,377 @@
     <section class="grid grid-2">
       <article class="card reveal" style="--delay: 350ms">
         <div class="section-head"><div><h2>پوشش مجوزها</h2><p>درصد دسترسی هر نقش از کل قابلیت‌های سامانه</p></div></div>
-        <div class="list">
-          <div class="list-item"><span class="list-icon"><i class="fas fa-crown"></i></span><div class="list-copy"><strong>مدیر ارشد — ۱۰۰٪</strong><div class="progress"><span style="--value: 100%"></span></div></div></div>
-          <div class="list-item"><span class="list-icon"><i class="fas fa-headset"></i></span><div class="list-copy"><strong>سرپرست پشتیبانی — ۵۰٪</strong><div class="progress"><span style="--value: 50%"></span></div></div></div>
-          <div class="list-item"><span class="list-icon"><i class="fas fa-box-open"></i></span><div class="list-copy"><strong>مدیر محصول — ۳۸٪</strong><div class="progress"><span style="--value: 38%"></span></div></div></div>
-          <div class="list-item"><span class="list-icon"><i class="fas fa-pen-nib"></i></span><div class="list-copy"><strong>کارشناس محتوا — ۲۵٪</strong><div class="progress"><span style="--value: 25%"></span></div></div></div>
-        </div>
+        <div class="list" id="permission-coverage-list"></div>
       </article>
       <article class="card reveal" style="--delay: 420ms">
         <div class="section-head"><div><h2>رویدادهای امنیتی اخیر</h2><p>تغییرات حساس دسترسی در هفت روز گذشته</p></div><button class="btn btn-sm btn-secondary" type="button" data-toast-message="گزارش کامل حسابرسی آماده شد">گزارش کامل</button></div>
         <div class="list">
-          <div class="list-item"><span class="list-icon"><i class="fas fa-user-plus"></i></span><div class="list-copy"><strong>پیوستن الهام مرادی به تیم محصول</strong><small>امروز، ۱۰:۲۴ — توسط مدیر ارشد</small></div><span class="badge info">عضویت</span></div>
-          <div class="list-item"><span class="list-icon"><i class="fas fa-key"></i></span><div class="list-copy"><strong>افزودن مجوز بازپرداخت محدود</strong><small>دیروز، ۱۶:۱۰ — نقش حسابدار</small></div><span class="badge warning">مجوز</span></div>
-          <div class="list-item"><span class="list-icon"><i class="fas fa-user-minus"></i></span><div class="list-copy"><strong>لغو دسترسی پیمانکار محتوا</strong><small>۱۸ تیر، ۰۹:۳۵ — پایان همکاری</small></div><span class="badge success">انجام شد</span></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-user-plus"></i></span><div class="list-copy"><strong>پیوستن الهام مرادی به تیم محصول</strong><small>امروز، 10:24 — توسط مدیر ارشد</small></div><span class="badge info">عضویت</span></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-key"></i></span><div class="list-copy"><strong>افزودن مجوز بازپرداخت محدود</strong><small>دیروز، 16:10 — نقش حسابدار</small></div><span class="badge warning">مجوز</span></div>
+          <div class="list-item"><span class="list-icon"><i class="fas fa-user-minus"></i></span><div class="list-copy"><strong>لغو دسترسی پیمانکار محتوا</strong><small>18 تیر، 09:35 — پایان همکاری</small></div><span class="badge success">انجام شد</span></div>
         </div>
       </article>
     </section>
   </main>
 
+  <!-- Modal: New Role -->
   <div class="modal-backdrop" id="new-role" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="role-title">
       <div class="modal-head"><h2 id="role-title">تعریف نقش جدید</h2><button class="action-btn" type="button" data-modal-close aria-label="بستن"><i class="fas fa-times"></i></button></div>
-      <form class="form-grid" data-demo-form data-success="نقش جدید با موفقیت ایجاد شد">
+      <form id="new-role-form" class="form-grid" data-demo-form data-success="نقش جدید با موفقیت ایجاد شد">
         <div class="field field-full"><label for="role-name">نام نقش *</label><input class="input" id="role-name" type="text" placeholder="مثلاً کارشناس کنترل کیفیت" required></div>
         <div class="field field-full"><label for="role-description">شرح مسئولیت *</label><textarea class="textarea" id="role-description" placeholder="دامنه وظایف این نقش را توضیح دهید." required></textarea></div>
         <div class="field"><label for="role-template">الگوی دسترسی *</label><select class="select" id="role-template" required><option value="">انتخاب کنید</option><option>فقط مشاهده</option><option>عملیاتی محدود</option><option>سفارشی</option></select></div>
-        <div class="field"><label for="role-expiry">انقضای دسترسی</label><select class="select" id="role-expiry"><option>بدون انقضا</option><option>۳۰ روز</option><option>۹۰ روز</option></select></div>
+        <div class="field"><label for="role-expiry">انقضای دسترسی</label><select class="select" id="role-expiry"><option>بدون انقضا</option><option>30 روز</option><option>90 روز</option></select></div>
         <label class="switch field-full"><input type="checkbox" checked><span class="switch-track"></span><span>ثبت تمام فعالیت‌های این نقش در گزارش حسابرسی</span></label>
         <div class="field-full toolbar"><button class="btn btn-primary" type="submit"><i class="fas fa-check"></i> ایجاد نقش</button><button class="btn btn-secondary" type="button" data-modal-close>انصراف</button></div>
       </form>
     </div>
   </div>
+
+  <!-- Modal: Edit Role -->
+  <div class="modal-backdrop" id="edit-role" aria-hidden="true">
+    <div class="modal modal-lg" role="dialog">
+      <div class="modal-head">
+        <h2>ویرایش نقش</h2>
+        <button class="action-btn" type="button" data-modal-close><i class="fas fa-times"></i></button>
+      </div>
+      <form id="edit-role-form" class="form-grid">
+        <div class="field field-full">
+          <label>نام نقش</label>
+          <input id="edit-role-name" class="input" required>
+        </div>
+        <div class="field field-full">
+          <label>شرح مسئولیت</label>
+          <textarea id="edit-role-description" class="textarea"></textarea>
+        </div>
+        
+        <div class="field field-full">
+          <label>اعضای نقش</label>
+          <div class="member-input-group">
+            <input type="text" id="edit-role-member-input" class="input" placeholder="نام کاربر را وارد کنید و Enter بزنید...">
+            <button type="button" id="add-member-btn" class="btn btn-primary" style="padding: 0 12px;"><i class="fas fa-plus"></i></button>
+          </div>
+          <div id="edit-role-members-list" class="members-chip-container"></div>
+        </div>
+
+        <div class="field field-full">
+          <label>دسترسی‌ها</label>
+          <div id="permission-list" class="permission-grid"></div>
+        </div>
+        <div class="field-full toolbar">
+          <button class="btn btn-primary" type="submit">ذخیره تغییرات</button>
+          <button class="btn btn-secondary" type="button" data-modal-close>انصراف</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   مدیریت نقش‌ها — همگام‌سازی کامل + شمارش یکتا با Set
+   ========================================================= */
+
+const permissions = [
+    "مشاهده داشبورد", "مدیریت کاربران", "حذف کاربران", "ویرایش کاربران",
+    "مدیریت نقش ها", "مشاهده سفارشات", "ویرایش سفارشات", "حذف سفارشات",
+    "مدیریت محصولات", "ویرایش محصولات", "حذف محصولات", "ایجاد محصول",
+    "مدیریت دسته بندی", "مدیریت برند", "مدیریت نظرات", "مدیریت تخفیف",
+    "مدیریت کوپن", "مدیریت انبار", "مدیریت مالی", "مشاهده گزارشات",
+    "تنظیمات سایت", "مدیریت اسلایدر", "مدیریت صفحات", "مدیریت تیکت ها"
+];
+
+const STORAGE_KEY = "roles";
+
+const defaultRoles = [
+    { id: 1, name: "مدیر ارشد", description: "کنترل کامل تنظیمات و عملیات", members: ["کاربر ۱", "کاربر ۲"], permissions: [...permissions], system: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { id: 2, name: "سرپرست پشتیبانی", description: "مدیریت تیکت‌ها و رضایت مشتری", members: ["کاربر ۱", "کاربر ۳", "کاربر ۴"], permissions: permissions.slice(0, 12), system: false, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { id: 3, name: "مدیر محصول", description: "کاتالوگ، موجودی و دسته‌بندی", members: ["کاربر ۲", "کاربر ۵"], permissions: permissions.slice(0, 9), system: false, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
+];
+
+/* ---------- ابزارها ---------- */
+function escapeHtml(text) {
+    if (!text) return "";
+    return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+
+function formatDate(isoString) {
+    if (!isoString) return "—";
+    try { return new Date(isoString).toLocaleDateString('fa-IR'); } catch (e) { return "—"; }
+}
+
+function getRoles() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch (_) { return []; }
+}
+
+function saveRoles(roles) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(roles));
+}
+
+/* ---------- مدیریت Chipهای اعضا (State Local) ---------- */
+let currentEditMembers = [];
+
+function renderMemberChips() {
+    const container = document.getElementById("edit-role-members-list");
+    container.innerHTML = "";
+    
+    if (currentEditMembers.length === 0) {
+        container.innerHTML = `<span style="color: #94a3b8; font-size: 0.85rem; width: 100%; text-align: center; padding: 10px;">هنوز عضوی اضافه نشده است</span>`;
+        return;
+    }
+
+    currentEditMembers.forEach((member, index) => {
+        const chip = document.createElement("div");
+        chip.className = "member-chip";
+        chip.innerHTML = `
+            <i class="fas fa-user"></i>
+            <span>${escapeHtml(member)}</span>
+            <span class="remove-member" data-index="${index}" title="حذف عضو"><i class="fas fa-times"></i></span>
+        `;
+        container.appendChild(chip);
+    });
+}
+
+function addMemberToRole() {
+    const input = document.getElementById("edit-role-member-input");
+    const name = input.value.trim();
+    
+    if (!name) return;
+    if (currentEditMembers.includes(name)) {
+        input.value = "";
+        return; // جلوگیری از عضو تکراری در یک نقش
+    }
+    
+    currentEditMembers.push(name);
+    input.value = "";
+    renderMemberChips();
+    input.focus();
+}
+
+/* ---------- 4. تابع رندر کامل داشبورد (همگام‌سازی مرکزی) ---------- */
+function renderDashboard() {
+    const rolesTable = document.getElementById("roles-table-body");
+    const coverageList = document.getElementById("permission-coverage-list");
+    
+    rolesTable.innerHTML = "";
+    if (coverageList) coverageList.innerHTML = "";
+
+    const roles = getRoles();
+    let systemCount = 0;
+    
+    // محاسبه اعضای یکتا با استفاده از Set
+    const allMembers = roles.flatMap(role => role.members || []);
+    const uniqueMembersCount = new Set(allMembers).size;
+
+    roles.forEach(role => {
+        const permCount = role.permissions ? role.permissions.length : 0;
+        const memberCount = role.members ? role.members.length : 0; // خواندن مقدار واقعی
+        if (role.system) systemCount++;
+
+        let badgeClass = "info";
+        if (permCount === permissions.length) badgeClass = "danger";
+        else if (permCount >= permissions.length * 0.75) badgeClass = "warning";
+
+        let actionsHtml = `
+            <button class="action-btn view-role" title="مشاهده"><i class="fas fa-eye"></i></button>
+            <button class="action-btn edit-role-btn" title="ویرایش"><i class="fas fa-pen"></i></button>
+        `;
+        
+        if (role.system) {
+            actionsHtml += `<button class="action-btn" disabled title="نقش سیستمی قابل حذف نیست" style="opacity:0.4; cursor:not-allowed;"><i class="fas fa-trash"></i></button>`;
+        } else {
+            actionsHtml += `<button class="action-btn delete-role" title="حذف" data-confirm="آیا از حذف این نقش اطمینان دارید؟"><i class="fas fa-trash"></i></button>`;
+        }
+
+        const row = document.createElement("tr");
+        row.dataset.id = role.id;
+        row.innerHTML = `
+            <td data-label="نقش">
+                <div class="entity">
+                    <span class="entity-avatar"><i class="fas fa-${role.system ? 'crown' : 'user-shield'}"></i></span>
+                    <strong>${escapeHtml(role.name)}</strong>
+                </div>
+            </td>
+            <td data-label="شرح مسئولیت">${escapeHtml(role.description)}</td>
+            <td data-label="اعضا">${memberCount} نفر</td>
+            <td data-label="دامنه دسترسی">
+                <span class="badge ${badgeClass}">${permCount} از ${permissions.length} مجوز</span>
+            </td>
+            <td data-label="آخرین تغییر">${formatDate(role.updatedAt)}</td>
+            <td data-label="وضعیت">
+                <span class="badge success">${role.system ? 'سیستمی' : 'فعال'}</span>
+            </td>
+            <td data-label="عملیات">
+                <div class="actions">${actionsHtml}</div>
+            </td>
+        `;
+        rolesTable.appendChild(row);
+
+        if (coverageList) {
+            const percent = Math.round((permCount / permissions.length) * 100);
+            coverageList.innerHTML += `
+                <div class="list-item">
+                    <span class="list-icon"><i class="fas fa-${role.system ? 'crown' : 'user-shield'}"></i></span>
+                    <div class="list-copy">
+                        <strong>${escapeHtml(role.name)} — ${percent}٪</strong>
+                        <div class="progress"><span style="--value: ${percent}%"></span></div>
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    // به‌روزرسانی کارت‌های آماری
+    document.getElementById("stat-roles").textContent = roles.length;
+    document.getElementById("stat-system-roles").textContent = `${systemCount} نقش سیستمی`;
+    document.getElementById("stat-members").textContent = uniqueMembersCount; // مقدار یکتا
+    document.getElementById("stat-permissions").textContent = permissions.length;
+}
+
+/* ---------- 3. مقداردهی اولیه ---------- */
+(function init() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) {
+        saveRoles(defaultRoles);
+    }
+    renderDashboard(); // فراخوانی اولیه برای رندر همه چیز
+})();
+
+let editingRoleId = null;
+
+/* ---------- ایجاد نقش جدید ---------- */
+document.getElementById("new-role-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const roleName = document.getElementById("role-name").value.trim();
+    const roleDescription = document.getElementById("role-description").value.trim();
+
+    if (!roleName) return;
+    const roles = getRoles();
+    if (roles.some(r => r.name === roleName)) {
+        alert(`نقشی با نام "${roleName}" از قبل وجود دارد.`);
+        return;
+    }
+
+    const now = new Date().toISOString();
+    roles.push({
+        id: Date.now(), name: roleName, description: roleDescription,
+        members: [], permissions: [], createdAt: now, updatedAt: now, system: false
+    });
+
+    saveRoles(roles);
+    this.reset();
+    document.querySelector('#new-role [data-modal-close]').click();
+    renderDashboard(); // همگام‌سازی کامل
+});
+
+/* ---------- 10. Event Delegation ---------- */
+document.addEventListener("click", function (e) {
+    // ویرایش
+    const editBtn = e.target.closest(".edit-role-btn");
+    if (editBtn) {
+        const row = editBtn.closest("tr");
+        const roleId = Number(row.dataset.id);
+        const roles = getRoles();
+        const role = roles.find(r => r.id === roleId);
+        if (!role) return;
+
+        editingRoleId = roleId;
+        document.getElementById("edit-role-name").value = role.name;
+        document.getElementById("edit-role-description").value = role.description;
+        
+        // بارگذاری اعضا از localStorage به آرایه موقت
+        currentEditMembers = [...(role.members || [])];
+        renderMemberChips();
+
+        const list = document.getElementById("permission-list");
+        list.innerHTML = "";
+        permissions.forEach(function (permission) {
+            const isChecked = (role.permissions || []).includes(permission) ? "checked" : "";
+            list.innerHTML += `
+                <label class="permission-item">
+                    <input type="checkbox" value="${escapeHtml(permission)}" ${isChecked}>
+                    <span>${escapeHtml(permission)}</span>
+                </label>
+            `;
+        });
+
+        const modal = document.getElementById("edit-role");
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        modal.querySelector("input, textarea, select, button")?.focus();
+        return;
+    }
+
+    // حذف عضو از داخل Chip
+    const removeMemberBtn = e.target.closest(".remove-member");
+    if (removeMemberBtn) {
+        const index = Number(removeMemberBtn.dataset.index);
+        currentEditMembers.splice(index, 1);
+        renderMemberChips();
+        return;
+    }
+
+    // حذف نقش
+    const deleteBtn = e.target.closest(".delete-role");
+    if (deleteBtn) {
+        const row = deleteBtn.closest("tr");
+        const roleId = Number(row.dataset.id);
+        let roles = getRoles();
+        roles = roles.filter(r => r.id !== roleId);
+        saveRoles(roles);
+        renderDashboard(); // همگام‌سازی کامل
+    }
+});
+
+/* ---------- رویدادهای اختصاصی Input اعضا ---------- */
+document.getElementById("add-member-btn").addEventListener("click", addMemberToRole);
+document.getElementById("edit-role-member-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        addMemberToRole();
+    }
+});
+
+/* ---------- ذخیره ویرایش ---------- */
+document.getElementById("edit-role-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!editingRoleId) return;
+
+    const newName = document.getElementById("edit-role-name").value.trim();
+    const newDescription = document.getElementById("edit-role-description").value.trim();
+
+    if (!newName) {
+        alert("نام نقش الزامی است.");
+        return;
+    }
+
+    const roles = getRoles();
+    if (roles.some(r => r.name === newName && r.id !== editingRoleId)) {
+        alert(`نقشی با نام "${newName}" از قبل وجود دارد.`);
+        return;
+    }
+
+    const selectedPermissions = [...document.querySelectorAll("#permission-list input:checked")].map(cb => cb.value);
+
+    const idx = roles.findIndex(r => r.id === editingRoleId);
+    if (idx !== -1) {
+        roles[idx].name = newName;
+        roles[idx].description = newDescription;
+        roles[idx].members = [...currentEditMembers]; // ذخیره مستقیم آرایه به‌روز شده
+        roles[idx].permissions = selectedPermissions;
+        roles[idx].updatedAt = new Date().toISOString();
+        
+        saveRoles(roles);
+    }
+
+    document.querySelector('#edit-role [data-modal-close]').click();
+    renderDashboard(); // همگام‌سازی کامل پس از ذخیره
+    editingRoleId = null;
+});
+</script>
+
   <script src="../../assets/js/app.js"></script>
 </body>
 </html>
-
 
 {% endblock %}
