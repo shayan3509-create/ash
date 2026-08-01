@@ -20,6 +20,15 @@ const nav = [
     href: "/admin-panel/"
   },
 
+
+  {
+  id: "products-categories",
+  label: "دسته‌بندی",
+  icon: "fa-layer-group",
+  href: "/admin-panel/products/categories/"
+},
+
+
   {
     id: "users",
     label: "کاربران",
@@ -38,7 +47,7 @@ const nav = [
     children: [
       ["products", "لیست محصولات", "/admin-panel/products/"],
       ["products-create", "افزودن محصول", "/admin-panel/products/create/"],
-      ["products-categories", "دسته‌بندی", "/admin-panel/products/categories/"]
+
     ]
   },
 

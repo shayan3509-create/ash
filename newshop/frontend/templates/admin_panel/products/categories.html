@@ -2,99 +2,1232 @@
 {% load static %}
 
 {% block content %}
-
-
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="مدیریت دسته‌بندی محصولات">
-  <title>دسته‌بندی محصولات | پنل ادمین</title>
-  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
-  <link rel="stylesheet" href="../../assets/css/app.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>دسته‌بندی محصولات</title>
+    <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+    <link rel="stylesheet" href="../../assets/css/app.css">
 </head>
-<body data-root="../../" data-page="products-categories" data-title="دسته‌بندی محصولات" data-subtitle="ساختاردهی کاتالوگ برای دسترسی سریع‌تر مشتری و جست‌وجوی بهتر">
-  <main class="page-content" data-app-shell>
-    <section class="grid grid-4 mb-2" aria-label="آمار دسته‌بندی">
-      <article class="card lift reveal" style="--delay: 40ms"><div class="stat"><div><span class="stat-label">دسته‌های اصلی</span><div class="stat-value">۱۲</div><span class="trend">همگی فعال</span></div><span class="stat-icon"><i class="fas fa-sitemap"></i></span></div></article>
-      <article class="card lift reveal" style="--delay: 100ms"><div class="stat"><div><span class="stat-label">زیردسته‌ها</span><div class="stat-value">۶۸</div><span class="trend">میانگین عمق: ۲٫۳</span></div><span class="stat-icon"><i class="fas fa-project-diagram"></i></span></div></article>
-      <article class="card lift reveal" style="--delay: 160ms"><div class="stat"><div><span class="stat-label">بدون دسته‌بندی</span><div class="stat-value">۹</div><span class="trend down">نیازمند اقدام</span></div><span class="stat-icon"><i class="fas fa-question-circle"></i></span></div></article>
-      <article class="card lift reveal" style="--delay: 220ms"><div class="stat"><div><span class="stat-label">پربازدیدترین</span><div class="stat-value">موبایل</div><span class="trend">۲۸٪ بازدید کاتالوگ</span></div><span class="stat-icon"><i class="fas fa-chart-line"></i></span></div></article>
-    </section>
+<body
+    data-root="../../"
+    data-page="products-categories"
+    data-title="دسته‌بندی محصولات"
+    data-subtitle="">
 
-    <div class="grid grid-3">
-      <section class="card span-2 reveal" style="--delay: 280ms">
-        <div class="section-head">
-          <div><h2>ساختار دسته‌بندی‌ها</h2><p>تعداد محصول، عمق ساختار و وضعیت نمایش در فروشگاه</p></div>
-          <button class="btn btn-primary" type="button" data-modal-open="new-category"><i class="fas fa-folder-plus"></i> دسته جدید</button>
+    <main class="page-content" data-app-shell>
+        
+        <!-- ۱- کارت‌های آماری - فقط این دو کارت lift دارند -->
+        <div class="grid grid-2 mb-2">
+            <div class="card lift reveal" style="--delay: 0ms">
+                <div class="stat">
+                    <div>
+                        <div class="stat-label">تعداد دسته‌بندی‌ها</div>
+                        <div class="stat-value" id="totalCategories">0</div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa fa-folder"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card lift reveal" style="--delay: 100ms">
+                <div class="stat">
+                    <div>
+                        <div class="stat-label">تعداد کل محصولات</div>
+                        <div class="stat-value" id="totalProducts">0</div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa fa-cube"></i>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="toolbar mb-1">
-          <div class="field"><label for="category-search">جست‌وجو</label><input class="input" id="category-search" type="search" placeholder="نام یا شناسه دسته..." data-table-search="#categories-table"></div>
-          <div class="field"><label for="category-status">وضعیت نمایش</label><select class="select" id="category-status" data-table-filter="#categories-table"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="hidden">پنهان</option></select></div>
-        </div>
-        <div class="table-wrap">
-          <table class="data-table responsive" id="categories-table">
-            <thead><tr><th>دسته‌بندی</th><th>شناسه</th><th>محصولات</th><th>زیردسته</th><th>سهم بازدید</th><th>وضعیت</th><th>عملیات</th></tr></thead>
-            <tbody>
-              <tr data-status="active"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-mobile-alt"></i></span><strong>موبایل و تبلت</strong></div></td><td data-label="شناسه">mobile-tablet</td><td data-label="محصولات">۴۸۲</td><td data-label="زیردسته">۸</td><td data-label="سهم بازدید">۲۸٪</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="زیردسته‌ها نمایش داده شد"><i class="fas fa-sitemap"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
-              <tr data-status="active"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-laptop"></i></span><strong>کامپیوتر و لپ‌تاپ</strong></div></td><td data-label="شناسه">computer-laptop</td><td data-label="محصولات">۳۷۶</td><td data-label="زیردسته">۹</td><td data-label="سهم بازدید">۲۱٪</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="زیردسته‌ها نمایش داده شد"><i class="fas fa-sitemap"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
-              <tr data-status="active"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-home"></i></span><strong>خانه و آشپزخانه</strong></div></td><td data-label="شناسه">home-kitchen</td><td data-label="محصولات">۵۹۱</td><td data-label="زیردسته">۱۲</td><td data-label="سهم بازدید">۱۹٪</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="زیردسته‌ها نمایش داده شد"><i class="fas fa-sitemap"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
-              <tr data-status="active"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-running"></i></span><strong>ورزش و سفر</strong></div></td><td data-label="شناسه">sport-travel</td><td data-label="محصولات">۲۶۴</td><td data-label="زیردسته">۷</td><td data-label="سهم بازدید">۱۳٪</td><td data-label="وضعیت"><span class="badge success">فعال</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="زیردسته‌ها نمایش داده شد"><i class="fas fa-sitemap"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
-              <tr data-status="hidden"><td data-label="دسته‌بندی"><div class="entity"><span class="entity-avatar"><i class="fas fa-gift"></i></span><strong>پیشنهادهای مناسبتی</strong></div></td><td data-label="شناسه">seasonal-offers</td><td data-label="محصولات">۴۶</td><td data-label="زیردسته">۳</td><td data-label="سهم بازدید">۲٪</td><td data-label="وضعیت"><span class="badge warning">پنهان</span></td><td data-label="عملیات"><div class="actions"><button class="action-btn" data-toast-message="ویرایش دسته آماده است"><i class="fas fa-pen"></i></button><button class="action-btn" data-toast-message="دسته‌بندی منتشر شد"><i class="fas fa-eye"></i></button><button class="action-btn" data-confirm="این دسته‌بندی حذف شود؟"><i class="fas fa-trash"></i></button></div></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
 
-      <aside class="grid">
-        <section class="card lift reveal" style="--delay: 340ms">
-          <div class="section-head"><div><h3>سلامت ساختار</h3><p>پیشنهادهای بهبود پیمایش کاتالوگ</p></div><span class="badge success">۸۷٪ مطلوب</span></div>
-          <div class="list">
-            <div class="list-item"><span class="list-icon"><i class="fas fa-exclamation"></i></span><div class="list-copy"><strong>۹ محصول بدون دسته</strong><small>اختصاص دسته، نمایش در جست‌وجو را بهتر می‌کند.</small></div><button class="action-btn" data-toast-message="محصولات بدون دسته فیلتر شدند"><i class="fas fa-arrow-left"></i></button></div>
-            <div class="list-item"><span class="list-icon"><i class="fas fa-layer-group"></i></span><div class="list-copy"><strong>۳ دسته با عمق زیاد</strong><small>ساختار بیش از سه سطح برای موبایل مناسب نیست.</small></div></div>
-            <div class="list-item"><span class="list-icon"><i class="fas fa-search"></i></span><div class="list-copy"><strong>۵ عنوان مشابه</strong><small>نام‌های متمایز، تجربه جست‌وجو را شفاف‌تر می‌کند.</small></div></div>
-          </div>
-        </section>
-        <section class="card reveal" style="--delay: 410ms">
-          <div class="section-head"><div><h3>سهم بازدید دسته‌ها</h3><p>۳۰ روز اخیر</p></div></div>
-          <div class="list">
-            <div class="list-item"><div class="list-copy"><strong>موبایل و تبلت — ۲۸٪</strong><div class="progress"><span style="--value: 28%"></span></div></div></div>
-            <div class="list-item"><div class="list-copy"><strong>کامپیوتر و لپ‌تاپ — ۲۱٪</strong><div class="progress"><span style="--value: 21%"></span></div></div></div>
-            <div class="list-item"><div class="list-copy"><strong>خانه و آشپزخانه — ۱۹٪</strong><div class="progress"><span style="--value: 19%"></span></div></div></div>
-            <div class="list-item"><div class="list-copy"><strong>ورزش و سفر — ۱۳٪</strong><div class="progress"><span style="--value: 13%"></span></div></div></div>
-          </div>
-        </section>
-        <section class="card reveal" style="--delay: 480ms">
-          <div class="section-head"><div><h3>مرتب‌سازی ویترین</h3><p>ترتیب دسته‌های صفحه اصلی</p></div></div>
-          <button class="btn btn-secondary" type="button" data-toast-message="حالت مرتب‌سازی دستی فعال شد"><i class="fas fa-sort"></i> مدیریت ترتیب نمایش</button>
-        </section>
-      </aside>
+        <!-- ۲- Toolbar - بدون lift -->
+        <div class="card reveal mb-2" style="--delay: 200ms">
+            <div class="toolbar">
+                <button class="btn btn-primary" onclick="openCategoryModal()">
+                    <i class="fa fa-plus"></i>
+                    ایجاد دسته‌بندی
+                </button>
+                <div class="field" style="flex: 1 1 12rem;">
+                    <input type="text" class="input" id="searchInput" placeholder="جستجو در نام و slug...">
+                </div>
+                <div class="field" style="flex: 0 0 auto;">
+                    <select class="select" id="statusFilter">
+                        <option value="">همه وضعیت‌ها</option>
+                        <option value="active">فعال</option>
+                        <option value="inactive">غیرفعال</option>
+                    </select>
+                </div>
+                <div class="field" style="flex: 0 0 auto;">
+                    <select class="select" id="sortSelect">
+                        <option value="name">مرتب‌سازی: نام</option>
+                        <option value="products">مرتب‌سازی: تعداد محصولات</option>
+                        <option value="updated">مرتب‌سازی: آخرین ویرایش</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- ۳- جدول دسته‌بندی‌ها - بدون lift -->
+        <div class="card reveal" style="--delay: 300ms">
+            <div class="table-wrap">
+                <table class="data-table responsive">
+                    <thead>
+                        <tr>
+                            <th>آیکون</th>
+                            <th>نام</th>
+                            <th>متن جایگزین</th>
+                            <th>دسته والد</th>
+                            <th>تعداد محصولات</th>
+                            <th>وضعیت</th>
+                            <th>آخرین ویرایش</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoriesTableBody">
+                        <!-- داده‌ها توسط JavaScript بارگذاری می‌شوند -->
+                    </tbody>
+                </table>
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <i class="fa fa-folder-open"></i>
+                    <p>هیچ دسته‌بندی یافت نشد</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal مشاهده دسته‌بندی -->
+    <div class="modal-backdrop" id="viewModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h2>مشاهده دسته‌بندی</h2>
+                <button class="action-btn" onclick="closeModal('viewModal')">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="list" id="viewModalContent">
+                <!-- اطلاعات توسط JavaScript بارگذاری می‌شوند -->
+            </div>
+            <div class="toolbar" style="margin-top: 1.5rem; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeModal('viewModal')">بستن</button>
+            </div>
+        </div>
     </div>
-  </main>
 
-  <div class="modal-backdrop" id="new-category" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="category-title">
-      <div class="modal-head"><h2 id="category-title">ساخت دسته‌بندی جدید</h2><button class="action-btn" type="button" data-modal-close aria-label="بستن"><i class="fas fa-times"></i></button></div>
-      <form class="form-grid" data-demo-form data-success="دسته‌بندی جدید با موفقیت ایجاد شد">
-        <div class="field field-full"><label for="category-name">نام دسته‌بندی *</label><input class="input" id="category-name" type="text" placeholder="مثلاً لوازم هوشمند خانه" required></div>
-        <div class="field"><label for="category-slug">شناسه انگلیسی *</label><input class="input" id="category-slug" type="text" pattern="[a-z0-9-]+" placeholder="smart-home" required></div>
-        <div class="field"><label for="parent-category">دسته والد</label><select class="select" id="parent-category"><option>بدون والد — دسته اصلی</option><option>خانه و آشپزخانه</option><option>کالای دیجیتال</option><option>ورزش و سفر</option></select></div>
-        <div class="field field-full"><label for="category-description">توضیح کوتاه *</label><textarea class="textarea" id="category-description" placeholder="این دسته شامل چه محصولاتی است؟" required></textarea></div>
-        <div class="field"><label for="category-icon">آیکن</label><select class="select" id="category-icon"><option>خانه</option><option>موبایل</option><option>لپ‌تاپ</option><option>هدیه</option><option>ورزش</option></select></div>
-        <div class="field"><label for="category-order">اولویت نمایش</label><input class="input" id="category-order" type="number" min="1" value="10"></div>
-        <label class="switch field-full"><input type="checkbox" checked><span class="switch-track"></span><span>دسته‌بندی بلافاصله در فروشگاه نمایش داده شود</span></label>
-        <div class="field-full toolbar"><button class="btn btn-primary" type="submit"><i class="fas fa-check"></i> ایجاد دسته</button><button class="btn btn-secondary" type="button" data-modal-close>انصراف</button></div>
-      </form>
+    <!-- Modal ایجاد و ویرایش دسته‌بندی -->
+    <div class="modal-backdrop" id="categoryModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h2 id="categoryModalTitle">ایجاد دسته‌بندی</h2>
+                <button class="action-btn" onclick="closeModal('categoryModal')">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <form id="categoryForm" onsubmit="event.preventDefault(); saveCategory();">
+                <input type="hidden" id="categoryId">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>نام دسته *</label>
+                        <input type="text" class="input" id="categoryName" required>
+                    </div>
+                    <div class="field">
+                        <label>Slug *</label>
+                        <input type="text" class="input" id="categorySlug" required>
+                    </div>
+                    <div class="field field-full">
+                        <label>آپلود فایل SVG *</label>
+                        <input type="file" class="input" id="svgFile" accept=".svg" onchange="handleFileSelect(event)">
+                        <div class="entity" id="svgPreview" style="display: none; margin-top: 0.5rem;">
+                            <div id="svgPreviewAvatar" class="svg-container svg-container-lg"></div>
+                            <div class="list-copy">
+                                <strong>پیش‌نمایش SVG</strong>
+                                <small id="svgPreviewName"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field field-full">
+                        <label>رنگ آیکون SVG</label>
+                        <div style="display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap;">
+                            <!-- Color Picker حرفه‌ای -->
+                            <div style="flex: 1; min-width: 200px;">
+                                <!-- مربع انتخاب رنگ -->
+                                <div id="colorSquare" style="width: 100%; aspect-ratio: 1; position: relative; cursor: crosshair; border-radius: 0.5rem; overflow: hidden; touch-action: none;">
+                                    <div id="colorSquareMarker" style="position: absolute; width: 16px; height: 16px; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 3px rgba(0,0,0,0.6); transform: translate(-50%, -50%); pointer-events: none;"></div>
+                                </div>
+                                <!-- نوار Hue -->
+                                <div id="hueBar" style="width: 100%; height: 16px; position: relative; cursor: pointer; border-radius: 0.5rem; margin-top: 0.75rem; background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); touch-action: none;">
+                                    <div id="hueMarker" style="position: absolute; width: 6px; height: 20px; background: white; border: 1px solid #333; border-radius: 3px; top: -2px; transform: translateX(-50%); pointer-events: none; box-shadow: 0 0 3px rgba(0,0,0,0.4);"></div>
+                                </div>
+                                <!-- نمایش رنگ و HEX -->
+                                <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; align-items: center;">
+                                    <div id="colorPreview" style="width: 36px; height: 36px; border-radius: 0.5rem; border: 1px solid var(--line); flex-shrink: 0;"></div>
+                                    <input type="text" id="hexInput" class="input" style="flex: 1; min-width: 0; min-height: 2.2rem; font-family: monospace; text-align: center;" placeholder="#000000" maxlength="7">
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="copyHexColor()" title="کپی HEX" style="flex-shrink: 0;">
+                                        <i class="fa fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Preview رنگ روی SVG -->
+                            <div style="flex: 1; min-width: 150px;">
+                                <div style="margin-bottom: 0.5rem; color: var(--muted); font-size: 0.82rem;">پیش‌نمایش با رنگ انتخابی:</div>
+                                <div id="colorPreviewSvg" class="svg-container svg-container-lg" style="background: var(--surface-2);">
+                                    <span style="color: var(--muted); font-size: 0.8rem;">SVG را آپلود کنید</span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="svgColor" value="#00bfff">
+                        <input type="hidden" id="svgRaw" value="">
+                    </div>
+                    <div class="field field-full">
+                        <label>متن جایگزین (Alt) *</label>
+                        <input type="text" class="input" id="svgAlt" required>
+                    </div>
+                    <div class="field">
+                        <label>دسته والد</label>
+                        <select class="select" id="parentCategory">
+                            <option value="">بدون دسته والد</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>وضعیت</label>
+                        <select class="select" id="categoryStatus">
+                            <option value="active">فعال</option>
+                            <option value="inactive">غیرفعال</option>
+                        </select>
+                    </div>
+                    <div class="field field-full">
+                        <label>توضیحات</label>
+                        <textarea class="textarea" id="categoryDescription"></textarea>
+                    </div>
+                </div>
+                <div class="toolbar" style="margin-top: 1.5rem; justify-content: flex-end;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('categoryModal')">انصراف</button>
+                    <button type="submit" class="btn btn-primary">ذخیره</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
-  <script src="../../assets/js/app.js"></script>
+
+    <!-- Modal تأیید حذف -->
+    <div class="modal-backdrop" id="deleteModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h2>تأیید حذف</h2>
+                <button class="action-btn" onclick="closeModal('deleteModal')">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <p id="deleteMessage" style="margin-bottom: 1.5rem; color: var(--muted);">آیا از حذف این دسته‌بندی مطمئن هستید؟</p>
+            <div class="toolbar" style="justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeModal('deleteModal')">انصراف</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal مشاهده محصولات -->
+    <div class="modal-backdrop" id="productsModal">
+        <div class="modal" style="width: min(100%, 40rem);">
+            <div class="modal-head">
+                <h2 id="productsModalTitle">محصولات دسته</h2>
+                <button class="action-btn" onclick="closeModal('productsModal')">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="list" id="productsList">
+                <!-- محصولات توسط JavaScript بارگذاری می‌شوند -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Stack -->
+    <div class="toast-stack" id="toastStack"></div>
+
+    <style>
+        /* Container عمومی برای تمام SVGها - فقط برای نرمال‌سازی */
+        .svg-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: transparent;
+            vertical-align: middle;
+        }
+        .svg-container svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            display: block !important;
+            object-fit: contain;
+        }
+        /* اندازه‌های استاندارد */
+        .svg-container-sm { width: 2.2rem; height: 2.2rem; }
+        .svg-container-md { width: 3rem; height: 3rem; }
+        .svg-container-lg { width: 5rem; height: 5rem; }
+    </style>
+
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        // داده‌های پیش‌فرض
+        const defaultCategories = [
+            {
+                id: 1,
+                name: 'الکترونیک',
+                slug: 'electronics',
+                svg: '<svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/></svg>',
+                svgColor: '#00bfff',
+                svgAlt: 'آیکون الکترونیک',
+                parentId: null,
+                description: 'محصولات الکترونیکی',
+                status: 'active',
+                createdAt: '2026-01-15',
+                updatedAt: '2026-08-01',
+                productsCount: 124
+            },
+            {
+                id: 2,
+                name: 'پوشاک',
+                slug: 'clothing',
+                svg: null,
+                svgColor: '#00bfff',
+                svgAlt: 'دسته پوشاک',
+                parentId: null,
+                description: 'انواع لباس',
+                status: 'active',
+                createdAt: '2026-02-10',
+                updatedAt: '2026-07-28',
+                productsCount: 89
+            },
+            {
+                id: 3,
+                name: 'موبایل',
+                slug: 'mobile',
+                svg: '<svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>',
+                svgColor: '#22c55e',
+                svgAlt: 'آیکون موبایل',
+                parentId: 1,
+                description: 'گوشی‌های موبایل',
+                status: 'inactive',
+                createdAt: '2026-03-05',
+                updatedAt: '2026-07-30',
+                productsCount: 56
+            }
+        ];
+
+        const defaultProductsData = {
+            1: [
+                { id: 1, name: 'لپ‌تاپ ایسوس', price: '45,000,000', status: 'active' },
+                { id: 2, name: 'گوشی سامسونگ', price: '25,000,000', status: 'active' }
+            ],
+            2: [
+                { id: 4, name: 'پیراهن مردانه', price: '850,000', status: 'active' }
+            ],
+            3: [
+                { id: 6, name: 'آیفون 15', price: '65,000,000', status: 'active' }
+            ]
+        };
+
+        // متغیرهای اصلی داده - مقداردهی اولیه از localStorage یا پیش‌فرض
+        let categories = [];
+        let productsData = {};
+
+        // ===== توابع localStorage =====
+        
+        /**
+         * بارگذاری داده‌ها از localStorage
+         */
+        function loadFromStorage() {
+            try {
+                const storedCategories = localStorage.getItem('categories');
+                const storedProducts = localStorage.getItem('productsData');
+
+                if (storedCategories) {
+                    const parsed = JSON.parse(storedCategories);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        categories = parsed;
+                    } else {
+                        categories = JSON.parse(JSON.stringify(defaultCategories));
+                    }
+                } else {
+                    categories = JSON.parse(JSON.stringify(defaultCategories));
+                }
+
+                if (storedProducts) {
+                    const parsed = JSON.parse(storedProducts);
+                    if (parsed && typeof parsed === 'object') {
+                        productsData = parsed;
+                    } else {
+                        productsData = JSON.parse(JSON.stringify(defaultProductsData));
+                    }
+                } else {
+                    productsData = JSON.parse(JSON.stringify(defaultProductsData));
+                }
+
+                // ذخیره اولیه در localStorage
+                saveCategories();
+                saveProductsData();
+            } catch (e) {
+                // در صورت خرابی localStorage، از داده‌های پیش‌فرض استفاده کن
+                categories = JSON.parse(JSON.stringify(defaultCategories));
+                productsData = JSON.parse(JSON.stringify(defaultProductsData));
+                saveCategories();
+                saveProductsData();
+            }
+        }
+
+        /**
+         * ذخیره categories در localStorage
+         */
+        function saveCategories() {
+            try {
+                localStorage.setItem('categories', JSON.stringify(categories));
+            } catch (e) {
+                console.warn('خطا در ذخیره categories در localStorage:', e);
+            }
+        }
+
+        /**
+         * ذخیره productsData در localStorage
+         */
+        function saveProductsData() {
+            try {
+                localStorage.setItem('productsData', JSON.stringify(productsData));
+            } catch (e) {
+                console.warn('خطا در ذخیره productsData در localStorage:', e);
+            }
+        }
+
+        // متغیرهای Color Picker - HSV (HSB)
+        let currentHue = 191;
+        let currentSaturation = 1;
+        let currentValue = 1;
+        let activePicker = null;
+        let currentEditingId = null; // شناسه دسته در حال ویرایش
+
+        // ===== توابع نرمال‌سازی SVG =====
+        
+        function normalizeSVG(svgString) {
+            if (!svgString || typeof svgString !== 'string') return '';
+            
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgString, 'image/svg+xml');
+                const svg = doc.querySelector('svg');
+                
+                if (!svg) return '';
+                
+                let viewBox = svg.getAttribute('viewBox');
+                if (!viewBox) {
+                    let w = parseFloat(svg.getAttribute('width'));
+                    let h = parseFloat(svg.getAttribute('height'));
+                    
+                    if (!w || !h || isNaN(w) || isNaN(h)) {
+                        try {
+                            const bbox = svg.getBBox ? svg.getBBox() : null;
+                            if (bbox && bbox.width > 0 && bbox.height > 0) {
+                                w = bbox.width;
+                                h = bbox.height;
+                            } else {
+                                w = 24;
+                                h = 24;
+                            }
+                        } catch (e) {
+                            w = 24;
+                            h = 24;
+                        }
+                    }
+                    
+                    viewBox = `0 0 ${w} ${h}`;
+                    svg.setAttribute('viewBox', viewBox);
+                }
+                
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.removeAttribute('style');
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                
+                return new XMLSerializer().serializeToString(svg);
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function renderSVGContainer(svgString, sizeClass = 'svg-container-md', color = null, extraClass = '') {
+            if (!svgString) {
+                return `<div class="svg-container ${sizeClass} ${extraClass}">
+                    <i class="fa fa-folder" style="color: var(--accent); font-size: 1.2rem;"></i>
+                </div>`;
+            }
+            
+            const normalized = normalizeSVG(svgString);
+            const colored = color ? applyColorToSVG(normalized, color) : normalized;
+            
+            return `<div class="svg-container ${sizeClass} ${extraClass}">${colored}</div>`;
+        }
+
+        function applyColorToSVG(svgString, color) {
+            if (!svgString || !color) return svgString;
+            
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgString, 'image/svg+xml');
+                const svg = doc.querySelector('svg');
+                
+                if (!svg) return svgString;
+                
+                const hasCurrentColor = svgString.includes('currentColor');
+                
+                if (hasCurrentColor) {
+                    svg.style.color = color;
+                } else {
+                    const elements = svg.querySelectorAll('*');
+                    let hasFill = false;
+                    let hasStroke = false;
+                    
+                    elements.forEach(el => {
+                        const fill = el.getAttribute('fill');
+                        const stroke = el.getAttribute('stroke');
+                        
+                        if (fill && fill !== 'none' && fill !== 'currentColor') {
+                            el.setAttribute('fill', color);
+                            hasFill = true;
+                        }
+                        if (stroke && stroke !== 'none' && stroke !== 'currentColor') {
+                            el.setAttribute('stroke', color);
+                            hasStroke = true;
+                        }
+                    });
+                    
+                    if (!hasFill && !hasStroke) {
+                        svg.setAttribute('fill', color);
+                    }
+                }
+                
+                return new XMLSerializer().serializeToString(svg);
+            } catch (e) {
+                return svgString;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // بارگذاری داده‌ها از localStorage
+            loadFromStorage();
+            
+            renderCategories();
+            updateStats();
+            initColorPicker();
+            
+            const searchInput = document.getElementById('searchInput');
+            const statusFilter = document.getElementById('statusFilter');
+            const sortSelect = document.getElementById('sortSelect');
+            
+            if (searchInput) searchInput.addEventListener('input', renderCategories);
+            if (statusFilter) statusFilter.addEventListener('change', renderCategories);
+            if (sortSelect) sortSelect.addEventListener('change', renderCategories);
+
+            document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+                backdrop.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('open');
+                    }
+                });
+            });
+        });
+
+        // ===== Color Picker Functions =====
+        function initColorPicker() {
+            const colorSquare = document.getElementById('colorSquare');
+            const hueBar = document.getElementById('hueBar');
+            const hexInput = document.getElementById('hexInput');
+
+            if (!colorSquare || !hueBar || !hexInput) return;
+
+            colorSquare.addEventListener('pointerdown', function(e) {
+                e.preventDefault();
+                activePicker = 'square';
+                colorSquare.setPointerCapture(e.pointerId);
+                updateSquareFromEvent(e);
+            });
+
+            colorSquare.addEventListener('pointermove', function(e) {
+                if (activePicker === 'square') {
+                    e.preventDefault();
+                    updateSquareFromEvent(e);
+                }
+            });
+
+            colorSquare.addEventListener('pointerup', function(e) {
+                activePicker = null;
+            });
+
+            colorSquare.addEventListener('pointercancel', function(e) {
+                activePicker = null;
+            });
+
+            hueBar.addEventListener('pointerdown', function(e) {
+                e.preventDefault();
+                activePicker = 'hue';
+                hueBar.setPointerCapture(e.pointerId);
+                updateHueFromEvent(e);
+            });
+
+            hueBar.addEventListener('pointermove', function(e) {
+                if (activePicker === 'hue') {
+                    e.preventDefault();
+                    updateHueFromEvent(e);
+                }
+            });
+
+            hueBar.addEventListener('pointerup', function(e) {
+                activePicker = null;
+            });
+
+            hueBar.addEventListener('pointercancel', function(e) {
+                activePicker = null;
+            });
+
+            hexInput.addEventListener('input', function() {
+                const hex = this.value.trim();
+                if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+                    const rgb = hexToRgb(hex);
+                    if (rgb) {
+                        const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+                        currentHue = hsv.h;
+                        currentSaturation = hsv.s;
+                        currentValue = hsv.v;
+                        updateColorPickerUI();
+                    }
+                }
+            });
+
+            updateColorPickerUI();
+        }
+
+        function updateSquareFromEvent(e) {
+            const colorSquare = document.getElementById('colorSquare');
+            if (!colorSquare) return;
+
+            const rect = colorSquare.getBoundingClientRect();
+            const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+            const y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
+
+            currentSaturation = x / rect.width;
+            currentValue = 1 - (y / rect.height);
+
+            updateColorPickerUI();
+        }
+
+        function updateHueFromEvent(e) {
+            const hueBar = document.getElementById('hueBar');
+            if (!hueBar) return;
+
+            const rect = hueBar.getBoundingClientRect();
+            const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+
+            currentHue = (x / rect.width) * 360;
+            updateColorPickerUI();
+        }
+
+        function updateColorPickerUI() {
+            const colorSquare = document.getElementById('colorSquare');
+            const colorSquareMarker = document.getElementById('colorSquareMarker');
+            const hueMarker = document.getElementById('hueMarker');
+            const colorPreview = document.getElementById('colorPreview');
+            const hexInput = document.getElementById('hexInput');
+            const svgColorInput = document.getElementById('svgColor');
+
+            if (!colorSquare || !colorSquareMarker || !hueMarker) return;
+
+            colorSquare.style.background = `
+                linear-gradient(to top, black, transparent),
+                linear-gradient(to right, white, transparent),
+                hsl(${currentHue}, 100%, 50%)
+            `;
+
+            const squareX = currentSaturation * 100;
+            const squareY = (1 - currentValue) * 100;
+            colorSquareMarker.style.left = squareX + '%';
+            colorSquareMarker.style.top = squareY + '%';
+
+            const hueX = (currentHue / 360) * 100;
+            hueMarker.style.left = hueX + '%';
+
+            const rgb = hsvToRgb(currentHue, currentSaturation, currentValue);
+            const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+
+            if (colorPreview) colorPreview.style.background = hex;
+            if (hexInput && document.activeElement !== hexInput) hexInput.value = hex;
+            if (svgColorInput) svgColorInput.value = hex;
+
+            // اگر در حال ویرایش یک دسته هستیم، رنگ را بلافاصله در آن ذخیره کن
+            if (currentEditingId !== null) {
+                const index = categories.findIndex(c => c.id === currentEditingId);
+                if (index !== -1) {
+                    categories[index].svgColor = hex;
+                    categories[index].updatedAt = new Date().toISOString().split('T')[0];
+                    saveCategories();
+                    renderCategories();
+                }
+            }
+
+            updateColorPreviewSvg(hex);
+        }
+
+        function updateColorPreviewSvg(hex) {
+            const previewContainer = document.getElementById('colorPreviewSvg');
+            if (!previewContainer) return;
+
+            const svgRaw = document.getElementById('svgRaw');
+            if (svgRaw && svgRaw.value) {
+                previewContainer.innerHTML = renderSVGContainer(svgRaw.value, 'svg-container-lg', hex);
+            }
+        }
+
+        function copyHexColor() {
+            const hexInput = document.getElementById('hexInput');
+            if (hexInput) {
+                navigator.clipboard.writeText(hexInput.value).then(() => {
+                    showToast('HEX کپی شد', 'success');
+                }).catch(() => {
+                    showToast('خطا در کپی', 'error');
+                });
+            }
+        }
+
+        // ===== Color Conversion Functions - HSV (HSB) =====
+        function hsvToRgb(h, s, v) {
+            h /= 360;
+            let r, g, b;
+
+            const i = Math.floor(h * 6);
+            const f = h * 6 - i;
+            const p = v * (1 - s);
+            const q = v * (1 - f * s);
+            const t = v * (1 - (1 - f) * s);
+
+            switch (i % 6) {
+                case 0: r = v, g = t, b = p; break;
+                case 1: r = q, g = v, b = p; break;
+                case 2: r = p, g = v, b = t; break;
+                case 3: r = p, g = q, b = v; break;
+                case 4: r = t, g = p, b = v; break;
+                case 5: r = v, g = p, b = q; break;
+            }
+
+            return {
+                r: Math.round(r * 255),
+                g: Math.round(g * 255),
+                b: Math.round(b * 255)
+            };
+        }
+
+        function rgbToHsv(r, g, b) {
+            r /= 255;
+            g /= 255;
+            b /= 255;
+
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            const d = max - min;
+            let h, s, v = max;
+
+            s = max === 0 ? 0 : d / max;
+
+            if (max === min) {
+                h = 0;
+            } else {
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+
+            return {
+                h: Math.round(h * 360),
+                s: s,
+                v: v
+            };
+        }
+
+        function rgbToHex(r, g, b) {
+            return '#' + [r, g, b].map(x => {
+                const hex = x.toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            }).join('');
+        }
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        // ===== سایر توابع =====
+        function updateStats() {
+            const totalCats = categories.length;
+            const totalProds = categories.reduce((sum, cat) => sum + (cat.productsCount || 0), 0);
+            
+            const catEl = document.getElementById('totalCategories');
+            const prodEl = document.getElementById('totalProducts');
+            if (catEl) catEl.textContent = totalCats;
+            if (prodEl) prodEl.textContent = totalProds;
+        }
+
+        function renderCategories() {
+            const tbody = document.getElementById('categoriesTableBody');
+            const emptyState = document.getElementById('emptyState');
+            if (!tbody || !emptyState) return;
+
+            const searchInput = document.getElementById('searchInput');
+            const statusFilter = document.getElementById('statusFilter');
+            const sortSelect = document.getElementById('sortSelect');
+
+            const searchTerm = (searchInput ? searchInput.value : '').toLowerCase();
+            const statusFilterValue = statusFilter ? statusFilter.value : '';
+            const sortValue = sortSelect ? sortSelect.value : 'name';
+
+            let filtered = categories.filter(c => {
+                const matchesSearch = (c.name || '').toLowerCase().includes(searchTerm) || (c.slug || '').toLowerCase().includes(searchTerm);
+                const matchesStatus = !statusFilterValue || c.status === statusFilterValue;
+                return matchesSearch && matchesStatus;
+            });
+
+            if (sortValue === 'name') {
+                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'fa'));
+            } else if (sortValue === 'products') {
+                filtered.sort((a, b) => (b.productsCount || 0) - (a.productsCount || 0));
+            } else if (sortValue === 'updated') {
+                filtered.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
+            }
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            tbody.innerHTML = filtered.map(cat => {
+                const parentName = cat.parentId ? (categories.find(c => c.id === cat.parentId)?.name || 'نامشخص') : '-';
+                const statusClass = cat.status === 'active' ? 'success' : 'danger';
+                const statusText = cat.status === 'active' ? 'فعال' : 'غیرفعال';
+                
+                const iconHtml = renderSVGContainer(cat.svg, 'svg-container-sm', cat.svgColor || '#00bfff');
+
+                return `
+                    <tr>
+                        <td>${iconHtml}</td>
+                        <td><strong>${cat.name || 'بدون نام'}</strong></td>
+                        <td>${cat.svgAlt || '-'}</td>
+                        <td>${parentName}</td>
+                        <td>
+                            <a href="#" onclick="showProducts(${cat.id}, '${(cat.name || '').replace(/'/g, "\\'")}'); return false;" style="color: var(--accent); font-weight: 600;">
+                                ${cat.productsCount || 0} محصول
+                            </a>
+                        </td>
+                        <td><span class="badge ${statusClass}">${statusText}</span></td>
+                        <td>${cat.updatedAt ? new Date(cat.updatedAt).toLocaleDateString('fa-IR') : '-'}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-btn" title="مشاهده" onclick="viewCategory(${cat.id})">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="ویرایش" onclick="openCategoryModal(${cat.id})">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button class="action-btn" title="حذف" onclick="deleteCategory(${cat.id})">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function viewCategory(id) {
+            const cat = categories.find(c => c.id === id);
+            if (!cat) return;
+
+            const content = document.getElementById('viewModalContent');
+            if (!content) return;
+
+            const parentName = cat.parentId ? (categories.find(c => c.id === cat.parentId)?.name || 'نامشخص') : 'بدون دسته والد';
+            const statusClass = cat.status === 'active' ? 'success' : 'danger';
+            const statusText = cat.status === 'active' ? 'فعال' : 'غیرفعال';
+
+            const iconHtml = renderSVGContainer(cat.svg, 'svg-container-md', cat.svgColor || '#00bfff');
+
+            content.innerHTML = `
+                <div class="list-item">
+                    ${iconHtml}
+                    <div class="list-copy">
+                        <strong>${cat.name || 'بدون نام'}</strong>
+                        <small>${cat.svgAlt || 'بدون متن جایگزین'}</small>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="list-icon"><i class="fa fa-link"></i></div>
+                    <div class="list-copy">
+                        <strong>Slug</strong>
+                        <small>${cat.slug || '-'}</small>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="list-icon"><i class="fa fa-palette"></i></div>
+                    <div class="list-copy">
+                        <strong>رنگ آیکون</strong>
+                        <small><span style="display: inline-block; width: 16px; height: 16px; background: ${cat.svgColor || '#00bfff'}; border-radius: 4px; vertical-align: middle; margin-left: 0.5rem;"></span>${cat.svgColor || '#00bfff'}</small>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="list-icon"><i class="fa fa-folder-open"></i></div>
+                    <div class="list-copy">
+                        <strong>دسته والد</strong>
+                        <small>${parentName}</small>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="list-icon"><i class="fa fa-check-circle"></i></div>
+                    <div class="list-copy">
+                        <strong>وضعیت</strong>
+                        <small><span class="badge ${statusClass}">${statusText}</span></small>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="list-icon"><i class="fa fa-cube"></i></div>
+                    <div class="list-copy">
+                        <strong>تعداد محصولات</strong>
+                        <small>${cat.productsCount || 0} محصول</small>
+                    </div>
+                </div>
+                ${cat.description ? `
+                <div class="list-item">
+                    <div class="list-icon"><i class="fa fa-align-right"></i></div>
+                    <div class="list-copy">
+                        <strong>توضیحات</strong>
+                        <small>${cat.description}</small>
+                    </div>
+                </div>
+                ` : ''}
+                <div class="list-item">
+                    <div class="list-icon"><i class="fa fa-calendar"></i></div>
+                    <div class="list-copy">
+                        <strong>تاریخ ایجاد</strong>
+                        <small>${cat.createdAt ? new Date(cat.createdAt).toLocaleDateString('fa-IR') : '-'}</small>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="list-icon"><i class="fa fa-edit"></i></div>
+                    <div class="list-copy">
+                        <strong>آخرین ویرایش</strong>
+                        <small>${cat.updatedAt ? new Date(cat.updatedAt).toLocaleDateString('fa-IR') : '-'}</small>
+                    </div>
+                </div>
+            `;
+
+            openModal('viewModal');
+        }
+
+        function openCategoryModal(id = null) {
+            const modal = document.getElementById('categoryModal');
+            const title = document.getElementById('categoryModalTitle');
+            const form = document.getElementById('categoryForm');
+            if (!modal || !title || !form) return;
+            
+            form.reset();
+            const preview = document.getElementById('svgPreview');
+            const previewAvatar = document.getElementById('svgPreviewAvatar');
+            const svgRawInput = document.getElementById('svgRaw');
+            if (preview) preview.style.display = 'none';
+            if (previewAvatar) previewAvatar.innerHTML = '';
+            if (svgRawInput) svgRawInput.value = '';
+            
+            const parentSelect = document.getElementById('parentCategory');
+            if (parentSelect) {
+                parentSelect.innerHTML = '<option value="">بدون دسته والد</option>';
+                categories.forEach(c => {
+                    if (id && c.id === id) return;
+                    const option = document.createElement('option');
+                    option.value = c.id;
+                    option.textContent = c.name || 'بدون نام';
+                    parentSelect.appendChild(option);
+                });
+            }
+
+            if (id) {
+                const cat = categories.find(c => c.id === id);
+                if (!cat) return;
+                
+                // تنظیم شناسه دسته در حال ویرایش
+                currentEditingId = cat.id;
+                
+                title.textContent = 'ویرایش دسته‌بندی';
+                document.getElementById('categoryId').value = cat.id;
+                document.getElementById('categoryName').value = cat.name || '';
+                document.getElementById('categorySlug').value = cat.slug || '';
+                document.getElementById('svgAlt').value = cat.svgAlt || '';
+                document.getElementById('categoryDescription').value = cat.description || '';
+                document.getElementById('categoryStatus').value = cat.status || 'active';
+                if (parentSelect && cat.parentId) parentSelect.value = cat.parentId;
+                
+                // تنظیم Color Picker
+                if (cat.svgColor) {
+                    const rgb = hexToRgb(cat.svgColor);
+                    if (rgb) {
+                        const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+                        currentHue = hsv.h;
+                        currentSaturation = hsv.s;
+                        currentValue = hsv.v;
+                    }
+                }
+                document.getElementById('svgColor').value = cat.svgColor || '#00bfff';
+                updateColorPickerUI();
+                
+                if (cat.svg && preview && previewAvatar && svgRawInput) {
+                    preview.style.display = 'flex';
+                    const normalizedSVG = normalizeSVG(cat.svg);
+                    svgRawInput.value = normalizedSVG;
+                    previewAvatar.innerHTML = renderSVGContainer(normalizedSVG, 'svg-container-lg', cat.svgColor || '#00bfff').match(/<div class="svg-container[^"]*">(.*?)<\/div>$/s)?.[1] || '';
+                    const previewName = document.getElementById('svgPreviewName');
+                    if (previewName) previewName.textContent = 'فایل SVG فعلی';
+                    updateColorPreviewSvg(cat.svgColor || '#00bfff');
+                }
+            } else {
+                // ریست شناسه دسته در حال ویرایش
+                currentEditingId = null;
+                
+                title.textContent = 'ایجاد دسته‌بندی';
+                document.getElementById('categoryId').value = '';
+                currentHue = 191;
+                currentSaturation = 1;
+                currentValue = 1;
+                document.getElementById('svgColor').value = '#00bfff';
+                updateColorPickerUI();
+            }
+            
+            openModal('categoryModal');
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (!file.name.toLowerCase().endsWith('.svg')) {
+                showToast('فقط فایل SVG مجاز است', 'error');
+                event.target.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('svgPreview');
+                const previewAvatar = document.getElementById('svgPreviewAvatar');
+                const previewName = document.getElementById('svgPreviewName');
+                const svgRawInput = document.getElementById('svgRaw');
+                
+                if (preview && previewAvatar && previewName && svgRawInput) {
+                    preview.style.display = 'flex';
+                    
+                    const normalizedSVG = normalizeSVG(e.target.result);
+                    svgRawInput.value = normalizedSVG;
+                    
+                    const svgColor = document.getElementById('svgColor').value || '#00bfff';
+                    const coloredSVG = applyColorToSVG(normalizedSVG, svgColor);
+                    
+                    previewAvatar.innerHTML = coloredSVG;
+                    previewName.textContent = file.name;
+                    
+                    // اگر در حال ویرایش هستیم، SVG را بلافاصله در دسته ذخیره کن
+                    if (currentEditingId !== null) {
+                        const index = categories.findIndex(c => c.id === currentEditingId);
+                        if (index !== -1) {
+                            categories[index].svg = normalizedSVG;
+                            categories[index].updatedAt = new Date().toISOString().split('T')[0];
+                            saveCategories();
+                            renderCategories();
+                        }
+                    }
+                    
+                    updateColorPreviewSvg(svgColor);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function saveCategory() {
+            const id = document.getElementById('categoryId').value;
+            const name = (document.getElementById('categoryName').value || '').trim();
+            const slug = (document.getElementById('categorySlug').value || '').trim();
+            const svgAlt = (document.getElementById('svgAlt').value || '').trim();
+            const parentId = document.getElementById('parentCategory').value;
+            const description = (document.getElementById('categoryDescription').value || '').trim();
+            const status = document.getElementById('categoryStatus').value;
+            const svgColor = document.getElementById('svgColor').value || '#00bfff';
+            
+            const svgRawInput = document.getElementById('svgRaw');
+            const svgPreview = svgRawInput ? svgRawInput.value : '';
+
+            if (!name || !slug || !svgAlt) {
+                showToast('لطفاً فیلدهای الزامی را پر کنید', 'error');
+                return;
+            }
+
+            if (!id && !svgPreview) {
+                showToast('لطفاً فایل SVG را آپلود کنید', 'error');
+                return;
+            }
+
+            const now = new Date().toISOString().split('T')[0];
+
+            if (id) {
+                const index = categories.findIndex(c => c.id === parseInt(id));
+                if (index !== -1) {
+                    categories[index] = {
+                        ...categories[index],
+                        name,
+                        slug,
+                        svg: svgPreview || categories[index].svg,
+                        svgColor,
+                        svgAlt,
+                        parentId: parentId ? parseInt(parentId) : null,
+                        description,
+                        status,
+                        updatedAt: now
+                    };
+                    saveCategories();
+                    showToast('دسته‌بندی با موفقیت ویرایش شد', 'success');
+                }
+            } else {
+                categories.push({
+                    id: Date.now(),
+                    name,
+                    slug,
+                    svg: svgPreview,
+                    svgColor,
+                    svgAlt,
+                    parentId: parentId ? parseInt(parentId) : null,
+                    description,
+                    status,
+                    createdAt: now,
+                    updatedAt: now,
+                    productsCount: 0
+                });
+                saveCategories();
+                showToast('دسته‌بندی با موفقیت ایجاد شد', 'success');
+            }
+
+            // ریست شناسه ویرایش
+            currentEditingId = null;
+
+            closeModal('categoryModal');
+            renderCategories();
+            updateStats();
+        }
+
+        function deleteCategory(id) {
+            const cat = categories.find(c => c.id === id);
+            if (!cat) return;
+            
+            const msg = document.getElementById('deleteMessage');
+            if (msg) msg.textContent = `آیا از حذف دسته‌بندی "${cat.name}" مطمئن هستید؟`;
+            
+            const confirmBtn = document.getElementById('confirmDeleteBtn');
+            if (confirmBtn) {
+                confirmBtn.style.display = 'inline-flex';
+                confirmBtn.onclick = () => {
+                    categories = categories.filter(c => c.id !== id);
+                    saveCategories();
+                    closeModal('deleteModal');
+                    renderCategories();
+                    updateStats();
+                    showToast('دسته‌بندی با موفقیت حذف شد', 'success');
+                };
+            }
+            openModal('deleteModal');
+        }
+
+        function showProducts(categoryId, categoryName) {
+            const titleEl = document.getElementById('productsModalTitle');
+            if (titleEl) titleEl.textContent = `محصولات دسته: ${categoryName || 'نامشخص'}`;
+            
+            const products = productsData[categoryId] || [];
+            const list = document.getElementById('productsList');
+            if (!list) return;
+            
+            if (products.length === 0) {
+                list.innerHTML = '<div class="empty-state"><i class="fa fa-cube"></i><p>هیچ محصولی در این دسته وجود ندارد</p></div>';
+            } else {
+                list.innerHTML = products.map(p => `
+                    <div class="list-item">
+                        <div class="list-icon" style="padding: 0; overflow: hidden; background: var(--surface);">
+                            <img src="https://via.placeholder.com/40/0f172a/00bfff?text=IMG" alt="${p.name || 'محصول'}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="list-copy">
+                            <strong>${p.name || 'بدون نام'}</strong>
+                            <small>${p.price || '0'} تومان</small>
+                        </div>
+                        <span class="badge ${p.status === 'active' ? 'success' : 'danger'}">
+                            ${p.status === 'active' ? 'فعال' : 'غیرفعال'}
+                        </span>
+                        <button class="btn btn-sm btn-secondary" onclick="showToast('مشاهده محصول: ${p.name}', 'info')">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            openModal('productsModal');
+        }
+
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.add('open');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('open');
+            // هنگام بستن مودال، شناسه ویرایش را ریست کن
+            if (id === 'categoryModal') {
+                currentEditingId = null;
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const stack = document.getElementById('toastStack');
+            if (!stack) return;
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            
+            const iconClass = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle');
+            toast.innerHTML = `<i class="fa ${iconClass}"></i><span>${message}</span>`;
+            
+            stack.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-15px)';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
-
-
 {% endblock %}
-
-
