@@ -1,10 +1,64 @@
 /* ==========================
+   MAIN PAGE SCROLLBAR
+========================== */
+
+
+/* Chrome - Edge - Safari */
+
+::-webkit-scrollbar {
+
+    width: 12px;
+
+}
+
+
+::-webkit-scrollbar-track {
+
+    background: var(--bg-color);
+
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background: linear-gradient(180deg,
+            #00BFFF,
+            #0077ff);
+
+    border-radius: 20px;
+
+    border: 3px solid var(--bg-color);
+
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: linear-gradient(180deg,
+            #00d9ff,
+            #008cff);
+
+}
+
+
+
+/* Firefox */
+
+html {
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #00BFFF var(--bg-color);
+
+}
+/* ==========================
    NEWSHOP HEADER
 ========================== */
 
 html,
 body {
-    
+
     width: 100%;
 }
 
@@ -57,8 +111,8 @@ body {
     border: none;
 
     max-width: none;
-        width: 100%;
-        margin: 0;
+    width: 100%;
+    margin: 0;
 
     background: var(--card);
     border-bottom: 3px solid #00BFFF;
@@ -79,6 +133,7 @@ body {
 main {
     padding-top: 90px;
 }
+
 /* ==========================
    LOGO
 ========================== */
@@ -480,25 +535,60 @@ main {
     box-shadow: 0 15px 40px rgba(0, 0, 0, .12);
 }
 
+/* ==========================
+   DRAGABLE BANNER
+========================== */
 
-.banner-link picture,
-.banner-link img {
+
+.banner-slider {
 
     width: 100%;
     height: 100%;
-    display: block;
+
+    overflow: hidden;
+
+    cursor: grab;
+
+    border-radius: 28px;
 
 }
 
 
-.banner-link img {
+
+.banner-slider.dragging {
+
+    cursor: grabbing;
+
+}
+
+
+
+.banner-slider img {
+
+    width: 100%;
+    height: 100%;
 
     object-fit: cover;
 
+    user-select: none;
+
+    pointer-events: none;
+
+    -webkit-user-drag: none;
+
 }
+
+
+
+.banner-link {
+
+    user-select: none;
+
+}
+
 .category-bar {
     position: relative;
-    
+
 }
 
 
@@ -796,6 +886,7 @@ main {
 
 
 }
+
 /* ======================
    BANNER PROGRESS
 ====================== */
@@ -835,6 +926,7 @@ main {
     transition: width .1s linear;
 
 }
+
 /* ==========================
    CATEGORY COLORS
 ========================== */
@@ -1059,5 +1151,1054 @@ main {
         0 0 25px color-mix(in srgb,
             var(--color) 50%,
             transparent);
+
+}
+
+/* ==========================
+ CATEGORY SLIDER
+========================== */
+
+
+.categories-section {
+
+    max-width: 1430px;
+    width: calc(100% - 40px);
+
+    margin: 40px auto;
+
+}
+
+
+
+.section-title {
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-title h2 {
+
+    color: var(--text-color);
+
+    font-size: 26px;
+
+}
+
+
+
+
+.categories-wrapper {
+
+    position: relative;
+
+}
+
+
+
+
+.categories-scroll {
+
+    display: flex;
+
+    gap: 22px;
+
+    overflow-x: auto;
+
+    scroll-behavior: auto;
+
+    scrollbar-width: none;
+
+    padding: 20px 5px;
+
+}
+
+
+
+.categories-scroll::-webkit-scrollbar {
+
+    display: none;
+
+}
+
+
+
+/*
+ دسکتاپ:
+ فقط 5 کارت دیده می شود
+*/
+
+
+.category-card {
+
+    flex: 0 0 calc((100% - 88px) / 5);
+
+    height: 160px;
+
+
+    background: var(--card);
+
+
+    border: 1px solid var(--border);
+
+
+    border-radius: 28px;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+
+    gap: 15px;
+
+
+    text-decoration: none;
+
+
+    position: relative;
+
+
+    overflow: hidden;
+
+
+    transition: .4s;
+
+
+}
+
+
+
+.category-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+
+    background:
+        radial-gradient(circle at top,
+            color-mix(in srgb, var(--color) 30%, transparent),
+            transparent 60%);
+
+
+    opacity: 0;
+
+    transition: .4s;
+
+}
+
+
+
+
+.category-card:hover::before {
+
+    opacity: 1;
+
+}
+
+
+
+.category-card:hover {
+
+    transform:
+        translateY(-10px) scale(1.03);
+
+
+    border-color: var(--color);
+
+
+    box-shadow:
+        0 20px 45px color-mix(in srgb, var(--color) 30%, transparent);
+
+
+}
+
+
+
+
+
+.category-icon {
+
+
+    width: 75px;
+
+    height: 75px;
+
+
+    border-radius: 25px;
+
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+
+    background:
+        rgba(255, 255, 255, .05);
+
+
+}
+
+
+
+.category-icon img {
+
+    width: 45px;
+
+    height: 45px;
+
+
+}
+
+
+
+
+
+.category-card span {
+
+    color: var(--color);
+
+    font-weight: 900;
+
+}
+
+
+
+
+
+/* arrows */
+
+
+.category-arrow {
+
+
+    position: absolute;
+
+
+    top: 50%;
+
+
+    transform: translateY(-50%);
+
+
+    z-index: 5;
+
+
+    width: 45px;
+
+    height: 45px;
+
+
+    border-radius: 50%;
+
+
+    border: none;
+
+
+    cursor: pointer;
+
+
+    background: #00BFFF;
+
+
+    color: white;
+
+
+    font-size: 22px;
+
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .3);
+
+
+}
+
+
+
+.category-arrow.right {
+
+    right: -20px;
+
+}
+
+
+
+.category-arrow.left {
+
+    left: -20px;
+
+}
+
+
+
+.banner-link {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+.banner-slider img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.banner-link {
+    touch-action: pan-y;
+}
+
+.categories-scroll {
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+    cursor: grab;
+}
+
+.categories-scroll:active {
+    cursor: grabbing;
+}
+
+.category-card,
+.category-card img {
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: auto;
+}
+
+.categories-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+}
+
+.categories-scroll.dragging {
+    cursor: grabbing;
+}
+
+.categories-scroll.dragging .category-card {
+    pointer-events: none;
+    transform: none !important;
+}
+
+
+.category-card img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.categories-scroll.dragging .category-card,
+.categories-scroll.dragging .category-card:hover {
+    transform: none !important;
+    transition: none !important;
+}
+
+/* ==========================
+   BANNER IMAGE ANIMATION
+========================== */
+
+.banner-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+
+.banner-slider img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    user-select: none;
+    pointer-events: none;
+
+    -webkit-user-drag: none;
+
+    transition:
+        opacity .45s ease,
+        transform .55s cubic-bezier(.4, 0, .2, 1);
+
+}
+
+
+
+.banner-slider img.banner-change {
+
+    animation:
+        bannerReveal .55s ease;
+
+}
+
+
+
+@keyframes bannerReveal {
+
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(1.04);
+
+    }
+
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+    }
+
+
+}
+
+
+.banner-slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.banner-image {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    top: 0;
+
+    transition:
+        transform .65s cubic-bezier(.4, 0, .2, 1);
+
+}
+
+
+
+.banner-current {
+    left: 0;
+    z-index: 2;
+}
+
+
+
+.banner-next {
+    left: 100%;
+    z-index: 1;
+}
+
+
+
+.banner-slider.slide .banner-current {
+
+    transform: translateX(-100%);
+
+}
+
+
+
+.banner-slider.slide .banner-next {
+
+    transform: translateX(-100%);
+
+}
+
+/* ==========================
+   HERO BANNER
+========================== */
+
+
+.hero-banner {
+
+    max-width: 1430px;
+
+    width: calc(100% - 40px);
+
+    margin: 30px auto;
+
+    position: relative;
+
+    aspect-ratio: 16 / 8;
+
+}
+
+
+
+.banner-link {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .12);
+
+}
+
+
+
+
+/* ==========================
+   BANNER SLIDER
+========================== */
+
+
+.banner-slider {
+
+    width: 100%;
+
+    height: 100%;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    cursor: grab;
+
+}
+
+
+
+
+.banner-slider:active {
+
+    cursor: grabbing;
+
+}
+
+
+
+
+.banner-slider img {
+
+
+    position: absolute;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+
+    object-fit: cover;
+
+
+    user-select: none;
+
+    pointer-events: none;
+
+    -webkit-user-drag: none;
+
+
+    transition:
+        transform .65s cubic-bezier(.4, 0, .2, 1);
+
+
+}
+
+
+
+
+/* تصویر فعلی */
+
+.banner-current {
+
+    left: 0;
+
+    transform: translateX(0);
+
+    z-index: 2;
+
+}
+
+
+
+
+
+/* تصویر آماده */
+
+.banner-next {
+
+    left: 100%;
+
+    transform: translateX(0);
+
+    z-index: 1;
+
+}
+
+
+
+
+
+/* تصویر قبلی */
+
+.banner-prev {
+
+    left: -100%;
+
+    transform: translateX(0);
+
+    z-index: 1;
+
+}
+
+
+
+
+
+
+/* حرکت به اسلاید بعدی */
+
+.banner-slider.slide-next .banner-current {
+
+
+    transform:
+        translateX(-100%);
+
+
+}
+
+
+
+.banner-slider.slide-next .banner-next {
+
+
+    transform:
+        translateX(-100%);
+
+
+}
+
+
+
+
+
+
+/* برگشت به عقب */
+
+.banner-slider.slide-prev .banner-current {
+
+
+    transform:
+        translateX(100%);
+
+
+}
+
+
+
+.banner-slider.slide-prev .banner-prev {
+
+
+    transform:
+        translateX(100%);
+
+
+}
+
+
+
+
+
+/* ==========================
+   BANNER BUTTONS
+========================== */
+
+
+.banner-btn {
+
+    position: absolute;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+
+    width: 45px;
+
+    height: 45px;
+
+
+    border-radius: 50%;
+
+
+    border: none;
+
+
+    background:
+        rgba(255, 255, 255, .9);
+
+
+    color: #00BFFF;
+
+
+    font-size: 25px;
+
+
+    cursor: pointer;
+
+
+    z-index: 5;
+
+
+    transition: .3s;
+
+}
+
+
+
+
+.banner-btn:hover {
+
+
+    background: #00BFFF;
+
+    color: white;
+
+
+}
+
+
+
+
+.prev {
+
+    left: 35px;
+
+}
+
+
+
+
+.next {
+
+    right: 35px;
+
+}
+
+
+
+
+
+/* ==========================
+   DOTS
+========================== */
+
+
+.banner-dots {
+
+
+    position: absolute;
+
+
+    bottom: 20px;
+
+
+    left: 50%;
+
+
+    transform:
+        translateX(-50%);
+
+
+    display: flex;
+
+
+    gap: 10px;
+
+
+    padding: 8px 14px;
+
+
+    background:
+        rgba(255, 255, 255, .18);
+
+
+    backdrop-filter: blur(12px);
+
+
+    border-radius: 30px;
+
+
+    z-index: 10;
+
+
+}
+
+
+
+
+
+.banner-dot {
+
+
+    width: 10px;
+
+    height: 10px;
+
+
+    border-radius: 50%;
+
+
+    background:
+        rgba(255, 255, 255, .7);
+
+
+    cursor: pointer;
+
+
+    transition: .35s;
+
+
+}
+
+
+
+
+
+.banner-dot.active {
+
+
+    width: 30px;
+
+
+    border-radius: 20px;
+
+
+    background: #00BFFF;
+
+
+    box-shadow:
+        0 0 15px rgba(0, 191, 255, .8);
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   PROGRESS
+========================== */
+
+
+.banner-progress {
+
+
+    width: 100%;
+
+
+    height: 4px;
+
+
+    margin-top: 12px;
+
+
+    background:
+        rgba(0, 191, 255, .15);
+
+
+    border-radius: 20px;
+
+
+    overflow: hidden;
+
+
+}
+
+
+
+
+.banner-progress span {
+
+
+    display: block;
+
+
+    width: 0%;
+
+
+    height: 100%;
+
+
+    background:
+        linear-gradient(90deg,
+            #00BFFF,
+            #0077ff);
+
+
+}
+
+/* ==========================
+   CATEGORY BOX
+========================== */
+
+.categories-box {
+
+    max-width: 1430px;
+
+    width: calc(100% - 40px);
+
+    margin: 40px auto;
+
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 28px;
+
+
+    padding: 25px;
+
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .08);
+
+}
+
+
+
+/* HEADER */
+
+.categories-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.categories-header h2 {
+
+    margin: 0;
+
+    font-size: 26px;
+
+    font-weight: 900;
+
+    color: var(--text-color);
+
+}
+
+
+
+/* مشاهده همه */
+
+.view-all-btn {
+
+    padding: 10px 22px;
+
+    border-radius: 18px;
+
+    border: 2px solid #00BFFF;
+
+    color: #00BFFF;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    transition: .3s;
+
+}
+
+
+.view-all-btn:hover {
+
+    background: #00BFFF;
+
+    color: white;
+
+}
+
+
+
+/* اسکرول */
+
+.categories-scroll {
+
+    display: flex;
+
+    gap: 22px;
+
+    overflow-x: auto;
+
+    padding: 15px 5px 20px;
+
+
+    scrollbar-width: thin;
+
+    scrollbar-color: #00BFFF transparent;
+
+}
+
+
+
+/* Chrome scrollbar */
+
+.categories-scroll::-webkit-scrollbar {
+
+    height: 8px;
+
+}
+
+
+.categories-scroll::-webkit-scrollbar-track {
+
+    background: transparent;
+
+}
+
+
+.categories-scroll::-webkit-scrollbar-thumb {
+
+    background: #00BFFF;
+
+    border-radius: 20px;
 
 }

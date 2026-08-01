@@ -1,148 +1,355 @@
-const banners = [
-
-    {
-        pc: "/static/images/banners/desktop-banner.webp",
-        mobile: "/static/images/banners/mobile-banner.webp"
-    },
-
-    {
-        pc: "/static/images/banners/desktop-banner2.webp",
-        mobile: "/static/images/banners/mobile-banner2.webp"
-    },
-
+const banners=[
+{pc:"/static/images/banners/desktop-banner.webp",mobile:"/static/images/banners/mobile-banner.webp"},
+{pc:"/static/images/banners/desktop-banner2.webp",mobile:"/static/images/banners/mobile-banner2.webp"}
 ];
 
 
 
-let currentBanner = 0;
-
-
-// زمان نمایش هر بنر
-const bannerTime = 5000; // 5 ثانیه
-
-
+let currentBanner=0;
+const bannerTime=5000;
 let progressTimer;
 
+const img=document.getElementById("banner-image");
+const dots=document.getElementById("banner-dots");
+const progressBar=document.getElementById("banner-progress-bar");
 
 
-const img = document.getElementById("banner-image");
-
-const dots = document.getElementById("banner-dots");
-
-const progressBar = document.getElementById(
-    "banner-progress-bar"
-);
-
-
-
-
-// تشخیص موبایل
 function getBannerImage(banner){
-
-    if(window.innerWidth <= 768){
-
-        return banner.mobile;
-
-    }
-
-    return banner.pc;
-
+return window.innerWidth<=768?banner.mobile:banner.pc;
 }
-
-
-
 
 
 function changeBanner(index){
 
+currentBanner=index;
 
-    currentBanner = index;
+if(!img)return;
 
+img.classList.remove("banner-change");
 
-    const scrollY = window.scrollY;
+void img.offsetWidth;
 
+img.src=getBannerImage(banners[index]);
 
+img.onload=()=>{
 
-    img.src = getBannerImage(
-        banners[index]
-    );
+    img.classList.add("banner-change");
 
+};
 
+document.querySelectorAll(".banner-dot").forEach((dot,i)=>{
+dot.classList.toggle("active",i===index);
+});
 
-    img.onload = ()=>{
-
-        window.scrollTo(
-            0,
-            scrollY
-        );
-
-    };
-
-
-
-    document.querySelectorAll(".banner-dot")
-    .forEach((dot,i)=>{
-
-        dot.classList.toggle(
-            "active",
-            i === index
-        );
-
-    });
-
-
-    startProgress();
-
+startProgress();
 
 }
 
 
-// ساخت دات ها
+function nextBanner(){
+
+currentBanner++;
+
+if(currentBanner>=banners.length){
+currentBanner=0;
+}
+
+changeBanner(currentBanner);
+
+}
+
+
+function prevBanner(){
+
+currentBanner--;
+
+if(currentBanner<0){
+currentBanner=banners.length-1;
+}
+
+changeBanner(currentBanner);
+
+}
+
+
+
+// dots
+
+if(dots){
 
 banners.forEach((item,index)=>{
 
+let dot=document.createElement("span");
 
-    const dot=document.createElement("span");
+dot.className="banner-dot";
+
+dot.onclick=()=>{
+changeBanner(index);
+};
+
+dots.appendChild(dot);
+
+});
+
+}
 
 
-    dot.className="banner-dot";
+
+// buttons
+
+document.getElementById("banner-next")
+?.addEventListener("click",nextBanner);
 
 
-    dot.onclick=()=>{
+document.getElementById("banner-prev")
+?.addEventListener("click",prevBanner);
 
 
-        changeBanner(index);
+
+// progress
+
+function startProgress(){
+
+if(!progressBar)return;
+
+clearInterval(progressTimer);
+
+let value=0;
+
+progressBar.style.width="0%";
 
 
-    };
+progressTimer=setInterval(()=>{
+
+value+=2;
+
+progressBar.style.width=value+"%";
 
 
-    dots.appendChild(dot);
+if(value>=100){
 
+clearInterval(progressTimer);
+
+nextBanner();
+
+}
+
+
+},100);
+
+}
+
+
+
+// resize
+
+window.addEventListener("resize",()=>{
+
+changeBanner(currentBanner);
+
+});
+
+
+// start
+
+changeBanner(0);
+
+
+
+
+// ==============================
+// BANNER SWIPE + DRAG
+// ==============================
+
+const banner=document.querySelector(".banner-link");
+
+
+if(banner){
+
+let startX=0;
+let endX=0;
+let dragging=false;
+let moved=false;
+
+
+banner.addEventListener("pointerdown",e=>{
+
+startX=e.clientX;
+endX=e.clientX;
+dragging=true;
+moved=false;
+
+banner.setPointerCapture(e.pointerId);
+
+});
+
+
+
+banner.addEventListener("pointermove",e=>{
+
+if(!dragging)return;
+
+endX=e.clientX;
+
+
+if(Math.abs(endX-startX)>5){
+
+moved=true;
+
+}
+
+});
+
+
+
+banner.addEventListener("pointerup",e=>{
+
+
+if(!dragging)return;
+
+
+let distance=endX-startX;
+
+
+if(Math.abs(distance)>50){
+
+if(distance<0){
+nextBanner();
+}
+else{
+prevBanner();
+}
+
+}
+
+
+dragging=false;
+
+
+try{
+banner.releasePointerCapture(e.pointerId);
+}
+catch{}
 
 
 });
 
 
 
+banner.addEventListener("click",e=>{
+
+if(moved){
+
+e.preventDefault();
+e.stopPropagation();
+
+}
+
+});
 
 
-// بنر بعدی
-
-function nextBanner(){
+}
 
 
-    currentBanner++;
+
+const categoryScroll=document.querySelector(".categories-scroll");
+
+const rightCategory=document.querySelector(".category-arrow.right");
+const leftCategory=document.querySelector(".category-arrow.left");
 
 
-    if(currentBanner >= banners.length){
+if(categoryScroll){
 
-        currentBanner = 0;
+let down=false;
+let startX=0;
+let scrollStart=0;
+let moved=false;
 
-    }
+
+categoryScroll.addEventListener("pointerdown",e=>{
+
+down=true;
+moved=false;
+
+startX=e.clientX;
+
+scrollStart=categoryScroll.scrollLeft;
+categoryScroll.style.scrollBehavior="auto";
+categoryScroll.classList.add("dragging");
+
+categoryScroll.setPointerCapture(e.pointerId);
+
+});
 
 
-    changeBanner(currentBanner);
+
+categoryScroll.addEventListener("pointermove",e=>{
+
+if(!down)return;
+
+
+let move=e.clientX-startX;
+
+
+if(Math.abs(move)>3){
+
+moved=true;
+
+}
+
+
+categoryScroll.scrollLeft =
+scrollStart-move;
+
+
+});
+
+
+
+categoryScroll.addEventListener("pointerup",e=>{
+
+down=false;
+categoryScroll.style.scrollBehavior="smooth";
+categoryScroll.classList.remove("dragging");
+
+
+try{
+categoryScroll.releasePointerCapture(e.pointerId);
+}
+catch{}
+
+
+});
+
+
+
+categoryScroll.addEventListener("pointercancel",()=>{
+
+down=false;
+
+categoryScroll.classList.remove("dragging");
+
+});
+
+
+
+
+categoryScroll.querySelectorAll(".category-card")
+.forEach(card=>{
+
+card.addEventListener("click",e=>{
+
+if(moved){
+
+e.preventDefault();
+
+e.stopPropagation();
+
+}
+
+});
+
+});
 
 
 }
@@ -150,118 +357,28 @@ function nextBanner(){
 
 
 
+rightCategory?.addEventListener("click",()=>{
 
-// بنر قبلی
+categoryScroll.scrollBy({
 
-function prevBanner(){
+left:400,
 
+behavior:"smooth"
 
-    currentBanner--;
+});
 
+});
 
-    if(currentBanner < 0){
 
-        currentBanner = banners.length-1;
 
-    }
+leftCategory?.addEventListener("click",()=>{
 
+categoryScroll.scrollBy({
 
-    changeBanner(currentBanner);
+left:-400,
 
+behavior:"smooth"
 
-}
+});
 
-
-
-
-
-document
-.getElementById("banner-next")
-.addEventListener(
-    "click",
-    nextBanner
-);
-
-
-
-document
-.getElementById("banner-prev")
-.addEventListener(
-    "click",
-    prevBanner
-);
-
-
-
-
-
-
-
-// progress animation
-
-function startProgress(){
-
-
-    clearInterval(progressTimer);
-
-
-    let start = 0;
-
-
-    progressBar.style.width="0%";
-
-
-
-    progressTimer=setInterval(()=>{
-
-
-        start += 100 / (bannerTime / 100);
-
-
-
-        progressBar.style.width =
-            start + "%";
-
-
-
-        if(start >= 100){
-
-
-            clearInterval(progressTimer);
-
-
-            nextBanner();
-
-
-        }
-
-
-
-    },100);
-
-
-
-}
-
-
-
-
-
-// resize
-
-window.addEventListener(
-    "resize",
-    ()=>{
-
-        changeBanner(currentBanner);
-
-    }
-);
-
-
-
-
-
-// شروع
-
-changeBanner(0);
+});

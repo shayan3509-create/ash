@@ -572,3 +572,205 @@
 
 
 }
+
+
+
+
+@media(max-width:768px) {
+
+
+    .categories-section {
+
+        width: calc(100% - 20px);
+
+        margin: 25px auto;
+
+    }
+
+
+
+    .section-title h2 {
+
+        font-size: 20px;
+
+    }
+
+
+
+    .categories-scroll {
+
+        gap: 15px;
+
+        padding: 10px 5px;
+
+    }
+
+
+
+    .category-card {
+
+
+        flex: 0 0 120px;
+
+
+        height: 135px;
+
+
+        border-radius: 22px;
+
+
+    }
+
+
+
+    .category-icon {
+
+        width: 60px;
+
+        height: 60px;
+
+        border-radius: 18px;
+
+    }
+
+
+
+    .category-icon img {
+
+        width: 35px;
+
+    }
+
+
+
+    .category-card span {
+
+        font-size: 13px;
+
+    }
+
+
+
+    /* موبایل اسکرول دستی */
+
+    .category-arrow {
+
+        display: none;
+
+    }
+
+
+
+}
+
+
+@media(max-width:768px) {
+
+
+    .categories-grid {
+
+
+        padding: 15px;
+
+
+        gap: 15px;
+
+
+    }
+
+
+
+    .category-card {
+
+
+        flex: 0 0 42%;
+
+
+        height: 130px;
+
+
+        border-radius: 20px;
+
+
+    }
+
+
+
+    .category-icon {
+
+
+        width: 55px;
+
+        height: 55px;
+
+
+    }
+
+
+
+    .category-icon img {
+
+
+        width: 35px;
+
+
+    }
+
+
+    .category-card span {
+
+
+        font-size: 13px;
+
+
+    }
+
+
+}
+
+
+@media(max-width:768px) {
+
+
+    .categories-wrapper {
+
+        padding: 0 10px;
+
+    }
+
+
+
+    .categories-scroll {
+
+        gap: 15px;
+
+        padding: 15px 5px;
+
+    }
+
+
+
+    .category-card {
+
+
+        flex: 0 0 42%;
+
+
+        height: 130px;
+
+
+    }
+
+
+
+    .category-arrow {
+
+
+        display: none;
+
+
+    }
+
+
+
+}

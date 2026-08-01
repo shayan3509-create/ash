@@ -3,13 +3,26 @@
 
 
 {% block content %}
-
-
 <section class="hero-banner">
 
     <a href="/shop/" class="banner-link">
 
-        <img src="{% static 'images/banners/desktop-banner.webp' %}" id="banner-image">
+        <div class="banner-slider" id="bannerSlider">
+
+            <img 
+                src="{% static 'images/banners/desktop-banner.webp' %}" 
+                id="banner-image"
+                class="banner-current"
+                draggable="false"
+            >
+
+            <img 
+                id="banner-next-image"
+                class="banner-next"
+                draggable="false"
+            >
+
+        </div>
 
     </a>
 
@@ -33,169 +46,130 @@
 
 
 </section>
+<section class="categories-box">
 
 
+    <div class="categories-header">
+
+        <h2>
+            دسته بندی محصولات
+        </h2>
 
 
-<section class="categories-section">
+        <a href="#" class="view-all-btn">
+            مشاهده همه
+        </a>
 
 
-    <div class="section-title">
-        <h2>دسته بندی محصولات</h2>
     </div>
 
 
 
-    <div class="categories-grid">
+    <div class="categories-wrapper">
 
 
+        <button class="category-arrow right">
+            ❮
+        </button>
 
-        <a href="#" class="category-card mobile">
 
-            <div class="category-icon">
-                <img src="{% static 'icons/categories/stash--smartphone-light.svg' %}">
-            </div>
 
-            <span>موبایل</span>
+        <div class="categories-scroll">
 
-        </a>
 
+            <a href="#" class="category-card mobile">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/stash--smartphone-light.svg' %}">
+                </div>
+                <span>موبایل</span>
+            </a>
 
 
+            <a href="#" class="category-card laptop">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/iconoir--laptop.svg' %}">
+                </div>
+                <span>لپ تاپ</span>
+            </a>
 
 
-        <a href="#" class="category-card laptop">
+            <a href="#" class="category-card watch">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/fluent--smartwatch-20-regular.svg' %}">
+                </div>
+                <span>ساعت هوشمند</span>
+            </a>
 
-            <div class="category-icon">
-                <img src="{% static 'icons/categories/iconoir--laptop.svg' %}">
-            </div>
 
-            <span>لپ تاپ</span>
+            <a href="#" class="category-card monitor">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/mdi-light--monitor.svg' %}">
+                </div>
+                <span>مانیتور</span>
+            </a>
 
-        </a>
 
+            <a href="#" class="category-card headphone">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/icon-park-solid--airpods.svg' %}">
+                </div>
+                <span>هندزفری</span>
+            </a>
 
 
+            <a href="#" class="category-card accessories">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/lucide--cable.svg' %}">
+                </div>
+                <span>لوازم جانبی</span>
+            </a>
 
 
-        <a href="#" class="category-card watch">
+            <a href="#" class="category-card gaming">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/solar--gamepad-bold.svg' %}">
+                </div>
+                <span>گجت و گیم</span>
+            </a>
 
-            <div class="category-icon">
-                <img src="{% static 'icons/categories/fluent--smartwatch-20-regular.svg' %}">
-            </div>
 
-            <span>ساعت هوشمند</span>
+            <a href="#" class="category-card tools">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/vaadin--tools.svg' %}">
+                </div>
+                <span>ابزار آلات</span>
+            </a>
 
-        </a>
 
+            <a href="#" class="category-card network">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/bi--router-fill.svg' %}">
+                </div>
+                <span>شبکه</span>
+            </a>
 
 
+            <a href="#" class="category-card tablet">
+                <div class="category-icon">
+                    <img src="{% static 'icons/categories/solar--tablet-linear.svg' %}">
+                </div>
+                <span>تبلت</span>
+            </a>
 
 
-        <a href="#" class="category-card monitor">
+        </div>
 
-            <div class="category-icon">
-                <img src="{% static 'icons/categories/mdi-light--monitor.svg' %}">
-            </div>
 
-            <span>مانیتور</span>
 
-        </a>
 
-
-
-
-
-        <a href="#" class="category-card headphone">
-
-            <div class="category-icon">
-                <img src="{% static 'icons/categories/icon-park-solid--airpods.svg' %}">
-            </div>
-
-            <span>هندزفری</span>
-
-        </a>
-
-
-
-
-
-        <a href="#" class="category-card accessories">
-
-            <div class="category-icon">
-                <img src="{% static 'icons/categories/lucide--cable.svg' %}">
-            </div>
-
-            <span>لوازم جانبی</span>
-
-        </a>
-
-
-
-
-
-        <a href="#" class="category-card gaming">
-
-            <div class="category-icon">
-                <img src="{% static 'icons/categories/solar--gamepad-bold.svg' %}">
-            </div>
-
-            <span>گجت و گیم</span>
-
-        </a>
-
-
-
-
-
-        <a href="#" class="category-card tools">
-
-            <div class="category-icon">
-                <img src="{% static 'icons/categories/vaadin--tools.svg' %}">
-            </div>
-
-            <span>ابزار آلات</span>
-
-        </a>
-
-
-
-
-
-        <a href="#" class="category-card network">
-
-            <div class="category-icon">
-                <img src="{% static 'icons/categories/bi--router-fill.svg' %}">
-            </div>
-
-            <span>شبکه ارتباط</span>
-
-        </a>
-
-
-
-
-
-        <a href="#" class="category-card tablet">
-
-            <div class="category-icon">
-
-                <img src="{% static 'icons/categories/solar--tablet-linear.svg' %}">
-
-            </div>
-
-            <span>تبلت</span>
-
-        </a>
-
-
+        <button class="category-arrow left">
+            ❯
+        </button>
 
 
     </div>
 
 
 </section>
-
-
 
 {% endblock %}
