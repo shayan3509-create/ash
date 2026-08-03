@@ -130,3 +130,9 @@ def analytics(request):
         request,
         "admin_panel/analytics.html"
     )
+
+def banners(request):
+    return render(
+        request,
+        "admin_panel/banners.html"
+    )

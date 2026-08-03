@@ -126,5 +126,11 @@ urlpatterns = [
         views.analytics,
         name="analytics"
     ),
+    
+    path(
+            "banners/",
+            views.banners,
+            name="banners"
+        ),
 
 ]
