@@ -8,7 +8,7 @@
 
 :root {
 
-    --bg-color: #f5f7fa;
+    --bg-color: #ffffff;
     --card: #ffffff;
     --text-color: #111827;
     --border: #00BFFF;
@@ -21,8 +21,8 @@
 
 html.dark {
 
-    --bg-color: #0f172a;
-    --card: #111827;
+    --bg-color: #000000;
+    --card: #000000;
     --text-color: #f8fafc;
     --border: #00BFFF;
 
