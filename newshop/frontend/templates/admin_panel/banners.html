@@ -152,7 +152,7 @@
 
   <main class="page-content" data-app-shell>
     
-    <!-- ۱. کارت‌های آماری (فقط این‌ها کلاس lift دارند برای هاور زرد) -->
+    <!-- ۱. کارت‌های آماری -->
     <section class="grid grid-4 mb-2" aria-label="شاخص‌های کلیدی بنرها">
       <article class="card lift reveal" style="--delay:0ms">
         <div class="stat">
@@ -180,14 +180,14 @@
       </article>
     </section>
 
-    <!-- ۲. Toolbar (بدون کلاس lift) -->
+    <!-- ۲. Toolbar -->
     <section class="card reveal mb-2" style="--delay:300ms">
       <div class="toolbar">
         <button class="btn btn-primary" onclick="openBannerModal()">
           <i class="fas fa-plus"></i> ایجاد بنر
         </button>
         <div class="field" style="flex: 1 1 12rem;">
-          <input type="text" class="input" id="searchInput" placeholder="جستجو در عنوان، Alt یا لینک...">
+          <input type="text" class="input" id="searchInput" placeholder="جستجو در عنوان یا لینک...">
         </div>
         <div class="field" style="flex: 0 0 auto;">
           <select class="select" id="filterStatus">
@@ -218,7 +218,7 @@
       </div>
     </section>
 
-    <!-- ۳. لیست بنرها (بدون کلاس lift) -->
+    <!-- ۳. لیست بنرها -->
     <section class="card reveal" style="--delay:360ms">
       <div class="table-wrap">
         <table class="data-table responsive" id="bannerTable">
@@ -286,11 +286,6 @@
           </div>
 
           <div class="field field-full">
-            <label>متن جایگزین (Alt) *</label>
-            <input type="text" class="input" id="bannerAlt" required>
-          </div>
-
-          <div class="field field-full">
             <label>لینک مقصد</label>
             <input type="text" class="input" id="bannerLink" placeholder="https://... یا /category/mobile یا /products/10">
           </div>
@@ -319,6 +314,28 @@
             <label>تاریخ پایان (اختیاری)</label>
             <input type="date" class="input" id="bannerEndDate">
           </div>
+
+          <!-- بخش جدید: تنظیمات سئو -->
+          <div class="field field-full" style="margin-top: 1rem; border-top: 1px solid var(--line); padding-top: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <i class="fas fa-search" style="color: var(--accent);"></i>
+              <label style="font-weight: 700; color: var(--accent); font-size: 0.95rem; margin: 0;">تنظیمات سئو</label>
+            </div>
+            <small style="color: var(--muted); display: block; margin-bottom: 1rem;">این اطلاعات برای بهینه‌سازی موتورهای جستجو استفاده می‌شوند.</small>
+            
+            <div class="field field-full" style="margin-bottom: 1rem;">
+              <label>عنوان سئو</label>
+              <input type="text" class="input" id="bannerSeoTitle" placeholder="مثلاً: خرید گوشی موبایل | نیوشاپ" maxlength="70">
+              <small style="color: var(--muted); font-size: 0.78rem;">پیشنهاد: ۵۰ تا ۷۰ کاراکتر</small>
+            </div>
+
+            <div class="field field-full">
+              <label>توضیحات سئو</label>
+              <textarea class="textarea" id="bannerSeoDescription" placeholder="توضیحات کامل برای نمایش در نتایج گوگل..." maxlength="160" style="min-height: 5rem;"></textarea>
+              <small style="color: var(--muted); font-size: 0.78rem;">پیشنهاد: ۱۲۰ تا ۱۶۰ کاراکتر</small>
+            </div>
+          </div>
+
         </div>
         
         <div class="toolbar" style="margin-top: 1.5rem; justify-content: flex-end;">
@@ -338,6 +355,9 @@
       </div>
       <div id="viewBannerContent" style="text-align: center; background: var(--surface-2); border-radius: 1rem; overflow: hidden; min-height: 200px; display: flex; align-items: center; justify-content: center;">
         <!-- محتوا توسط JS پر می‌شود -->
+      </div>
+      <div class="list" style="margin-top: 1.5rem;" id="viewBannerDetails">
+        <!-- جزئیات توسط JS پر می‌شود -->
       </div>
     </div>
   </div>
@@ -367,19 +387,25 @@
       {
         id: 1, title: 'جشنواره تابستانی', type: 'image',
         src: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400&h=300&fit=crop',
-        alt: 'بنر جشنواره تابستانی', link: '/category/summer', newTab: true,
-        status: 'active', order: 1, updatedAt: '2026-08-01'
+        link: '/category/summer', newTab: true,
+        status: 'active', order: 1, updatedAt: '2026-08-01',
+        seoTitle: 'جشنواره تابستانی نیوشاپ',
+        seoDescription: 'تخفیف‌های ویژه فصل تابستان با ارسال رایگان'
       },
       {
         id: 2, title: 'معرفی محصول جدید', type: 'video',
         src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        alt: 'ویدیو معرفی محصول', link: '/products/105', newTab: false,
-        status: 'scheduled', order: 2, updatedAt: '2026-07-28'
+        link: '/products/105', newTab: false,
+        status: 'scheduled', order: 2, updatedAt: '2026-07-28',
+        seoTitle: 'معرفی گوشی جدید سامسونگ',
+        seoDescription: 'ویژگی‌های گوشی جدید سامسونگ را در این ویدیو ببینید'
       },
       {
         id: 3, title: 'ارسال رایگان', type: 'image',
-        src: null, alt: 'ارسال رایگان', link: '', newTab: false,
-        status: 'inactive', order: 3, updatedAt: '2026-07-15'
+        src: null, link: '', newTab: false,
+        status: 'inactive', order: 3, updatedAt: '2026-07-15',
+        seoTitle: '',
+        seoDescription: ''
       }
     ];
 
@@ -390,7 +416,6 @@
 
     // ================= INITIALIZATION =================
     document.addEventListener('DOMContentLoaded', () => {
-      // رندر مستقیم بدون هیچگونه Loader یا Skeleton
       renderBanners();
       updateStats();
       setupEventListeners();
@@ -403,7 +428,6 @@
       document.getElementById('filterType').addEventListener('change', renderBanners);
       document.getElementById('sortSelect').addEventListener('change', renderBanners);
 
-      // Drag & Drop Zone
       const zone = document.getElementById('uploadZone');
       zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
       zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
@@ -427,13 +451,13 @@
       const sort = document.getElementById('sortSelect').value;
 
       let filtered = banners.filter(b => {
-        const matchSearch = !search || b.title.toLowerCase().includes(search) || b.alt.toLowerCase().includes(search) || (b.link && b.link.toLowerCase().includes(search));
+        // حذف b.alt از جستجو
+        const matchSearch = !search || b.title.toLowerCase().includes(search) || (b.link && b.link.toLowerCase().includes(search));
         const matchStatus = !statusFilter || b.status === statusFilter;
         const matchType = !typeFilter || b.type === typeFilter;
         return matchSearch && matchStatus && matchType;
       });
 
-      // Sorting
       filtered.sort((a, b) => {
         if (sort === 'order') return a.order - b.order;
         if (sort === 'newest') return new Date(b.updatedAt) - new Date(a.updatedAt);
@@ -459,7 +483,7 @@
         let previewHtml = '';
         if (b.src) {
           if (b.type === 'image') {
-            previewHtml = `<img src="${b.src}" alt="${b.alt}" class="banner-thumb" loading="lazy">`;
+            previewHtml = `<img src="${b.src}" class="banner-thumb" loading="lazy">`;
           } else {
             previewHtml = `
               <div style="position: relative; width: 4rem; height: 3rem;">
@@ -505,7 +529,6 @@
         `;
       }).join('');
 
-      // Update Order Mode Button State
       const orderBtn = document.getElementById('toggleOrderModeBtn');
       if (isOrderMode) {
         orderBtn.innerHTML = '<i class="fas fa-save"></i> <span class="hide-mobile">ذخیره ترتیب</span>';
@@ -587,7 +610,6 @@
 
         const item = banners.splice(draggedItemIndex, 1)[0];
         banners.splice(targetIndex, 0, item);
-
         banners.forEach((b, i) => b.order = i + 1);
         
         renderBanners();
@@ -607,12 +629,15 @@
         document.getElementById('bannerModalTitle').textContent = 'ویرایش بنر';
         document.getElementById('bannerId').value = b.id;
         document.getElementById('bannerTitle').value = b.title;
-        document.getElementById('bannerAlt').value = b.alt;
         document.getElementById('bannerLink').value = b.link || '';
         document.getElementById('bannerNewTab').checked = b.newTab;
         document.getElementById('bannerStatus').value = b.status;
         document.getElementById('bannerStartDate').value = b.startDate || '';
         document.getElementById('bannerEndDate').value = b.endDate || '';
+        
+        // پر کردن فیلدهای سئو
+        document.getElementById('bannerSeoTitle').value = b.seoTitle || '';
+        document.getElementById('bannerSeoDescription').value = b.seoDescription || '';
         
         if (b.src) {
           currentFile = b.src;
@@ -666,10 +691,13 @@
     function saveBanner() {
       const id = document.getElementById('bannerId').value;
       const title = document.getElementById('bannerTitle').value.trim();
-      const alt = document.getElementById('bannerAlt').value.trim();
+      
+      // فیلدهای جدید سئو
+      const seoTitle = document.getElementById('bannerSeoTitle').value.trim();
+      const seoDescription = document.getElementById('bannerSeoDescription').value.trim();
 
-      if (!title || !alt) {
-        showToast('لطفاً فیلدهای الزامی (عنوان و Alt) را پر کنید', 'error');
+      if (!title) {
+        showToast('لطفاً عنوان بنر را وارد کنید', 'error');
         return;
       }
 
@@ -683,12 +711,13 @@
         title,
         type: currentFileType || (id ? banners.find(b => b.id == id).type : 'image'),
         src: currentFile || (id ? banners.find(b => b.id == id).src : null),
-        alt,
         link: document.getElementById('bannerLink').value.trim(),
         newTab: document.getElementById('bannerNewTab').checked,
         status: document.getElementById('bannerStatus').value,
         startDate: document.getElementById('bannerStartDate').value,
         endDate: document.getElementById('bannerEndDate').value,
+        seoTitle: seoTitle,
+        seoDescription: seoDescription,
         updatedAt: now
       };
 
@@ -699,7 +728,6 @@
           showToast('بنر با موفقیت ویرایش شد', 'success');
         }
       } else {
-        // بنر جدید همیشه در آخرین جای ترتیب قرار می‌گیرد
         bannerData.id = Date.now();
         bannerData.order = banners.length + 1;
         banners.push(bannerData);
@@ -729,16 +757,48 @@
       
       document.getElementById('viewBannerTitle').textContent = b.title;
       const content = document.getElementById('viewBannerContent');
+      const details = document.getElementById('viewBannerDetails');
       
       if (b.src) {
         if (b.type === 'image') {
-          content.innerHTML = `<img src="${b.src}" alt="${b.alt}" style="max-width: 100%; max-height: 60vh; object-fit: contain;">`;
+          content.innerHTML = `<img src="${b.src}" style="max-width: 100%; max-height: 60vh; object-fit: contain;">`;
         } else {
           content.innerHTML = `<video src="${b.src}" controls style="max-width: 100%; max-height: 60vh;"></video>`;
         }
       } else {
         content.innerHTML = `<div style="padding: 3rem; color: var(--muted);"><i class="fas fa-image" style="font-size: 3rem; margin-bottom: 1rem;"></i><br>فایلی موجود نیست</div>`;
       }
+
+      // نمایش جزئیات شامل سئو
+      let detailsHtml = `
+        <div class="list-item">
+          <div class="list-icon"><i class="fas fa-link"></i></div>
+          <div class="list-copy"><strong>لینک مقصد</strong><small style="overflow-wrap: anywhere; word-break: break-word;">${b.link || 'بدون لینک'}</small></div>
+        </div>
+        <div class="list-item">
+          <div class="list-icon"><i class="fas fa-info-circle"></i></div>
+          <div class="list-copy"><strong>وضعیت</strong><small>${b.status === 'active' ? 'فعال' : (b.status === 'scheduled' ? 'زمان‌بندی شده' : 'غیرفعال')}</small></div>
+        </div>
+      `;
+
+      if (b.seoTitle) {
+        detailsHtml += `
+          <div class="list-item">
+            <div class="list-icon"><i class="fas fa-search"></i></div>
+            <div class="list-copy"><strong>عنوان سئو</strong><small style="overflow-wrap: anywhere; word-break: break-word;">${b.seoTitle}</small></div>
+          </div>
+        `;
+      }
+      if (b.seoDescription) {
+        detailsHtml += `
+          <div class="list-item">
+            <div class="list-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="list-copy"><strong>توضیحات سئو</strong><small style="overflow-wrap: anywhere; word-break: break-word;">${b.seoDescription}</small></div>
+          </div>
+        `;
+      }
+
+      details.innerHTML = detailsHtml;
       openModal('viewBannerModal');
     }
 

@@ -8,7 +8,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>دسته‌بندی محصولات</title>
-    
 </head>
 <body
     data-root="../../"
@@ -18,7 +17,7 @@
 
     <main class="page-content" data-app-shell>
         
-        <!-- ۱- کارت‌های آماری - فقط این دو کارت lift دارند -->
+        <!-- ۱- کارت‌های آماری -->
         <div class="grid grid-2 mb-2">
             <div class="card lift reveal" style="--delay: 0ms">
                 <div class="stat">
@@ -44,7 +43,7 @@
             </div>
         </div>
 
-        <!-- ۲- Toolbar - بدون lift -->
+        <!-- ۲- Toolbar -->
         <div class="card reveal mb-2" style="--delay: 200ms">
             <div class="toolbar">
                 <button class="btn btn-primary" onclick="openCategoryModal()">
@@ -71,7 +70,7 @@
             </div>
         </div>
 
-        <!-- ۳- جدول دسته‌بندی‌ها - بدون lift -->
+        <!-- ۳- جدول دسته‌بندی‌ها -->
         <div class="card reveal" style="--delay: 300ms">
             <div class="table-wrap">
                 <table class="data-table responsive">
@@ -79,8 +78,6 @@
                         <tr>
                             <th>آیکون</th>
                             <th>نام</th>
-                            <th>متن جایگزین</th>
-                            <th>دسته والد</th>
                             <th>تعداد محصولات</th>
                             <th>وضعیت</th>
                             <th>آخرین ویرایش</th>
@@ -109,9 +106,7 @@
                     <i class="fa fa-times"></i>
                 </button>
             </div>
-            <div class="list" id="viewModalContent">
-                <!-- اطلاعات توسط JavaScript بارگذاری می‌شوند -->
-            </div>
+            <div class="list" id="viewModalContent"></div>
             <div class="toolbar" style="margin-top: 1.5rem; justify-content: flex-end;">
                 <button class="btn btn-secondary" onclick="closeModal('viewModal')">بستن</button>
             </div>
@@ -131,38 +126,59 @@
                 <input type="hidden" id="categoryId">
                 <div class="form-grid">
                     <div class="field">
-                        <label>نام دسته *</label>
+                        <label>نام دسته <span style="color: var(--danger);">*</span></label>
                         <input type="text" class="input" id="categoryName" required>
                     </div>
                     <div class="field">
-                        <label>Slug *</label>
+                        <label>Slug <span style="color: var(--danger);">*</span></label>
                         <input type="text" class="input" id="categorySlug" required>
                     </div>
+
+                    <!-- آپلود فایل SVG -->
                     <div class="field field-full">
-                        <label>آپلود فایل SVG *</label>
-                        <input type="file" class="input" id="svgFile" accept=".svg" onchange="handleFileSelect(event)">
-                        <div class="entity" id="svgPreview" style="display: none; margin-top: 0.5rem;">
-                            <div id="svgPreviewAvatar" class="svg-container svg-container-lg"></div>
-                            <div class="list-copy">
-                                <strong>پیش‌نمایش SVG</strong>
-                                <small id="svgPreviewName"></small>
+                        <label>آپلود فایل SVG <span style="color: var(--danger);">*</span></label>
+                        <div class="card svg-upload-box" onclick="document.getElementById('svgFile').click()" id="svgUploadBox">
+                            <div class="entity" style="gap: 1rem;">
+                                <div class="entity-avatar" style="width: 2.5rem; height: 2.5rem; flex-shrink: 0;">
+                                    <i class="fa fa-cloud-upload" style="font-size: 1.1rem;"></i>
+                                </div>
+                                <div class="list-copy" style="flex: 1; min-width: 0;">
+                                    <strong id="svgFileName">انتخاب فایل SVG</strong>
+                                    <small id="svgFileHint" style="overflow-wrap: anywhere; word-break: break-word; display: block; margin-top: 0.25rem;">
+                                        فرمت مجاز: SVG — روی این بخش کلیک کنید یا فایل را انتخاب نمایید.
+                                    </small>
+                                </div>
+                                <button type="button" class="btn btn-secondary btn-sm" style="flex-shrink: 0;">
+                                    <i class="fa fa-folder-open"></i>
+                                    انتخاب
+                                </button>
                             </div>
                         </div>
+                        <input type="file" id="svgFile" accept=".svg" style="display: none;" onchange="handleFileSelect(event)">
+                        
+                        <div class="entity" id="svgPreview" style="display: none; margin-top: 0.5rem; padding: 0.75rem; background: var(--surface-2); border-radius: 0.75rem; border: 1px solid var(--line);">
+                            <div id="svgPreviewAvatar" class="svg-container svg-container-lg"></div>
+                            <div class="list-copy" style="flex: 1; min-width: 0;">
+                                <strong>پیش‌نمایش SVG</strong>
+                                <small id="svgPreviewName" style="overflow-wrap: anywhere; word-break: break-word;"></small>
+                            </div>
+                            <button type="button" class="action-btn" onclick="event.stopPropagation(); removeSvgFile();" title="حذف فایل" style="color: var(--danger);">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
                     </div>
+
+                    <!-- Color Picker -->
                     <div class="field field-full">
                         <label>رنگ آیکون SVG</label>
                         <div style="display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap;">
-                            <!-- Color Picker حرفه‌ای -->
                             <div style="flex: 1; min-width: 200px;">
-                                <!-- مربع انتخاب رنگ -->
                                 <div id="colorSquare" style="width: 100%; aspect-ratio: 1; position: relative; cursor: crosshair; border-radius: 0.5rem; overflow: hidden; touch-action: none;">
                                     <div id="colorSquareMarker" style="position: absolute; width: 16px; height: 16px; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 3px rgba(0,0,0,0.6); transform: translate(-50%, -50%); pointer-events: none;"></div>
                                 </div>
-                                <!-- نوار Hue -->
                                 <div id="hueBar" style="width: 100%; height: 16px; position: relative; cursor: pointer; border-radius: 0.5rem; margin-top: 0.75rem; background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); touch-action: none;">
                                     <div id="hueMarker" style="position: absolute; width: 6px; height: 20px; background: white; border: 1px solid #333; border-radius: 3px; top: -2px; transform: translateX(-50%); pointer-events: none; box-shadow: 0 0 3px rgba(0,0,0,0.4);"></div>
                                 </div>
-                                <!-- نمایش رنگ و HEX -->
                                 <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; align-items: center;">
                                     <div id="colorPreview" style="width: 36px; height: 36px; border-radius: 0.5rem; border: 1px solid var(--line); flex-shrink: 0;"></div>
                                     <input type="text" id="hexInput" class="input" style="flex: 1; min-width: 0; min-height: 2.2rem; font-family: monospace; text-align: center;" placeholder="#000000" maxlength="7">
@@ -171,7 +187,6 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- Preview رنگ روی SVG -->
                             <div style="flex: 1; min-width: 150px;">
                                 <div style="margin-bottom: 0.5rem; color: var(--muted); font-size: 0.82rem;">پیش‌نمایش با رنگ انتخابی:</div>
                                 <div id="colorPreviewSvg" class="svg-container svg-container-lg" style="background: var(--surface-2);">
@@ -182,16 +197,8 @@
                         <input type="hidden" id="svgColor" value="#00bfff">
                         <input type="hidden" id="svgRaw" value="">
                     </div>
-                    <div class="field field-full">
-                        <label>متن جایگزین (Alt) *</label>
-                        <input type="text" class="input" id="svgAlt" required>
-                    </div>
-                    <div class="field">
-                        <label>دسته والد</label>
-                        <select class="select" id="parentCategory">
-                            <option value="">بدون دسته والد</option>
-                        </select>
-                    </div>
+
+                    <!-- وضعیت -->
                     <div class="field">
                         <label>وضعیت</label>
                         <select class="select" id="categoryStatus">
@@ -199,10 +206,34 @@
                             <option value="inactive">غیرفعال</option>
                         </select>
                     </div>
+
+                    <!-- توضیحات -->
                     <div class="field field-full">
                         <label>توضیحات</label>
-                        <textarea class="textarea" id="categoryDescription"></textarea>
+                        <textarea class="textarea" id="categoryDescription" placeholder="توضیحات کوتاه درباره دسته‌بندی..."></textarea>
                     </div>
+
+                    <!-- سئو -->
+                    <div class="field field-full">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+                            <i class="fa fa-search" style="color: var(--accent);"></i>
+                            <label style="font-weight: 700; color: var(--accent); font-size: 0.9rem; margin: 0;">تنظیمات سئو</label>
+                        </div>
+                        <small style="color: var(--muted);">این اطلاعات برای بهینه‌سازی موتورهای جستجو استفاده می‌شوند.</small>
+                    </div>
+
+                    <div class="field field-full">
+                        <label>عنوان سئو</label>
+                        <input type="text" class="input" id="categorySeoTitle" placeholder="مثلاً: خرید گوشی موبایل | نیوشاپ" maxlength="70">
+                        <small style="color: var(--muted); font-size: 0.78rem;">پیشنهاد: ۵۰ تا ۷۰ کاراکتر</small>
+                    </div>
+
+                    <div class="field field-full">
+                        <label>توضیحات سئو</label>
+                        <textarea class="textarea" id="categorySeoDescription" placeholder="توضیحات کامل برای نمایش در نتایج گوگل..." maxlength="160" style="min-height: 5rem;"></textarea>
+                        <small style="color: var(--muted); font-size: 0.78rem;">پیشنهاد: ۱۲۰ تا ۱۶۰ کاراکتر</small>
+                    </div>
+
                 </div>
                 <div class="toolbar" style="margin-top: 1.5rem; justify-content: flex-end;">
                     <button type="button" class="btn btn-secondary" onclick="closeModal('categoryModal')">انصراف</button>
@@ -248,7 +279,6 @@
     <div class="toast-stack" id="toastStack"></div>
 
     <style>
-        /* Container عمومی برای تمام SVGها - فقط برای نرمال‌سازی */
         .svg-container {
             display: inline-flex;
             align-items: center;
@@ -266,15 +296,32 @@
             display: block !important;
             object-fit: contain;
         }
-        /* اندازه‌های استاندارد */
         .svg-container-sm { width: 2.2rem; height: 2.2rem; }
         .svg-container-md { width: 3rem; height: 3rem; }
         .svg-container-lg { width: 5rem; height: 5rem; }
+
+        .svg-upload-box {
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+            border: 2px dashed var(--line);
+            background: var(--surface-2);
+            padding: 1rem 1.25rem;
+            border-radius: 0.75rem;
+        }
+        .svg-upload-box:hover {
+            border-color: var(--accent);
+            background: rgba(0, 191, 255, 0.05);
+            transform: translateY(-1px);
+        }
+        .svg-upload-box.has-file {
+            border-style: solid;
+            border-color: var(--accent);
+            background: rgba(0, 191, 255, 0.08);
+        }
     </style>
 
     <script src="../../assets/js/app.js"></script>
     <script>
-        // داده‌های پیش‌فرض
         const defaultCategories = [
             {
                 id: 1,
@@ -282,9 +329,9 @@
                 slug: 'electronics',
                 svg: '<svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/></svg>',
                 svgColor: '#00bfff',
-                svgAlt: 'آیکون الکترونیک',
-                parentId: null,
                 description: 'محصولات الکترونیکی',
+                seoTitle: 'خرید لوازم الکترونیکی | نیوشاپ',
+                seoDescription: 'بهترین لوازم الکترونیکی با کیفیت و قیمت مناسب در نیوشاپ.',
                 status: 'active',
                 createdAt: '2026-01-15',
                 updatedAt: '2026-08-01',
@@ -296,9 +343,9 @@
                 slug: 'clothing',
                 svg: null,
                 svgColor: '#00bfff',
-                svgAlt: 'دسته پوشاک',
-                parentId: null,
                 description: 'انواع لباس',
+                seoTitle: 'خرید لباس مردانه و زنانه | نیوشاپ',
+                seoDescription: 'جدیدترین مدل‌های پوشاک مردانه و زنانه را در نیوشاپ مشاهده کنید.',
                 status: 'active',
                 createdAt: '2026-02-10',
                 updatedAt: '2026-07-28',
@@ -310,9 +357,9 @@
                 slug: 'mobile',
                 svg: '<svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>',
                 svgColor: '#22c55e',
-                svgAlt: 'آیکون موبایل',
-                parentId: 1,
                 description: 'گوشی‌های موبایل',
+                seoTitle: 'خرید گوشی موبایل | نیوشاپ',
+                seoDescription: 'انواع گوشی‌های موبایل از برندهای معتبر با گارانتی اصلی در نیوشاپ.',
                 status: 'inactive',
                 createdAt: '2026-03-05',
                 updatedAt: '2026-07-30',
@@ -333,15 +380,9 @@
             ]
         };
 
-        // متغیرهای اصلی داده - مقداردهی اولیه از localStorage یا پیش‌فرض
         let categories = [];
         let productsData = {};
 
-        // ===== توابع localStorage =====
-        
-        /**
-         * بارگذاری داده‌ها از localStorage
-         */
         function loadFromStorage() {
             try {
                 const storedCategories = localStorage.getItem('categories');
@@ -349,31 +390,21 @@
 
                 if (storedCategories) {
                     const parsed = JSON.parse(storedCategories);
-                    if (Array.isArray(parsed) && parsed.length > 0) {
-                        categories = parsed;
-                    } else {
-                        categories = JSON.parse(JSON.stringify(defaultCategories));
-                    }
+                    categories = (Array.isArray(parsed) && parsed.length > 0) ? parsed : JSON.parse(JSON.stringify(defaultCategories));
                 } else {
                     categories = JSON.parse(JSON.stringify(defaultCategories));
                 }
 
                 if (storedProducts) {
                     const parsed = JSON.parse(storedProducts);
-                    if (parsed && typeof parsed === 'object') {
-                        productsData = parsed;
-                    } else {
-                        productsData = JSON.parse(JSON.stringify(defaultProductsData));
-                    }
+                    productsData = (parsed && typeof parsed === 'object') ? parsed : JSON.parse(JSON.stringify(defaultProductsData));
                 } else {
                     productsData = JSON.parse(JSON.stringify(defaultProductsData));
                 }
 
-                // ذخیره اولیه در localStorage
                 saveCategories();
                 saveProductsData();
             } catch (e) {
-                // در صورت خرابی localStorage، از داده‌های پیش‌فرض استفاده کن
                 categories = JSON.parse(JSON.stringify(defaultCategories));
                 productsData = JSON.parse(JSON.stringify(defaultProductsData));
                 saveCategories();
@@ -381,144 +412,88 @@
             }
         }
 
-        /**
-         * ذخیره categories در localStorage
-         */
         function saveCategories() {
-            try {
-                localStorage.setItem('categories', JSON.stringify(categories));
-            } catch (e) {
-                console.warn('خطا در ذخیره categories در localStorage:', e);
-            }
+            try { localStorage.setItem('categories', JSON.stringify(categories)); } 
+            catch (e) { console.warn('خطا در ذخیره categories:', e); }
         }
 
-        /**
-         * ذخیره productsData در localStorage
-         */
         function saveProductsData() {
-            try {
-                localStorage.setItem('productsData', JSON.stringify(productsData));
-            } catch (e) {
-                console.warn('خطا در ذخیره productsData در localStorage:', e);
-            }
+            try { localStorage.setItem('productsData', JSON.stringify(productsData)); } 
+            catch (e) { console.warn('خطا در ذخیره productsData:', e); }
         }
 
-        // متغیرهای Color Picker - HSV (HSB)
         let currentHue = 191;
         let currentSaturation = 1;
         let currentValue = 1;
         let activePicker = null;
-        let currentEditingId = null; // شناسه دسته در حال ویرایش
+        let currentEditingId = null;
 
-        // ===== توابع نرمال‌سازی SVG =====
-        
         function normalizeSVG(svgString) {
             if (!svgString || typeof svgString !== 'string') return '';
-            
             try {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(svgString, 'image/svg+xml');
                 const svg = doc.querySelector('svg');
-                
                 if (!svg) return '';
                 
                 let viewBox = svg.getAttribute('viewBox');
                 if (!viewBox) {
                     let w = parseFloat(svg.getAttribute('width'));
                     let h = parseFloat(svg.getAttribute('height'));
-                    
                     if (!w || !h || isNaN(w) || isNaN(h)) {
                         try {
                             const bbox = svg.getBBox ? svg.getBBox() : null;
-                            if (bbox && bbox.width > 0 && bbox.height > 0) {
-                                w = bbox.width;
-                                h = bbox.height;
-                            } else {
-                                w = 24;
-                                h = 24;
-                            }
-                        } catch (e) {
-                            w = 24;
-                            h = 24;
-                        }
+                            if (bbox && bbox.width > 0 && bbox.height > 0) { w = bbox.width; h = bbox.height; } 
+                            else { w = 24; h = 24; }
+                        } catch (e) { w = 24; h = 24; }
                     }
-                    
                     viewBox = `0 0 ${w} ${h}`;
                     svg.setAttribute('viewBox', viewBox);
                 }
-                
                 svg.removeAttribute('width');
                 svg.removeAttribute('height');
                 svg.removeAttribute('style');
                 svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-                
                 return new XMLSerializer().serializeToString(svg);
-            } catch (e) {
-                return '';
-            }
+            } catch (e) { return ''; }
         }
 
         function renderSVGContainer(svgString, sizeClass = 'svg-container-md', color = null, extraClass = '') {
             if (!svgString) {
-                return `<div class="svg-container ${sizeClass} ${extraClass}">
-                    <i class="fa fa-folder" style="color: var(--accent); font-size: 1.2rem;"></i>
-                </div>`;
+                return `<div class="svg-container ${sizeClass} ${extraClass}"><i class="fa fa-folder" style="color: var(--accent); font-size: 1.2rem;"></i></div>`;
             }
-            
             const normalized = normalizeSVG(svgString);
             const colored = color ? applyColorToSVG(normalized, color) : normalized;
-            
             return `<div class="svg-container ${sizeClass} ${extraClass}">${colored}</div>`;
         }
 
         function applyColorToSVG(svgString, color) {
             if (!svgString || !color) return svgString;
-            
             try {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(svgString, 'image/svg+xml');
                 const svg = doc.querySelector('svg');
-                
                 if (!svg) return svgString;
                 
-                const hasCurrentColor = svgString.includes('currentColor');
-                
-                if (hasCurrentColor) {
+                if (svgString.includes('currentColor')) {
                     svg.style.color = color;
                 } else {
                     const elements = svg.querySelectorAll('*');
-                    let hasFill = false;
-                    let hasStroke = false;
-                    
+                    let hasFill = false, hasStroke = false;
                     elements.forEach(el => {
                         const fill = el.getAttribute('fill');
                         const stroke = el.getAttribute('stroke');
-                        
-                        if (fill && fill !== 'none' && fill !== 'currentColor') {
-                            el.setAttribute('fill', color);
-                            hasFill = true;
-                        }
-                        if (stroke && stroke !== 'none' && stroke !== 'currentColor') {
-                            el.setAttribute('stroke', color);
-                            hasStroke = true;
-                        }
+                        if (fill && fill !== 'none' && fill !== 'currentColor') { el.setAttribute('fill', color); hasFill = true; }
+                        if (stroke && stroke !== 'none' && stroke !== 'currentColor') { el.setAttribute('stroke', color); hasStroke = true; }
                     });
-                    
-                    if (!hasFill && !hasStroke) {
-                        svg.setAttribute('fill', color);
-                    }
+                    if (!hasFill && !hasStroke) svg.setAttribute('fill', color);
                 }
-                
                 return new XMLSerializer().serializeToString(svg);
-            } catch (e) {
-                return svgString;
-            }
+            } catch (e) { return svgString; }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // بارگذاری داده‌ها از localStorage
             loadFromStorage();
-            
             renderCategories();
             updateStats();
             initColorPicker();
@@ -533,64 +508,26 @@
 
             document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
                 backdrop.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.remove('open');
-                    }
+                    if (e.target === this) this.classList.remove('open');
                 });
             });
         });
 
-        // ===== Color Picker Functions =====
         function initColorPicker() {
             const colorSquare = document.getElementById('colorSquare');
             const hueBar = document.getElementById('hueBar');
             const hexInput = document.getElementById('hexInput');
-
             if (!colorSquare || !hueBar || !hexInput) return;
 
-            colorSquare.addEventListener('pointerdown', function(e) {
-                e.preventDefault();
-                activePicker = 'square';
-                colorSquare.setPointerCapture(e.pointerId);
-                updateSquareFromEvent(e);
-            });
+            colorSquare.addEventListener('pointerdown', function(e) { e.preventDefault(); activePicker = 'square'; colorSquare.setPointerCapture(e.pointerId); updateSquareFromEvent(e); });
+            colorSquare.addEventListener('pointermove', function(e) { if (activePicker === 'square') { e.preventDefault(); updateSquareFromEvent(e); } });
+            colorSquare.addEventListener('pointerup', () => activePicker = null);
+            colorSquare.addEventListener('pointercancel', () => activePicker = null);
 
-            colorSquare.addEventListener('pointermove', function(e) {
-                if (activePicker === 'square') {
-                    e.preventDefault();
-                    updateSquareFromEvent(e);
-                }
-            });
-
-            colorSquare.addEventListener('pointerup', function(e) {
-                activePicker = null;
-            });
-
-            colorSquare.addEventListener('pointercancel', function(e) {
-                activePicker = null;
-            });
-
-            hueBar.addEventListener('pointerdown', function(e) {
-                e.preventDefault();
-                activePicker = 'hue';
-                hueBar.setPointerCapture(e.pointerId);
-                updateHueFromEvent(e);
-            });
-
-            hueBar.addEventListener('pointermove', function(e) {
-                if (activePicker === 'hue') {
-                    e.preventDefault();
-                    updateHueFromEvent(e);
-                }
-            });
-
-            hueBar.addEventListener('pointerup', function(e) {
-                activePicker = null;
-            });
-
-            hueBar.addEventListener('pointercancel', function(e) {
-                activePicker = null;
-            });
+            hueBar.addEventListener('pointerdown', function(e) { e.preventDefault(); activePicker = 'hue'; hueBar.setPointerCapture(e.pointerId); updateHueFromEvent(e); });
+            hueBar.addEventListener('pointermove', function(e) { if (activePicker === 'hue') { e.preventDefault(); updateHueFromEvent(e); } });
+            hueBar.addEventListener('pointerup', () => activePicker = null);
+            hueBar.addEventListener('pointercancel', () => activePicker = null);
 
             hexInput.addEventListener('input', function() {
                 const hex = this.value.trim();
@@ -598,38 +535,30 @@
                     const rgb = hexToRgb(hex);
                     if (rgb) {
                         const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
-                        currentHue = hsv.h;
-                        currentSaturation = hsv.s;
-                        currentValue = hsv.v;
+                        currentHue = hsv.h; currentSaturation = hsv.s; currentValue = hsv.v;
                         updateColorPickerUI();
                     }
                 }
             });
-
             updateColorPickerUI();
         }
 
         function updateSquareFromEvent(e) {
             const colorSquare = document.getElementById('colorSquare');
             if (!colorSquare) return;
-
             const rect = colorSquare.getBoundingClientRect();
             const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
             const y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
-
             currentSaturation = x / rect.width;
             currentValue = 1 - (y / rect.height);
-
             updateColorPickerUI();
         }
 
         function updateHueFromEvent(e) {
             const hueBar = document.getElementById('hueBar');
             if (!hueBar) return;
-
             const rect = hueBar.getBoundingClientRect();
             const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-
             currentHue = (x / rect.width) * 360;
             updateColorPickerUI();
         }
@@ -644,19 +573,10 @@
 
             if (!colorSquare || !colorSquareMarker || !hueMarker) return;
 
-            colorSquare.style.background = `
-                linear-gradient(to top, black, transparent),
-                linear-gradient(to right, white, transparent),
-                hsl(${currentHue}, 100%, 50%)
-            `;
-
-            const squareX = currentSaturation * 100;
-            const squareY = (1 - currentValue) * 100;
-            colorSquareMarker.style.left = squareX + '%';
-            colorSquareMarker.style.top = squareY + '%';
-
-            const hueX = (currentHue / 360) * 100;
-            hueMarker.style.left = hueX + '%';
+            colorSquare.style.background = `linear-gradient(to top, black, transparent), linear-gradient(to right, white, transparent), hsl(${currentHue}, 100%, 50%)`;
+            colorSquareMarker.style.left = (currentSaturation * 100) + '%';
+            colorSquareMarker.style.top = ((1 - currentValue) * 100) + '%';
+            hueMarker.style.left = ((currentHue / 360) * 100) + '%';
 
             const rgb = hsvToRgb(currentHue, currentSaturation, currentValue);
             const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
@@ -665,7 +585,6 @@
             if (hexInput && document.activeElement !== hexInput) hexInput.value = hex;
             if (svgColorInput) svgColorInput.value = hex;
 
-            // اگر در حال ویرایش یک دسته هستیم، رنگ را بلافاصله در آن ذخیره کن
             if (currentEditingId !== null) {
                 const index = categories.findIndex(c => c.id === currentEditingId);
                 if (index !== -1) {
@@ -675,14 +594,12 @@
                     renderCategories();
                 }
             }
-
             updateColorPreviewSvg(hex);
         }
 
         function updateColorPreviewSvg(hex) {
             const previewContainer = document.getElementById('colorPreviewSvg');
             if (!previewContainer) return;
-
             const svgRaw = document.getElementById('svgRaw');
             if (svgRaw && svgRaw.value) {
                 previewContainer.innerHTML = renderSVGContainer(svgRaw.value, 'svg-container-lg', hex);
@@ -692,56 +609,28 @@
         function copyHexColor() {
             const hexInput = document.getElementById('hexInput');
             if (hexInput) {
-                navigator.clipboard.writeText(hexInput.value).then(() => {
-                    showToast('HEX کپی شد', 'success');
-                }).catch(() => {
-                    showToast('خطا در کپی', 'error');
-                });
+                navigator.clipboard.writeText(hexInput.value).then(() => showToast('HEX کپی شد', 'success')).catch(() => showToast('خطا در کپی', 'error'));
             }
         }
 
-        // ===== Color Conversion Functions - HSV (HSB) =====
         function hsvToRgb(h, s, v) {
-            h /= 360;
-            let r, g, b;
-
-            const i = Math.floor(h * 6);
-            const f = h * 6 - i;
-            const p = v * (1 - s);
-            const q = v * (1 - f * s);
-            const t = v * (1 - (1 - f) * s);
-
+            h /= 360; let r, g, b;
+            const i = Math.floor(h * 6), f = h * 6 - i, p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
             switch (i % 6) {
-                case 0: r = v, g = t, b = p; break;
-                case 1: r = q, g = v, b = p; break;
-                case 2: r = p, g = v, b = t; break;
-                case 3: r = p, g = q, b = v; break;
-                case 4: r = t, g = p, b = v; break;
-                case 5: r = v, g = p, b = q; break;
+                case 0: r = v, g = t, b = p; break; case 1: r = q, g = v, b = p; break;
+                case 2: r = p, g = v, b = t; break; case 3: r = p, g = q, b = v; break;
+                case 4: r = t, g = p, b = v; break; case 5: r = v, g = p, b = q; break;
             }
-
-            return {
-                r: Math.round(r * 255),
-                g: Math.round(g * 255),
-                b: Math.round(b * 255)
-            };
+            return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
         }
 
         function rgbToHsv(r, g, b) {
-            r /= 255;
-            g /= 255;
-            b /= 255;
-
-            const max = Math.max(r, g, b);
-            const min = Math.min(r, g, b);
-            const d = max - min;
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
             let h, s, v = max;
-
             s = max === 0 ? 0 : d / max;
-
-            if (max === min) {
-                h = 0;
-            } else {
+            if (max === min) { h = 0; } 
+            else {
                 switch (max) {
                     case r: h = (g - b) / d + (g < b ? 6 : 0); break;
                     case g: h = (b - r) / d + 2; break;
@@ -749,35 +638,21 @@
                 }
                 h /= 6;
             }
-
-            return {
-                h: Math.round(h * 360),
-                s: s,
-                v: v
-            };
+            return { h: Math.round(h * 360), s: s, v: v };
         }
 
         function rgbToHex(r, g, b) {
-            return '#' + [r, g, b].map(x => {
-                const hex = x.toString(16);
-                return hex.length === 1 ? '0' + hex : hex;
-            }).join('');
+            return '#' + [r, g, b].map(x => { const hex = x.toString(16); return hex.length === 1 ? '0' + hex : hex; }).join('');
         }
 
         function hexToRgb(hex) {
             const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            return result ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16)
-            } : null;
+            return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null;
         }
 
-        // ===== سایر توابع =====
         function updateStats() {
             const totalCats = categories.length;
             const totalProds = categories.reduce((sum, cat) => sum + (cat.productsCount || 0), 0);
-            
             const catEl = document.getElementById('totalCategories');
             const prodEl = document.getElementById('totalProducts');
             if (catEl) catEl.textContent = totalCats;
@@ -803,13 +678,9 @@
                 return matchesSearch && matchesStatus;
             });
 
-            if (sortValue === 'name') {
-                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'fa'));
-            } else if (sortValue === 'products') {
-                filtered.sort((a, b) => (b.productsCount || 0) - (a.productsCount || 0));
-            } else if (sortValue === 'updated') {
-                filtered.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
-            }
+            if (sortValue === 'name') filtered.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'fa'));
+            else if (sortValue === 'products') filtered.sort((a, b) => (b.productsCount || 0) - (a.productsCount || 0));
+            else if (sortValue === 'updated') filtered.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
 
             if (filtered.length === 0) {
                 tbody.innerHTML = '';
@@ -819,18 +690,14 @@
 
             emptyState.style.display = 'none';
             tbody.innerHTML = filtered.map(cat => {
-                const parentName = cat.parentId ? (categories.find(c => c.id === cat.parentId)?.name || 'نامشخص') : '-';
                 const statusClass = cat.status === 'active' ? 'success' : 'danger';
                 const statusText = cat.status === 'active' ? 'فعال' : 'غیرفعال';
-                
                 const iconHtml = renderSVGContainer(cat.svg, 'svg-container-sm', cat.svgColor || '#00bfff');
 
                 return `
                     <tr>
                         <td>${iconHtml}</td>
                         <td><strong>${cat.name || 'بدون نام'}</strong></td>
-                        <td>${cat.svgAlt || '-'}</td>
-                        <td>${parentName}</td>
                         <td>
                             <a href="#" onclick="showProducts(${cat.id}, '${(cat.name || '').replace(/'/g, "\\'")}'); return false;" style="color: var(--accent); font-weight: 600;">
                                 ${cat.productsCount || 0} محصول
@@ -840,15 +707,9 @@
                         <td>${cat.updatedAt ? new Date(cat.updatedAt).toLocaleDateString('fa-IR') : '-'}</td>
                         <td>
                             <div class="actions">
-                                <button class="action-btn" title="مشاهده" onclick="viewCategory(${cat.id})">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button class="action-btn" title="ویرایش" onclick="openCategoryModal(${cat.id})">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button class="action-btn" title="حذف" onclick="deleteCategory(${cat.id})">
-                                    <i class="fa fa-trash"></i>
-                                </button>
+                                <button class="action-btn" title="مشاهده" onclick="viewCategory(${cat.id})"><i class="fa fa-eye"></i></button>
+                                <button class="action-btn" title="ویرایش" onclick="openCategoryModal(${cat.id})"><i class="fa fa-edit"></i></button>
+                                <button class="action-btn" title="حذف" onclick="deleteCategory(${cat.id})"><i class="fa fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -859,84 +720,46 @@
         function viewCategory(id) {
             const cat = categories.find(c => c.id === id);
             if (!cat) return;
-
             const content = document.getElementById('viewModalContent');
             if (!content) return;
 
-            const parentName = cat.parentId ? (categories.find(c => c.id === cat.parentId)?.name || 'نامشخص') : 'بدون دسته والد';
             const statusClass = cat.status === 'active' ? 'success' : 'danger';
             const statusText = cat.status === 'active' ? 'فعال' : 'غیرفعال';
-
             const iconHtml = renderSVGContainer(cat.svg, 'svg-container-md', cat.svgColor || '#00bfff');
 
             content.innerHTML = `
                 <div class="list-item">
                     ${iconHtml}
-                    <div class="list-copy">
-                        <strong>${cat.name || 'بدون نام'}</strong>
-                        <small>${cat.svgAlt || 'بدون متن جایگزین'}</small>
-                    </div>
+                    <div class="list-copy"><strong>${cat.name || 'بدون نام'}</strong></div>
                 </div>
                 <div class="list-item">
                     <div class="list-icon"><i class="fa fa-link"></i></div>
-                    <div class="list-copy">
-                        <strong>Slug</strong>
-                        <small>${cat.slug || '-'}</small>
-                    </div>
+                    <div class="list-copy"><strong>Slug</strong><small style="overflow-wrap: anywhere; word-break: break-word;">${cat.slug || '-'}</small></div>
                 </div>
                 <div class="list-item">
                     <div class="list-icon"><i class="fa fa-palette"></i></div>
-                    <div class="list-copy">
-                        <strong>رنگ آیکون</strong>
-                        <small><span style="display: inline-block; width: 16px; height: 16px; background: ${cat.svgColor || '#00bfff'}; border-radius: 4px; vertical-align: middle; margin-left: 0.5rem;"></span>${cat.svgColor || '#00bfff'}</small>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-icon"><i class="fa fa-folder-open"></i></div>
-                    <div class="list-copy">
-                        <strong>دسته والد</strong>
-                        <small>${parentName}</small>
-                    </div>
+                    <div class="list-copy"><strong>رنگ آیکون</strong><small><span style="display: inline-block; width: 16px; height: 16px; background: ${cat.svgColor || '#00bfff'}; border-radius: 4px; vertical-align: middle; margin-left: 0.5rem;"></span>${cat.svgColor || '#00bfff'}</small></div>
                 </div>
                 <div class="list-item">
                     <div class="list-icon"><i class="fa fa-check-circle"></i></div>
-                    <div class="list-copy">
-                        <strong>وضعیت</strong>
-                        <small><span class="badge ${statusClass}">${statusText}</span></small>
-                    </div>
+                    <div class="list-copy"><strong>وضعیت</strong><small><span class="badge ${statusClass}">${statusText}</span></small></div>
                 </div>
                 <div class="list-item">
                     <div class="list-icon"><i class="fa fa-cube"></i></div>
-                    <div class="list-copy">
-                        <strong>تعداد محصولات</strong>
-                        <small>${cat.productsCount || 0} محصول</small>
-                    </div>
+                    <div class="list-copy"><strong>تعداد محصولات</strong><small>${cat.productsCount || 0} محصول</small></div>
                 </div>
-                ${cat.description ? `
-                <div class="list-item">
-                    <div class="list-icon"><i class="fa fa-align-right"></i></div>
-                    <div class="list-copy">
-                        <strong>توضیحات</strong>
-                        <small>${cat.description}</small>
-                    </div>
-                </div>
-                ` : ''}
+                ${cat.description ? `<div class="list-item"><div class="list-icon"><i class="fa fa-align-right"></i></div><div class="list-copy"><strong>توضیحات</strong><small>${cat.description}</small></div></div>` : ''}
+                ${cat.seoTitle ? `<div class="list-item"><div class="list-icon"><i class="fa fa-search"></i></div><div class="list-copy"><strong>عنوان سئو</strong><small style="overflow-wrap: anywhere; word-break: break-word;">${cat.seoTitle}</small></div></div>` : ''}
+                ${cat.seoDescription ? `<div class="list-item"><div class="list-icon"><i class="fa fa-file-text-o"></i></div><div class="list-copy"><strong>توضیحات سئو</strong><small style="overflow-wrap: anywhere; word-break: break-word;">${cat.seoDescription}</small></div></div>` : ''}
                 <div class="list-item">
                     <div class="list-icon"><i class="fa fa-calendar"></i></div>
-                    <div class="list-copy">
-                        <strong>تاریخ ایجاد</strong>
-                        <small>${cat.createdAt ? new Date(cat.createdAt).toLocaleDateString('fa-IR') : '-'}</small>
-                    </div>
+                    <div class="list-copy"><strong>تاریخ ایجاد</strong><small>${cat.createdAt ? new Date(cat.createdAt).toLocaleDateString('fa-IR') : '-'}</small></div>
                 </div>
                 <div class="list-item">
                     <div class="list-icon"><i class="fa fa-edit"></i></div>
-                    <div class="list-copy">
-                        <strong>آخرین ویرایش</strong>
-                        <small>${cat.updatedAt ? new Date(cat.updatedAt).toLocaleDateString('fa-IR') : '-'}</small>
-                    </div>
+                    <div class="list-copy"><strong>آخرین ویرایش</strong><small>${cat.updatedAt ? new Date(cat.updatedAt).toLocaleDateString('fa-IR') : '-'}</small></div>
                 </div>
             `;
-
             openModal('viewModal');
         }
 
@@ -950,46 +773,36 @@
             const preview = document.getElementById('svgPreview');
             const previewAvatar = document.getElementById('svgPreviewAvatar');
             const svgRawInput = document.getElementById('svgRaw');
+            const uploadBox = document.getElementById('svgUploadBox');
+            const fileName = document.getElementById('svgFileName');
+            const fileHint = document.getElementById('svgFileHint');
+            
             if (preview) preview.style.display = 'none';
             if (previewAvatar) previewAvatar.innerHTML = '';
             if (svgRawInput) svgRawInput.value = '';
+            if (uploadBox) uploadBox.classList.remove('has-file');
+            if (fileName) fileName.textContent = 'انتخاب فایل SVG';
+            if (fileHint) fileHint.textContent = 'فرمت مجاز: SVG — روی این بخش کلیک کنید یا فایل را انتخاب نمایید.';
             
-            const parentSelect = document.getElementById('parentCategory');
-            if (parentSelect) {
-                parentSelect.innerHTML = '<option value="">بدون دسته والد</option>';
-                categories.forEach(c => {
-                    if (id && c.id === id) return;
-                    const option = document.createElement('option');
-                    option.value = c.id;
-                    option.textContent = c.name || 'بدون نام';
-                    parentSelect.appendChild(option);
-                });
-            }
-
             if (id) {
                 const cat = categories.find(c => c.id === id);
                 if (!cat) return;
-                
-                // تنظیم شناسه دسته در حال ویرایش
                 currentEditingId = cat.id;
-                
                 title.textContent = 'ویرایش دسته‌بندی';
+                
                 document.getElementById('categoryId').value = cat.id;
                 document.getElementById('categoryName').value = cat.name || '';
                 document.getElementById('categorySlug').value = cat.slug || '';
-                document.getElementById('svgAlt').value = cat.svgAlt || '';
                 document.getElementById('categoryDescription').value = cat.description || '';
+                document.getElementById('categorySeoTitle').value = cat.seoTitle || '';
+                document.getElementById('categorySeoDescription').value = cat.seoDescription || '';
                 document.getElementById('categoryStatus').value = cat.status || 'active';
-                if (parentSelect && cat.parentId) parentSelect.value = cat.parentId;
                 
-                // تنظیم Color Picker
                 if (cat.svgColor) {
                     const rgb = hexToRgb(cat.svgColor);
                     if (rgb) {
                         const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
-                        currentHue = hsv.h;
-                        currentSaturation = hsv.s;
-                        currentValue = hsv.v;
+                        currentHue = hsv.h; currentSaturation = hsv.s; currentValue = hsv.v;
                     }
                 }
                 document.getElementById('svgColor').value = cat.svgColor || '#00bfff';
@@ -1002,28 +815,27 @@
                     previewAvatar.innerHTML = renderSVGContainer(normalizedSVG, 'svg-container-lg', cat.svgColor || '#00bfff').match(/<div class="svg-container[^"]*">(.*?)<\/div>$/s)?.[1] || '';
                     const previewName = document.getElementById('svgPreviewName');
                     if (previewName) previewName.textContent = 'فایل SVG فعلی';
+                    if (fileName) fileName.textContent = 'فایل SVG انتخاب شده است';
+                    if (fileHint) fileHint.textContent = 'برای تغییر فایل، روی این بخش کلیک کنید.';
+                    if (uploadBox) uploadBox.classList.add('has-file');
                     updateColorPreviewSvg(cat.svgColor || '#00bfff');
                 }
             } else {
-                // ریست شناسه دسته در حال ویرایش
                 currentEditingId = null;
-                
                 title.textContent = 'ایجاد دسته‌بندی';
                 document.getElementById('categoryId').value = '';
-                currentHue = 191;
-                currentSaturation = 1;
-                currentValue = 1;
+                document.getElementById('categorySeoTitle').value = '';
+                document.getElementById('categorySeoDescription').value = '';
+                currentHue = 191; currentSaturation = 1; currentValue = 1;
                 document.getElementById('svgColor').value = '#00bfff';
                 updateColorPickerUI();
             }
-            
             openModal('categoryModal');
         }
 
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
             if (!file.name.toLowerCase().endsWith('.svg')) {
                 showToast('فقط فایل SVG مجاز است', 'error');
                 event.target.value = '';
@@ -1036,20 +848,22 @@
                 const previewAvatar = document.getElementById('svgPreviewAvatar');
                 const previewName = document.getElementById('svgPreviewName');
                 const svgRawInput = document.getElementById('svgRaw');
+                const uploadBox = document.getElementById('svgUploadBox');
+                const fileName = document.getElementById('svgFileName');
+                const fileHint = document.getElementById('svgFileHint');
                 
                 if (preview && previewAvatar && previewName && svgRawInput) {
                     preview.style.display = 'flex';
-                    
                     const normalizedSVG = normalizeSVG(e.target.result);
                     svgRawInput.value = normalizedSVG;
-                    
                     const svgColor = document.getElementById('svgColor').value || '#00bfff';
                     const coloredSVG = applyColorToSVG(normalizedSVG, svgColor);
-                    
-                    previewAvatar.innerHTML = coloredSVG;
+                    previewAvatar.innerHTML = renderSVGContainer(normalizedSVG, 'svg-container-lg', svgColor).match(/<div class="svg-container[^"]*">(.*?)<\/div>$/s)?.[1] || '';
                     previewName.textContent = file.name;
+                    if (uploadBox) uploadBox.classList.add('has-file');
+                    if (fileName) fileName.textContent = 'فایل انتخاب شد';
+                    if (fileHint) fileHint.textContent = file.name;
                     
-                    // اگر در حال ویرایش هستیم، SVG را بلافاصله در دسته ذخیره کن
                     if (currentEditingId !== null) {
                         const index = categories.findIndex(c => c.id === currentEditingId);
                         if (index !== -1) {
@@ -1059,31 +873,49 @@
                             renderCategories();
                         }
                     }
-                    
                     updateColorPreviewSvg(svgColor);
                 }
             };
             reader.readAsText(file);
         }
 
+        function removeSvgFile() {
+            const preview = document.getElementById('svgPreview');
+            const previewAvatar = document.getElementById('svgPreviewAvatar');
+            const svgRawInput = document.getElementById('svgRaw');
+            const svgFile = document.getElementById('svgFile');
+            const uploadBox = document.getElementById('svgUploadBox');
+            const fileName = document.getElementById('svgFileName');
+            const fileHint = document.getElementById('svgFileHint');
+            const colorPreviewSvg = document.getElementById('colorPreviewSvg');
+            
+            if (preview) preview.style.display = 'none';
+            if (previewAvatar) previewAvatar.innerHTML = '';
+            if (svgRawInput) svgRawInput.value = '';
+            if (svgFile) svgFile.value = '';
+            if (uploadBox) uploadBox.classList.remove('has-file');
+            if (fileName) fileName.textContent = 'انتخاب فایل SVG';
+            if (fileHint) fileHint.textContent = 'فرمت مجاز: SVG — روی این بخش کلیک کنید یا فایل را انتخاب نمایید.';
+            if (colorPreviewSvg) colorPreviewSvg.innerHTML = '<span style="color: var(--muted); font-size: 0.8rem;">SVG را آپلود کنید</span>';
+            showToast('فایل SVG حذف شد', 'info');
+        }
+
         function saveCategory() {
             const id = document.getElementById('categoryId').value;
             const name = (document.getElementById('categoryName').value || '').trim();
             const slug = (document.getElementById('categorySlug').value || '').trim();
-            const svgAlt = (document.getElementById('svgAlt').value || '').trim();
-            const parentId = document.getElementById('parentCategory').value;
             const description = (document.getElementById('categoryDescription').value || '').trim();
+            const seoTitle = (document.getElementById('categorySeoTitle').value || '').trim();
+            const seoDescription = (document.getElementById('categorySeoDescription').value || '').trim();
             const status = document.getElementById('categoryStatus').value;
             const svgColor = document.getElementById('svgColor').value || '#00bfff';
-            
             const svgRawInput = document.getElementById('svgRaw');
             const svgPreview = svgRawInput ? svgRawInput.value : '';
 
-            if (!name || !slug || !svgAlt) {
+            if (!name || !slug) {
                 showToast('لطفاً فیلدهای الزامی را پر کنید', 'error');
                 return;
             }
-
             if (!id && !svgPreview) {
                 showToast('لطفاً فایل SVG را آپلود کنید', 'error');
                 return;
@@ -1094,43 +926,17 @@
             if (id) {
                 const index = categories.findIndex(c => c.id === parseInt(id));
                 if (index !== -1) {
-                    categories[index] = {
-                        ...categories[index],
-                        name,
-                        slug,
-                        svg: svgPreview || categories[index].svg,
-                        svgColor,
-                        svgAlt,
-                        parentId: parentId ? parseInt(parentId) : null,
-                        description,
-                        status,
-                        updatedAt: now
-                    };
+                    categories[index] = { ...categories[index], name, slug, svg: svgPreview || categories[index].svg, svgColor, description, seoTitle, seoDescription, status, updatedAt: now };
                     saveCategories();
                     showToast('دسته‌بندی با موفقیت ویرایش شد', 'success');
                 }
             } else {
-                categories.push({
-                    id: Date.now(),
-                    name,
-                    slug,
-                    svg: svgPreview,
-                    svgColor,
-                    svgAlt,
-                    parentId: parentId ? parseInt(parentId) : null,
-                    description,
-                    status,
-                    createdAt: now,
-                    updatedAt: now,
-                    productsCount: 0
-                });
+                categories.push({ id: Date.now(), name, slug, svg: svgPreview, svgColor, description, seoTitle, seoDescription, status, createdAt: now, updatedAt: now, productsCount: 0 });
                 saveCategories();
                 showToast('دسته‌بندی با موفقیت ایجاد شد', 'success');
             }
 
-            // ریست شناسه ویرایش
             currentEditingId = null;
-
             closeModal('categoryModal');
             renderCategories();
             updateStats();
@@ -1139,10 +945,8 @@
         function deleteCategory(id) {
             const cat = categories.find(c => c.id === id);
             if (!cat) return;
-            
             const msg = document.getElementById('deleteMessage');
             if (msg) msg.textContent = `آیا از حذف دسته‌بندی "${cat.name}" مطمئن هستید؟`;
-            
             const confirmBtn = document.getElementById('confirmDeleteBtn');
             if (confirmBtn) {
                 confirmBtn.style.display = 'inline-flex';
@@ -1161,7 +965,6 @@
         function showProducts(categoryId, categoryName) {
             const titleEl = document.getElementById('productsModalTitle');
             if (titleEl) titleEl.textContent = `محصولات دسته: ${categoryName || 'نامشخص'}`;
-            
             const products = productsData[categoryId] || [];
             const list = document.getElementById('productsList');
             if (!list) return;
@@ -1178,12 +981,8 @@
                             <strong>${p.name || 'بدون نام'}</strong>
                             <small>${p.price || '0'} تومان</small>
                         </div>
-                        <span class="badge ${p.status === 'active' ? 'success' : 'danger'}">
-                            ${p.status === 'active' ? 'فعال' : 'غیرفعال'}
-                        </span>
-                        <button class="btn btn-sm btn-secondary" onclick="showToast('مشاهده محصول: ${p.name}', 'info')">
-                            <i class="fa fa-eye"></i>
-                        </button>
+                        <span class="badge ${p.status === 'active' ? 'success' : 'danger'}">${p.status === 'active' ? 'فعال' : 'غیرفعال'}</span>
+                        <button class="btn btn-sm btn-secondary" onclick="showToast('مشاهده محصول: ${p.name}', 'info')"><i class="fa fa-eye"></i></button>
                     </div>
                 `).join('');
             }
@@ -1198,31 +997,21 @@
         function closeModal(id) {
             const modal = document.getElementById(id);
             if (modal) modal.classList.remove('open');
-            // هنگام بستن مودال، شناسه ویرایش را ریست کن
-            if (id === 'categoryModal') {
-                currentEditingId = null;
-            }
+            if (id === 'categoryModal') currentEditingId = null;
         }
 
         function showToast(message, type = 'success') {
             const stack = document.getElementById('toastStack');
             if (!stack) return;
-            
             const toast = document.createElement('div');
             toast.className = 'toast';
-            
             const iconClass = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle');
             toast.innerHTML = `<i class="fa ${iconClass}"></i><span>${message}</span>`;
-            
             stack.appendChild(toast);
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transform = 'translateX(-15px)';
-                setTimeout(() => {
-                    if (toast.parentNode) {
-                        toast.parentNode.removeChild(toast);
-                    }
-                }, 300);
+                setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
             }, 3000);
         }
     </script>
