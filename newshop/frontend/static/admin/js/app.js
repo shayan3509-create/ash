@@ -29,6 +29,16 @@ const nav = [
 },
 
 
+{
+    id: "banners",
+    label: "بنرها",
+    icon: "fa-image",
+    href: "/admin-panel/banners/"
+},
+
+
+
+
   {
     id: "users",
     label: "کاربران",

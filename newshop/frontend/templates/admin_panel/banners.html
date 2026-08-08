@@ -1,24 +1,779 @@
 {% extends "admin_panel/base.html" %}
 {% load static %}
 
-
 {% block content %}
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="مدیریت بنرها">
-  <title>مدیریت بنرها | پنل ادمین</title>
- 
-</head>
-<body data-root="" data-page="banner" data-title="مدیریت بنرها" data-subtitle="مدیریت و تنظیم بنرهای سایت">
-  <main class="page-content" data-app-shell>
-  </main>
+  <meta name="description" content="مدیریت بنرهای سایت نیوشاپ">
+  <title>مدیریت بنرها | پنل ادمین نیوشاپ</title>
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
   
+  <style>
+    /* استایل‌های کمکی و اختصاصی برای بنر (بدون تداخل با app.css) */
+    .banner-thumb {
+      width: 4rem;
+      height: 3rem;
+      border-radius: 0.5rem;
+      object-fit: cover;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+    }
+    .banner-thumb-placeholder {
+      width: 4rem;
+      height: 3rem;
+      border-radius: 0.5rem;
+      background: var(--surface-2);
+      border: 1px dashed var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+    .video-play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+    }
+    .link-truncate {
+      max-width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      vertical-align: middle;
+      color: var(--accent);
+      cursor: help;
+    }
+    .link-truncate:hover::after {
+      content: attr(data-full-link);
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      background: var(--surface);
+      color: var(--text);
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--line);
+      font-size: 0.75rem;
+      white-space: nowrap;
+      z-index: 50;
+      box-shadow: var(--shadow);
+    }
+    .drag-handle {
+      cursor: grab;
+      color: var(--muted);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+      transition: all 0.2s;
+    }
+    .drag-handle:hover {
+      background: var(--surface-2);
+      color: var(--accent);
+    }
+    .drag-handle:active { cursor: grabbing; }
+    .data-table tbody tr.is-dragging {
+      opacity: 0.6;
+      transform: scale(1.01);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      background: var(--surface-2);
+      z-index: 10;
+    }
+    .data-table tbody tr.drag-over {
+      border-top: 2px solid var(--accent);
+    }
+    .mobile-sort-btns {
+      display: none;
+      gap: 0.25rem;
+    }
+    @media (max-width: 640px) {
+      .drag-handle { display: none !important; }
+      .mobile-sort-btns { display: flex; }
+    }
+    .upload-zone {
+      border: 2px dashed var(--line);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--surface-2);
+    }
+    .upload-zone:hover, .upload-zone.dragover {
+      border-color: var(--accent);
+      background: rgba(0, 191, 255, 0.05);
+    }
+    .preview-container {
+      position: relative;
+      margin-top: 1rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      max-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview-container img, .preview-container video {
+      max-width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+    }
+    .remove-preview-btn {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      background: rgba(239, 68, 68, 0.9);
+      color: white;
+      border: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body data-root="../../" data-page="banners" data-title="مدیریت بنرها" data-subtitle="مدیریت و تنظیم بنرهای سایت نیوشاپ">
+
+  <main class="page-content" data-app-shell>
+    
+    <!-- ۱. کارت‌های آماری (فقط این‌ها کلاس lift دارند برای هاور زرد) -->
+    <section class="grid grid-4 mb-2" aria-label="شاخص‌های کلیدی بنرها">
+      <article class="card lift reveal" style="--delay:0ms">
+        <div class="stat">
+          <div><span class="stat-label">تعداد کل بنرها</span><p class="stat-value" id="statTotal">0</p></div>
+          <span class="stat-icon"><i class="fas fa-layer-group" aria-hidden="true"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal" style="--delay:80ms">
+        <div class="stat">
+          <div><span class="stat-label">بنرهای فعال</span><p class="stat-value" id="statActive">0</p></div>
+          <span class="stat-icon" style="color: var(--success); background: rgba(34,197,94,.1);"><i class="fas fa-check-circle" aria-hidden="true"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal" style="--delay:160ms">
+        <div class="stat">
+          <div><span class="stat-label">بنرهای غیرفعال</span><p class="stat-value" id="statInactive">0</p></div>
+          <span class="stat-icon" style="color: var(--danger); background: rgba(239,68,68,.1);"><i class="fas fa-ban" aria-hidden="true"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal" style="--delay:240ms">
+        <div class="stat">
+          <div><span class="stat-label">زمان‌بندی شده</span><p class="stat-value" id="statScheduled">0</p></div>
+          <span class="stat-icon" style="color: var(--info); background: rgba(59,130,246,.1);"><i class="fas fa-clock" aria-hidden="true"></i></span>
+        </div>
+      </article>
+    </section>
+
+    <!-- ۲. Toolbar (بدون کلاس lift) -->
+    <section class="card reveal mb-2" style="--delay:300ms">
+      <div class="toolbar">
+        <button class="btn btn-primary" onclick="openBannerModal()">
+          <i class="fas fa-plus"></i> ایجاد بنر
+        </button>
+        <div class="field" style="flex: 1 1 12rem;">
+          <input type="text" class="input" id="searchInput" placeholder="جستجو در عنوان، Alt یا لینک...">
+        </div>
+        <div class="field" style="flex: 0 0 auto;">
+          <select class="select" id="filterStatus">
+            <option value="">همه وضعیت‌ها</option>
+            <option value="active">فعال</option>
+            <option value="inactive">غیرفعال</option>
+            <option value="scheduled">زمان‌بندی شده</option>
+          </select>
+        </div>
+        <div class="field" style="flex: 0 0 auto;">
+          <select class="select" id="filterType">
+            <option value="">همه انواع</option>
+            <option value="image">تصویر</option>
+            <option value="video">ویدیو</option>
+          </select>
+        </div>
+        <div class="field" style="flex: 0 0 auto;">
+          <select class="select" id="sortSelect">
+            <option value="order">مرتب‌سازی: ترتیب</option>
+            <option value="newest">جدیدترین</option>
+            <option value="oldest">قدیمی‌ترین</option>
+            <option value="title">عنوان (الفبا)</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary" id="toggleOrderModeBtn" onclick="toggleOrderMode()" title="تغییر ترتیب نمایش">
+          <i class="fas fa-sort-amount-down"></i> <span class="hide-mobile">ویرایش ترتیب</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ۳. لیست بنرها (بدون کلاس lift) -->
+    <section class="card reveal" style="--delay:360ms">
+      <div class="table-wrap">
+        <table class="data-table responsive" id="bannerTable">
+          <thead>
+            <tr>
+              <th style="width: 60px;">ترتیب</th>
+              <th>پیش‌نمایش</th>
+              <th>عنوان</th>
+              <th>نوع</th>
+              <th>لینک مقصد</th>
+              <th>وضعیت</th>
+              <th>آخرین ویرایش</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody id="bannerTableBody">
+            <!-- داده‌ها توسط JS رندر می‌شوند -->
+          </tbody>
+        </table>
+        
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none; padding: 3rem 1rem;">
+          <div style="font-size: 4rem; color: var(--muted); margin-bottom: 1rem; opacity: 0.5;"><i class="fas fa-image"></i></div>
+          <h3 style="color: var(--text); margin-bottom: 0.5rem;">هیچ بنری یافت نشد</h3>
+          <p style="color: var(--muted); margin-bottom: 1.5rem;">برای شروع، اولین بنر خود را ایجاد کنید.</p>
+          <button class="btn btn-primary" onclick="openBannerModal()">
+            <i class="fas fa-plus"></i> ایجاد بنر جدید
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Modal ایجاد / ویرایش بنر -->
+  <div class="modal-backdrop" id="bannerModal">
+    <div class="modal" style="width: min(100%, 45rem); max-height: 90vh; overflow-y: auto;">
+      <div class="modal-head">
+        <h2 id="bannerModalTitle">ایجاد بنر جدید</h2>
+        <button class="action-btn" onclick="closeModal('bannerModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="bannerForm" onsubmit="event.preventDefault(); saveBanner();">
+        <input type="hidden" id="bannerId">
+        <div class="form-grid">
+          <div class="field field-full">
+            <label>عنوان بنر *</label>
+            <input type="text" class="input" id="bannerTitle" required>
+          </div>
+          
+          <!-- آپلود فایل -->
+          <div class="field field-full">
+            <label>فایل تصویر یا ویدیو *</label>
+            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('bannerFile').click()">
+              <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--muted); margin-bottom: 0.5rem;"></i>
+              <p style="color: var(--text); font-weight: 500;">فایل را اینجا رها کنید یا کلیک کنید</p>
+              <small style="color: var(--muted);">PNG, JPG, WEBP, SVG, MP4, WEBM, MOV</small>
+              <input type="file" id="bannerFile" accept="image/png, image/jpeg, image/webp, image/svg+xml, video/mp4, video/webm, video/quicktime" style="display: none;" onchange="handleFileSelect(event)">
+            </div>
+            <div class="preview-container" id="filePreviewContainer" style="display: none;">
+              <div id="filePreviewContent"></div>
+              <button type="button" class="remove-preview-btn" onclick="removeFilePreview()" title="حذف فایل"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+
+          <div class="field field-full">
+            <label>متن جایگزین (Alt) *</label>
+            <input type="text" class="input" id="bannerAlt" required>
+          </div>
+
+          <div class="field field-full">
+            <label>لینک مقصد</label>
+            <input type="text" class="input" id="bannerLink" placeholder="https://... یا /category/mobile یا /products/10">
+          </div>
+
+          <div class="field" style="display: flex; align-items: flex-end; padding-bottom: 0.5rem;">
+            <label class="switch" style="cursor: pointer;">
+              <input type="checkbox" id="bannerNewTab">
+              <span class="switch-track"></span>
+              <span style="color: var(--text); font-size: 0.82rem;">باز شدن در تب جدید</span>
+            </label>
+          </div>
+
+          <div class="field">
+            <label>وضعیت</label>
+            <select class="select" id="bannerStatus">
+              <option value="active">فعال</option>
+              <option value="inactive">غیرفعال</option>
+              <option value="scheduled">زمان‌بندی شده</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>تاریخ شروع (اختیاری)</label>
+            <input type="date" class="input" id="bannerStartDate">
+          </div>
+          <div class="field">
+            <label>تاریخ پایان (اختیاری)</label>
+            <input type="date" class="input" id="bannerEndDate">
+          </div>
+        </div>
+        
+        <div class="toolbar" style="margin-top: 1.5rem; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('bannerModal')">انصراف</button>
+          <button type="submit" class="btn btn-primary">ذخیره بنر</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal مشاهده بنر -->
+  <div class="modal-backdrop" id="viewBannerModal">
+    <div class="modal" style="width: min(100%, 50rem);">
+      <div class="modal-head">
+        <h2 id="viewBannerTitle">مشاهده بنر</h2>
+        <button class="action-btn" onclick="closeModal('viewBannerModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="viewBannerContent" style="text-align: center; background: var(--surface-2); border-radius: 1rem; overflow: hidden; min-height: 200px; display: flex; align-items: center; justify-content: center;">
+        <!-- محتوا توسط JS پر می‌شود -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal تأیید حذف -->
+  <div class="modal-backdrop" id="deleteBannerModal">
+    <div class="modal" style="width: min(100%, 34rem);">
+      <div class="modal-head">
+        <h2>تأیید حذف</h2>
+        <button class="action-btn" onclick="closeModal('deleteBannerModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <p style="color: var(--muted); margin-bottom: 1.5rem;">آیا از حذف این بنر مطمئن هستید؟ این عملیات غیرقابل بازگشت است.</p>
+      <div class="toolbar" style="justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="closeModal('deleteBannerModal')">انصراف</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">حذف بنر</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Stack -->
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script src="../../assets/js/app.js"></script>
+  <script>
+    // ================= DATA & STATE =================
+    let banners = [
+      {
+        id: 1, title: 'جشنواره تابستانی', type: 'image',
+        src: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400&h=300&fit=crop',
+        alt: 'بنر جشنواره تابستانی', link: '/category/summer', newTab: true,
+        status: 'active', order: 1, updatedAt: '2026-08-01'
+      },
+      {
+        id: 2, title: 'معرفی محصول جدید', type: 'video',
+        src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        alt: 'ویدیو معرفی محصول', link: '/products/105', newTab: false,
+        status: 'scheduled', order: 2, updatedAt: '2026-07-28'
+      },
+      {
+        id: 3, title: 'ارسال رایگان', type: 'image',
+        src: null, alt: 'ارسال رایگان', link: '', newTab: false,
+        status: 'inactive', order: 3, updatedAt: '2026-07-15'
+      }
+    ];
+
+    let isOrderMode = false;
+    let draggedItemIndex = null;
+    let currentFile = null;
+    let currentFileType = null;
+
+    // ================= INITIALIZATION =================
+    document.addEventListener('DOMContentLoaded', () => {
+      // رندر مستقیم بدون هیچگونه Loader یا Skeleton
+      renderBanners();
+      updateStats();
+      setupEventListeners();
+      setupDragAndDrop();
+    });
+
+    function setupEventListeners() {
+      document.getElementById('searchInput').addEventListener('input', renderBanners);
+      document.getElementById('filterStatus').addEventListener('change', renderBanners);
+      document.getElementById('filterType').addEventListener('change', renderBanners);
+      document.getElementById('sortSelect').addEventListener('change', renderBanners);
+
+      // Drag & Drop Zone
+      const zone = document.getElementById('uploadZone');
+      zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+          document.getElementById('bannerFile').files = e.dataTransfer.files;
+          handleFileSelect({ target: { files: e.dataTransfer.files } });
+        }
+      });
+    }
+
+    // ================= RENDERING =================
+    function renderBanners() {
+      const tbody = document.getElementById('bannerTableBody');
+      const emptyState = document.getElementById('emptyState');
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const statusFilter = document.getElementById('filterStatus').value;
+      const typeFilter = document.getElementById('filterType').value;
+      const sort = document.getElementById('sortSelect').value;
+
+      let filtered = banners.filter(b => {
+        const matchSearch = !search || b.title.toLowerCase().includes(search) || b.alt.toLowerCase().includes(search) || (b.link && b.link.toLowerCase().includes(search));
+        const matchStatus = !statusFilter || b.status === statusFilter;
+        const matchType = !typeFilter || b.type === typeFilter;
+        return matchSearch && matchStatus && matchType;
+      });
+
+      // Sorting
+      filtered.sort((a, b) => {
+        if (sort === 'order') return a.order - b.order;
+        if (sort === 'newest') return new Date(b.updatedAt) - new Date(a.updatedAt);
+        if (sort === 'oldest') return new Date(a.updatedAt) - new Date(b.updatedAt);
+        if (sort === 'title') return a.title.localeCompare(b.title, 'fa');
+        return 0;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      tbody.innerHTML = filtered.map((b) => {
+        const originalIndex = banners.findIndex(x => x.id === b.id);
+        const statusClass = b.status === 'active' ? 'success' : (b.status === 'scheduled' ? 'info' : 'danger');
+        const statusText = b.status === 'active' ? 'فعال' : (b.status === 'scheduled' ? 'زمان‌بندی شده' : 'غیرفعال');
+        const typeBadge = b.type === 'image' ? '<span class="badge warning">تصویر</span>' : '<span class="badge info">ویدیو</span>';
+        
+        let previewHtml = '';
+        if (b.src) {
+          if (b.type === 'image') {
+            previewHtml = `<img src="${b.src}" alt="${b.alt}" class="banner-thumb" loading="lazy">`;
+          } else {
+            previewHtml = `
+              <div style="position: relative; width: 4rem; height: 3rem;">
+                <img src="https://via.placeholder.com/64/0f172a/00bfff?text=VID" class="banner-thumb">
+                <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              </div>`;
+          }
+        } else {
+          previewHtml = `<div class="banner-thumb-placeholder"><i class="fas fa-image"></i></div>`;
+        }
+
+        const truncatedLink = b.link ? (b.link.length > 25 ? b.link.substring(0, 25) + '...' : b.link) : '-';
+        const fullLink = b.link || 'بدون لینک';
+
+        return `
+          <tr draggable="${isOrderMode}" data-index="${originalIndex}" class="${isOrderMode ? 'draggable-row' : ''}">
+            <td data-label="ترتیب">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div class="drag-handle" title="کشیدن برای تغییر ترتیب"><i class="fas fa-grip-vertical"></i></div>
+                <div class="mobile-sort-btns">
+                  <button class="action-btn" onclick="moveBanner(${originalIndex}, -1)" ${originalIndex === 0 ? 'disabled' : ''}><i class="fas fa-chevron-up"></i></button>
+                  <button class="action-btn" onclick="moveBanner(${originalIndex}, 1)" ${originalIndex === banners.length - 1 ? 'disabled' : ''}><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <span style="color: var(--muted); font-size: 0.8rem;">${b.order}</span>
+              </div>
+            </td>
+            <td data-label="پیش‌نمایش">${previewHtml}</td>
+            <td data-label="عنوان"><strong>${b.title}</strong></td>
+            <td data-label="نوع">${typeBadge}</td>
+            <td data-label="لینک مقصد" style="position: relative;">
+              <span class="link-truncate" data-full-link="${fullLink}">${truncatedLink}</span>
+            </td>
+            <td data-label="وضعیت"><span class="badge ${statusClass}">${statusText}</span></td>
+            <td data-label="آخرین ویرایش" style="font-size: 0.8rem; color: var(--muted);">${new Date(b.updatedAt).toLocaleDateString('fa-IR')}</td>
+            <td data-label="عملیات">
+              <div class="actions">
+                <button class="action-btn" title="مشاهده" onclick="viewBanner(${b.id})"><i class="fas fa-eye"></i></button>
+                <button class="action-btn" title="ویرایش" onclick="openBannerModal(${b.id})"><i class="fas fa-edit"></i></button>
+                <button class="action-btn" title="حذف" onclick="confirmDelete(${b.id})" style="color: var(--danger);"><i class="fas fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Update Order Mode Button State
+      const orderBtn = document.getElementById('toggleOrderModeBtn');
+      if (isOrderMode) {
+        orderBtn.innerHTML = '<i class="fas fa-save"></i> <span class="hide-mobile">ذخیره ترتیب</span>';
+        orderBtn.classList.replace('btn-secondary', 'btn-primary');
+      } else {
+        orderBtn.innerHTML = '<i class="fas fa-sort-amount-down"></i> <span class="hide-mobile">ویرایش ترتیب</span>';
+        orderBtn.classList.replace('btn-primary', 'btn-secondary');
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('statTotal').textContent = banners.length;
+      document.getElementById('statActive').textContent = banners.filter(b => b.status === 'active').length;
+      document.getElementById('statInactive').textContent = banners.filter(b => b.status === 'inactive').length;
+      document.getElementById('statScheduled').textContent = banners.filter(b => b.status === 'scheduled').length;
+    }
+
+    // ================= ORDER MANAGEMENT =================
+    function toggleOrderMode() {
+      if (isOrderMode) {
+        isOrderMode = false;
+        showToast('ترتیب بنرها با موفقیت ذخیره شد', 'success');
+      } else {
+        isOrderMode = true;
+      }
+      renderBanners();
+    }
+
+    function moveBanner(index, direction) {
+      const newIndex = index + direction;
+      if (newIndex >= 0 && newIndex < banners.length) {
+        [banners[index], banners[newIndex]] = [banners[newIndex], banners[index]];
+        banners.forEach((b, i) => b.order = i + 1);
+        renderBanners();
+      }
+    }
+
+    function setupDragAndDrop() {
+      const tbody = document.getElementById('bannerTableBody');
+      
+      tbody.addEventListener('dragstart', (e) => {
+        if (!isOrderMode) { e.preventDefault(); return; }
+        const row = e.target.closest('tr');
+        if (!row) return;
+        draggedItemIndex = parseInt(row.dataset.index);
+        row.classList.add('is-dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      tbody.addEventListener('dragend', (e) => {
+        const row = e.target.closest('tr');
+        if (row) row.classList.remove('is-dragging');
+        document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+        draggedItemIndex = null;
+      });
+
+      tbody.addEventListener('dragover', (e) => {
+        if (!isOrderMode) return;
+        e.preventDefault();
+        const row = e.target.closest('tr');
+        if (row && row.dataset.index != draggedItemIndex) {
+          row.classList.add('drag-over');
+        }
+      });
+
+      tbody.addEventListener('dragleave', (e) => {
+        const row = e.target.closest('tr');
+        if (row) row.classList.remove('drag-over');
+      });
+
+      tbody.addEventListener('drop', (e) => {
+        if (!isOrderMode || draggedItemIndex === null) return;
+        e.preventDefault();
+        const row = e.target.closest('tr');
+        if (!row) return;
+        
+        const targetIndex = parseInt(row.dataset.index);
+        row.classList.remove('drag-over');
+
+        const item = banners.splice(draggedItemIndex, 1)[0];
+        banners.splice(targetIndex, 0, item);
+
+        banners.forEach((b, i) => b.order = i + 1);
+        
+        renderBanners();
+        showToast('ترتیب بنر تغییر کرد (برای ذخیره نهایی دکمه ذخیره را بزنید)', 'info');
+      });
+    }
+
+    // ================= MODAL & FORM =================
+    function openBannerModal(id = null) {
+      const form = document.getElementById('bannerForm');
+      form.reset();
+      removeFilePreview();
+
+      if (id) {
+        const b = banners.find(x => x.id === id);
+        if (!b) return;
+        document.getElementById('bannerModalTitle').textContent = 'ویرایش بنر';
+        document.getElementById('bannerId').value = b.id;
+        document.getElementById('bannerTitle').value = b.title;
+        document.getElementById('bannerAlt').value = b.alt;
+        document.getElementById('bannerLink').value = b.link || '';
+        document.getElementById('bannerNewTab').checked = b.newTab;
+        document.getElementById('bannerStatus').value = b.status;
+        document.getElementById('bannerStartDate').value = b.startDate || '';
+        document.getElementById('bannerEndDate').value = b.endDate || '';
+        
+        if (b.src) {
+          currentFile = b.src;
+          currentFileType = b.type;
+          showFilePreview(b.src, b.type, 'فایل فعلی');
+        }
+      } else {
+        document.getElementById('bannerModalTitle').textContent = 'ایجاد بنر جدید';
+        document.getElementById('bannerId').value = '';
+      }
+      openModal('bannerModal');
+    }
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      if (file.type.startsWith('image/')) {
+        currentFileType = 'image';
+      } else if (file.type.startsWith('video/')) {
+        currentFileType = 'video';
+      } else {
+        showToast('فرمت فایل پشتیبانی نمی‌شود', 'error');
+        return;
+      }
+
+      currentFile = URL.createObjectURL(file);
+      showFilePreview(currentFile, currentFileType, file.name);
+    }
+
+    function showFilePreview(src, type, name) {
+      const container = document.getElementById('filePreviewContainer');
+      const content = document.getElementById('filePreviewContent');
+      container.style.display = 'flex';
+      
+      if (type === 'image') {
+        content.innerHTML = `<img src="${src}" alt="Preview">`;
+      } else {
+        content.innerHTML = `<video src="${src}" controls></video>`;
+      }
+    }
+
+    function removeFilePreview() {
+      currentFile = null;
+      currentFileType = null;
+      document.getElementById('filePreviewContainer').style.display = 'none';
+      document.getElementById('filePreviewContent').innerHTML = '';
+      document.getElementById('bannerFile').value = '';
+    }
+
+    function saveBanner() {
+      const id = document.getElementById('bannerId').value;
+      const title = document.getElementById('bannerTitle').value.trim();
+      const alt = document.getElementById('bannerAlt').value.trim();
+
+      if (!title || !alt) {
+        showToast('لطفاً فیلدهای الزامی (عنوان و Alt) را پر کنید', 'error');
+        return;
+      }
+
+      if (!id && !currentFile) {
+        showToast('لطفاً یک تصویر یا ویدیو انتخاب کنید', 'error');
+        return;
+      }
+
+      const now = new Date().toISOString().split('T')[0];
+      const bannerData = {
+        title,
+        type: currentFileType || (id ? banners.find(b => b.id == id).type : 'image'),
+        src: currentFile || (id ? banners.find(b => b.id == id).src : null),
+        alt,
+        link: document.getElementById('bannerLink').value.trim(),
+        newTab: document.getElementById('bannerNewTab').checked,
+        status: document.getElementById('bannerStatus').value,
+        startDate: document.getElementById('bannerStartDate').value,
+        endDate: document.getElementById('bannerEndDate').value,
+        updatedAt: now
+      };
+
+      if (id) {
+        const index = banners.findIndex(b => b.id == id);
+        if (index !== -1) {
+          banners[index] = { ...banners[index], ...bannerData };
+          showToast('بنر با موفقیت ویرایش شد', 'success');
+        }
+      } else {
+        // بنر جدید همیشه در آخرین جای ترتیب قرار می‌گیرد
+        bannerData.id = Date.now();
+        bannerData.order = banners.length + 1;
+        banners.push(bannerData);
+        showToast('بنر جدید با موفقیت ایجاد شد', 'success');
+      }
+
+      closeModal('bannerModal');
+      renderBanners();
+      updateStats();
+    }
+
+    function confirmDelete(id) {
+      const btn = document.getElementById('confirmDeleteBtn');
+      btn.onclick = () => {
+        banners = banners.filter(b => b.id !== id);
+        closeModal('deleteBannerModal');
+        renderBanners();
+        updateStats();
+        showToast('بنر با موفقیت حذف شد', 'success');
+      };
+      openModal('deleteBannerModal');
+    }
+
+    function viewBanner(id) {
+      const b = banners.find(x => x.id === id);
+      if (!b) return;
+      
+      document.getElementById('viewBannerTitle').textContent = b.title;
+      const content = document.getElementById('viewBannerContent');
+      
+      if (b.src) {
+        if (b.type === 'image') {
+          content.innerHTML = `<img src="${b.src}" alt="${b.alt}" style="max-width: 100%; max-height: 60vh; object-fit: contain;">`;
+        } else {
+          content.innerHTML = `<video src="${b.src}" controls style="max-width: 100%; max-height: 60vh;"></video>`;
+        }
+      } else {
+        content.innerHTML = `<div style="padding: 3rem; color: var(--muted);"><i class="fas fa-image" style="font-size: 3rem; margin-bottom: 1rem;"></i><br>فایلی موجود نیست</div>`;
+      }
+      openModal('viewBannerModal');
+    }
+
+    // ================= UTILS =================
+    function openModal(id) {
+      document.getElementById(id).classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeModal(backdrop.id);
+      });
+    });
+
+    function showToast(message, type = 'success') {
+      const stack = document.getElementById('toastStack');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      const icon = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle');
+      const color = type === 'success' ? 'var(--success)' : (type === 'error' ? 'var(--danger)' : 'var(--info)');
+      
+      toast.innerHTML = `<i class="fas ${icon}" style="color: ${color}; font-size: 1.2rem;"></i><span>${message}</span>`;
+      stack.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-15px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
-
-
 {% endblock %}

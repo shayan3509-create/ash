@@ -45,6 +45,130 @@
     <script src="{% static 'admin/js/app.js' %}"></script>
     <script src="{% static 'admin/js/tailwindcss.js' %}"></script>
 
+    <!-- Admin Login Overlay -->
+    <script>
+    (function() {
+        'use strict';
+
+        const SESSION_KEY = 'admin_panel_authenticated';
+        const MOCK_USER = "admin";
+        const MOCK_PASS = "1234";
+
+        if (document.getElementById('adminLoginOverlay')) return;
+
+        // Inject CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            body.admin-login-active { overflow: hidden !important; pointer-events: none !important; }
+            body.admin-login-active .admin-login-overlay { pointer-events: auto !important; }
+            .admin-login-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(7, 11, 20, 0.75); backdrop-filter: blur(12px) brightness(0.5); -webkit-backdrop-filter: blur(12px) brightness(0.5); display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 1; visibility: visible; transition: opacity 0.4s ease, visibility 0.4s ease; }
+            .admin-login-overlay.is-hidden { opacity: 0; visibility: hidden; backdrop-filter: blur(0px) brightness(1); -webkit-backdrop-filter: blur(0px) brightness(1); pointer-events: none; }
+            .admin-login-card { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5rem; padding: 2.5rem 2rem; width: 100%; max-width: 420px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); text-align: center; transform: scale(1); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+            .admin-login-overlay.is-hidden .admin-login-card { transform: scale(0.9) translateY(20px); }
+            .admin-login-title { color: #00bfff; font-size: 1.6rem; font-weight: 800; margin: 0 0 0.5rem 0; }
+            .admin-login-subtitle { color: #94a3b8; font-size: 0.9rem; margin: 0 0 2rem 0; }
+            .admin-login-form { display: flex; flex-direction: column; gap: 1.25rem; text-align: right; }
+            .admin-login-group { display: flex; flex-direction: column; gap: 0.5rem; }
+            .admin-login-label { color: #f8fafc; font-size: 0.875rem; font-weight: 600; }
+            .admin-login-input { width: 100%; min-height: 3rem; padding: 0 1rem; color: #f8fafc; background: #111c33; border: 2px solid rgba(255,255,255,0.1); border-radius: 0.75rem; font-family: inherit; font-size: 1rem; transition: all 0.2s ease; }
+            .admin-login-input:focus { outline: none; border-color: #00bfff; box-shadow: 0 0 0 4px rgba(0, 191, 255, 0.15); }
+            .admin-login-error { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; margin-bottom: 0.5rem; display: none; text-align: right; }
+            .admin-login-submit { width: 100%; min-height: 3rem; padding: 0 1rem; color: #070b14; background: linear-gradient(135deg, #00bfff, #0077aa); border: none; border-radius: 0.75rem; font-family: inherit; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease; margin-top: 0.5rem; }
+            .admin-login-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0, 191, 255, 0.4); }
+            .admin-login-submit:active { transform: translateY(0); }
+            .admin-login-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        `;
+        document.head.appendChild(style);
+
+        // Inject HTML
+        document.body.insertAdjacentHTML('afterbegin', `
+            <div id="adminLoginOverlay" class="admin-login-overlay is-hidden" aria-hidden="true">
+                <div class="admin-login-card">
+                    <div class="admin-login-header">
+                        <h2 class="admin-login-title">ورود به پنل مدیریت</h2>
+                        <p class="admin-login-subtitle">لطفاً مشخصات خود را برای دسترسی وارد کنید</p>
+                    </div>
+                    <div id="adminLoginError" class="admin-login-error" role="alert"></div>
+                    <form id="adminLoginForm" class="admin-login-form" autocomplete="off">
+                        <div class="admin-login-group">
+                            <label for="adminLoginUsername" class="admin-login-label">نام کاربری</label>
+                            <input type="text" id="adminLoginUsername" class="admin-login-input" required autocomplete="username">
+                        </div>
+                        <div class="admin-login-group">
+                            <label for="adminLoginPassword" class="admin-login-label">رمز عبور</label>
+                            <input type="password" id="adminLoginPassword" class="admin-login-input" required autocomplete="current-password">
+                        </div>
+                        <button type="submit" id="adminLoginSubmit" class="admin-login-submit">ورود به سیستم</button>
+                    </form>
+                </div>
+            </div>
+        `);
+
+        // Logic
+        const overlay = document.getElementById('adminLoginOverlay');
+        const form = document.getElementById('adminLoginForm');
+        const errorBox = document.getElementById('adminLoginError');
+        const usernameInput = document.getElementById('adminLoginUsername');
+        const passwordInput = document.getElementById('adminLoginPassword');
+        const submitBtn = document.getElementById('adminLoginSubmit');
+
+        function showOverlay() {
+            overlay.classList.remove('is-hidden');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('admin-login-active');
+            setTimeout(() => usernameInput.focus(), 100);
+        }
+
+        function hideOverlay() {
+            overlay.classList.add('is-hidden');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('admin-login-active');
+        }
+
+        function showError(message) {
+            errorBox.textContent = message;
+            errorBox.style.display = 'block';
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            errorBox.style.display = 'none';
+
+            const user = usernameInput.value.trim();
+            const pass = passwordInput.value;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'در حال بررسی...';
+
+            setTimeout(() => {
+                if (user === MOCK_USER && pass === MOCK_PASS) {
+                    sessionStorage.setItem(SESSION_KEY, 'true');
+                    hideOverlay();
+                } else {
+                    showError('نام کاربری یا رمز عبور اشتباه است.');
+                }
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'ورود به سیستم';
+            }, 600);
+        });
+
+        if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+            hideOverlay();
+        } else {
+            showOverlay();
+        }
+
+        window.triggerAdminLogout = function() {
+            sessionStorage.removeItem(SESSION_KEY);
+            showOverlay();
+            usernameInput.value = '';
+            passwordInput.value = '';
+            errorBox.style.display = 'none';
+        };
+    })();
+    </script>
 
 </body>
 
