@@ -1093,3 +1093,19 @@
 
 
 }
+@media (max-width: 768px) {
+
+    .flash-bg {
+        min-height: 280px;
+        height: 280px;
+
+        background:
+            linear-gradient(to bottom,
+                #00a7ff 0%,
+                #38b8ff 18%,
+                #dff4ff 35%,
+                #ffffff 55%,
+                #ffffff 100%);
+    }
+
+}
