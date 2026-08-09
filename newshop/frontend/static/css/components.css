@@ -3263,7 +3263,7 @@ html.dark .flash-product-card .product-discount {
 /* Dark Mode */
 
 html.dark .flash-product-card .product-price::before {
-    background: rgba(255, 255, 255, .12);
+    background: rgb(255, 255, 255);
 }
 
 .flash-product-card .product-old-price {
@@ -3325,3 +3325,12 @@ html.dark .flash-product-card .product-price::before {
 }
 
 
+
+
+/* ==========================
+   DARK MODE - CARD BORDER
+========================== */
+
+html.dark .flash-product-card {
+    border: 1px solid rgba(255, 255, 255, .18) !important;
+}
