@@ -2210,12 +2210,13 @@ main {
     max-width: 1430px;
     width: calc(100% - 40px);
     margin: 40px auto;
+    min-height: 200px !important;
     
 }
 
 .flash-bg {
     width: 100%;
-    min-height: 320px;
+    min-height: 360px;
 
     position: relative;
     overflow: hidden;
@@ -2274,15 +2275,14 @@ html.dark .flash-bg {
 
     border-color:#00BFFF;
 
-    background:
+background:
         linear-gradient(90deg,
-            #111827 0%,
-            #111827 55%,
-            #162536 67%,
-            #174866 78%,
-            #087bb5 90%,
-            #008dcc 100%);
-
+            #000000 0%,
+            #002b3c 58%,
+            #003b5a 68%,
+            #00527e 78%,
+            #0082c3 89%,
+            #00bfff 100%);
     box-shadow:
         0 20px 45px rgba(0, 0, 0, .35),
         inset 0 0 0 1px rgba(255, 255, 255, .04);
@@ -2306,12 +2306,13 @@ html.dark .flash-discount-icon {
 @media (max-width: 768px) {
 
     .flash-section {
-        width: calc(100% - 24px);
+        width: calc(100% - 20px);
+        
         margin: 24px auto;
     }
 
     .flash-bg {
-        min-height: 300px;
+        
         border-radius: 24px;
 
         border-width: 1px;
@@ -2343,12 +2344,12 @@ html.dark .flash-discount-icon {
 
         background:
             linear-gradient(180deg,
-                #008dcc 0%,
-                #087bb5 20%,
-                #174866 35%,
-                #162536 50%,
-                #111827 68%,
-                #111827 100%);
+                #00bfff 0%,
+                #008ebd 20%,
+                #006384 35%,
+                #00394d 50%,
+                #000000 68%,
+                #000000 100%);
 
         border-color: rgba(70, 180, 255, .24);
     }
@@ -2567,11 +2568,13 @@ html.dark .flash-all:hover {
 
     position: absolute;
 
-    top: 25px;
+    bottom: 7;
+
+    top: 7px;
     left: 25px;
 
     width: calc(100% - 250px);
-    height: calc(100% - 50px);
+    height: calc(100% - 10px);
 
     background: #ffffff;
 
@@ -2581,10 +2584,6 @@ html.dark .flash-all:hover {
 
     overflow: hidden;
 
-box-shadow:
-        0 12px 25px rgba(0, 0, 0, .10),
-        0 4px 10px rgba(0, 0, 0, .06),
-        inset 0 1px 0 rgba(255, 255, 255, .9);
 
     transition:
         background .3s ease,
@@ -2675,12 +2674,12 @@ html.dark .flash-products {
 
         position: absolute;
 
-        top: 115px;
-        left: 12px;
+        top: 80px;
+        left: 5px;
 
-        width: calc(100% - 24px);
+        width: calc(100% - 12px);
 
-        height: calc(100% - 127px);
+        height: calc(100% - 0px);
 
         border-radius: 20px;
 
@@ -2696,3 +2695,633 @@ html.dark .flash-products {
     }
 
 }
+
+
+/* ==========================
+   FLASH PRODUCT CARD
+========================== */
+
+.flash-product-card {
+
+    position: relative;
+
+    flex: 0 0 205px;
+    width: 205px;
+    height: 100%;
+    min-width: 205px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 8px 9px 12px;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    direction: rtl;
+    text-decoration: none;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(20, 30, 45, .08);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 5px 14px rgba(20, 30, 45, .05),
+        0 1px 3px rgba(20, 30, 45, .04);
+
+    transition:
+        transform .28s cubic-bezier(.2, .8, .2, 1),
+        box-shadow .28s ease,
+        border-color .28s ease;
+}
+
+
+/* ==========================
+   HOVER CARD
+========================== */
+
+.flash-product-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: rgba(0, 191, 255, .32);
+
+    box-shadow:
+        0 16px 32px rgba(0, 130, 190, .12),
+        0 4px 10px rgba(0, 0, 0, .05);
+}
+
+
+/* ==========================
+   IMAGE
+========================== */
+
+.flash-product-card .product-image {
+
+    position: relative;
+
+    flex: 0 0 175px;
+
+    width: 100%;
+    height: 175px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(145deg,
+            #f8fcff 0%,
+            #ffffff 70%);
+}
+
+
+/* نور ظریف */
+
+.flash-product-card .product-image::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: rgba(0, 191, 255, .06);
+
+    filter: blur(28px);
+
+    pointer-events: none;
+}
+
+
+/* ==========================
+   PRODUCT IMAGE
+========================== */
+
+.flash-product-card .product-image img {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: block;
+
+    width: 92%;
+    height: 92%;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+    object-position: center;
+
+    user-select: none;
+    -webkit-user-drag: none;
+
+    transition:
+        transform .35s cubic-bezier(.2, .8, .2, 1);
+}
+
+
+/* حرکت خیلی ظریف تصویر */
+
+.flash-product-card:hover .product-image img {
+
+    transform: scale(1.045);
+}
+
+
+/* ==========================
+   PRODUCT NAME
+========================== */
+
+.flash-product-card .product-name {
+
+    margin: 6px 3px 0;
+
+    /*
+       قبلاً 42px بود.
+       کمترش کردیم تا قیمت‌ها به عنوان
+       نزدیک‌تر شوند.
+    */
+    min-height: 36px;
+
+    color: #151a21;
+
+    font-size: 14px;
+    font-weight: 750;
+
+    line-height: 1.5;
+
+    text-align: right;
+
+    display: -webkit-box;
+
+    
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+
+/* ==========================
+   OLD PRICE ROW
+========================== */
+
+.flash-product-card .product-old-row {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 6px;
+
+    /*
+       فاصله عنوان تا قیمت قبلی
+    */
+    margin-top: 2px;
+
+    padding: 0 3px;
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================
+   OLD PRICE
+========================== */
+
+.flash-product-card .product-old-price {
+
+    min-width: 0;
+
+    color: #a3abb5;
+
+    font-size: 10px;
+    font-weight: 500;
+
+    line-height: 1.4;
+
+    text-decoration: line-through;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* ==========================
+   DISCOUNT
+========================== */
+
+.flash-product-card .product-discount {
+
+    flex: 0 0 auto;
+
+    padding: 3px 7px;
+
+    border-radius: 7px;
+
+    background: #00bfff;
+
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    line-height: 1.4;
+
+    box-shadow:
+        0 4px 9px rgba(0, 191, 255, .18);
+}
+
+
+/* ==========================
+   CURRENT PRICE
+========================== */
+
+.flash-product-card .product-price {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 4px;
+
+    /*
+       قیمت فعلی هم نزدیک‌تر به قیمت قبلی
+    */
+    
+
+    padding: 0 3px;
+
+    box-sizing: border-box;
+
+    color: #009ed7;
+
+    white-space: nowrap;
+}
+
+
+.flash-product-card .product-price strong {
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+    line-height: 1.5;
+}
+
+
+.flash-product-card .product-price span {
+
+    font-size: 10px;
+
+    font-weight: 650;
+}
+
+
+/* ==========================
+   DARK MODE
+========================== */
+
+html.dark .flash-product-card {
+
+    background: #000000;
+
+    border-color: rgba(255, 255, 255, .08);
+
+    box-shadow:
+        0 7px 18px rgba(0, 0, 0, .45);
+}
+
+
+html.dark .flash-product-card:hover {
+
+    border-color: rgba(0, 191, 255, .32);
+
+    box-shadow:
+        0 16px 34px rgba(0, 0, 0, .65);
+}
+
+
+html.dark .flash-product-card .product-image {
+
+    background:
+        linear-gradient(145deg,
+            #090909,
+            #000000);
+}
+
+
+html.dark .flash-product-card .product-name {
+
+    color: #f4f7fa;
+}
+
+
+html.dark .flash-product-card .product-old-price {
+
+    color: #5d646d;
+}
+
+
+html.dark .flash-product-card .product-price {
+
+    color: #00bfff;
+}
+
+
+html.dark .flash-product-card .product-discount {
+
+    background: #00bfff;
+
+    color: #001018;
+
+    box-shadow:
+        0 4px 10px rgba(0, 191, 255, .15);
+}
+
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 768px) {
+
+    .flash-product-card {
+
+        flex-basis: 165px;
+
+        width: 165px;
+        min-width: 165px;
+
+        padding: 7px 8px 10px;
+
+        border-radius: 17px;
+    }
+
+
+    /* تصویر */
+
+    .flash-product-card .product-image {
+
+        flex-basis: 140px;
+
+        height: 140px;
+
+        border-radius: 13px;
+    }
+
+
+    /* نام */
+
+    .flash-product-card .product-name {
+
+        margin-top: 5px;
+
+        min-height: 34px;
+
+        font-size: 12px;
+
+        line-height: 1.45;
+    }
+
+
+    /* ردیف قیمت قبلی */
+
+    .flash-product-card .product-old-row {
+
+        margin-top: 1px;
+
+        padding: 0 2px;
+    }
+
+
+    .flash-product-card .product-old-price {
+
+        font-size: 9px;
+    }
+
+
+    /* تخفیف */
+
+    .flash-product-card .product-discount {
+
+        padding: 2px 6px;
+
+        font-size: 9px;
+
+        border-radius: 6px;
+    }
+
+
+    /* قیمت فعلی */
+
+    .flash-product-card .product-price {
+
+        
+
+        padding: 0 2px;
+    }
+
+
+    .flash-product-card .product-price strong {
+
+        font-size: 13px;
+    }
+
+
+    .flash-product-card .product-price span {
+
+        font-size: 9px;
+    }
+
+}
+
+
+/* ==========================
+   FINAL PRICE - CENTER & BIGGER
+========================== */
+
+.flash-product-card .product-price {
+    justify-content: center !important;
+    text-align: center !important;
+    
+    width: 100% !important;
+}
+
+.flash-product-card .product-price strong {
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    line-height: 1.5 !important;
+}
+
+.flash-product-card .product-price span {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 768px) {
+
+    .flash-product-card .product-price {
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    .flash-product-card .product-price strong {
+        font-size: 15px !important;
+    }
+
+    .flash-product-card .product-price span {
+        font-size: 9px !important;
+    }
+
+}
+
+/* ==========================
+   MOBILE - FINAL PRICE LOWER
+========================== */
+
+@media (max-width: 768px) {
+
+    .flash-product-card .product-price {
+        bottom: 8px !important;
+        transform: translateY(4px) !important;
+    }
+
+}
+.flash-product-card .product-price strong {
+    font-family: "Vazirmatn", sans-serif !important;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.flash-product-card .product-price span {
+    font-family: "Vazirmatn", sans-serif !important;
+    font-size: 10px;
+    font-weight: 600;
+}
+.flash-product-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.flash-product-card .product-price {
+    margin-top: auto !important ;
+    margin-bottom: 10px !important ;
+}
+
+/* ==========================
+   SEPARATOR BEFORE FINAL PRICE
+========================== */
+
+.flash-product-card .product-price {
+    position: relative;
+    margin-top: 12px !important;
+    padding-top: 9px !important;
+}
+
+.flash-product-card .product-price::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 3px;
+    left: 3px;
+
+    height: 1px;
+
+    background: rgba(20, 30, 45, .10);
+
+    border-radius: 10px;
+}
+
+
+/* Dark Mode */
+
+html.dark .flash-product-card .product-price::before {
+    background: rgba(255, 255, 255, .12);
+}
+
+.flash-product-card .product-old-price {
+    font-size: 13px !important;
+    font-weight: 550 !important;
+}
+
+/* ==========================
+   DISCOUNT POSITION & SIZE
+========================== */
+
+.flash-product-card .product-discount {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+
+    transform: translateX(4px);
+
+    flex-shrink: 0;
+}
+
+/* موبایل */
+@media (max-width: 768px) {
+
+    .flash-product-card .product-discount {
+        font-size: 10px !important;
+        padding: 3px 7px !important;
+
+        transform: translateX(5px);
+    }
+
+}
+
+.flash-products {
+    cursor: grab;
+
+    user-select: none;
+    -webkit-user-select: none;
+
+    touch-action: pan-y;
+}
+
+.flash-products.dragging {
+    cursor: grabbing;
+}
+
+.flash-products .flash-product-card {
+    user-select: none;
+    -webkit-user-select: none;
+
+    -webkit-user-drag: none;
+}
+
+.flash-products .flash-product-card img {
+    pointer-events: none;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+

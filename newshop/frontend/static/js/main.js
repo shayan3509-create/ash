@@ -382,3 +382,167 @@ behavior:"smooth"
 });
 
 });
+
+
+// ==============================
+// FLASH PRODUCTS - DESKTOP + MOBILE DRAG
+// ==============================
+
+const flashProducts = document.querySelector(".flash-products");
+
+if (flashProducts) {
+
+    let isDragging = false;
+    let hasMoved = false;
+
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    let activePointerId = null;
+
+
+    // ==========================
+    // POINTER DOWN
+    // ==========================
+
+    flashProducts.addEventListener("pointerdown", e => {
+
+        // فقط کلیک چپ موس
+        if (e.pointerType === "mouse" && e.button !== 0) {
+            return;
+        }
+
+        isDragging = true;
+        hasMoved = false;
+
+        activePointerId = e.pointerId;
+
+        startX = e.clientX;
+        startScrollLeft = flashProducts.scrollLeft;
+
+        flashProducts.style.scrollBehavior = "auto";
+        flashProducts.classList.add("dragging");
+
+        try {
+            flashProducts.setPointerCapture(e.pointerId);
+        } catch {}
+
+    });
+
+
+    // ==========================
+    // POINTER MOVE
+    // ==========================
+
+    flashProducts.addEventListener("pointermove", e => {
+
+        if (!isDragging) return;
+
+        const distance = e.clientX - startX;
+
+        // شروع Drag واقعی
+        if (Math.abs(distance) > 5) {
+            hasMoved = true;
+        }
+
+        // حرکت دقیق به اندازه موس
+        flashProducts.scrollLeft =
+            startScrollLeft - distance;
+
+    });
+
+
+    // ==========================
+    // POINTER UP
+    // ==========================
+
+    flashProducts.addEventListener("pointerup", e => {
+
+        if (!isDragging) return;
+
+        /*
+         * اگر کاربر Drag کرده باشد،
+         * اجازه نمی‌دهیم لینک اجرا شود.
+         */
+        if (hasMoved) {
+
+            e.preventDefault();
+            e.stopPropagation();
+
+        }
+
+        isDragging = false;
+
+        flashProducts.style.scrollBehavior = "smooth";
+        flashProducts.classList.remove("dragging");
+
+        try {
+            flashProducts.releasePointerCapture(e.pointerId);
+        } catch {}
+
+        activePointerId = null;
+
+        /*
+         * کمی صبر می‌کنیم تا click مصنوعی مرورگر
+         * بعد از pointerup هم خنثی شود.
+         */
+        if (hasMoved) {
+
+            setTimeout(() => {
+                hasMoved = false;
+            }, 50);
+
+        }
+
+    });
+
+
+    // ==========================
+    // POINTER CANCEL
+    // ==========================
+
+    flashProducts.addEventListener("pointercancel", e => {
+
+        isDragging = false;
+
+        flashProducts.style.scrollBehavior = "smooth";
+        flashProducts.classList.remove("dragging");
+
+        try {
+            flashProducts.releasePointerCapture(e.pointerId);
+        } catch {}
+
+        activePointerId = null;
+
+        hasMoved = false;
+
+    });
+
+
+    // ==========================
+    // CLICK PROTECTION
+    // ==========================
+
+    flashProducts.addEventListener(
+        "click",
+        e => {
+
+            /*
+             * اگر قبل از کلیک Drag اتفاق افتاده،
+             * لینک را کاملاً متوقف کن.
+             */
+            if (hasMoved) {
+
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+
+                hasMoved = false;
+
+            }
+
+        },
+        true
+    );
+
+}
