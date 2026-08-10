@@ -13,7 +13,16 @@
     <link rel="stylesheet" href="{% static 'admin/css/vazirmatn.css' %}">
 </head>
 
-<body>
+<!-- در فایل base.html این خط را پیدا کنید و به این شکل تغییر دهید: -->
+
+<body 
+    data-root="{% block data_root %}../../{% endblock %}"
+    data-page="{% block data_page %}dashboard{% endblock %}"
+    data-title="{% block data_title %}داشبورد مدیریت{% endblock %}"
+    data-subtitle="{% block data_subtitle %}خلاصه‌ای از عملکرد امروز فروشگاه{% endblock %}"
+>
+
+
 
     <div class="main">
         {% block content %}

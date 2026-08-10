@@ -1,310 +1,420 @@
 {% extends "admin_panel/base.html" %}
 {% load static %}
 
+{# ارسال اطلاعات مخصوص این صفحه به تگ body در base.html #}
+{% block data_root %}../../{% endblock %}
+{% block data_page %}banners{% endblock %}
+{% block data_title %}مدیریت بنرها{% endblock %}
+{% block data_subtitle %}مدیریت و تنظیم بنرهای سایت{% endblock %}
+
 {% block content %}
-<main class="page-content" data-app-shell>
-  {{ banners_data|json_script:"banners-data" }}
 
-  <!-- آمار -->
-  <section class="grid grid-4 mb-2">
-    <article class="card lift reveal">
-      <div class="stat">
-        <div><span class="stat-label">تعداد کل</span>
-          <p class="stat-value" id="statTotal">0</p>
-        </div><span class="stat-icon"><i class="fas fa-layer-group"></i></span>
-      </div>
-    </article>
-    <article class="card lift reveal">
-      <div class="stat">
-        <div><span class="stat-label">فعال</span>
-          <p class="stat-value" id="statActive">0</p>
-        </div><span class="stat-icon" style="color:var(--success)"><i class="fas fa-check-circle"></i></span>
-      </div>
-    </article>
-    <article class="card lift reveal">
-      <div class="stat">
-        <div><span class="stat-label">غیرفعال</span>
-          <p class="stat-value" id="statInactive">0</p>
-        </div><span class="stat-icon" style="color:var(--danger)"><i class="fas fa-ban"></i></span>
-      </div>
-    </article>
-    <article class="card lift reveal">
-      <div class="stat">
-        <div><span class="stat-label">زمان‌بندی شده</span>
-          <p class="stat-value" id="statScheduled">0</p>
-        </div><span class="stat-icon" style="color:var(--info)"><i class="fas fa-clock"></i></span>
-      </div>
-    </article>
-  </section>
+  <main class="page-content" data-app-shell>
+    {{ banners_data|json_script:"banners-data" }}
 
-  <!-- Toolbar -->
-  <section class="card reveal mb-2">
-    <div class="toolbar">
-      <button class="btn btn-primary" onclick="openBannerModal()"><i class="fas fa-plus"></i> ایجاد بنر</button>
-      <div class="field" style="flex:1"><input type="text" class="input" id="searchInput" placeholder="جستجو..."></div>
-      <button class="btn btn-secondary" id="toggleOrderModeBtn" onclick="toggleOrderMode()"><i
-          class="fas fa-sort-amount-down"></i> <span class="hide-mobile">ویرایش ترتیب</span></button>
+    <!-- آمار -->
+    <section class="grid grid-4 mb-2">
+      <article class="card lift reveal">
+        <div class="stat">
+          <div><span class="stat-label">تعداد کل</span>
+            <p class="stat-value" id="statTotal">0</p>
+          </div><span class="stat-icon"><i class="fas fa-layer-group"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal">
+        <div class="stat">
+          <div><span class="stat-label">فعال</span>
+            <p class="stat-value" id="statActive">0</p>
+          </div><span class="stat-icon" style="color:var(--success)"><i class="fas fa-check-circle"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal">
+        <div class="stat">
+          <div><span class="stat-label">غیرفعال</span>
+            <p class="stat-value" id="statInactive">0</p>
+          </div><span class="stat-icon" style="color:var(--danger)"><i class="fas fa-ban"></i></span>
+        </div>
+      </article>
+      <article class="card lift reveal">
+        <div class="stat">
+          <div><span class="stat-label">زمان‌بندی شده</span>
+            <p class="stat-value" id="statScheduled">0</p>
+          </div><span class="stat-icon" style="color:var(--info)"><i class="fas fa-clock"></i></span>
+        </div>
+      </article>
+    </section>
+
+    <!-- Toolbar -->
+    <section class="card reveal mb-2">
+      <div class="toolbar">
+        <button class="btn btn-primary" onclick="openBannerModal()"><i class="fas fa-plus"></i> ایجاد بنر</button>
+        <div class="field" style="flex:1"><input type="text" class="input" id="searchInput" placeholder="جستجو در عنوان..."></div>
+        <button class="btn btn-secondary" id="toggleOrderModeBtn" onclick="toggleOrderMode()"><i class="fas fa-sort-amount-down"></i> <span class="hide-mobile">ویرایش ترتیب</span></button>
+      </div>
+    </section>
+
+    <!-- جدول -->
+    <section class="card reveal">
+      <div class="table-wrap">
+        <table class="data-table responsive" id="bannerTable">
+          <thead>
+            <tr>
+              <th style="width:50px">ترتیب</th>
+              <th>پیش‌نمایش</th>
+              <th>عنوان</th>
+              <th>وضعیت</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody id="bannerTableBody"></tbody>
+        </table>
+        <div class="empty-state" id="emptyState" style="display:none; padding:2rem; text-align:center">
+          <p>هیچ بنری یافت نشد</p>
+          <button class="btn btn-primary" onclick="openBannerModal()">ایجاد بنر جدید</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal ایجاد/ویرایش -->
+  <div class="modal-backdrop" id="bannerModal">
+    <div class="modal" style="width:min(100%, 45rem); max-height:90vh; overflow-y:auto">
+      <div class="modal-head">
+        <h2 id="bannerModalTitle">ایجاد بنر</h2>
+        <button class="action-btn" onclick="closeModal('bannerModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="bannerForm" onsubmit="event.preventDefault(); saveBanner();">
+        <input type="hidden" id="bannerId">
+        <div class="form-grid">
+          <div class="field field-full"><label>عنوان *</label><input type="text" class="input" id="bannerTitle" required></div>
+
+          <!-- ✅ تغییر ۱: استایل ریسپانسیو برای Choose File -->
+          <div class="field field-full">
+            <label>فایل دسکتاپ *</label>
+            <div class="file-upload-wrapper" onclick="document.getElementById('bannerFile').click()">
+              <div class="entity" style="gap:0.75rem; flex-wrap:wrap;">
+                <div class="entity-avatar" style="width:2.5rem; height:2.5rem; flex-shrink:0;">
+                  <i class="fas fa-cloud-upload-alt" style="font-size:1.1rem;"></i>
+                </div>
+                <div class="list-copy" style="flex:1 1 100%; min-width:0;">
+                  <strong id="bannerFileName" style="display:block; overflow-wrap:break-word;">انتخاب فایل تصویر یا ویدیو</strong>
+                  <small id="bannerFileHint" style="overflow-wrap:anywhere; word-break:break-word; display:block; margin-top:0.25rem; color:var(--muted);">PNG, JPG, WEBP, MP4, WEBM — کلیک کنید یا فایل را رها کنید</small>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation(); document.getElementById('bannerFile').click();">
+                  <i class="fas fa-folder-open"></i> انتخاب
+                </button>
+              </div>
+            </div>
+            <input type="file" id="bannerFile" style="display:none;" accept="image/*,video/*" onchange="handleFileChange(this, 'bannerFileName', 'bannerFileHint')">
+          </div>
+          <div class="field field-full">
+            <label>فایل موبایل (اختیاری)</label>
+            <div class="file-upload-wrapper" onclick="document.getElementById('bannerMobileFile').click()">
+              <div class="entity" style="gap:0.75rem; flex-wrap:wrap;">
+                <div class="entity-avatar" style="width:2.5rem; height:2.5rem; flex-shrink:0;">
+                  <i class="fas fa-mobile-alt" style="font-size:1.1rem;"></i>
+                </div>
+                <div class="list-copy" style="flex:1 1 100%; min-width:0;">
+                  <strong id="bannerMobileFileName" style="display:block; overflow-wrap:break-word;">انتخاب فایل موبایل</strong>
+                  <small id="bannerMobileFileHint" style="overflow-wrap:anywhere; word-break:break-word; display:block; margin-top:0.25rem; color:var(--muted);">اگر انتخاب نشود، فایل دسکتاپ برای موبایل استفاده می‌شود.</small>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation(); document.getElementById('bannerMobileFile').click();">
+                  <i class="fas fa-folder-open"></i> انتخاب
+                </button>
+              </div>
+            </div>
+            <input type="file" id="bannerMobileFile" style="display:none;" accept="image/*,video/*" onchange="handleFileChange(this, 'bannerMobileFileName', 'bannerMobileFileHint')">
+          </div>
+
+          <div class="field field-full"><label>لینک مقصد</label><input type="text" class="input" id="bannerLink"></div>
+          <div class="field"><label>وضعیت</label>
+            <select class="select" id="bannerStatus">
+              <option value="active">فعال</option>
+              <option value="inactive">غیرفعال</option>
+              <option value="scheduled">زمان‌بندی شده</option>
+            </select>
+          </div>
+
+          <!-- ✅ تغییر ۲: فیلدهای سئو -->
+          <div class="field field-full" style="margin-top:1rem; border-top:1px solid var(--line); padding-top:1rem;">
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
+              <i class="fas fa-search" style="color:var(--accent);"></i>
+              <label style="font-weight:700; color:var(--accent); font-size:0.95rem; margin:0;">تنظیمات سئو</label>
+            </div>
+            <small style="color:var(--muted); display:block; margin-bottom:1rem;">این اطلاعات برای بهینه‌سازی موتورهای جستجو استفاده می‌شوند.</small>
+          </div>
+          <div class="field field-full">
+            <label>عنوان سئو</label>
+            <input type="text" class="input" id="bannerSeoTitle" placeholder="مثلاً: جشنواره تابستانی نیوشاپ" maxlength="70">
+            <small style="color:var(--muted); font-size:0.78rem;">پیشنهاد: ۵۰ تا ۷۰ کاراکتر</small>
+          </div>
+          <div class="field field-full">
+            <label>توضیحات سئو</label>
+            <textarea class="textarea" id="bannerSeoDescription" placeholder="توضیحات کامل برای نمایش در نتایج گوگل..." maxlength="160" style="min-height:5rem;"></textarea>
+            <small style="color:var(--muted); font-size:0.78rem;">پیشنهاد: ۱۲۰ تا ۱۶۰ کاراکتر</small>
+          </div>
+
+        </div>
+        <div class="toolbar" style="margin-top:1.5rem; justify-content:flex-end">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('bannerModal')">انصراف</button>
+          <button type="submit" class="btn btn-primary">ذخیره</button>
+        </div>
+      </form>
     </div>
-  </section>
-
-  <!-- جدول -->
-  <section class="card reveal">
-    <div class="table-wrap">
-      <table class="data-table responsive" id="bannerTable">
-        <thead>
-          <tr>
-            <th style="width:50px">ترتیب</th>
-            <th>پیش‌نمایش</th>
-            <th>عنوان</th>
-            <th>وضعیت</th>
-            <th>عملیات</th>
-          </tr>
-        </thead>
-        <tbody id="bannerTableBody"></tbody>
-      </table>
-      <div class="empty-state" id="emptyState" style="display:none; padding:2rem; text-align:center">
-        <p>هیچ بنری یافت نشد</p>
-        <button class="btn btn-primary" onclick="openBannerModal()">ایجاد بنر جدید</button>
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- Modal -->
-<div class="modal-backdrop" id="bannerModal">
-  <div class="modal" style="width:min(100%, 45rem); max-height:90vh; overflow-y:auto">
-    <div class="modal-head">
-      <h2 id="bannerModalTitle">ایجاد بنر</h2><button class="action-btn" onclick="closeModal('bannerModal')"><i
-          class="fas fa-times"></i></button>
-    </div>
-    <form id="bannerForm" onsubmit="event.preventDefault(); saveBanner();">
-      <input type="hidden" id="bannerId">
-      <div class="form-grid">
-        <div class="field field-full"><label>عنوان *</label><input type="text" class="input" id="bannerTitle" required>
-        </div>
-
-        <div class="field field-full">
-          <label>فایل دسکتاپ *</label>
-          <input type="file" id="bannerFile" class="input" accept="image/*,video/*">
-        </div>
-        <div class="field field-full">
-          <label>فایل موبایل (اختیاری)</label>
-          <input type="file" id="bannerMobileFile" class="input" accept="image/*,video/*">
-          <small style="color:var(--muted)">اگر انتخاب نشود، فایل دسکتاپ برای موبایل استفاده می‌شود.</small>
-        </div>
-
-        <div class="field field-full"><label>لینک مقصد</label><input type="text" class="input" id="bannerLink"></div>
-        <div class="field"><label>وضعیت</label>
-          <select class="select" id="bannerStatus">
-            <option value="active">فعال</option>
-            <option value="inactive">غیرفعال</option>
-            <option value="scheduled">زمان‌بندی شده</option>
-          </select>
-        </div>
-      </div>
-      <div class="toolbar" style="margin-top:1.5rem; justify-content:flex-end">
-        <button type="button" class="btn btn-secondary" onclick="closeModal('bannerModal')">انصراف</button>
-        <button type="submit" class="btn btn-primary">ذخیره</button>
-      </div>
-    </form>
   </div>
-</div>
 
-<!-- Modal حذف -->
-<div class="modal-backdrop" id="deleteBannerModal">
-  <div class="modal" style="width:min(100%, 34rem)">
-    <div class="modal-head">
-      <h2>تأیید حذف</h2><button class="action-btn" onclick="closeModal('deleteBannerModal')"><i
-          class="fas fa-times"></i></button>
-    </div>
-    <p style="margin-bottom:1.5rem">آیا مطمئن هستید؟</p>
-    <div class="toolbar" style="justify-content:flex-end">
-      <button class="btn btn-secondary" onclick="closeModal('deleteBannerModal')">انصراف</button>
-      <button class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+  <!-- Modal حذف -->
+  <div class="modal-backdrop" id="deleteBannerModal">
+    <div class="modal" style="width:min(100%, 34rem)">
+      <div class="modal-head">
+        <h2>تأیید حذف</h2>
+        <button class="action-btn" onclick="closeModal('deleteBannerModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <p style="margin-bottom:1.5rem">آیا از حذف این بنر مطمئن هستید؟ این عملیات غیرقابل بازگشت است.</p>
+      <div class="toolbar" style="justify-content:flex-end">
+        <button class="btn btn-secondary" onclick="closeModal('deleteBannerModal')">انصراف</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+      </div>
     </div>
   </div>
-</div>
-<div class="toast-stack" id="toastStack"></div>
 
-<script>
-  let banners = JSON.parse(document.getElementById('banners-data').textContent);
-  let isOrderMode = false;
-  let draggedRow = null;
+  <div class="toast-stack" id="toastStack"></div>
 
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
+  <!-- ✅ تغییر ۱: استایل ریسپانسیو برای Choose File -->
+  <style>
+    .file-upload-wrapper {
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      border: 2px dashed var(--line);
+      background: var(--surface-2);
+      padding: 1rem;
+      border-radius: 0.75rem;
+    }
+    .file-upload-wrapper:hover {
+      border-color: var(--accent);
+      background: rgba(0, 191, 255, 0.05);
+      transform: translateY(-1px);
+    }
+    .file-upload-wrapper .entity {
+      flex-wrap: wrap;
+    }
+    .file-upload-wrapper .list-copy {
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+    @media (min-width: 640px) {
+      .file-upload-wrapper .list-copy {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+
+  <script>
+    let banners = JSON.parse(document.getElementById('banners-data').textContent);
+    let isOrderMode = false;
+    let draggedRow = null;
+
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
         }
       }
+      return cookieValue;
     }
-    return cookieValue;
-  }
 
-  document.addEventListener('DOMContentLoaded', () => { renderBanners(); updateStats(); });
+    // ✅ تغییر ۱: تابع نمایش نام فایل انتخاب‌شده
+    function handleFileChange(input, nameId, hintId) {
+      const nameEl = document.getElementById(nameId);
+      const hintEl = document.getElementById(hintId);
+      if (input.files && input.files[0]) {
+        if (nameEl) nameEl.textContent = input.files[0].name;
+        if (hintEl) hintEl.textContent = (input.files[0].size / 1024 / 1024).toFixed(2) + ' مگابایت';
+      }
+    }
 
-  function renderBanners() {
-    const tbody = document.getElementById('bannerTableBody');
-    const emptyState = document.getElementById('emptyState');
-    const search = document.getElementById('searchInput').value.toLowerCase();
+    document.addEventListener('DOMContentLoaded', () => { renderBanners(); updateStats(); });
 
-    let filtered = banners.filter(b => !search || b.title.toLowerCase().includes(search));
-    filtered.sort((a, b) => a.order - b.order);
+    function renderBanners() {
+      const tbody = document.getElementById('bannerTableBody');
+      const emptyState = document.getElementById('emptyState');
+      const search = document.getElementById('searchInput').value.toLowerCase();
 
-    if (filtered.length === 0) { tbody.innerHTML = ''; emptyState.style.display = 'block'; return; }
-    emptyState.style.display = 'none';
+      let filtered = banners.filter(b => !search || b.title.toLowerCase().includes(search));
+      filtered.sort((a, b) => a.order - b.order);
 
-    tbody.innerHTML = filtered.map(b => `
-    <tr draggable="${isOrderMode}" data-id="${b.id}" class="${isOrderMode ? 'draggable-row' : ''}" style="${isOrderMode ? 'cursor:grab' : ''}">
-      <td>${b.order}</td>
-      <td><img src="${b.src}" class="banner-thumb" style="width:60px;height:40px;object-fit:cover;border-radius:4px"></td>
-      <td><strong>${b.title}</strong></td>
-      <td><span class="badge ${b.status === 'active' ? 'success' : 'danger'}">${b.status === 'active' ? 'فعال' : 'غیرفعال'}</span></td>
-      <td>
-        <button class="action-btn" onclick="openBannerModal(${b.id})"><i class="fas fa-edit"></i></button>
-        <button class="action-btn" onclick="confirmDelete(${b.id})" style="color:var(--danger)"><i class="fas fa-trash"></i></button>
-      </td>
-    </tr>
-  `).join('');
+      if (filtered.length === 0) { tbody.innerHTML = ''; emptyState.style.display = 'block'; return; }
+      emptyState.style.display = 'none';
 
-    // فعال‌سازی Drag & Drop
-    if (isOrderMode) {
-      const rows = tbody.querySelectorAll('tr');
-      rows.forEach(row => {
-        row.addEventListener('dragstart', e => { draggedRow = row; row.style.opacity = '0.5'; });
-        row.addEventListener('dragend', e => { row.style.opacity = '1'; draggedRow = null; });
-        row.addEventListener('dragover', e => { e.preventDefault(); });
-        row.addEventListener('drop', e => {
-          e.preventDefault();
-          if (draggedRow !== row) {
-            const draggedId = parseInt(draggedRow.dataset.id);
-            const targetId = parseInt(row.dataset.id);
+      tbody.innerHTML = filtered.map(b => `
+        <tr draggable="${isOrderMode}" data-id="${b.id}" class="${isOrderMode ? 'draggable-row' : ''}" style="${isOrderMode ? 'cursor:grab' : ''}">
+          <td>${b.order}</td>
+          <td><img src="${b.src}" class="banner-thumb" style="width:60px;height:40px;object-fit:cover;border-radius:4px"></td>
+          <td><strong>${b.title}</strong></td>
+          <td><span class="badge ${b.status === 'active' ? 'success' : 'danger'}">${b.status === 'active' ? 'فعال' : 'غیرفعال'}</span></td>
+          <td>
+            <button class="action-btn" onclick="openBannerModal(${b.id})" title="ویرایش"><i class="fas fa-edit"></i></button>
+            <button class="action-btn" onclick="confirmDelete(${b.id})" style="color:var(--danger)" title="حذف"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>
+      `).join('');
 
-            const draggedIndex = banners.findIndex(b => b.id === draggedId);
-            const targetIndex = banners.findIndex(b => b.id === targetId);
+      if (isOrderMode) {
+        const rows = tbody.querySelectorAll('tr');
+        rows.forEach(row => {
+          row.addEventListener('dragstart', e => { draggedRow = row; row.style.opacity = '0.5'; });
+          row.addEventListener('dragend', e => { row.style.opacity = '1'; draggedRow = null; });
+          row.addEventListener('dragover', e => { e.preventDefault(); });
+          row.addEventListener('drop', e => {
+            e.preventDefault();
+            if (draggedRow !== row) {
+              const draggedId = parseInt(draggedRow.dataset.id);
+              const targetId = parseInt(row.dataset.id);
 
-            const [movedItem] = banners.splice(draggedIndex, 1);
-            banners.splice(targetIndex, 0, movedItem);
+              const draggedIndex = banners.findIndex(b => b.id === draggedId);
+              const targetIndex = banners.findIndex(b => b.id === targetId);
 
-            banners.forEach((b, i) => b.order = i + 1);
-            renderBanners();
-            saveOrderToServer();
-          }
+              const [movedItem] = banners.splice(draggedIndex, 1);
+              banners.splice(targetIndex, 0, movedItem);
+
+              banners.forEach((b, i) => b.order = i + 1);
+              renderBanners();
+              saveOrderToServer();
+            }
+          });
         });
+      }
+    }
+
+    function saveOrderToServer() {
+      const formData = new FormData();
+      formData.append('action', 'save_order');
+      formData.append('order', JSON.stringify(banners.map(b => b.id)));
+
+      fetch(window.location.pathname, {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-CSRFToken': getCookie('csrftoken') }
+      }).then(res => res.json()).then(data => {
+        if (data.success) showToast('ترتیب بنرها با موفقیت ذخیره شد', 'success');
       });
     }
-  }
 
-  function saveOrderToServer() {
-    const formData = new FormData();
-    formData.append('action', 'save_order');
-    formData.append('order', JSON.stringify(banners.map(b => b.id)));
-
-    fetch(window.location.pathname, {
-      method: 'POST',
-      body: formData,
-      headers: { 'X-CSRFToken': getCookie('csrftoken') }
-    }).then(res => res.json()).then(data => {
-      if (data.success) showToast('ترتیب ذخیره شد', 'success');
-    });
-  }
-
-  function toggleOrderMode() {
-    isOrderMode = !isOrderMode;
-    const btn = document.getElementById('toggleOrderModeBtn');
-    btn.innerHTML = isOrderMode ? '<i class="fas fa-save"></i> <span class="hide-mobile">ذخیره و خروج</span>' : '<i class="fas fa-sort-amount-down"></i> <span class="hide-mobile">ویرایش ترتیب</span>';
-    btn.className = isOrderMode ? 'btn btn-primary' : 'btn btn-secondary';
-    renderBanners();
-  }
-
-  function updateStats() {
-    document.getElementById('statTotal').textContent = banners.length;
-    document.getElementById('statActive').textContent = banners.filter(b => b.status === 'active').length;
-    document.getElementById('statInactive').textContent = banners.filter(b => b.status === 'inactive').length;
-    document.getElementById('statScheduled').textContent = banners.filter(b => b.status === 'scheduled').length;
-  }
-
-  function openBannerModal(id = null) {
-    document.getElementById('bannerForm').reset();
-    document.getElementById('bannerId').value = '';
-    document.getElementById('bannerModalTitle').textContent = 'ایجاد بنر';
-
-    if (id) {
-      const b = banners.find(x => x.id === id);
-      document.getElementById('bannerModalTitle').textContent = 'ویرایش بنر';
-      document.getElementById('bannerId').value = b.id;
-      document.getElementById('bannerTitle').value = b.title;
-      document.getElementById('bannerLink').value = b.link || '';
-      document.getElementById('bannerStatus').value = b.status;
+    function toggleOrderMode() {
+      isOrderMode = !isOrderMode;
+      const btn = document.getElementById('toggleOrderModeBtn');
+      btn.innerHTML = isOrderMode ? '<i class="fas fa-save"></i> <span class="hide-mobile">ذخیره و خروج</span>' : '<i class="fas fa-sort-amount-down"></i> <span class="hide-mobile">ویرایش ترتیب</span>';
+      btn.className = isOrderMode ? 'btn btn-primary' : 'btn btn-secondary';
+      renderBanners();
     }
-    document.getElementById('bannerModal').classList.add('open');
-  }
 
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    function updateStats() {
+      document.getElementById('statTotal').textContent = banners.length;
+      document.getElementById('statActive').textContent = banners.filter(b => b.status === 'active').length;
+      document.getElementById('statInactive').textContent = banners.filter(b => b.status === 'inactive').length;
+      document.getElementById('statScheduled').textContent = banners.filter(b => b.status === 'scheduled').length;
+    }
 
-  async function saveBanner() {
-    const id = document.getElementById('bannerId').value;
-    const title = document.getElementById('bannerTitle').value.trim();
-    if (!title) return showToast('عنوان الزامی است', 'error');
+    function openBannerModal(id = null) {
+      document.getElementById('bannerForm').reset();
+      document.getElementById('bannerId').value = '';
+      document.getElementById('bannerModalTitle').textContent = 'ایجاد بنر';
 
-    const formData = new FormData();
-    formData.append('action', id ? 'update' : 'create');
-    formData.append('title', title);
-    if (id) formData.append('id', id);
+      // ✅ ریست نام فایل‌ها
+      document.getElementById('bannerFileName').textContent = 'انتخاب فایل تصویر یا ویدیو';
+      document.getElementById('bannerFileHint').textContent = 'PNG, JPG, WEBP, MP4, WEBM — کلیک کنید یا فایل را رها کنید';
+      document.getElementById('bannerMobileFileName').textContent = 'انتخاب فایل موبایل';
+      document.getElementById('bannerMobileFileHint').textContent = 'اگر انتخاب نشود، فایل دسکتاپ برای موبایل استفاده می‌شود.';
 
-    const file = document.getElementById('bannerFile').files[0];
-    const mobileFile = document.getElementById('bannerMobileFile').files[0];
+      // ✅ ریست فیلدهای سئو
+      document.getElementById('bannerSeoTitle').value = '';
+      document.getElementById('bannerSeoDescription').value = '';
 
-    if (file) formData.append('file', file);
-    if (mobileFile) formData.append('mobile_file', mobileFile);
+      if (id) {
+        const b = banners.find(x => x.id === id);
+        document.getElementById('bannerModalTitle').textContent = 'ویرایش بنر';
+        document.getElementById('bannerId').value = b.id;
+        document.getElementById('bannerTitle').value = b.title;
+        document.getElementById('bannerLink').value = b.link || '';
+        document.getElementById('bannerStatus').value = b.status;
 
-    formData.append('link', document.getElementById('bannerLink').value.trim());
-    formData.append('status', document.getElementById('bannerStatus').value);
-
-    try {
-      const res = await fetch(window.location.pathname, { method: 'POST', body: formData, headers: { 'X-CSRFToken': getCookie('csrftoken') } });
-      const data = await res.json();
-      if (data.success) {
-        showToast(id ? 'ویرایش شد' : 'ایجاد شد', 'success');
-        closeModal('bannerModal');
-        setTimeout(() => window.location.reload(), 500);
-      } else {
-        showToast(data.error || 'خطا', 'error');
+        // ✅ پر کردن فیلدهای سئو در حالت ویرایش
+        document.getElementById('bannerSeoTitle').value = b.seoTitle || '';
+        document.getElementById('bannerSeoDescription').value = b.seoDescription || '';
       }
-    } catch (e) { showToast('خطای شبکه', 'error'); }
-  }
+      document.getElementById('bannerModal').classList.add('open');
+    }
 
-  function confirmDelete(id) {
-    document.getElementById('confirmDeleteBtn').onclick = async () => {
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    async function saveBanner() {
+      const id = document.getElementById('bannerId').value;
+      const title = document.getElementById('bannerTitle').value.trim();
+      if (!title) return showToast('عنوان بنر الزامی است', 'error');
+
       const formData = new FormData();
-      formData.append('action', 'delete');
-      formData.append('id', id);
-      const res = await fetch(window.location.pathname, { method: 'POST', body: formData, headers: { 'X-CSRFToken': getCookie('csrftoken') } });
-      const data = await res.json();
-      if (data.success) {
-        showToast('حذف شد', 'success');
-        closeModal('deleteBannerModal');
-        setTimeout(() => window.location.reload(), 500);
-      }
-    };
-    document.getElementById('deleteBannerModal').classList.add('open');
-  }
+      formData.append('action', id ? 'update' : 'create');
+      formData.append('title', title);
+      if (id) formData.append('id', id);
 
-  function showToast(msg, type = 'success') {
-    const stack = document.getElementById('toastStack');
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.style.cssText = `background:var(--surface); color:var(--text); padding:1rem; border-radius:0.5rem; margin-bottom:0.5rem; box-shadow:var(--shadow); border-right: 4px solid ${type === 'success' ? 'var(--success)' : 'var(--danger)'};`;
-    toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i> ${msg}`;
-    stack.appendChild(toast);
-    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
-  }
+      const file = document.getElementById('bannerFile').files[0];
+      const mobileFile = document.getElementById('bannerMobileFile').files[0];
 
-  document.getElementById('searchInput').addEventListener('input', renderBanners);
-</script>
+      if (file) formData.append('file', file);
+      if (mobileFile) formData.append('mobile_file', mobileFile);
+
+      formData.append('link', document.getElementById('bannerLink').value.trim());
+      formData.append('status', document.getElementById('bannerStatus').value);
+
+      // ✅ ارسال فیلدهای سئو به سرور
+      formData.append('seo_title', document.getElementById('bannerSeoTitle').value.trim());
+      formData.append('seo_description', document.getElementById('bannerSeoDescription').value.trim());
+
+      try {
+        const res = await fetch(window.location.pathname, { method: 'POST', body: formData, headers: { 'X-CSRFToken': getCookie('csrftoken') } });
+        const data = await res.json();
+        if (data.success) {
+          showToast(id ? 'بنر با موفقیت ویرایش شد' : 'بنر جدید با موفقیت ایجاد شد', 'success');
+          closeModal('bannerModal');
+          setTimeout(() => window.location.reload(), 500);
+        } else {
+          showToast(data.error || 'خطایی رخ داد', 'error');
+        }
+      } catch (e) { showToast('خطای شبکه', 'error'); }
+    }
+
+    function confirmDelete(id) {
+      document.getElementById('confirmDeleteBtn').onclick = async () => {
+        const formData = new FormData();
+        formData.append('action', 'delete');
+        formData.append('id', id);
+        const res = await fetch(window.location.pathname, { method: 'POST', body: formData, headers: { 'X-CSRFToken': getCookie('csrftoken') } });
+        const data = await res.json();
+        if (data.success) {
+          showToast('بنر با موفقیت حذف شد', 'success');
+          closeModal('deleteBannerModal');
+          setTimeout(() => window.location.reload(), 500);
+        }
+      };
+      document.getElementById('deleteBannerModal').classList.add('open');
+    }
+
+    function showToast(msg, type = 'success') {
+      const stack = document.getElementById('toastStack');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.style.cssText = `background:var(--surface); color:var(--text); padding:1rem; border-radius:0.5rem; margin-bottom:0.5rem; box-shadow:var(--shadow); border-right: 4px solid ${type === 'success' ? 'var(--success)' : 'var(--danger)'};`;
+      toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i> ${msg}`;
+      stack.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', renderBanners);
+  </script>
 {% endblock %}
