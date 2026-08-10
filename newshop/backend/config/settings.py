@@ -169,7 +169,12 @@ STATICFILES_DIRS = [
     BASE_DIR.parent / "frontend" / "static"
 
 ]
+# Media Files (آپلود بنرها)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
+# آدرس لاگین پنل ادمین
+LOGIN_URL = '/admin-panel/login/'
 
 # Default primary key
 

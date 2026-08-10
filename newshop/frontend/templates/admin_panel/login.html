@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود به پنل مدیریت | نیوشاپ</title>
+
+    <link rel="stylesheet" href="{% static 'admin/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/vazirmatn.css' %}">
+
+    <style>
+        .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+        .login-card { width: 100%; max-width: 420px; background: var(--surface); border: 1px solid var(--line); border-radius: 1.5rem; padding: 2.5rem 2rem; box-shadow: var(--shadow); }
+        .login-error { background: rgba(239,68,68,.12); color: var(--danger); border: 1px solid rgba(239,68,68,.3); padding: .7rem 1rem; border-radius: .7rem; font-size: .85rem; margin-bottom: 1rem; }
+    </style>
+</head>
+
+<body>
+
+<div class="login-wrap">
+    <form method="post" class="login-card">
+        {% csrf_token %}
+
+        <h2 style="color: var(--accent); text-align: center; margin-bottom: .5rem;">ورود به پنل مدیریت</h2>
+        <p style="color: var(--muted); text-align: center; margin-bottom: 2rem; font-size: .9rem;">لطفاً مشخصات خود را وارد کنید</p>
+
+        {% if error %}
+            <div class="login-error">{{ error }}</div>
+        {% endif %}
+
+        <div class="field" style="margin-bottom: 1rem;">
+            <label>نام کاربری</label>
+            <input type="text" name="username" class="input" required autofocus>
+        </div>
+
+        <div class="field" style="margin-bottom: 1.5rem;">
+            <label>رمز عبور</label>
+            <input type="password" name="password" class="input" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            <i class="fas fa-sign-in-alt"></i> ورود به سیستم
+        </button>
+
+        <a href="/" style="display: block; text-align: center; margin-top: 1.2rem; color: var(--muted); font-size: .82rem;">
+            بازگشت به فروشگاه
+        </a>
+    </form>
+</div>
+
+</body>
+
+</html>

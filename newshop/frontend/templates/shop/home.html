@@ -1,89 +1,62 @@
 {% extends "base.html" %}
 {% load static %}
 
-
 {% block content %}
+<!-- ==========================
+     HERO BANNER (DYNAMIC)
+========================== -->
+{% if home_banners %}
+<!-- داده بنرها به‌صورت JSON صحیح -->
+{{ home_banners|json_script:"banners-data" }}
+
 <section class="hero-banner">
-
-    <a href="/shop/" class="banner-link">
-
+    <a href="{{ home_banners.0.link }}" class="banner-link" {% if home_banners.0.newTab %}target="_blank"{% endif %}>
         <div class="banner-slider" id="bannerSlider">
-
             <img 
-                src="{% static 'images/banners/desktop-banner.webp' %}" 
+                src="{{ home_banners.0.src }}" 
                 id="banner-image"
                 class="banner-current"
                 draggable="false"
+                alt="{{ home_banners.0.title }}"
             >
-
-            <img 
-                id="banner-next-image"
-                class="banner-next"
-                draggable="false"
-            >
-
         </div>
-
     </a>
 
-
-    <button id="banner-next" class="banner-btn prev">
-        ›
-    </button>
-
-
-    <button id="banner-prev" class="banner-btn next">
-        ‹
-    </button>
-
+    <button id="banner-prev" class="banner-btn prev" type="button">›</button>
+    <button id="banner-next" class="banner-btn next" type="button">‹</button>
 
     <div class="banner-progress">
         <span id="banner-progress-bar"></span>
     </div>
-
-
     <div class="banner-dots" id="banner-dots"></div>
-
-
 </section>
+
+<script>
+    // خواندن داده‌ها به‌صورت JSON صحیح
+    window.DYNAMIC_BANNERS = JSON.parse(
+        document.getElementById('banners-data').textContent
+    );
+</script>
+{% endif %}
+<!-- ==========================
+     CATEGORIES
+========================== -->
 <section class="categories-box">
-
-
     <div class="categories-header">
-
-        <h2>
-            دسته بندی محصولات
-        </h2>
-
-
-        <a href="#" class="view-all-btn">
-            مشاهده همه
-        </a>
-
-
+        <h2>دسته بندی محصولات</h2>
+        <a href="#" class="view-all-btn">مشاهده همه</a>
     </div>
 
-
-
     <div class="categories-wrapper">
-
-
-        <button class="category-arrow right">
-            ❮
-        </button>
-
-
+        <button class="category-arrow right">❮</button>
 
         <div class="categories-scroll">
-
-
             <a href="#" class="category-card mobile">
                 <div class="category-icon">
                     <img src="{% static 'icons/categories/stash--smartphone-light.svg' %}">
                 </div>
                 <span>موبایل</span>
             </a>
-
 
             <a href="#" class="category-card laptop">
                 <div class="category-icon">
@@ -92,14 +65,12 @@
                 <span>لپ تاپ</span>
             </a>
 
-
             <a href="#" class="category-card watch">
                 <div class="category-icon">
                     <img src="{% static 'icons/categories/fluent--smartwatch-20-regular.svg' %}">
                 </div>
                 <span>ساعت هوشمند</span>
             </a>
-
 
             <a href="#" class="category-card monitor">
                 <div class="category-icon">
@@ -108,14 +79,12 @@
                 <span>مانیتور</span>
             </a>
 
-
             <a href="#" class="category-card headphone">
                 <div class="category-icon">
                     <img src="{% static 'icons/categories/icon-park-solid--airpods.svg' %}">
                 </div>
                 <span>هندزفری</span>
             </a>
-
 
             <a href="#" class="category-card accessories">
                 <div class="category-icon">
@@ -124,14 +93,12 @@
                 <span>لوازم جانبی</span>
             </a>
 
-
             <a href="#" class="category-card gaming">
                 <div class="category-icon">
                     <img src="{% static 'icons/categories/solar--gamepad-bold.svg' %}">
                 </div>
                 <span>گجت و گیم</span>
             </a>
-
 
             <a href="#" class="category-card tools">
                 <div class="category-icon">
@@ -140,7 +107,6 @@
                 <span>ابزار آلات</span>
             </a>
 
-
             <a href="#" class="category-card network">
                 <div class="category-icon">
                     <img src="{% static 'icons/categories/bi--router-fill.svg' %}">
@@ -148,319 +114,138 @@
                 <span>شبکه</span>
             </a>
 
-
             <a href="#" class="category-card tablet">
                 <div class="category-icon">
                     <img src="{% static 'icons/categories/solar--tablet-linear.svg' %}">
                 </div>
                 <span>تبلت</span>
             </a>
-
-
         </div>
 
-
-
-
-        <button class="category-arrow left">
-            ❯
-        </button>
-
-
+        <button class="category-arrow left">❯</button>
     </div>
-
-
 </section>
+
+
 <!-- ==========================
      FLASH SALE
 ========================== -->
-
 <section class="flash-section">
-
     <div class="flash-bg">
-
         <!-- Discount Icon -->
         <div class="flash-discount-icon">
-            <img
-                src="/static/icons/discount.png"
-                alt="پیشنهاد شگفت‌انگیز"
-            >
+            <img src="{% static 'icons/discount.png' %}" alt="پیشنهاد شگفت‌انگیز">
         </div>
-
 
         <!-- Flash Header -->
         <div class="flash-header">
-
-            <h2 class="flash-title">
-                پیشنهاد شگفت‌انگیز
-            </h2>
-
-            <a href="#" class="flash-all">
-                مشاهده همه
-            </a>
-
+            <h2 class="flash-title">پیشنهاد شگفت‌انگیز</h2>
+            <a href="#" class="flash-all">مشاهده همه</a>
         </div>
-        <!-- ==========================
-            FLASH PRODUCTS
-        ========================== -->
 
+        <!-- Flash Products -->
         <div class="flash-products-area">
-
             <div class="flash-products">
+                
+                <!-- Product 1 -->
                 <a href="/product/iphone-17-pro-max" class="flash-product-card">
-
                     <div class="product-image">
-                        <img
-                            src="/static/images/products/17promax.png"
-                            alt="آیفون 17 پرو مکس"
-                            loading="lazy"
-                        >
+                        <img src="{% static 'images/products/17promax.png' %}" alt="آیفون 17 پرو مکس" loading="lazy">
                     </div>
-
-                    <h3 class="product-name">
-                        آیفون 17 پرو مکس
-                    </h3>
-
+                    <h3 class="product-name">آیفون 17 پرو مکس</h3>
                     <div class="product-old-row">
-
-                        <span class="product-old-price">
-                            ۱۲۹,۹۰۰,۰۰۰ تومان
-                        </span>
-
-                        <span class="product-discount">
-                            ۲۵٪
-                        </span>
-
+                        <span class="product-old-price">۱۲۹,۹۰۰,۰۰۰ تومان</span>
+                        <span class="product-discount">۲۵٪</span>
                     </div>
-
                     <div class="product-price">
                         <strong>۹۹,۹۰۰,۰۰۰</strong>
                         <span>تومان</span>
                     </div>
-
                 </a>
-                <!-- Product cards will be added here -->
-                 <!-- Product 2 -->
+
+                <!-- Product 2 -->
                 <a href="/product/apple-watch-series-10" class="flash-product-card">
-
                     <div class="product-image">
-                        <img
-                            src="/static/images/products/applewach.png"
-                            alt="اپل واچ سری 10"
-                        >
+                        <img src="{% static 'images/products/applewach.png' %}" alt="اپل واچ سری 10">
                     </div>
-
-                    <h3 class="product-name">
-                        اپل واچ سری 10
-                    </h3>
-
+                    <h3 class="product-name">اپل واچ سری 10</h3>
                     <div class="product-old-row">
-
-                        <div class="product-old-price">
-                            ۳۴,۹۰۰,۰۰۰ تومان
-                        </div>
-
-                        <span class="product-discount">
-                            18%
-                        </span>
-
+                        <div class="product-old-price">۳۴,۹۰۰,۰۰۰ تومان</div>
+                        <span class="product-discount">18%</span>
                     </div>
-
                     <div class="product-price">
                         <strong>۲۸,۵۰۰,۰۰۰</strong>
                         <span>تومان</span>
                     </div>
-
                 </a>
-
 
                 <!-- Product 3 -->
                 <a href="/product/galaxy-buds-4-pro" class="flash-product-card">
-
                     <div class="product-image">
-                        <img
-                            src="/static/images/products/GalaxyBuds4Pro.png"
-                            alt="Galaxy Buds 4 Pro"
-                        >
+                        <img src="{% static 'images/products/GalaxyBuds4Pro.png' %}" alt="Galaxy Buds 4 Pro">
                     </div>
-
-                    <h3 class="product-name">
-                        Galaxy Buds 4 Pro
-                    </h3>
-
+                    <h3 class="product-name">Galaxy Buds 4 Pro</h3>
                     <div class="product-old-row">
-
-                        <div class="product-old-price">
-                            ۹,۹۰۰,۰۰۰ تومان
-                        </div>
-
-                        <span class="product-discount">
-                            25%
-                        </span>
-
+                        <div class="product-old-price">۹,۹۰۰,۰۰۰ تومان</div>
+                        <span class="product-discount">25%</span>
                     </div>
-
                     <div class="product-price">
                         <strong>۷,۴۰۰,۰۰۰</strong>
                         <span>تومان</span>
                     </div>
-
                 </a>
-
 
                 <!-- Product 4 -->
                 <a href="/product/macbook-pro-m4" class="flash-product-card">
-
                     <div class="product-image">
-                        <img
-                            src="/static/images/products/macbook.png"
-                            alt="MacBook Pro M4"
-                        >
+                        <img src="{% static 'images/products/macbook.png' %}" alt="MacBook Pro M4">
                     </div>
-
-                    <h3 class="product-name">
-                        MacBook Pro M4
-                    </h3>
-
+                    <h3 class="product-name">MacBook Pro M4</h3>
                     <div class="product-old-row">
-
-                        <div class="product-old-price">
-                            ۱۲۶,۹۰۰,۰۰۰ تومان
-                        </div>
-
-                        <span class="product-discount">
-                            12%
-                        </span>
-
+                        <div class="product-old-price">۱۲۶,۹۰۰,۰۰۰ تومان</div>
+                        <span class="product-discount">12%</span>
                     </div>
-
                     <div class="product-price">
                         <strong>۱۱۲,۴۰۰,۰۰۰</strong>
                         <span>تومان</span>
                     </div>
-
                 </a>
-
 
                 <!-- Product 5 -->
                 <a href="/product/galaxy-s26-ultra" class="flash-product-card">
-
                     <div class="product-image">
-                        <img
-                            src="/static/images/products/s26ultra.png"
-                            alt="Galaxy S26 Ultra"
-                        >
+                        <img src="{% static 'images/products/s26ultra.png' %}" alt="Galaxy S26 Ultra">
                     </div>
-
-                    <h3 class="product-name">
-                        Galaxy S26 Ultra
-                    </h3>
-
+                    <h3 class="product-name">Galaxy S26 Ultra</h3>
                     <div class="product-old-row">
-
-                        <div class="product-old-price">
-                            ۷۹,۹۰۰,۰۰۰ تومان
-                        </div>
-
-                        <span class="product-discount">
-                            15%
-                        </span>
-
+                        <div class="product-old-price">۷۹,۹۰۰,۰۰۰ تومان</div>
+                        <span class="product-discount">15%</span>
                     </div>
-
                     <div class="product-price">
                         <strong>۶۷,۹۰۰,۰۰۰</strong>
                         <span>تومان</span>
                     </div>
-
                 </a>
-
 
                 <!-- Product 6 -->
                 <a href="/product/airpods-pro-2" class="flash-product-card">
-
                     <div class="product-image">
-                        <img
-                            src="/static/images/products/airpodspro2.png"
-                            alt="AirPods Pro 2"
-                        >
+                        <img src="{% static 'images/products/airpodspro2.png' %}" alt="AirPods Pro 2">
                     </div>
-
-                    <h3 class="product-name">
-                        AirPods Pro 2
-                    </h3>
-
+                    <h3 class="product-name">AirPods Pro 2</h3>
                     <div class="product-old-row">
-
-                        <div class="product-old-price">
-                            ۱۴,۹۰۰,۰۰۰ تومان
-                        </div>
-
-                        <span class="product-discount">
-                            20%
-                        </span>
-
+                        <div class="product-old-price">۱۴,۹۰۰,۰۰۰ تومان</div>
+                        <span class="product-discount">20%</span>
                     </div>
-
                     <div class="product-price">
                         <strong>۱۱,۹۰۰,۰۰۰</strong>
                         <span>تومان</span>
                     </div>
-
                 </a>
 
             </div>
-
         </div>
-
     </div>
-
 </section>
 
-
-
-<pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</pre>
 {% endblock %}
