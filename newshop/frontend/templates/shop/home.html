@@ -6,7 +6,6 @@
      HERO BANNER (DYNAMIC)
 ========================== -->
 {% if home_banners %}
-<!-- داده بنرها به‌صورت JSON صحیح -->
 {{ home_banners|json_script:"banners-data" }}
 
 <section class="hero-banner">
@@ -22,6 +21,8 @@
         </div>
     </a>
 
+    <!-- فقط وقتی بیشتر از یک بنر داریم نمایش بده -->
+    {% if home_banners|length > 1 %}
     <button id="banner-prev" class="banner-btn prev" type="button">›</button>
     <button id="banner-next" class="banner-btn next" type="button">‹</button>
 
@@ -29,18 +30,21 @@
         <span id="banner-progress-bar"></span>
     </div>
     <div class="banner-dots" id="banner-dots"></div>
+    {% endif %}
 </section>
 
 <script>
-    // خواندن داده‌ها به‌صورت JSON صحیح
     window.DYNAMIC_BANNERS = JSON.parse(
         document.getElementById('banners-data').textContent
     );
 </script>
 {% endif %}
 <!-- ==========================
-     CATEGORIES
+     CATEGORIES (DYNAMIC)
 ========================== -->
+{% if home_categories %}
+{{ home_categories|json_script:"categories-data" }}
+
 <section class="categories-box">
     <div class="categories-header">
         <h2>دسته بندی محصولات</h2>
@@ -50,81 +54,87 @@
     <div class="categories-wrapper">
         <button class="category-arrow right">❮</button>
 
-        <div class="categories-scroll">
-            <a href="#" class="category-card mobile">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/stash--smartphone-light.svg' %}">
-                </div>
-                <span>موبایل</span>
-            </a>
-
-            <a href="#" class="category-card laptop">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/iconoir--laptop.svg' %}">
-                </div>
-                <span>لپ تاپ</span>
-            </a>
-
-            <a href="#" class="category-card watch">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/fluent--smartwatch-20-regular.svg' %}">
-                </div>
-                <span>ساعت هوشمند</span>
-            </a>
-
-            <a href="#" class="category-card monitor">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/mdi-light--monitor.svg' %}">
-                </div>
-                <span>مانیتور</span>
-            </a>
-
-            <a href="#" class="category-card headphone">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/icon-park-solid--airpods.svg' %}">
-                </div>
-                <span>هندزفری</span>
-            </a>
-
-            <a href="#" class="category-card accessories">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/lucide--cable.svg' %}">
-                </div>
-                <span>لوازم جانبی</span>
-            </a>
-
-            <a href="#" class="category-card gaming">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/solar--gamepad-bold.svg' %}">
-                </div>
-                <span>گجت و گیم</span>
-            </a>
-
-            <a href="#" class="category-card tools">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/vaadin--tools.svg' %}">
-                </div>
-                <span>ابزار آلات</span>
-            </a>
-
-            <a href="#" class="category-card network">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/bi--router-fill.svg' %}">
-                </div>
-                <span>شبکه</span>
-            </a>
-
-            <a href="#" class="category-card tablet">
-                <div class="category-icon">
-                    <img src="{% static 'icons/categories/solar--tablet-linear.svg' %}">
-                </div>
-                <span>تبلت</span>
-            </a>
+        <div class="categories-scroll" id="categories-scroll">
+            <!-- دسته‌بندی‌ها توسط JavaScript رندر می‌شوند -->
         </div>
 
         <button class="category-arrow left">❯</button>
     </div>
 </section>
+
+<script>
+    window.DYNAMIC_CATEGORIES = JSON.parse(
+        document.getElementById('categories-data').textContent
+    );
+
+    function applyColorToSVG(svgString, color) {
+        if (!svgString || !color) return svgString;
+        try {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(svgString, 'image/svg+xml');
+            const svg = doc.querySelector('svg');
+            if (!svg) return svgString;
+            
+            const allElements = svg.querySelectorAll('*');
+            svg.removeAttribute('fill');
+            svg.removeAttribute('color');
+            
+            allElements.forEach(el => {
+                if (el.closest('mask') || el.closest('defs') || el.closest('clipPath')) return;
+                
+                const fill = el.getAttribute('fill');
+                const stroke = el.getAttribute('stroke');
+                
+                if (fill === 'currentColor') el.setAttribute('fill', color);
+                if (stroke === 'currentColor') el.setAttribute('stroke', color);
+                
+                if (!el.getAttribute('fill') && !el.getAttribute('stroke')) {
+                    let parent = el.parentElement;
+                    while (parent && parent !== svg) {
+                        if (parent.closest('mask') || parent.closest('defs') || parent.closest('clipPath')) break;
+                        const pFill = parent.getAttribute('fill');
+                        const pStroke = parent.getAttribute('stroke');
+                        if (pFill === 'currentColor') el.setAttribute('fill', color);
+                        if (pStroke === 'currentColor') el.setAttribute('stroke', color);
+                        if (pFill !== 'currentColor' && pStroke !== 'currentColor') break;
+                        parent = parent.parentElement;
+                    }
+                }
+            });
+            
+            return new XMLSerializer().serializeToString(svg);
+        } catch (e) {
+            return svgString;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('categories-scroll');
+        if (!container || !window.DYNAMIC_CATEGORIES) return;
+
+        container.innerHTML = window.DYNAMIC_CATEGORIES.map(cat => {
+            let iconHtml = '';
+            
+            if (cat.svgRaw && cat.svgRaw.trim() !== '') {
+                iconHtml = applyColorToSVG(cat.svgRaw, cat.color);
+            } else if (cat.icon) {
+                iconHtml = `<img src="${cat.icon}" alt="${cat.title}">`;
+            } else {
+                iconHtml = `<i class="fa fa-folder" style="color: ${cat.color}; font-size: 1.5rem;"></i>`;
+            }
+            
+            return `
+                <a href="${cat.link}" class="category-card" style="--cat-color: ${cat.color};">
+                    <div class="category-icon">
+                        ${iconHtml}
+                    </div>
+                    <span>${cat.title}</span>
+                </a>
+            `;
+        }).join('');
+    });
+</script>
+{% endif %}
 
 
 <!-- ==========================

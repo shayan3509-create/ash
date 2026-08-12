@@ -17,6 +17,8 @@
         console.log("No banners found");
         return;
     }
+    // اگه فقط یک بنر باشه: دکمه‌ها، خط پیشرفت و دات‌ها مخفی می‌شن
+    
 
     function getBannerImage(banner) {
         if (window.innerWidth <= 768 && banner.mobileSrc) {

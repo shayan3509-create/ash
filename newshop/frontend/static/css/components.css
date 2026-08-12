@@ -3334,3 +3334,36 @@ html.dark .flash-product-card .product-price::before {
 html.dark .flash-product-card {
     border: 1px solid rgba(255, 255, 255, .18) !important;
 }
+
+/* ✅ استایل برای SVG های داینامیک دسته‌بندی */
+.category-icon svg {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block !important;
+    object-fit: contain;
+}
+
+
+/* ✅ بوردر رنگی در حالت هاور برای دسته‌بندی‌ها */
+.category-card {
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.category-card:hover {
+    border-color: var(--cat-color);
+}
+
+/* ✅ بوردر رنگی + سایه در حالت هاور */
+.category-card {
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.category-card:hover {
+    border-color: var(--cat-color);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--cat-color) 30%, transparent);
+    transform: translateY(-2px);
+}

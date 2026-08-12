@@ -8,7 +8,7 @@ class Banner(models.Model):
 
     title = models.CharField(max_length=200, verbose_name="عنوان")
     file = models.FileField(upload_to="banners/", verbose_name="فایل بنر دسکتاپ")
-    mobile_file = models.FileField(upload_to="banners/", blank=True, null=True, verbose_name="فایل بنر موبایل (اختیاری)") # <-- اضافه شد
+    mobile_file = models.FileField(upload_to="banners/", blank=True, null=True, verbose_name="فایل بنر موبایل (اختیاری)")
     banner_type = models.CharField(max_length=10, choices=TYPE_CHOICES, default="image", verbose_name="نوع")
     link = models.CharField(max_length=500, blank=True, default="", verbose_name="لینک مقصد")
     new_tab = models.BooleanField(default=False, verbose_name="باز شدن در تب جدید")
@@ -30,11 +30,14 @@ class Banner(models.Model):
         return self.title
 
     def is_active_now(self):
-        if self.status == "inactive": return False
+        if self.status == "inactive":
+            return False
         today = timezone.localdate()
         if self.status == "scheduled":
-            if self.start_date and today < self.start_date: return False
-            if self.end_date and today > self.end_date: return False
+            if self.start_date and today < self.start_date:
+                return False
+            if self.end_date and today > self.end_date:
+                return False
         return True
 
     def to_dict(self):
@@ -43,7 +46,7 @@ class Banner(models.Model):
             "title": self.title,
             "type": self.banner_type,
             "src": self.file.url if self.file else "",
-            "mobileSrc": self.mobile_file.url if self.mobile_file else (self.file.url if self.file else ""), # <-- اصلاح شد
+            "mobileSrc": self.mobile_file.url if self.mobile_file else (self.file.url if self.file else ""),
             "link": self.link,
             "newTab": self.new_tab,
             "status": self.status,

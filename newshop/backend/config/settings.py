@@ -22,7 +22,6 @@ ALLOWED_HOSTS = []
 # Applications
 
 INSTALLED_APPS = [
-
     # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,15 +30,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-
     # Project Apps
     'apps.core',
     'apps.products',
     'apps.accounts',
     'apps.cart',
     'apps.orders',
-    "apps.admin_panel",
-
+    
+    # Admin Panel Apps
+    'apps.admin_panel.dashboard',
+    'apps.admin_panel.banners',
+    'apps.admin_panel.categories',
 ]
 
 

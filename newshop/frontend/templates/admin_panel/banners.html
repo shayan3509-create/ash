@@ -210,7 +210,8 @@
   </style>
 
   <script>
-    let banners = JSON.parse(document.getElementById('banners-data').textContent);
+    const bannersDataEl = document.getElementById('banners-data');
+    let banners = bannersDataEl ? JSON.parse(bannersDataEl.textContent) : [];
     let isOrderMode = false;
     let draggedRow = null;
 
