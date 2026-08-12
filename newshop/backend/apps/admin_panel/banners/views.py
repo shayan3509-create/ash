@@ -70,3 +70,4 @@ def banners(request):
 
     banners_data = [b.to_dict() for b in Banner.objects.order_by("order", "-created_at")]
     return render(request, "admin_panel/banners.html", {"banners_data": banners_data})
+

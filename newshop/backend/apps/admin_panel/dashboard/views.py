@@ -103,3 +103,8 @@ def settings_backup(request):
 @login_required
 def analytics(request):
     return render(request, "admin_panel/analytics.html")
+
+@login_required
+def homepage_sections(request):
+    """مدیریت بخش‌های صفحه اصلی"""
+    return render(request, "admin_panel/homepage.html")
