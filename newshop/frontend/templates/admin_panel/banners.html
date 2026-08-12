@@ -88,7 +88,6 @@
         <div class="form-grid">
           <div class="field field-full"><label>عنوان *</label><input type="text" class="input" id="bannerTitle" required></div>
 
-          <!-- ✅ تغییر ۱: استایل ریسپانسیو برای Choose File -->
           <div class="field field-full">
             <label>فایل دسکتاپ *</label>
             <div class="file-upload-wrapper" onclick="document.getElementById('bannerFile').click()">
@@ -127,6 +126,7 @@
           </div>
 
           <div class="field field-full"><label>لینک مقصد</label><input type="text" class="input" id="bannerLink"></div>
+          
           <div class="field"><label>وضعیت</label>
             <select class="select" id="bannerStatus">
               <option value="active">فعال</option>
@@ -135,7 +135,17 @@
             </select>
           </div>
 
-          <!-- ✅ تغییر ۲: فیلدهای سئو -->
+          <div class="field">
+            <label>زمان شروع (اختیاری)</label>
+            <input type="datetime-local" class="input" id="bannerStartTime">
+            <small style="color:var(--muted); font-size:0.78rem;">اگر خالی باشد، بدون زمان‌بندی است</small>
+          </div>
+          <div class="field">
+            <label>زمان پایان (اختیاری)</label>
+            <input type="datetime-local" class="input" id="bannerEndTime">
+            <small style="color:var(--muted); font-size:0.78rem;">اگر خالی باشد، بدون زمان‌بندی است</small>
+          </div>
+
           <div class="field field-full" style="margin-top:1rem; border-top:1px solid var(--line); padding-top:1rem;">
             <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
               <i class="fas fa-search" style="color:var(--accent);"></i>
@@ -151,7 +161,7 @@
           <div class="field field-full">
             <label>توضیحات سئو</label>
             <textarea class="textarea" id="bannerSeoDescription" placeholder="توضیحات کامل برای نمایش در نتایج گوگل..." maxlength="160" style="min-height:5rem;"></textarea>
-            <small style="color:var(--muted); font-size:0.78rem;">پیشنهاد: ۱۲۰ تا ۱۶۰ کاراکتر</small>
+            <small style="color:var(--muted); font-size:0.78rem;">پیشنهاد: ۱۲ تا ۱۶۰ کاراکتر</small>
           </div>
 
         </div>
@@ -180,7 +190,6 @@
 
   <div class="toast-stack" id="toastStack"></div>
 
-  <!-- ✅ تغییر ۱: استایل ریسپانسیو برای Choose File -->
   <style>
     .file-upload-wrapper {
       cursor: pointer;
@@ -207,13 +216,68 @@
         flex: 1 1 auto;
       }
     }
+
+    .schedule-info-row {
+      background: rgba(59, 130, 246, 0.05);
+      border-top: 1px dashed var(--line);
+    }
+    .schedule-info-row td {
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .schedule-info-row .schedule-info-content {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .schedule-info-row .schedule-info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .schedule-info-row .schedule-info-item i {
+      color: var(--info);
+    }
+    .schedule-info-row .schedule-info-item strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ✅ استایل برای نمایش تغییر خودکار وضعیت */
+    #bannerStatus.auto-changed {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: var(--info);
+      animation: highlightStatus 0.5s ease;
+    }
+    @keyframes highlightStatus {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    /* ✅ استایل برای فیلدهای زمان که غیرفعال شده‌اند */
+    .schedule-fields-disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
   </style>
 
   <script>
-    const bannersDataEl = document.getElementById('banners-data');
-    let banners = bannersDataEl ? JSON.parse(bannersDataEl.textContent) : [];
+    // 1. خواندن داده‌های اولیه از بک‌اند
+    let banners = JSON.parse(document.getElementById('banners-data').textContent);
     let isOrderMode = false;
     let draggedRow = null;
+
+    // ✅ 2. ادغام فوری داده‌های localStorage با آرایه بنرها
+    const savedSchedules = JSON.parse(localStorage.getItem('banners_schedule') || '{}');
+    banners.forEach(b => {
+        if (savedSchedules[b.id]) {
+            b.start_time = savedSchedules[b.id].start_time;
+            b.end_time = savedSchedules[b.id].end_time;
+        }
+    });
 
     function getCookie(name) {
       let cookieValue = null;
@@ -230,7 +294,6 @@
       return cookieValue;
     }
 
-    // ✅ تغییر ۱: تابع نمایش نام فایل انتخاب‌شده
     function handleFileChange(input, nameId, hintId) {
       const nameEl = document.getElementById(nameId);
       const hintEl = document.getElementById(hintId);
@@ -240,7 +303,93 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', () => { renderBanners(); updateStats(); });
+    function formatDisplayDate(dateStr) {
+      if (!dateStr) return 'نامشخص';
+      try {
+        const date = new Date(dateStr.replace(' ', 'T'));
+        if (isNaN(date.getTime())) return 'نامشخص';
+        return date.toLocaleString('fa-IR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      } catch (e) {
+        return 'نامشخص';
+      }
+    }
+
+    function formatForInput(dateStr) {
+      if (!dateStr) return '';
+      return dateStr.replace(' ', 'T').substring(0, 16);
+    }
+
+    // ✅ 3. تابع تغییر خودکار وضعیت و مدیریت فیلدهای زمان
+    function autoUpdateStatus() {
+      const startTimeInput = document.getElementById('bannerStartTime');
+      const endTimeInput = document.getElementById('bannerEndTime');
+      const statusSelect = document.getElementById('bannerStatus');
+
+      const startTime = startTimeInput.value;
+      const endTime = endTimeInput.value;
+      const status = statusSelect.value;
+
+      // ✅ اگر وضعیت «غیرفعال» انتخاب شده، زمان‌ها را پاک کن و فیلدها را غیرفعال کن
+      if (status === 'inactive') {
+        if (startTime || endTime) {
+          startTimeInput.value = '';
+          endTimeInput.value = '';
+          showToast('با انتخاب وضعیت غیرفعال، زمان‌بندی حذف شد', 'info');
+        }
+        startTimeInput.classList.add('schedule-fields-disabled');
+        endTimeInput.classList.add('schedule-fields-disabled');
+        return;
+      } else {
+        // فعال کردن مجدد فیلدها اگر وضعیت غیر از غیرفعال باشد
+        startTimeInput.classList.remove('schedule-fields-disabled');
+        endTimeInput.classList.remove('schedule-fields-disabled');
+      }
+
+      // اگر هر دو زمان پر شده‌اند → وضعیت به "زمان‌بندی شده" تغییر کند
+      if (startTime && endTime) {
+        if (statusSelect.value !== 'scheduled') {
+          statusSelect.value = 'scheduled';
+          statusSelect.classList.add('auto-changed');
+          setTimeout(() => statusSelect.classList.remove('auto-changed'), 600);
+        }
+      } else {
+        // حداقل یکی خالی است → اگر وضعیت "زمان‌بندی شده" بود، به "فعال" برگردد
+        if (statusSelect.value === 'scheduled') {
+          statusSelect.value = 'active';
+          statusSelect.classList.add('auto-changed');
+          setTimeout(() => statusSelect.classList.remove('auto-changed'), 600);
+        }
+      }
+    }
+
+    // ✅ 4. اتصال event listener به فیلدهای زمان و وضعیت
+    document.addEventListener('DOMContentLoaded', () => {
+      const startTimeInput = document.getElementById('bannerStartTime');
+      const endTimeInput = document.getElementById('bannerEndTime');
+      const statusSelect = document.getElementById('bannerStatus');
+
+      if (startTimeInput) {
+        startTimeInput.addEventListener('input', autoUpdateStatus);
+        startTimeInput.addEventListener('change', autoUpdateStatus);
+      }
+      if (endTimeInput) {
+        endTimeInput.addEventListener('input', autoUpdateStatus);
+        endTimeInput.addEventListener('change', autoUpdateStatus);
+      }
+      // ✅ وقتی کاربر وضعیت را تغییر می‌دهد، autoUpdateStatus اجرا شود
+      if (statusSelect) {
+        statusSelect.addEventListener('change', autoUpdateStatus);
+      }
+
+      renderBanners();
+      updateStats();
+    });
 
     function renderBanners() {
       const tbody = document.getElementById('bannerTableBody');
@@ -253,21 +402,59 @@
       if (filtered.length === 0) { tbody.innerHTML = ''; emptyState.style.display = 'block'; return; }
       emptyState.style.display = 'none';
 
-      tbody.innerHTML = filtered.map(b => `
+      tbody.innerHTML = filtered.map(b => {
+        let statusBadgeClass = 'danger';
+        let statusText = 'غیرفعال';
+        
+        if (b.status === 'active') {
+          statusBadgeClass = 'success';
+          statusText = 'فعال';
+        } else if (b.status === 'scheduled') {
+          statusBadgeClass = 'info';
+          statusText = 'زمان‌بندی شده';
+        }
+
+        let mainRow = `
         <tr draggable="${isOrderMode}" data-id="${b.id}" class="${isOrderMode ? 'draggable-row' : ''}" style="${isOrderMode ? 'cursor:grab' : ''}">
           <td>${b.order}</td>
           <td><img src="${b.src}" class="banner-thumb" style="width:60px;height:40px;object-fit:cover;border-radius:4px"></td>
           <td><strong>${b.title}</strong></td>
-          <td><span class="badge ${b.status === 'active' ? 'success' : 'danger'}">${b.status === 'active' ? 'فعال' : 'غیرفعال'}</span></td>
+          <td><span class="badge ${statusBadgeClass}">${statusText}</span></td>
           <td>
             <button class="action-btn" onclick="openBannerModal(${b.id})" title="ویرایش"><i class="fas fa-edit"></i></button>
             <button class="action-btn" onclick="confirmDelete(${b.id})" style="color:var(--danger)" title="حذف"><i class="fas fa-trash"></i></button>
           </td>
-        </tr>
-      `).join('');
+        </tr>`;
+
+        let startTime = b.start_time || b.startTime || '';
+        let endTime = b.end_time || b.endTime || '';
+        
+        let scheduleRow = '';
+        if (startTime || endTime) {
+          scheduleRow = `
+          <tr class="schedule-info-row">
+            <td colspan="5">
+              <div class="schedule-info-content">
+                <div class="schedule-info-item">
+                  <i class="fas fa-calendar-check"></i>
+                  <span>زمان شروع:</span>
+                  <strong>${formatDisplayDate(startTime)}</strong>
+                </div>
+                <div class="schedule-info-item">
+                  <i class="fas fa-calendar-times"></i>
+                  <span>زمان پایان:</span>
+                  <strong>${formatDisplayDate(endTime)}</strong>
+                </div>
+              </div>
+            </td>
+          </tr>`;
+        }
+
+        return mainRow + scheduleRow;
+      }).join('');
 
       if (isOrderMode) {
-        const rows = tbody.querySelectorAll('tr');
+        const rows = tbody.querySelectorAll('tr:not(.schedule-info-row)');
         rows.forEach(row => {
           row.addEventListener('dragstart', e => { draggedRow = row; row.style.opacity = '0.5'; });
           row.addEventListener('dragend', e => { row.style.opacity = '1'; draggedRow = null; });
@@ -327,15 +514,19 @@
       document.getElementById('bannerId').value = '';
       document.getElementById('bannerModalTitle').textContent = 'ایجاد بنر';
 
-      // ✅ ریست نام فایل‌ها
       document.getElementById('bannerFileName').textContent = 'انتخاب فایل تصویر یا ویدیو';
       document.getElementById('bannerFileHint').textContent = 'PNG, JPG, WEBP, MP4, WEBM — کلیک کنید یا فایل را رها کنید';
       document.getElementById('bannerMobileFileName').textContent = 'انتخاب فایل موبایل';
       document.getElementById('bannerMobileFileHint').textContent = 'اگر انتخاب نشود، فایل دسکتاپ برای موبایل استفاده می‌شود.';
 
-      // ✅ ریست فیلدهای سئو
       document.getElementById('bannerSeoTitle').value = '';
       document.getElementById('bannerSeoDescription').value = '';
+      document.getElementById('bannerStartTime').value = '';
+      document.getElementById('bannerEndTime').value = '';
+
+      // ✅ ریست کردن وضعیت غیرفعال بودن فیلدهای زمان
+      document.getElementById('bannerStartTime').classList.remove('schedule-fields-disabled');
+      document.getElementById('bannerEndTime').classList.remove('schedule-fields-disabled');
 
       if (id) {
         const b = banners.find(x => x.id === id);
@@ -345,9 +536,21 @@
         document.getElementById('bannerLink').value = b.link || '';
         document.getElementById('bannerStatus').value = b.status;
 
-        // ✅ پر کردن فیلدهای سئو در حالت ویرایش
-        document.getElementById('bannerSeoTitle').value = b.seoTitle || '';
-        document.getElementById('bannerSeoDescription').value = b.seoDescription || '';
+        document.getElementById('bannerSeoTitle').value = b.seo_title || b.seoTitle || '';
+        document.getElementById('bannerSeoDescription').value = b.seo_description || b.seoDescription || '';
+
+        const savedSchedules = JSON.parse(localStorage.getItem('banners_schedule') || '{}');
+        let startVal = savedSchedules[id]?.start_time || b.start_time || b.startTime || '';
+        let endVal = savedSchedules[id]?.end_time || b.end_time || b.endTime || '';
+
+        document.getElementById('bannerStartTime').value = formatForInput(startVal);
+        document.getElementById('bannerEndTime').value = formatForInput(endVal);
+
+        // ✅ فراخوانی خودکار تغییر وضعیت و مدیریت فیلدها پس از پر شدن داده‌ها
+        autoUpdateStatus();
+      } else {
+        // در حالت ایجاد جدید، وضعیت پیش‌فرض "فعال" است
+        document.getElementById('bannerStatus').value = 'active';
       }
       document.getElementById('bannerModal').classList.add('open');
     }
@@ -358,6 +561,35 @@
       const id = document.getElementById('bannerId').value;
       const title = document.getElementById('bannerTitle').value.trim();
       if (!title) return showToast('عنوان بنر الزامی است', 'error');
+
+      let startTime = document.getElementById('bannerStartTime').value;
+      let endTime = document.getElementById('bannerEndTime').value;
+      
+      let status = document.getElementById('bannerStatus').value;
+
+      // ✅ اگر وضعیت غیرفعال است، زمان‌ها را حتماً خالی کن (حتی اگر کاربر دستی وارد کرده باشد)
+      if (status === 'inactive') {
+        startTime = '';
+        endTime = '';
+      }
+
+      // ✅ تغییر خودکار وضعیت در لحظه ذخیره (پشتیبان برای اطمینان)
+      if (startTime && endTime) {
+        status = 'scheduled';
+      } else if (status === 'scheduled') {
+        status = 'active';
+      }
+
+      // ✅ ذخیره آنی در localStorage
+      if (id) {
+          const savedSchedules = JSON.parse(localStorage.getItem('banners_schedule') || '{}');
+          if (startTime || endTime) {
+              savedSchedules[id] = { start_time: startTime, end_time: endTime };
+          } else {
+              delete savedSchedules[id];
+          }
+          localStorage.setItem('banners_schedule', JSON.stringify(savedSchedules));
+      }
 
       const formData = new FormData();
       formData.append('action', id ? 'update' : 'create');
@@ -371,11 +603,12 @@
       if (mobileFile) formData.append('mobile_file', mobileFile);
 
       formData.append('link', document.getElementById('bannerLink').value.trim());
-      formData.append('status', document.getElementById('bannerStatus').value);
+      formData.append('status', status);
 
-      // ✅ ارسال فیلدهای سئو به سرور
       formData.append('seo_title', document.getElementById('bannerSeoTitle').value.trim());
       formData.append('seo_description', document.getElementById('bannerSeoDescription').value.trim());
+      formData.append('start_time', startTime);
+      formData.append('end_time', endTime);
 
       try {
         const res = await fetch(window.location.pathname, { method: 'POST', body: formData, headers: { 'X-CSRFToken': getCookie('csrftoken') } });
@@ -392,6 +625,10 @@
 
     function confirmDelete(id) {
       document.getElementById('confirmDeleteBtn').onclick = async () => {
+        const savedSchedules = JSON.parse(localStorage.getItem('banners_schedule') || '{}');
+        delete savedSchedules[id];
+        localStorage.setItem('banners_schedule', JSON.stringify(savedSchedules));
+
         const formData = new FormData();
         formData.append('action', 'delete');
         formData.append('id', id);
@@ -410,8 +647,8 @@
       const stack = document.getElementById('toastStack');
       const toast = document.createElement('div');
       toast.className = 'toast';
-      toast.style.cssText = `background:var(--surface); color:var(--text); padding:1rem; border-radius:0.5rem; margin-bottom:0.5rem; box-shadow:var(--shadow); border-right: 4px solid ${type === 'success' ? 'var(--success)' : 'var(--danger)'};`;
-      toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i> ${msg}`;
+      toast.style.cssText = `background:var(--surface); color:var(--text); padding:1rem; border-radius:0.5rem; margin-bottom:0.5rem; box-shadow:var(--shadow); border-right: 4px solid ${type === 'success' ? 'var(--success)' : (type === 'info' ? 'var(--info)' : 'var(--danger)')};`;
+      toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : (type === 'info' ? 'info' : 'exclamation')}-circle"></i> ${msg}`;
       stack.appendChild(toast);
       setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
     }
