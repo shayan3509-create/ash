@@ -1,11 +1,12 @@
 {% load static %}
 
 <header class="site-header">
-
     <div class="header-wrapper">
-
+        
+        <!-- ==========================
+             HEADER MAIN (همیشه ثابت)
+        ========================== -->
         <div class="header-container">
-
             <a href="/" class="logo">
                 <img src="{% static 'images/logo.png' %}" alt="نیوشاپ">
             </a>
@@ -14,50 +15,77 @@
                 <div class="search-icon">
                     <img src="{% static 'icons/search.svg' %}" alt="search">
                 </div>
-
                 <input type="text" placeholder="جستجو ...">
             </div>
 
-
             <div class="header-actions">
+            <a href="#" class="header-btn">
+                <img src="{% static 'icons/user.svg' %}">
+                <span>حساب کاربری</span>
+            </a>
 
-                <a href="#" class="header-btn">
-                    <img src="{% static 'icons/user.svg' %}">
-                    <span>حساب کاربری</span>
-                </a>
+            <a href="#" class="header-btn cart">
+                <span class="cart-count">0</span>
+                <img src="{% static 'icons/cart.svg' %}">
+                <span>سبد خرید</span>
+            </a>
 
-
-                <a href="#" class="header-btn cart">
-
-                    <span class="cart-count">
-                        0
-                    </span>
-
-                    <img src="{% static 'icons/cart.svg' %}">
-
-                    <span>
-                        سبد خرید
-                    </span>
-
-                </a>
-
-
-                <button class="theme-btn" id="theme-toggle" >
-
-                    <img src="{% static 'icons/moon.svg' %}" id="theme-icon">
-
-                   
-
-                </button>
-
-
-            </div>
+            <button class="theme-btn" id="theme-toggle">
+                <img src="{% static 'icons/moon.svg' %}" id="theme-icon">
+            </button>
+                <button class="mobile-notification-btn" id="mobileNotificationBtn">
+                <img src="{% static 'icons/bell.svg' %}" alt="اعلان‌ها">
+                <span class="mobile-notification-badge">3</span>
+            </button>
 
         </div>
-    </div>   
+    </div>
 
-       
+        <!-- ==========================
+             SUB HEADER (فقط دسکتاپ - با اسکرول مخفی می‌شود)
+        ========================== -->
+        <div class="sub-header" id="subHeader">
+            <div class="sub-header-container">
+                
+                <!-- سمت راست: دکمه دسته‌بندی -->
+                <div class="sub-header-right">
+                    <button class="sub-header-btn category-btn" id="categoryBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" 
+                             fill="none" stroke="currentColor" stroke-width="2" 
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                        <span>دسته‌بندی کالاها</span>
+                    </button>
+                </div>
 
+                <!-- وسط: لینک‌های سریع (اختیاری) -->
+                <div class="sub-header-center">
+                    <a href="#" class="sub-header-link">پیشنهاد شگفت‌انگیز</a>
+                    <a href="#" class="sub-header-link">پرفروش‌ترین‌ها</a>
+                    <a href="#" class="sub-header-link">جدیدترین‌ها</a>
+                </div>
 
+                <!-- سمت چپ: دکمه نوتیفیکیشن -->
+                <div class="sub-header-left">
+                    <button class="sub-header-btn notification-btn" id="notificationBtn">
+                        <div class="notification-icon-wrapper">
+                            <img src="{% static 'icons/bell.svg' %}" alt="اعلان‌ها" class="notification-bell">
+                            <span class="notification-badge" id="notificationBadge">3</span>
+                        </div>
+                        <span>اعلان‌ها</span>
+                    </button>
+                </div>
 
+            </div>
+        </div>
+
+    </div>
 </header>
+
+<!-- ==========================
+     MOBILE: دکمه نوتیفیکیشن (کنار دارک مود)
+========================== -->
+<!-- این بخش در CSS موبایل نمایش داده می‌شود -->

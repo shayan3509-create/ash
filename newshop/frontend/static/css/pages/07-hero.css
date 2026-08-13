@@ -1,0 +1,255 @@
+/* ==========================
+   HERO BANNER
+========================== */
+.hero-banner {
+    max-width: 1430px;
+    width: calc(100% - 40px);
+    margin: 30px auto;
+    position: relative;
+    aspect-ratio: 16 / 8;
+    z-index: 1;
+}
+
+.banner-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .12);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    touch-action: pan-y;
+}
+
+/* ==========================
+   BANNER SLIDER
+========================== */
+.banner-slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    cursor: grab;
+}
+
+.banner-slider:active {
+    cursor: grabbing;
+}
+
+.banner-slider.dragging {
+    cursor: grabbing;
+}
+
+.banner-slider img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    transition: transform .65s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* تصاویر اسلاید */
+.banner-current {
+    left: 0;
+    transform: translateX(0);
+    z-index: 2;
+}
+
+.banner-next {
+    left: 100%;
+    transform: translateX(0);
+    z-index: 1;
+}
+
+.banner-prev {
+    left: -100%;
+    transform: translateX(0);
+    z-index: 1;
+}
+
+/* حرکت به اسلاید بعدی */
+.banner-slider.slide-next .banner-current,
+.banner-slider.slide-next .banner-next {
+    transform: translateX(-100%);
+}
+
+/* برگشت به عقب */
+.banner-slider.slide-prev .banner-current,
+.banner-slider.slide-prev .banner-prev {
+    transform: translateX(100%);
+}
+
+/* انیمیشن تغییر بنر */
+.banner-slider img.banner-change {
+    animation: bannerReveal .55s ease;
+}
+
+@keyframes bannerReveal {
+    0% {
+        opacity: 0;
+        transform: scale(1.04);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ==========================
+   BANNER BUTTONS (با SVG)
+========================== */
+.banner-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, .9);
+    color: #333;
+    cursor: pointer;
+    z-index: 5;
+    transition: all .3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    /* ✅ وسط‌چین کردن SVG */
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    outline: none;
+}
+
+.banner-btn:hover {
+    background: #fff;
+    color: #00BFFF;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.3);
+    border-color: #00BFFF;
+}
+
+.banner-btn:active {
+    transform: translateY(-50%) scale(0.95);
+    transition: transform 0.1s ease;
+}
+
+/* ✅ استایل SVG داخل دکمه */
+.banner-btn svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+/* ==========================
+   BANNER DOTS
+========================== */
+.banner-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, .18);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .15);
+    z-index: 10;
+}
+
+.banner-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .7);
+    cursor: pointer;
+    transition: width .35s ease, background .35s ease, transform .35s ease, box-shadow .35s ease;
+}
+
+.banner-dot.active {
+    width: 30px;
+    border-radius: 20px;
+    background: #00BFFF;
+    box-shadow: 0 0 15px rgba(0, 191, 255, .8);
+    transform: scale(1.05);
+}
+
+/* ==========================
+   BANNER PROGRESS
+========================== */
+.banner-progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 191, 255, .15);
+    margin-top: 12px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.banner-progress span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00BFFF, #0077ff);
+    border-radius: 20px;
+    transition: width .1s linear;
+}
+
+/* ==========================
+   MOBILE BANNER
+========================== */
+@media (max-width: 768px) {
+    .hero-banner {
+        width: calc(100% - 24px);
+        aspect-ratio: 1 / 1.4;
+        margin: 20px auto;
+        overflow: visible;
+    }
+
+    .banner-link {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .banner-btn {
+        width: 38px;
+        height: 38px;
+        background: rgba(255, 255, 255, .95);
+    }
+
+    .banner-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .prev {
+        left: -8px;
+    }
+
+    .next {
+        right: -8px;
+    }
+}
