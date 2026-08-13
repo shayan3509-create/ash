@@ -20,24 +20,67 @@
                 برندهای محصولات فروشگاه را مدیریت کنید
             </p>
         </div>
-        <button class="btn btn-primary" onclick="openBrandModal()">
+        <button class="btn btn-primary" onclick="alert('مودال برند به زودی!')">
             <i class="fas fa-plus"></i>
             برند جدید
         </button>
     </div>
+
+    <!-- Stats -->
+    <section class="grid grid-3 mb-2">
+        <article class="card lift reveal">
+            <div class="stat">
+                <div>
+                    <span class="stat-label">کل برندها</span>
+                    <div class="stat-value" id="stat-total">0</div>
+                </div>
+                <span class="stat-icon"><i class="fas fa-tags"></i></span>
+            </div>
+        </article>
+        <article class="card lift reveal">
+            <div class="stat">
+                <div>
+                    <span class="stat-label">برندهای فعال</span>
+                    <div class="stat-value" id="stat-active" style="color: var(--success);">0</div>
+                </div>
+                <span class="stat-icon" style="color: var(--success);"><i class="fas fa-check-circle"></i></span>
+            </div>
+        </article>
+        <article class="card lift reveal">
+            <div class="stat">
+                <div>
+                    <span class="stat-label">غیرفعال</span>
+                    <div class="stat-value" id="stat-inactive" style="color: var(--danger);">0</div>
+                </div>
+                <span class="stat-icon" style="color: var(--danger);"><i class="fas fa-ban"></i></span>
+            </div>
+        </article>
+    </section>
 
     <!-- Placeholder -->
     <section class="card reveal" style="padding: 3rem; text-align: center;">
         <i class="fas fa-tags" style="font-size: 4rem; color: var(--muted); margin-bottom: 1rem; opacity: 0.3;"></i>
         <h2 style="color: var(--muted); margin-bottom: 0.5rem;">صفحه در حال ساخت</h2>
         <p style="color: var(--muted);">
-            محتوای این صفحه به زودی اضافه خواهد شد.
+            محتوای کامل این صفحه به زودی اضافه خواهد شد.
         </p>
     </section>
 
 </main>
 
-<!-- Toast Stack -->
-<div class="toast-stack" id="toastStack"></div>
+<script>
+    // بارگذاری آمار
+    fetch("{% url 'admin_panel:brands:api_list' %}")
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                const brands = data.brands;
+                document.getElementById('stat-total').textContent = brands.length;
+                document.getElementById('stat-active').textContent = brands.filter(b => b.isActive).length;
+                document.getElementById('stat-inactive').textContent = brands.filter(b => !b.isActive).length;
+            }
+        })
+        .catch(err => console.error(err));
+</script>
 
 {% endblock %}

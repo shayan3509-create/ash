@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.admin_panel.banners',
     'apps.admin_panel.categories',
     'apps.admin_panel.products.apps.ProductsConfig',
+    'apps.admin_panel.brands.apps.BrandsConfig',
 ]
 
 

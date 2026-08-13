@@ -3,6 +3,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
 from apps.admin_panel.categories.models import Category
 
+from apps.admin_panel.brands.models import Brand
+
 
 class Brand(models.Model):
     """برند محصولات"""
@@ -240,7 +242,7 @@ class Product(models.Model):
             "category": self.category.title if self.category else "",
             "categoryId": self.category.id if self.category else None,
             "brand": self.brand.name if self.brand else "",
-            "brandId": self.brand.id if self.brand else None,
+            "brandId": self.brand_id,
             "status": self.status,
             "showOnSite": self.show_on_site,
             "originalPrice": int(self.original_price) if self.original_price else 0,
