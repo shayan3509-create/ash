@@ -191,6 +191,89 @@ a { color: inherit; text-decoration: none; }
 
 
 
+/* ============================================
+   Toolbar Responsive — اولویت با جستجو
+   ============================================ */
+@media (max-width: 768px) {
+  /* فیلد وضعیت کوچک‌تر شود */
+  .toolbar.mb-1 .field:nth-child(2) .select {
+    min-width: 0;
+    width: 100%;
+    font-size: 0.8rem;
+    padding-inline: 0.5rem;
+  }
+
+  /* فیلتر موجودی کوچک‌تر شود */
+  .toolbar.mb-1 .low-stock-filter__threshold {
+    width: 48px;
+    font-size: 0.8rem;
+    padding-inline: 0.35rem;
+  }
+
+  .toolbar.mb-1 .switch span:last-child {
+    font-size: 0.78rem;
+  }
+
+  /* جستجو فضای باقی‌مانده را کامل بگیرد */
+  .toolbar.mb-1 .field:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .toolbar.mb-1 .field:first-child .input {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+
+/* ============================================
+   Toolbar Responsive — جستجوی تمام‌عرض
+   ============================================ */
+@media (max-width: 768px) {
+  /* خود toolbar اجازه شکستن خط را داشته باشد */
+  .toolbar.mb-1 {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* جستجو: ردیف اول، عرض کامل */
+  .toolbar.mb-1 .field:first-child {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .toolbar.mb-1 .field:first-child .input {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.95rem;
+    padding-inline: 0.75rem;
+  }
+
+  /* وضعیت و فیلتر موجودی: ردیف دوم، کنار هم */
+  .toolbar.mb-1 .field:nth-child(2),
+  .toolbar.mb-1 .field:nth-child(3) {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .toolbar.mb-1 .field:nth-child(2) .select {
+    width: 100%;
+    font-size: 0.8rem;
+    padding-inline: 0.5rem;
+  }
+
+  .toolbar.mb-1 .low-stock-filter__threshold {
+    width: 48px;
+    font-size: 0.8rem;
+    padding-inline: 0.35rem;
+  }
+
+  .toolbar.mb-1 .switch span:last-child {
+    font-size: 0.78rem;
+  }
+}
+
 
 
 
