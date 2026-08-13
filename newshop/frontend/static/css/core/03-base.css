@@ -1,0 +1,48 @@
+
+
+/* ==========================
+   MAIN CONTENT
+========================== */
+main {
+    padding-top: 90px;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding-top: 0;
+    }
+
+    body {
+        padding-top: 130px;
+        padding-bottom: 90px;
+    }
+}
+
+/* ==========================
+   SCROLLBAR - Chrome / Edge / Safari
+========================== */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00BFFF, #0077ff);
+    border-radius: 20px;
+    border: 3px solid var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00d9ff, #008cff);
+}
+
+/* ==========================
+   SCROLLBAR - Firefox
+========================== */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #00BFFF var(--bg-color);
+}
