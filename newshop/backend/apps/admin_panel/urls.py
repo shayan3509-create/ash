@@ -6,4 +6,6 @@ urlpatterns = [
     path("", include("apps.admin_panel.dashboard.urls")),
     path("", include("apps.admin_panel.banners.urls")),
     path("", include("apps.admin_panel.categories.urls")),
+        # محصولات
+    path("products/", include("apps.admin_panel.products.urls")),
 ]

@@ -32,7 +32,7 @@ INSTALLED_APPS = [
 
     # Project Apps
     'apps.core',
-    'apps.products',
+    
     'apps.accounts',
     'apps.cart',
     'apps.orders',
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.admin_panel.dashboard',
     'apps.admin_panel.banners',
     'apps.admin_panel.categories',
+    'apps.admin_panel.products.apps.ProductsConfig',
 ]
 
 

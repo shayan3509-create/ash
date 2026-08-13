@@ -1,0 +1,43 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block data_page %}brands-list{% endblock %}
+{% block data_title %}مدیریت برندها{% endblock %}
+{% block data_subtitle %}افزودن، ویرایش و مدیریت برندهای فروشگاه{% endblock %}
+
+{% block content %}
+
+<main class="page-content" data-app-shell>
+
+    <!-- Header -->
+    <div class="page-header mb-2">
+        <div>
+            <h1 style="font-size: 1.5rem; margin-bottom: 0.25rem;">
+                <i class="fas fa-tags" style="color: var(--accent); margin-left: 8px;"></i>
+                مدیریت برندها
+            </h1>
+            <p style="color: var(--muted); font-size: 0.9rem;">
+                برندهای محصولات فروشگاه را مدیریت کنید
+            </p>
+        </div>
+        <button class="btn btn-primary" onclick="openBrandModal()">
+            <i class="fas fa-plus"></i>
+            برند جدید
+        </button>
+    </div>
+
+    <!-- Placeholder -->
+    <section class="card reveal" style="padding: 3rem; text-align: center;">
+        <i class="fas fa-tags" style="font-size: 4rem; color: var(--muted); margin-bottom: 1rem; opacity: 0.3;"></i>
+        <h2 style="color: var(--muted); margin-bottom: 0.5rem;">صفحه در حال ساخت</h2>
+        <p style="color: var(--muted);">
+            محتوای این صفحه به زودی اضافه خواهد شد.
+        </p>
+    </section>
+
+</main>
+
+<!-- Toast Stack -->
+<div class="toast-stack" id="toastStack"></div>
+
+{% endblock %}

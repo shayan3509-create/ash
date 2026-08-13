@@ -46,3 +46,13 @@ html {
     scrollbar-width: thin;
     scrollbar-color: #00BFFF var(--bg-color);
 }
+/* ==========================
+   MAIN CONTENT - DESKTOP SPACING
+   فاصله محتوا از هدر + زیر هدر در دسکتاپ
+========================== */
+@media (min-width: 769px) {
+    main {
+        padding-top: 150px;
+        /* هدر اصلی (~100px) + زیر هدر (~50px) + فاصله */
+    }
+}

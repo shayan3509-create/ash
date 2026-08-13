@@ -8,6 +8,10 @@
 
 {% block content %}
 
+  <!-- داده‌های دسته‌بندی و برندها از Django -->
+  {{ categories_json|json_script:"categories-data" }}
+  {{ brands_json|json_script:"brands-data" }}
+
   <main class="page-content" data-app-shell>
 
     <!-- کارت‌های آماری -->
@@ -68,39 +72,36 @@
         </div>
       </div>
 
-
-<div class="toolbar mb-1">
-  <div class="field" style="flex: 1;">
-    <label for="product-search">جست‌وجوی محصول</label>
-    <input class="input" id="product-search" type="search" placeholder="نام، کد کالا یا برند...">
-  </div>
-  <div class="field">
-    <label for="product-status">وضعیت</label>
-    <select class="select" id="product-status">
-      <option value="">همه وضعیت‌ها</option>
-      <option value="active">فعال</option>
-      <option value="inactive">غیرفعال</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>فیلتر موجودی</label>
-    <div class="low-stock-filter" id="low-stock-filter-wrapper">
-      <label class="switch">
-        <input type="checkbox" id="filter-low-stock">
-        <span class="switch-track"></span>
-        <span>کم‌موجود</span>
-      </label>
-      <span class="low-stock-filter__op">≤</span>
-      <input type="number"
-             class="low-stock-filter__threshold"
-             id="low-stock-threshold"
-             value="5" min="1" max="999"
-             title="آستانه کم‌موجود">
-    </div>
-  </div>
-</div>
-
-      
+      <div class="toolbar mb-1">
+        <div class="field" style="flex: 1;">
+          <label for="product-search">جست‌وجوی محصول</label>
+          <input class="input" id="product-search" type="search" placeholder="نام، کد کالا یا برند...">
+        </div>
+        <div class="field">
+          <label for="product-status">وضعیت</label>
+          <select class="select" id="product-status">
+            <option value="">همه وضعیت‌ها</option>
+            <option value="active">فعال</option>
+            <option value="inactive">غیرفعال</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>فیلتر موجودی</label>
+          <div class="low-stock-filter" id="low-stock-filter-wrapper">
+            <label class="switch">
+              <input type="checkbox" id="filter-low-stock">
+              <span class="switch-track"></span>
+              <span>کم‌موجود</span>
+            </label>
+            <span class="low-stock-filter__op">≤</span>
+            <input type="number"
+                   class="low-stock-filter__threshold"
+                   id="low-stock-threshold"
+                   value="5" min="1" max="999"
+                   title="آستانه کم‌موجود">
+          </div>
+        </div>
+      </div>
 
       <div class="table-wrap">
         <table class="data-table responsive" id="products-table">
@@ -183,17 +184,11 @@
                 <label>دسته‌بندی <span style="color: var(--danger);">*</span></label>
                 <select class="select" id="p-category" required>
                   <option value="">انتخاب کنید</option>
-                  <option>موبایل و تبلت</option>
-                  <option>صوتی و تصویری</option>
-                  <option>خانه و آشپزخانه</option>
-                  <option>ورزش و سفر</option>
-                  <option>کتاب و فرهنگ</option>
-                  <option>پوشاک</option>
                 </select>
               </div>
               <div class="field">
-                <label>برند <span style="color: var(--danger);">*</span></label>
-                <select class="select" id="p-brand" required>
+                <label>برند</label>
+                <select class="select" id="p-brand">
                   <option value="">انتخاب برند</option>
                 </select>
               </div>
@@ -238,7 +233,6 @@
               <div class="field">
                 <label>درصد تخفیف (%)</label>
                 <input type="number" class="input" id="p-discount" min="0" max="100" placeholder="8" oninput="updatePricing()">
-                <!-- ✅ نمایش قیمت نهایی زیر فیلد تخفیف -->
                 <small id="p-final-price-display" style="color: var(--success); font-weight: 600; display: block; margin-top: 0.5rem;"></small>
               </div>
               <div class="field">
@@ -294,7 +288,6 @@
 
           <!-- تب تصاویر و ویدیو -->
           <div class="tab-content" id="tab-images">
-            <!-- بخش تصاویر -->
             <div style="margin-bottom: 1.5rem;">
               <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">تصاویر محصول</label>
               <small style="color: var(--muted); display: block; margin-bottom: 0.75rem;">
@@ -309,7 +302,6 @@
               </div>
             </div>
 
-            <!-- بخش ویدیو -->
             <div>
               <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">ویدیو محصول (اختیاری)</label>
               <small style="color: var(--muted); display: block; margin-bottom: 0.75rem;">
@@ -428,165 +420,31 @@
   </div>
 
   <style>
-    .tab-btn {
-      padding: 0.6rem 1rem;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      white-space: nowrap;
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
+    .tab-btn { padding: 0.6rem 1rem; border: none; background: transparent; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; color: var(--muted); font-size: 0.9rem; font-family: inherit; transition: all 0.2s; }
     .tab-btn:hover { color: var(--text); }
-    .tab-btn.active {
-      border-bottom-color: var(--accent);
-      color: var(--text);
-      font-weight: 600;
-    }
+    .tab-btn.active { border-bottom-color: var(--accent); color: var(--text); font-weight: 600; }
     .tab-content { display: none; animation: fadeIn 0.2s ease; }
     .tab-content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    .image-card {
-      position: relative;
-      aspect-ratio: 1;
-      border: 2px solid var(--line);
-      border-radius: 0.5rem;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.2s;
-      background: var(--surface-2);
-    }
+    .image-card { position: relative; aspect-ratio: 1; border: 2px solid var(--line); border-radius: 0.5rem; overflow: hidden; cursor: pointer; transition: all 0.2s; background: var(--surface-2); }
     .image-card:hover { border-color: var(--accent); }
-    .image-card.main {
-      border-color: var(--accent);
-      border-width: 3px;
-      box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.2);
-    }
+    .image-card.main { border-color: var(--accent); border-width: 3px; box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.2); }
     .image-card img, .image-card video { width: 100%; height: 100%; object-fit: cover; }
-    .image-card .main-badge {
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      background: var(--accent);
-      color: white;
-      font-size: 0.7rem;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-    .image-card .video-badge {
-      position: absolute;
-      bottom: 4px;
-      left: 4px;
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      font-size: 0.7rem;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-    .image-card .remove-btn {
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      border: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
+    .image-card .main-badge { position: absolute; top: 4px; right: 4px; background: var(--accent); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+    .image-card .remove-btn { position: absolute; top: 4px; left: 4px; background: rgba(0, 0, 0, 0.6); color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
     .image-card:hover .remove-btn { opacity: 1; }
 
-    .video-preview {
-      position: relative;
-      max-width: 320px;
-      border: 2px solid var(--line);
-      border-radius: 0.5rem;
-      overflow: hidden;
-      background: var(--surface-2);
-    }
-    .video-preview video {
-      width: 100%;
-      display: block;
-    }
-    .video-preview .remove-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      border: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .video-preview { position: relative; max-width: 320px; border: 2px solid var(--line); border-radius: 0.5rem; overflow: hidden; background: var(--surface-2); }
+    .video-preview video { width: 100%; display: block; }
+    .video-preview .remove-btn { position: absolute; top: 8px; right: 8px; background: rgba(0, 0, 0, 0.7); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.35rem 0.7rem;
-      background: var(--surface-2);
-      border: 1px solid var(--line);
-      border-radius: 1rem;
-      font-size: 0.85rem;
-    }
-    .chip .chip-remove {
-      background: transparent;
-      border: none;
-      color: var(--muted);
-      cursor: pointer;
-      padding: 0;
-      width: 16px;
-      height: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .chip .chip-remove:hover { color: var(--danger); }
+    .chip, .color-chip { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.7rem; background: var(--surface-2); border: 1px solid var(--line); border-radius: 1rem; font-size: 0.85rem; }
+    .chip-remove { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 0; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; }
+    .chip-remove:hover { color: var(--danger); }
+    .color-swatch { width: 22px; height: 22px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1px var(--line); }
 
-    .color-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 0.6rem 0.3rem 0.3rem;
-      background: var(--surface-2);
-      border: 1px solid var(--line);
-      border-radius: 1rem;
-      font-size: 0.85rem;
-    }
-    .color-swatch {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 2px solid white;
-      box-shadow: 0 0 0 1px var(--line);
-    }
-
-    .spec-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 0.5rem;
-      padding: 0.5rem;
-      background: var(--surface-2);
-      border-radius: 0.5rem;
-      border: 1px solid var(--line);
-    }
+    .spec-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 0.5rem; padding: 0.5rem; background: var(--surface-2); border-radius: 0.5rem; border: 1px solid var(--line); }
     .spec-row strong { color: var(--text); }
 
     @media (max-width: 640px) {
@@ -595,217 +453,18 @@
     }
   </style>
 
-  <script src="../../assets/js/app.js"></script>
-
   <script>
-  // ============ الگوریتم تبدیل تاریخ شمسی ============
-  function div(a, b) { return ~~(a / b); }
-  function mod(a, b) { return a - ~~(a / b) * b; }
-  function toJalaali(gy, gm, gd) {
-    const gy2 = (gm > 2) ? gy + 1 : gy;
-    let days = 355666 + (365 * gy) + div(gy2 + 3, 4) - div(gy2 + 99, 100) + div(gy2 + 399, 400) + gd + [0,31,59,90,120,151,181,212,243,273,304,334][gm - 1];
-    let jy = -1595 + 33 * div(days, 12053);
-    days = mod(days, 12053);
-    jy += 4 * div(days, 1461);
-    days = mod(days, 1461);
-    if (days > 365) { jy += div(days - 1, 365); days = (days - 1) % 365; }
-    let jm, jd;
-    if (days < 186) { jm = 1 + div(days, 31); jd = 1 + mod(days, 31); }
-    else { jm = 7 + div(days - 186, 30); jd = 1 + mod(days - 186, 30); }
-    return { jy, jm, jd };
-  }
-  function pad2(n) { return String(n).padStart(2, '0'); }
-  function getCurrentShamsiDate() {
-    const now = new Date();
-    const j = toJalaali(now.getFullYear(), now.getMonth() + 1, now.getDate());
-    const h = pad2(now.getHours());
-    const m = pad2(now.getMinutes());
-    return `${j.jy}/${pad2(j.jm)}/${pad2(j.jd)} ${h}:${m}`;
-  }
+  // ============ بارگذاری داده‌های Django ============
+  const CATEGORIES = JSON.parse(document.getElementById('categories-data').textContent || '[]');
+  const BRANDS = JSON.parse(document.getElementById('brands-data').textContent || '[]');
 
-  // ============ برندها ============
-  const brands = [
-    'Samsung', 'Apple', 'Xiaomi', 'Huawei', 'Nokia', 'Sony', 'LG', 'Anker',
-    'DeLonghi', 'Asics', 'Nike', 'Adidas', 'Bosch', 'Philips', 'Asus', 'Lenovo',
-    'HP', 'Dell', 'Microsoft', 'JBL', 'Beats', 'Haier', 'Hisense'
-  ];
-
-  // ============ داده‌های نمونه + localStorage ============
-  const STORAGE_KEY = 'admin_products_v2';
-  const defaultProducts = [
-    {
-      id: 1,
-      name: 'گوشی سامسونگ Galaxy A55',
-      nameEn: 'Samsung Galaxy A55',
-      slug: 'samsung-galaxy-a55',
-      category: 'موبایل و تبلت',
-      brand: 'Samsung',
-      status: 'active',
-      showOnSite: true,
-      originalPrice: 25000000,
-      salePrice: 22890000,
-      discount: 8,
-      stock: 48,
-      sku: 'MB-SAM-A55-128',
-      images: [
-        { url: 'https://via.placeholder.com/300x300/0f172a/00bfff?text=A55+1', isMain: true },
-        { url: 'https://via.placeholder.com/300x300/1e293b/00bfff?text=A55+2', isMain: false }
-      ],
-      video: null,
-      shortDescription: 'گوشی سامسونگ با حافظه 128 گیگ و رم 8',
-      fullDescription: 'گوشی سامسونگ گلکسی A55 با طراحی مدرن، دوربین حرفه‌ای و باتری قوی گزینه‌ای عالی برای کاربران است.',
-      specs: [
-        { key: 'حافظه داخلی', value: '128 گیگابایت' },
-        { key: 'رم', value: '8 گیگابایت' },
-        { key: 'صفحه نمایش', value: '6.6 اینچ Super AMOLED' }
-      ],
-      colors: [
-        { name: 'مشکی', hex: '#000000' },
-        { name: 'آبی', hex: '#0066cc' }
-      ],
-      sizes: [],
-      weight: 210,
-      dimensions: { l: 16, w: 8, h: 1 },
-      seoTitle: 'خرید گوشی سامسونگ گلکسی A55 | نیوشاپ',
-      seoDescription: 'خرید گوشی سامسونگ گلکسی A55 با بهترین قیمت و گارانتی معتبر',
-      seoKeywords: 'گوشی سامسونگ، گلکسی A55، موبایل سامسونگ',
-      createdAt: '1404/10/15 10:30',
-      updatedAt: '1404/11/02 14:20'
-    },
-    {
-      id: 2,
-      name: 'هدفون بی‌سیم انکر Q45',
-      nameEn: 'Anker Soundcore Q45',
-      slug: 'anker-soundcore-q45',
-      category: 'صوتی و تصویری',
-      brand: 'Anker',
-      status: 'active',
-      showOnSite: true,
-      originalPrice: 9500000,
-      salePrice: 8490000,
-      discount: 11,
-      stock: 4,
-      sku: 'AU-ANK-Q45-BK',
-      images: [
-        { url: 'https://via.placeholder.com/300x300/0f172a/00bfff?text=Q45', isMain: true }
-      ],
-      video: null,
-      shortDescription: 'هدفون نویزکنسلینگ مشکی انکر',
-      fullDescription: 'هدفون بی‌سیم با قابلیت نویزکنسلینگ فعال و کیفیت صدای Hi-Res.',
-      specs: [
-        { key: 'نوع اتصال', value: 'بلوتوث 5.3' },
-        { key: 'عمر باتری', value: '50 ساعت' }
-      ],
-      colors: [{ name: 'مشکی', hex: '#000000' }],
-      sizes: [],
-      weight: 290,
-      dimensions: { l: 20, w: 18, h: 8 },
-      createdAt: '1404/09/20 09:15',
-      updatedAt: '1404/11/05 11:45'
-    },
-    {
-      id: 3,
-      name: 'اسپرسوساز دلونگی EC685',
-      nameEn: 'DeLonghi EC685',
-      slug: 'delonghi-ec685',
-      category: 'خانه و آشپزخانه',
-      brand: 'DeLonghi',
-      status: 'active',
-      showOnSite: true,
-      originalPrice: 15000000,
-      salePrice: 14750000,
-      discount: 2,
-      stock: 21,
-      sku: 'HA-DLG-EC685',
-      images: [
-        { url: 'https://via.placeholder.com/300x300/0f172a/00bfff?text=EC685', isMain: true }
-      ],
-      video: null,
-      shortDescription: 'اسپرسوساز 15 بار فشار نقره‌ای',
-      fullDescription: 'اسپرسوساز حرفه‌ای با فشار 15 بار و طراحی جمع‌وجور.',
-      specs: [
-        { key: 'فشار', value: '15 بار' },
-        { key: 'جنس بدنه', value: 'استیل ضد زنگ' }
-      ],
-      colors: [{ name: 'نقره‌ای', hex: '#c0c0c0' }],
-      sizes: [],
-      weight: 4200,
-      dimensions: { l: 33, w: 15, h: 30 },
-      createdAt: '1404/08/10 16:00',
-      updatedAt: '1404/10/28 10:10'
-    },
-    {
-      id: 4,
-      name: 'کفش دویدن اسیکس Novablast 4',
-      nameEn: 'Asics Novablast 4',
-      slug: 'asics-novablast-4',
-      category: 'ورزش و سفر',
-      brand: 'Asics',
-      status: 'inactive',
-      showOnSite: false,
-      originalPrice: 10500000,
-      salePrice: 9980000,
-      discount: 5,
-      stock: 36,
-      sku: 'SP-ASC-NV4',
-      images: [
-        { url: 'https://via.placeholder.com/300x300/0f172a/00bfff?text=NV4', isMain: true }
-      ],
-      video: null,
-      shortDescription: 'کفش دویدن سایز 40 تا 45',
-      fullDescription: 'کفش دویدن حرفه‌ای با فناوری FF BLAST.',
-      specs: [
-        { key: 'جنس رویه', value: 'مش تنفسی' },
-        { key: 'کاربری', value: 'دویدن جاده' }
-      ],
-      colors: [
-        { name: 'مشکی', hex: '#000000' },
-        { name: 'سفید', hex: '#ffffff' }
-      ],
-      sizes: ['40', '41', '42', '43', '44', '45'],
-      weight: 260,
-      dimensions: { l: 32, w: 20, h: 12 },
-      createdAt: '1404/07/05 13:20',
-      updatedAt: '1404/11/01 15:50'
-    },
-    {
-      id: 5,
-      name: 'کتاب اثر مرکب',
-      nameEn: 'The Compound Effect',
-      slug: 'compound-effect-book',
-      category: 'کتاب و فرهنگ',
-      brand: 'نشر نیک‌فرجام',
-      status: 'active',
-      showOnSite: true,
-      originalPrice: 400000,
-      salePrice: 365000,
-      discount: 9,
-      stock: 124,
-      sku: 'BK-CRD-CMP-28',
-      images: [
-        { url: 'https://via.placeholder.com/300x300/0f172a/00bfff?text=Book', isMain: true }
-      ],
-      video: null,
-      shortDescription: 'ترجمه فارسی، چاپ بیست‌وهشتم',
-      fullDescription: 'کتاب اثر مرکب نوشته دارن هاردی، ترجمه فارسی.',
-      specs: [
-        { key: 'نویسنده', value: 'دارن هاردی' },
-        { key: 'تعداد صفحات', value: '250' }
-      ],
-      colors: [],
-      sizes: [],
-      weight: 320,
-      dimensions: { l: 22, w: 15, h: 2 },
-      createdAt: '1404/05/15 08:45',
-      updatedAt: '1404/10/20 17:30'
-    }
-  ];
-
+  // ============ متغیرهای سراسری ============
   let products = [];
   let currentEditId = null;
   let pendingDeleteId = null;
-  let tempImages = [];
-  let tempVideo = null;
+  let tempImages = [];   // { id?, url, isMain, type: 'new' | 'existing' }
+  let tempVideo = null;  // data URL (new) یا null
+  let videoRemoved = false;
   let tempSpecs = [];
   let tempColors = [];
   let tempSizes = [];
@@ -814,56 +473,76 @@
   let currentPage = 1;
   let filteredRows = [];
 
-  // ============ مدیریت localStorage ============
-  function loadProducts() {
+  // ============ API Endpoints ============
+  const API_LIST = "{% url 'admin_panel:products:api_list' %}";
+  const API_SAVE = "{% url 'admin_panel:products:api_save' %}";
+  const API_DELETE = "{% url 'admin_panel:products:api_delete' %}";
+
+  // ============ CSRF Token ============
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  // ============ بارگذاری محصولات از سرور ============
+  async function loadProducts() {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        products = JSON.parse(stored);
-      } else {
-        products = JSON.parse(JSON.stringify(defaultProducts));
-        saveProducts();
+      const res = await fetch(API_LIST);
+      const data = await res.json();
+      if (data.success) {
+        products = data.products || [];
+        renderTable();
       }
     } catch (e) {
       console.warn('خطا در بارگذاری محصولات:', e);
-      products = JSON.parse(JSON.stringify(defaultProducts));
+      products = [];
+      renderTable();
     }
   }
 
-  function saveProducts() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-    } catch (e) {
-      console.warn('خطا در ذخیره محصولات:', e);
-    }
-  }
-
-  // ============ پر کردن Select برندها ============
-  function populateBrandsSelect() {
-    const select = document.getElementById('p-brand');
-    if (!select) return;
-    // نگه داشتن اولین option (انتخاب برند)
-    select.innerHTML = '<option value="">انتخاب برند</option>';
-    brands.forEach(b => {
+  // ============ پر کردن Select های دسته و برند ============
+  function populateSelects() {
+    const catSelect = document.getElementById('p-category');
+    const brandSelect = document.getElementById('p-brand');
+    
+    catSelect.innerHTML = '<option value="">انتخاب کنید</option>';
+    CATEGORIES.forEach(c => {
       const opt = document.createElement('option');
-      opt.value = b;
-      opt.textContent = b;
-      select.appendChild(opt);
+      opt.value = c.id;
+      opt.textContent = c.title;
+      catSelect.appendChild(opt);
+    });
+    
+    brandSelect.innerHTML = '<option value="">انتخاب برند</option>';
+    BRANDS.forEach(b => {
+      const opt = document.createElement('option');
+      opt.value = b.id;
+      opt.textContent = b.name;
+      brandSelect.appendChild(opt);
     });
   }
 
-  // ============ رندر جدول با اعداد انگلیسی ============
+  // ============ فرمت اعداد انگلیسی ============
   function formatPrice(num) {
     if (!num && num !== 0) return '—';
-    // ✅ اعداد انگلیسی
     return Number(num).toLocaleString('en-US') + ' تومان';
   }
-
   function formatNumberEn(num) {
     if (!num && num !== 0) return '—';
     return Number(num).toLocaleString('en-US');
   }
 
+  // ============ رندر جدول ============
   function renderTable() {
     const tbody = document.getElementById('products-tbody');
     const emptyState = document.getElementById('empty-state');
@@ -875,15 +554,12 @@
       const lowStockActive = document.getElementById('filter-low-stock')?.checked || false;
       const threshold = parseInt(document.getElementById('low-stock-threshold')?.value) || 5;
       const matchLowStock = !lowStockActive || p.stock <= threshold;
-
-
-
       const matchSearch = !search ||
         (p.name || '').toLowerCase().includes(search) ||
         (p.sku || '').toLowerCase().includes(search) ||
         (p.brand || '').toLowerCase().includes(search) ||
         (p.category || '').toLowerCase().includes(search);
-return matchStatus && matchSearch && matchLowStock;
+      return matchStatus && matchSearch && matchLowStock;
     });
 
     if (filteredRows.length === 0) {
@@ -930,14 +606,13 @@ return matchStatus && matchSearch && matchLowStock;
       }).join('');
     }
 
-    // ✅ اعداد انگلیسی در pagination
     document.getElementById('total-products').textContent = formatNumberEn(filteredRows.length);
     currentPage = 1;
     showPage(1);
     updateStats();
   }
 
-  // ============ آمار واقعی ============
+  // ============ آمار ============
   function updateStats() {
     const total = products.length;
     const active = products.filter(p => p.status === 'active').length;
@@ -959,13 +634,11 @@ return matchStatus && matchSearch && matchLowStock;
     if (page > maxPage) page = maxPage;
     if (page < 1) page = 1;
     currentPage = page;
-
     const rows = document.querySelectorAll('#products-tbody tr');
     rows.forEach(r => r.style.display = 'none');
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     [...rows].slice(start, end).forEach(r => r.style.display = '');
-
     renderPagination();
     updateShowingRange();
   }
@@ -980,7 +653,7 @@ return matchStatus && matchSearch && matchLowStock;
     for (let i = start; i <= Math.min(start + 2, maxPage); i++) {
       const btn = document.createElement('button');
       btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
-      btn.textContent = formatNumberEn(i); // ✅ اعداد انگلیسی
+      btn.textContent = formatNumberEn(i);
       btn.onclick = () => showPage(i);
       container.appendChild(btn);
     }
@@ -1014,19 +687,16 @@ return matchStatus && matchSearch && matchLowStock;
     });
   });
 
-  // ============ ✅ محاسبات قیمت لحظه‌ای ============
+  // ============ محاسبات قیمت ============
   function updatePricing() {
     const original = parseFloat(document.getElementById('p-originalPrice').value) || 0;
     const discount = parseFloat(document.getElementById('p-discount').value) || 0;
     const saleInput = document.getElementById('p-salePrice');
     const displayEl = document.getElementById('p-final-price-display');
-
     if (original > 0) {
       const finalPrice = Math.round(original * (1 - discount / 100));
       saleInput.value = finalPrice;
-      if (displayEl) {
-        displayEl.textContent = `قیمت نهایی: ${formatPrice(finalPrice)}`;
-      }
+      if (displayEl) displayEl.textContent = `قیمت نهایی: ${formatPrice(finalPrice)}`;
     } else {
       saleInput.value = '';
       if (displayEl) displayEl.textContent = '';
@@ -1038,13 +708,8 @@ return matchStatus && matchSearch && matchLowStock;
     document.getElementById('p-link').value = slug ? `/products/${slug}` : '';
   }
 
-  // ============ Slug خودکار ============
   function toSlug(str) {
-    return str.trim()
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-');
+    return str.trim().toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
   }
 
   document.getElementById('p-name').addEventListener('input', (e) => {
@@ -1058,46 +723,34 @@ return matchStatus && matchSearch && matchLowStock;
     updateProductLink();
   });
 
-  // ============ SEO counter ============
-  function updateSeoCount(input, counterId, max) {
+  function updateSeoCount(input, counterId) {
     const counter = document.getElementById(counterId);
     if (counter) counter.textContent = input.value.length;
   }
 
-  // ============ نمایش در سایت ============
   document.getElementById('p-showOnSite').addEventListener('change', (e) => {
     document.getElementById('p-showOnSite-label').textContent =
       e.target.checked ? 'نمایش داده می‌شود' : 'مخفی از سایت';
   });
 
-  // ============ مدیریت سایزها ============
+  // ============ سایزها ============
   function renderSizes() {
     const container = document.getElementById('p-sizes');
     container.innerHTML = tempSizes.map((s, i) => `
-      <span class="chip">
-        ${s}
-        <button type="button" class="chip-remove" onclick="removeSize(${i})"><i class="fas fa-times"></i></button>
-      </span>
+      <span class="chip">${s}<button type="button" class="chip-remove" onclick="removeSize(${i})"><i class="fas fa-times"></i></button></span>
     `).join('');
   }
   function addSize() {
     const input = document.getElementById('p-size-input');
     const val = input.value.trim();
-    if (val && !tempSizes.includes(val)) {
-      tempSizes.push(val);
-      renderSizes();
-      input.value = '';
-    }
+    if (val && !tempSizes.includes(val)) { tempSizes.push(val); renderSizes(); input.value = ''; }
   }
-  function removeSize(i) {
-    tempSizes.splice(i, 1);
-    renderSizes();
-  }
+  function removeSize(i) { tempSizes.splice(i, 1); renderSizes(); }
   document.getElementById('p-size-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') { e.preventDefault(); addSize(); }
   });
 
-  // ============ مدیریت رنگ‌ها ============
+  // ============ رنگ‌ها ============
   function renderColors() {
     const container = document.getElementById('p-colors');
     container.innerHTML = tempColors.map((c, i) => `
@@ -1117,12 +770,9 @@ return matchStatus && matchSearch && matchLowStock;
       nameEl.value = '';
     }
   }
-  function removeColor(i) {
-    tempColors.splice(i, 1);
-    renderColors();
-  }
+  function removeColor(i) { tempColors.splice(i, 1); renderColors(); }
 
-  // ============ مدیریت مشخصات ============
+  // ============ مشخصات ============
   function renderSpecs() {
     const container = document.getElementById('p-specs');
     container.innerHTML = tempSpecs.map((s, i) => `
@@ -1143,12 +793,9 @@ return matchStatus && matchSearch && matchLowStock;
       valEl.value = '';
     }
   }
-  function removeSpec(i) {
-    tempSpecs.splice(i, 1);
-    renderSpecs();
-  }
+  function removeSpec(i) { tempSpecs.splice(i, 1); renderSpecs(); }
 
-  // ============ ✅ مدیریت تصاویر (چندتایی) ============
+  // ============ تصاویر ============
   function renderImages() {
     const container = document.getElementById('p-images');
     if (tempImages.length === 0) {
@@ -1159,9 +806,7 @@ return matchStatus && matchSearch && matchLowStock;
       <div class="image-card ${img.isMain ? 'main' : ''}" onclick="setMainImage(${i})">
         <img src="${img.url}" alt="">
         ${img.isMain ? '<span class="main-badge">اصلی</span>' : ''}
-        <button type="button" class="remove-btn" onclick="event.stopPropagation(); removeImage(${i})">
-          <i class="fas fa-times"></i>
-        </button>
+        <button type="button" class="remove-btn" onclick="event.stopPropagation(); removeImage(${i})"><i class="fas fa-times"></i></button>
       </div>
     `).join('');
   }
@@ -1175,7 +820,8 @@ return matchStatus && matchSearch && matchLowStock;
       reader.onload = (ev) => {
         tempImages.push({
           url: ev.target.result,
-          isMain: tempImages.length === 0 // اولین تصویر به‌صورت پیش‌فرض اصلی می‌شود
+          isMain: tempImages.length === 0,
+          type: 'new'
         });
         loaded++;
         if (loaded === files.length) renderImages();
@@ -1198,7 +844,7 @@ return matchStatus && matchSearch && matchLowStock;
     renderImages();
   }
 
-  // ============ ✅ مدیریت ویدیو ============
+  // ============ ویدیو ============
   function renderVideo() {
     const container = document.getElementById('p-video-preview');
     if (!tempVideo) {
@@ -1208,9 +854,7 @@ return matchStatus && matchSearch && matchLowStock;
     container.innerHTML = `
       <div class="video-preview">
         <video src="${tempVideo}" controls></video>
-        <button type="button" class="remove-btn" onclick="removeVideo()">
-          <i class="fas fa-times"></i>
-        </button>
+        <button type="button" class="remove-btn" onclick="removeVideo()"><i class="fas fa-times"></i></button>
       </div>
     `;
   }
@@ -1221,6 +865,7 @@ return matchStatus && matchSearch && matchLowStock;
     const reader = new FileReader();
     reader.onload = (ev) => {
       tempVideo = ev.target.result;
+      videoRemoved = false;
       renderVideo();
     };
     reader.readAsDataURL(file);
@@ -1229,6 +874,7 @@ return matchStatus && matchSearch && matchLowStock;
 
   function removeVideo() {
     tempVideo = null;
+    videoRemoved = true;
     renderVideo();
   }
 
@@ -1239,7 +885,6 @@ return matchStatus && matchSearch && matchLowStock;
     form.reset();
     currentEditId = id;
 
-    // ریست تب‌ها
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     document.querySelector('.tab-btn[data-tab="basic"]').classList.add('active');
@@ -1247,6 +892,7 @@ return matchStatus && matchSearch && matchLowStock;
 
     tempImages = [];
     tempVideo = null;
+    videoRemoved = false;
     tempSpecs = [];
     tempColors = [];
     tempSizes = [];
@@ -1260,18 +906,18 @@ return matchStatus && matchSearch && matchLowStock;
       document.getElementById('p-nameEn').value = p.nameEn || '';
       document.getElementById('p-slug').value = p.slug || '';
       document.getElementById('p-slug').dataset.manual = 'true';
-      document.getElementById('p-category').value = p.category || '';
-      document.getElementById('p-brand').value = p.brand || '';
+      
+      // انتخاب دسته و برند با id
+      document.getElementById('p-category').value = p.categoryId || '';
+      document.getElementById('p-brand').value = p.brandId || '';
+      
       document.getElementById('p-status').value = p.status || 'active';
       document.getElementById('p-showOnSite').checked = p.showOnSite !== false;
       document.getElementById('p-showOnSite-label').textContent = p.showOnSite !== false ? 'نمایش داده می‌شود' : 'مخفی از سایت';
-
-      // ✅ مقادیر قیمت را پر کن و محاسبه خودکار را اجرا کن
       document.getElementById('p-originalPrice').value = p.originalPrice || '';
       document.getElementById('p-discount').value = p.discount || '';
       document.getElementById('p-salePrice').value = p.salePrice || '';
-      updatePricing(); // اجرای محاسبه لحظه‌ای برای نمایش قیمت نهایی
-
+      updatePricing();
       document.getElementById('p-stock').value = p.stock || 0;
       document.getElementById('p-sku').value = p.sku || '';
       document.getElementById('p-weight').value = p.weight || '';
@@ -1286,14 +932,15 @@ return matchStatus && matchSearch && matchLowStock;
       document.getElementById('p-createdAt').value = p.createdAt || '';
       document.getElementById('p-updatedAt').value = p.updatedAt || '';
 
-      tempImages = JSON.parse(JSON.stringify(p.images || []));
+      // تصاویر موجود را با نوع 'existing' نگه می‌داریم
+      tempImages = (p.images || []).map(img => ({ ...img, type: 'existing' }));
       tempVideo = p.video || null;
       tempSpecs = JSON.parse(JSON.stringify(p.specs || []));
       tempColors = JSON.parse(JSON.stringify(p.colors || []));
       tempSizes = [...(p.sizes || [])];
 
-      updateSeoCount(document.getElementById('p-seoTitle'), 'p-seoTitle-count', 70);
-      updateSeoCount(document.getElementById('p-seoDesc'), 'p-seoDesc-count', 160);
+      updateSeoCount(document.getElementById('p-seoTitle'), 'p-seoTitle-count');
+      updateSeoCount(document.getElementById('p-seoDesc'), 'p-seoDesc-count');
     } else {
       document.getElementById('product-modal-title').textContent = 'محصول جدید';
       document.getElementById('p-createdAt').value = 'در زمان ذخیره';
@@ -1313,68 +960,79 @@ return matchStatus && matchSearch && matchLowStock;
     modal.setAttribute('aria-hidden', 'false');
   }
 
-  // ============ ذخیره محصول ============
-  document.getElementById('product-form').addEventListener('submit', (e) => {
+  // ============ ذخیره محصول (ارسال به Django API) ============
+  document.getElementById('product-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('p-name').value.trim();
-    if (!name) return;
-
-    const nowStr = getCurrentShamsiDate();
-
-    const data = {
-      name: name,
-      nameEn: document.getElementById('p-nameEn').value.trim(),
-      slug: document.getElementById('p-slug').value.trim() || toSlug(name),
-      category: document.getElementById('p-category').value,
-      brand: document.getElementById('p-brand').value,
-      status: document.getElementById('p-status').value,
-      showOnSite: document.getElementById('p-showOnSite').checked,
-      originalPrice: parseFloat(document.getElementById('p-originalPrice').value) || 0,
-      salePrice: parseFloat(document.getElementById('p-salePrice').value) || 0,
-      discount: parseFloat(document.getElementById('p-discount').value) || 0,
-      stock: parseInt(document.getElementById('p-stock').value) || 0,
-      sku: document.getElementById('p-sku').value.trim(),
-      images: tempImages,
-      video: tempVideo,
-      shortDescription: document.getElementById('p-shortDesc').value.trim(),
-      fullDescription: document.getElementById('p-fullDesc').value.trim(),
-      specs: tempSpecs,
-      colors: tempColors,
-      sizes: tempSizes,
-      weight: parseFloat(document.getElementById('p-weight').value) || 0,
-      dimensions: {
-        l: parseFloat(document.getElementById('p-dimL').value) || 0,
-        w: parseFloat(document.getElementById('p-dimW').value) || 0,
-        h: parseFloat(document.getElementById('p-dimH').value) || 0
-      },
-      seoTitle: document.getElementById('p-seoTitle').value.trim(),
-      seoDescription: document.getElementById('p-seoDesc').value.trim(),
-      seoKeywords: document.getElementById('p-seoKeywords').value.trim(),
-      updatedAt: nowStr
-    };
-
-    if (currentEditId) {
-      const idx = products.findIndex(p => p.id === currentEditId);
-      if (idx !== -1) {
-        products[idx] = { ...products[idx], ...data };
-      }
-      if (typeof showToast === 'function') showToast('محصول با موفقیت ویرایش شد');
-    } else {
-      data.id = Date.now();
-      data.createdAt = nowStr;
-      products.unshift(data);
-      if (typeof showToast === 'function') showToast('محصول جدید ایجاد شد');
+    if (!name) {
+      if (typeof showToast === 'function') showToast('نام محصول الزامی است', 'error');
+      return;
     }
 
-    // ✅ ذخیره در localStorage بعد از هر تغییر
-    saveProducts();
+    const formData = new FormData();
+    if (currentEditId) formData.append('id', currentEditId);
+    formData.append('name', name);
+    formData.append('nameEn', document.getElementById('p-nameEn').value.trim());
+    formData.append('slug', document.getElementById('p-slug').value.trim());
+    formData.append('categoryId', document.getElementById('p-category').value);
+    formData.append('brandId', document.getElementById('p-brand').value);
+    formData.append('status', document.getElementById('p-status').value);
+    formData.append('showOnSite', document.getElementById('p-showOnSite').checked);
+    formData.append('originalPrice', document.getElementById('p-originalPrice').value || '0');
+    formData.append('salePrice', document.getElementById('p-salePrice').value || '0');
+    formData.append('discount', document.getElementById('p-discount').value || '0');
+    formData.append('stock', document.getElementById('p-stock').value || '0');
+    formData.append('sku', document.getElementById('p-sku').value.trim());
+    formData.append('weight', document.getElementById('p-weight').value || '0');
+    formData.append('dimL', document.getElementById('p-dimL').value || '0');
+    formData.append('dimW', document.getElementById('p-dimW').value || '0');
+    formData.append('dimH', document.getElementById('p-dimH').value || '0');
+    formData.append('shortDescription', document.getElementById('p-shortDesc').value.trim());
+    formData.append('fullDescription', document.getElementById('p-fullDesc').value.trim());
+    formData.append('seoTitle', document.getElementById('p-seoTitle').value.trim());
+    formData.append('seoDescription', document.getElementById('p-seoDesc').value.trim());
+    formData.append('seoKeywords', document.getElementById('p-seoKeywords').value.trim());
 
-    document.getElementById('product-modal').classList.remove('open');
-    document.getElementById('product-modal').setAttribute('aria-hidden', 'true');
-    renderTable();
+    // تصاویر (JSON با نوع)
+    formData.append('images', JSON.stringify(tempImages));
+
+    // ویدیو
+    if (tempVideo && tempVideo.startsWith('data:')) {
+      formData.append('videoData', tempVideo);
+    }
+    if (videoRemoved) {
+      formData.append('videoRemove', 'true');
+    }
+
+    // مشخصات، رنگ‌ها، سایزها
+    formData.append('specs', JSON.stringify(tempSpecs));
+    formData.append('colors', JSON.stringify(tempColors));
+    formData.append('sizes', JSON.stringify(tempSizes));
+
+    try {
+      const res = await fetch(API_SAVE, {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-CSRFToken': getCookie('csrftoken') }
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (typeof showToast === 'function') {
+          showToast(currentEditId ? 'محصول با موفقیت ویرایش شد' : 'محصول جدید ایجاد شد');
+        }
+        document.getElementById('product-modal').classList.remove('open');
+        document.getElementById('product-modal').setAttribute('aria-hidden', 'true');
+        await loadProducts();
+      } else {
+        if (typeof showToast === 'function') showToast(data.error || 'خطا در ذخیره', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      if (typeof showToast === 'function') showToast('خطای شبکه', 'error');
+    }
   });
 
-  // ============ حذف محصول ============
+  // ============ حذف ============
   function requestDelete(id) {
     const p = products.find(x => x.id === id);
     if (!p) return;
@@ -1385,16 +1043,26 @@ return matchStatus && matchSearch && matchLowStock;
     modal.setAttribute('aria-hidden', 'false');
   }
 
-  document.getElementById('confirm-delete-btn').onclick = () => {
-    if (pendingDeleteId) {
-      products = products.filter(p => p.id !== pendingDeleteId);
-      pendingDeleteId = null;
-      document.getElementById('delete-confirm').classList.remove('open');
-      document.getElementById('delete-confirm').setAttribute('aria-hidden', 'true');
-      if (typeof showToast === 'function') showToast('محصول حذف شد');
-      // ✅ ذخیره حذف در localStorage
-      saveProducts();
-      renderTable();
+  document.getElementById('confirm-delete-btn').onclick = async () => {
+    if (!pendingDeleteId) return;
+    try {
+      const formData = new FormData();
+      formData.append('id', pendingDeleteId);
+      const res = await fetch(API_DELETE, {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-CSRFToken': getCookie('csrftoken') }
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (typeof showToast === 'function') showToast('محصول حذف شد');
+        pendingDeleteId = null;
+        document.getElementById('delete-confirm').classList.remove('open');
+        document.getElementById('delete-confirm').setAttribute('aria-hidden', 'true');
+        await loadProducts();
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -1417,11 +1085,8 @@ return matchStatus && matchSearch && matchLowStock;
     });
   });
 
-  document.querySelectorAll('[data-confirm]').forEach(btn => btn.removeAttribute('data-confirm'));
-
   // ============ شروع ============
-  populateBrandsSelect();
+  populateSelects();
   loadProducts();
-  renderTable();
   </script>
 {% endblock %}
