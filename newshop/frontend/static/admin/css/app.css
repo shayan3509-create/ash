@@ -115,8 +115,79 @@ a { color: inherit; text-decoration: none; }
 
 
 
+/* ============================================
+   Low Stock Filter — بدون بردر دور کانتینر
+   ============================================ */
+.low-stock-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: var(--input-height, 2.5rem);
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 0.875rem;
+  box-sizing: border-box;
+}
 
+/* Switch داخلی — بدون margin اضافی */
+.low-stock-filter .switch {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
 
+/* متن کنار switch */
+.low-stock-filter .switch span:last-child {
+  white-space: nowrap;
+  font-size: 0.875rem;
+}
+
+/* علامت ≤ */
+.low-stock-filter__op {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Input عددی — تنها عنصر دارای بردر */
+.low-stock-filter__threshold {
+  width: 64px;
+  height: var(--input-height, 2.5rem);
+  padding: 0 0.5rem;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius, 0.5rem);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -moz-appearance: textfield;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.low-stock-filter__threshold::-webkit-inner-spin-button,
+.low-stock-filter__threshold::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.low-stock-filter__threshold:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.1);
+}
+
+/* حالت فعال فیلتر — فقط روی input عددی */
+.low-stock-filter.is-active .low-stock-filter__threshold {
+  border-color: var(--warning);
+  background: rgba(255, 170, 0, 0.06);
+}
 
 
 

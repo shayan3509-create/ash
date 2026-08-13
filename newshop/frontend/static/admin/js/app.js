@@ -1,4 +1,3 @@
-
 (() => {
   "use strict";
 
@@ -12,6 +11,7 @@
   const page = body.dataset.page || "dashboard";
   const title = body.dataset.title || "داشبورد مدیریت";
   const subtitle = body.dataset.subtitle || "مرکز کنترل و مدیریت فروشگاه";
+  
 const nav = [
   {
     id: "dashboard",
@@ -19,66 +19,52 @@ const nav = [
     icon: "fa-tachometer-alt",
     href: "/admin-panel/"
   },
-
-
   {
-  id: "products-categories",
-  label: "دسته‌بندی",
-  icon: "fa-layer-group",
-  href: "/admin-panel/products/categories/"
-},
-
-
-{
+    id: "products-categories",
+    label: "دسته‌بندی",
+    icon: "fa-layer-group",
+    href: "/admin-panel/products/categories/"
+  },
+  {
     id: "banners",
     label: "بنرها",
     icon: "fa-image",
     href: "/admin-panel/banners/"
-},
-
-
-
-
+  },
   {
     id: "users",
     label: "کاربران",
     icon: "fa-users",
     children: [
-      ["users", "مدیریت کاربران", "/admin-panel/users/"],
+      ["users-list", "مدیریت کاربران", "/admin-panel/users/"],
       ["users-create", "افزودن کاربر", "/admin-panel/users/create/"],
       ["users-roles", "نقش‌ها", "/admin-panel/users/roles/"]
     ]
   },
-
   {
     id: "products",
     label: "محصولات",
     icon: "fa-box",
     children: [
-      ["products", "لیست محصولات", "/admin-panel/products/"],
-      ["products-create", "افزودن محصول", "/admin-panel/products/create/"],
-
+      ["products-list", "لیست محصولات", "/admin-panel/products/"],
     ]
   },
-
   {
     id: "orders",
     label: "سفارشات",
     icon: "fa-shopping-cart",
     children: [
       ["orders-new", "سفارشات جدید", "/admin-panel/orders/new/"],
-      ["orders", "تاریخچه سفارشات", "/admin-panel/orders/"],
+      ["orders-list", "تاریخچه سفارشات", "/admin-panel/orders/"],
       ["orders-reports", "گزارشات", "/admin-panel/orders/reports/"]
     ]
   },
-
   {
     id: "analytics",
     label: "آمار و تحلیل",
     icon: "fa-chart-bar",
     href: "/admin-panel/analytics/"
   },
-
   {
     id: "finance",
     label: "مالی",
@@ -89,18 +75,18 @@ const nav = [
       ["finance-invoices", "صورتحساب", "/admin-panel/finance/invoices/"]
     ]
   },
-
   {
     id: "settings",
     label: "تنظیمات",
     icon: "fa-cog",
     children: [
-      ["settings", "تنظیمات عمومی", "/admin-panel/settings/"],
+      ["settings-general", "تنظیمات عمومی", "/admin-panel/settings/"],
       ["settings-config", "پیکربندی", "/admin-panel/settings/config/"],
       ["settings-backup", "پشتیبان‌گیری", "/admin-panel/settings/backup/"]
     ]
   }
 ];
+
   const activeGroup = nav.find(item => item.children?.some(child => child[0] === page))?.id;
   const navMarkup = nav.map(item => {
     if (item.href) {
@@ -238,62 +224,39 @@ const nav = [
     });
   });
 
-
-
-
-
-document.addEventListener("click", function (e) {
-
+  document.addEventListener("click", function (e) {
     const openBtn = e.target.closest("[data-modal-open]");
     if (openBtn) {
         const modal = document.getElementById(openBtn.dataset.modalOpen);
-
         if (modal) {
             modal.classList.add("open");
             modal.setAttribute("aria-hidden", "false");
             modal.querySelector("input,textarea,select,button")?.focus();
         }
-
         return;
     }
 
     const closeBtn = e.target.closest("[data-modal-close]");
     if (closeBtn) {
         const modal = closeBtn.closest(".modal-backdrop");
-
         if (modal) {
             modal.classList.remove("open");
             modal.setAttribute("aria-hidden", "true");
         }
-
         return;
     }
+  });
 
-});
-
-
-
-
-
-  
-
-document.querySelectorAll("form[data-demo-form]").forEach(form => {
-
+  document.querySelectorAll("form[data-demo-form]").forEach(form => {
     if (form.id === "new-role-form") return;
-
     form.addEventListener("submit", function () {
-
         if (!form.reportValidity()) return;
-
         showToast(form.dataset.success || "تغییرات با موفقیت ذخیره شد");
-
         form.querySelectorAll("[data-clear-after-submit]").forEach(input => {
             input.value = "";
         });
-
     });
-
-});
+  });
 
   document.querySelectorAll("[data-table-search]").forEach(input => {
     const table = document.querySelector(input.dataset.tableSearch);
@@ -305,6 +268,7 @@ document.querySelectorAll("form[data-demo-form]").forEach(form => {
       });
     });
   });
+  
   document.querySelectorAll("[data-table-filter]").forEach(select => {
     const table = document.querySelector(select.dataset.tableFilter);
     if (!table) return;
@@ -315,43 +279,35 @@ document.querySelectorAll("form[data-demo-form]").forEach(form => {
     });
   });
 
-document.addEventListener("click", function (e) {
+  document.addEventListener("click", function (e) {
     const button = e.target.closest("[data-confirm]");
     if (!button) return;
-
-    // اگر صفحه خودش حذف را مدیریت می‌کند دخالت نکن
     if (button.classList.contains("delete-role")) return;
-
     if (window.confirm(button.dataset.confirm)) {
         button.closest("tr, .list-item")?.remove();
         showToast("عملیات انجام شد");
     }
-});
+  });
 
+  const themeToggle = document.getElementById("theme-toggle");
+  const themeIcon = themeToggle?.querySelector("i");
 
-const themeToggle = document.getElementById("theme-toggle");
-const themeIcon = themeToggle?.querySelector("i");
-
-function updateThemeIcon() {
-  if (!themeIcon) return;
-
-  if (document.body.classList.contains("light-theme")) {
-    themeIcon.classList.remove("fa-moon");
-    themeIcon.classList.add("fa-sun");
-  } else {
-    themeIcon.classList.remove("fa-sun");
-    themeIcon.classList.add("fa-moon");
+  function updateThemeIcon() {
+    if (!themeIcon) return;
+    if (document.body.classList.contains("light-theme")) {
+      themeIcon.classList.remove("fa-moon");
+      themeIcon.classList.add("fa-sun");
+    } else {
+      themeIcon.classList.remove("fa-sun");
+      themeIcon.classList.add("fa-moon");
+    }
   }
-}
 
-updateThemeIcon();
-
-themeToggle?.addEventListener("click", () => {
-  document.body.classList.toggle("light-theme");
   updateThemeIcon();
-});
 
-
-
+  themeToggle?.addEventListener("click", () => {
+    document.body.classList.toggle("light-theme");
+    updateThemeIcon();
+  });
 
 })();
