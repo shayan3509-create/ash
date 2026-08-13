@@ -1,23 +1,15 @@
 {% extends "admin_panel/base.html" %}
 {% load static %}
 
+{% block data_root %}../../{% endblock %}
+{% block data_page %}products-categories{% endblock %}
+{% block data_title %}دسته‌بندی محصولات{% endblock %}
+{% block data_subtitle %}مدیریت و سازماندهی دسته‌بندی‌های فروشگاه{% endblock %}
+
 {% block content %}
 
 <!-- دریافت داده‌ها از بک‌اند جنگو -->
 {{ categories_data|json_script:"categories-data" }}
-
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>دسته‌بندی محصولات</title>
-</head>
-<body
-    data-root="../../"
-    data-page="products-categories"
-    data-title="دسته‌بندی محصولات"
-    data-subtitle="">
 
     <main class="page-content" data-app-shell>
         
@@ -275,7 +267,17 @@
     <script src="../../assets/js/app.js"></script>
     <script>
         // ================= DATA INITIALIZATION =================
-        let categories = JSON.parse(document.getElementById('categories-data').textContent) || [];
+        let categories = [];
+        try {
+            const dataEl = document.getElementById('categories-data');
+            if (dataEl && dataEl.textContent) {
+                categories = JSON.parse(dataEl.textContent);
+            }
+        } catch (e) {
+            console.warn('خطا در خواندن داده‌های دسته‌بندی:', e);
+            categories = [];
+        }
+
         let currentHue = 191, currentSaturation = 1, currentValue = 1;
         let activePicker = null;
         let currentEditingId = null;
@@ -662,7 +664,7 @@
                 
                 document.getElementById('categoryId').value = cat.id;
                 document.getElementById('categoryName').value = cat.title || '';
-                document.getElementById('categorySlug').value = cat.slug || '';  // ✅ اضافه شد
+                document.getElementById('categorySlug').value = cat.slug || '';
                 document.getElementById('categoryLink').value = cat.link || '';
                 document.getElementById('categoryStatus').value = cat.isActive.toString();
                 
@@ -768,7 +770,7 @@
             formData.append('action', id ? 'update' : 'create');
             if (id) formData.append('id', id);
             formData.append('title', title);
-            formData.append('slug', document.getElementById('categorySlug').value.trim());  // ✅ اضافه شد
+            formData.append('slug', document.getElementById('categorySlug').value.trim());
             
             formData.append('color', document.getElementById('svgColor').value);
             formData.append('is_active', document.getElementById('categoryStatus').value);
@@ -864,6 +866,4 @@
             }, 3000);
         }
     </script>
-</body>
-</html>
 {% endblock %}

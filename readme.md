@@ -13,6 +13,7 @@ my edit
  python -m venv aradvenv
 
   .\venv\Scripts\activate      
+  .\aradvenv\Scripts\activate 
 pip install django --timeout 120
 
    python manage.py runserver 

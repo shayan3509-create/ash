@@ -25,6 +25,18 @@ const nav = [
     icon: "fa-layer-group",
     href: "/admin-panel/products/categories/"
   },
+
+
+
+{
+  id: "brands",
+  label: "برندها",
+  icon: "fa-tags",
+  href: "/admin-panel/brands/"
+},
+
+
+
   {
     id: "banners",
     label: "بنرها",
