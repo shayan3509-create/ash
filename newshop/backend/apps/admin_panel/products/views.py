@@ -192,8 +192,3 @@ def api_product_delete(request):
     return JsonResponse({"success": True})
 
 
-
-@login_required
-def brands_list(request):
-    """صفحه مدیریت برندها"""
-    return render(request, "admin_panel/brands.html")
