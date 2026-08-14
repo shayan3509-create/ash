@@ -19,6 +19,14 @@ const nav = [
     icon: "fa-tachometer-alt",
     href: "/admin-panel/"
   },
+
+{
+  id: "homepage-sections",
+  label: "مدیریت صفحه اصلی",
+  icon: "fa-home",
+  href: "/admin-panel/homepage/"
+},
+
   {
     id: "products-categories",
     label: "دسته‌بندی",
