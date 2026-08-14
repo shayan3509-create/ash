@@ -20,3 +20,15 @@ def home(request):
         "home_banners": home_banners,
         "home_categories": home_categories,
     })
+
+
+
+
+def custom_404(request, exception=None):
+    """صفحه ۴۰۴ سفارشی"""
+    return render(request, "404.html", status=404)
+
+
+def test_404(request):
+    """صفحه تست ۴۰۴ - فقط برای development"""
+    return render(request, "404.html", status=404)

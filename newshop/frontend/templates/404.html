@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>۴۰۴ - صفحه یافت نشد | نیوشاپ</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-color, #f5f7fa);
+            color: var(--text-color, #1f2937);
+            padding: 20px;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* عدد 404 با افکت گرادیانت */
+        .error-code {
+            font-size: clamp(8rem, 25vw, 14rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00BFFF 0%, #0077ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+            letter-spacing: -5px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* آیکون متحرک */
+        .error-icon {
+            font-size: 4rem;
+            color: #00BFFF;
+            margin-bottom: 1.5rem;
+            animation: swing 2s ease-in-out infinite;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .error-title {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-color, #1f2937);
+        }
+
+        .error-description {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            color: var(--muted, #6b7280);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* دکمه‌ها */
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 9999px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: inherit;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00BFFF 0%, #0077ff 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 191, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 191, 255, 0.45);
+        }
+
+        .btn-secondary {
+            background: var(--card, white);
+            color: #00BFFF;
+            border-color: #00BFFF;
+        }
+
+        .btn-secondary:hover {
+            background: #00BFFF;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* حباب‌های پس‌زمینه */
+        .bubble {
+            position: fixed;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 191, 255, 0.15), rgba(0, 119, 255, 0.15));
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bubble-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -100px;
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        .bubble-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            left: -50px;
+            animation: drift 15s ease-in-out infinite reverse;
+        }
+
+        .bubble-3 {
+            width: 150px;
+            height: 150px;
+            top: 40%;
+            left: 10%;
+            animation: drift 25s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* حالت دارک مود */
+        html.dark body {
+            background: #0f172a;
+        }
+
+        html.dark .error-title {
+            color: #f1f5f9;
+        }
+
+        html.dark .error-description {
+            color: #94a3b8;
+        }
+
+        html.dark .btn-secondary {
+            background: #1e293b;
+            color: #00BFFF;
+            border-color: #00BFFF;
+        }
+
+        /* موبایل */
+        @media (max-width: 640px) {
+            .actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .error-code {
+                letter-spacing: -3px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- حباب‌های تزئینی پس‌زمینه -->
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+
+    <div class="container">
+        <div class="error-icon">
+            <i class="fas fa-map-marked-alt"></i>
+        </div>
+        
+        <div class="error-code">404</div>
+        
+        <h1 class="error-title">اوپس! اینجا گم شدیم...</h1>
+        
+        <p class="error-description">
+            متأسفانه صفحه‌ای که دنبال آن هستید یافت نشد. 
+            ممکن است آدرس را اشتباه وارد کرده باشید یا این صفحه حذف شده باشد.
+        </p>
+        
+        <div class="actions">
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-home"></i>
+                بازگشت به صفحه اصلی
+            </a>
+            <a href="javascript:history.back()" class="btn btn-secondary">
+                <i class="fas fa-arrow-right"></i>
+                صفحه قبلی
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // تشخیص دارک مود از localStorage یا سیستم
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>
