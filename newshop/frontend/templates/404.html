@@ -1,256 +1,284 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>۴۰۴ - صفحه یافت نشد | نیوشاپ</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>404 - صفحه یافت نشد | نیوشاپ</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* =========================================
+           DESIGN TOKENS (پالت نیوشاپ)
+           ========================================= */
+        :root {
+            --np-bg: #0f172a;
+            --np-accent: #00bfff;
+            --np-accent-glow: rgba(0, 191, 255, 0.35);
+            --np-text: #f1f5f9;
+            --np-muted: #64748b;
+            --np-line: rgba(255, 255, 255, 0.04);
+            --np-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Vazirmatn', sans-serif;
-            min-height: 100vh;
+            background-color: var(--np-bg);
+            color: var(--np-text);
+            font-family: var(--np-font);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--bg-color, #f5f7fa);
-            color: var(--text-color, #1f2937);
-            padding: 20px;
-            overflow-x: hidden;
-            transition: background 0.3s ease;
-        }
-
-        .container {
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
             position: relative;
-            z-index: 2;
         }
 
-        /* عدد 404 با افکت گرادیانت */
-        .error-code {
-            font-size: clamp(8rem, 25vw, 14rem);
+        /* =========================================
+           BACKGROUND DEPTH (Grid + Glow)
+           ========================================= */
+        .np-bg-grid {
+            position: absolute;
+            inset: 0;
+            background-size: 80px 80px;
+            background-image:
+                linear-gradient(to right, var(--np-line) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--np-line) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+            z-index: 0;
+        }
+
+        .np-bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--np-accent-glow) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* =========================================
+           FLOATING DOTS & RINGS (Pure CSS)
+           ========================================= */
+        .np-fx-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .np-dot {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--np-accent);
+            will-change: transform;
+        }
+
+        .np-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid var(--np-accent);
+            will-change: transform;
+        }
+
+        /* Dot Placements & Animations */
+        .np-dot:nth-child(1)  { width:6px;  height:6px;  top:12%; left:8%;  opacity:0.10; animation: np-d1 17s ease-in-out infinite; }
+        .np-dot:nth-child(2)  { width:10px; height:10px; top:22%; right:12%; opacity:0.07; animation: np-d2 21s ease-in-out infinite; }
+        .np-dot:nth-child(3)  { width:4px;  height:4px;  top:55%; left:6%;  opacity:0.12; animation: np-d3 15s ease-in-out infinite; }
+        .np-dot:nth-child(4)  { width:8px;  height:8px;  bottom:18%; right:9%; opacity:0.08; animation: np-d1 19s ease-in-out infinite reverse; }
+        .np-dot:nth-child(5)  { width:5px;  height:5px;  top:38%; left:22%; opacity:0.06; animation: np-d2 23s ease-in-out infinite; }
+        .np-dot:nth-child(6)  { width:12px; height:12px; bottom:28%; left:18%; opacity:0.04; animation: np-d3 25s ease-in-out infinite reverse; }
+        .np-dot:nth-child(7)  { width:3px;  height:3px;  top:8%;  right:28%; opacity:0.11; animation: np-d1 14s ease-in-out infinite; }
+        .np-dot:nth-child(8)  { width:7px;  height:7px;  bottom:12%; left:38%; opacity:0.07; animation: np-d2 18s ease-in-out infinite reverse; }
+        .np-dot:nth-child(9)  { width:9px;  height:9px;  top:48%; right:6%;  opacity:0.05; animation: np-d3 20s ease-in-out infinite; }
+        .np-dot:nth-child(10) { width:4px;  height:4px;  top:72%; right:22%; opacity:0.09; animation: np-d1 16s ease-in-out infinite reverse; }
+        .np-dot:nth-child(11) { width:6px;  height:6px;  top:30%; left:35%; opacity:0.05; animation: np-d2 22s ease-in-out infinite; }
+        .np-dot:nth-child(12) { width:5px;  height:5px;  bottom:35%; right:35%; opacity:0.06; animation: np-d3 19s ease-in-out infinite reverse; }
+
+        /* Subtle Rings */
+        .np-ring:nth-child(13) { width:120px; height:120px; top:18%; left:15%; opacity:0.04; animation: np-r1 28s linear infinite; }
+        .np-ring:nth-child(14) { width:80px;  height:80px;  bottom:22%; right:18%; opacity:0.03; animation: np-r1 32s linear infinite reverse; }
+        .np-ring:nth-child(15) { width:50px;  height:50px;  top:60%; left:30%; opacity:0.03; animation: np-r2 24s ease-in-out infinite; }
+
+        @keyframes np-d1 {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(25px, -18px); }
+            50% { transform: translate(-12px, 22px); }
+            75% { transform: translate(18px, 12px); }
+        }
+        @keyframes np-d2 {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(-20px, 25px); }
+            66% { transform: translate(18px, -20px); }
+        }
+        @keyframes np-d3 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 18px); }
+        }
+        @keyframes np-r1 { to { transform: rotate(360deg); } }
+        @keyframes np-r2 {
+            0%, 100% { transform: scale(1); opacity: 0.03; }
+            50% { transform: scale(1.15); opacity: 0.06; }
+        }
+
+        /* =========================================
+           MAIN CONTENT
+           ========================================= */
+        .np-container {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .np-code {
+            font-size: clamp(7rem, 20vw, 15rem);
             font-weight: 900;
             line-height: 1;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #00BFFF 0%, #0077ff 100%);
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #ffffff 0%, var(--np-accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            position: relative;
-            animation: float 3s ease-in-out infinite;
-            letter-spacing: -5px;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            filter: drop-shadow(0 0 30px var(--np-accent-glow));
+            user-select: none;
+            will-change: transform;
+            /* Entry Animation */
+            animation: np-entry 1s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+                       np-float 6s ease-in-out 1s infinite;
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+        @keyframes np-entry {
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes np-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
         }
 
-        /* آیکون متحرک */
-        .error-icon {
-            font-size: 4rem;
-            color: #00BFFF;
-            margin-bottom: 1.5rem;
-            animation: swing 2s ease-in-out infinite;
-        }
-
-        @keyframes swing {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-
-        .error-title {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: var(--text-color, #1f2937);
-        }
-
-        .error-description {
-            font-size: clamp(1rem, 2.5vw, 1.1rem);
-            color: var(--muted, #6b7280);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* دکمه‌ها */
-        .actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            padding: 14px 32px;
-            border-radius: 9999px;
-            font-size: 1rem;
+        .np-title {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
             font-weight: 700;
-            font-family: inherit;
-            text-decoration: none;
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+            opacity: 0;
+            animation: np-fade-up 0.8s ease 0.3s forwards;
+        }
+
+        .np-desc {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            color: var(--np-muted);
+            line-height: 1.7;
+            max-width: 400px;
+            margin: 0 auto 2.5rem;
+            opacity: 0;
+            animation: np-fade-up 0.8s ease 0.5s forwards;
+        }
+
+        @keyframes np-fade-up {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           BUTTON
+           ========================================= */
+        .np-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
+            padding: 0.9rem 2.2rem;
+            background: var(--np-accent);
+            color: var(--np-bg);
+            font-family: var(--np-font);
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 0.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: np-fade-up 0.8s ease 0.7s forwards;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #00BFFF 0%, #0077ff 100%);
-            color: white;
-            box-shadow: 0 8px 20px rgba(0, 191, 255, 0.3);
+        .np-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--np-accent-glow), 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(0, 191, 255, 0.45);
-        }
+        .np-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-        .btn-secondary {
-            background: var(--card, white);
-            color: #00BFFF;
-            border-color: #00BFFF;
-        }
-
-        .btn-secondary:hover {
-            background: #00BFFF;
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* حباب‌های پس‌زمینه */
-        .bubble {
-            position: fixed;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(0, 191, 255, 0.15), rgba(0, 119, 255, 0.15));
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .bubble-1 {
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            right: -100px;
-            animation: drift 20s ease-in-out infinite;
-        }
-
-        .bubble-2 {
-            width: 200px;
-            height: 200px;
-            bottom: -50px;
-            left: -50px;
-            animation: drift 15s ease-in-out infinite reverse;
-        }
-
-        .bubble-3 {
-            width: 150px;
-            height: 150px;
-            top: 40%;
-            left: 10%;
-            animation: drift 25s ease-in-out infinite;
-        }
-
-        @keyframes drift {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-        }
-
-        /* حالت دارک مود */
-        html.dark body {
-            background: #0f172a;
-        }
-
-        html.dark .error-title {
-            color: #f1f5f9;
-        }
-
-        html.dark .error-description {
-            color: #94a3b8;
-        }
-
-        html.dark .btn-secondary {
-            background: #1e293b;
-            color: #00BFFF;
-            border-color: #00BFFF;
-        }
-
-        /* موبایل */
-        @media (max-width: 640px) {
-            .actions {
-                flex-direction: column;
-                width: 100%;
-            }
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media (max-width: 768px) {
+            /* کاهش تعداد نقاط در موبایل با مخفی کردن برخی */
+            .np-dot:nth-child(n+9),
+            .np-ring:nth-child(n+14) { display: none; }
             
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .error-code {
-                letter-spacing: -3px;
-            }
+            .np-container { padding: 1.5rem; }
+            .np-btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <!-- حباب‌های تزئینی پس‌زمینه -->
-    <div class="bubble bubble-1"></div>
-    <div class="bubble bubble-2"></div>
-    <div class="bubble bubble-3"></div>
 
-    <div class="container">
-        <div class="error-icon">
-            <i class="fas fa-map-marked-alt"></i>
-        </div>
-        
-        <div class="error-code">404</div>
-        
-        <h1 class="error-title">اوپس! اینجا گم شدیم...</h1>
-        
-        <p class="error-description">
-            متأسفانه صفحه‌ای که دنبال آن هستید یافت نشد. 
-            ممکن است آدرس را اشتباه وارد کرده باشید یا این صفحه حذف شده باشد.
-        </p>
-        
-        <div class="actions">
-            <a href="/" class="btn btn-primary">
-                <i class="fas fa-home"></i>
-                بازگشت به صفحه اصلی
-            </a>
-            <a href="javascript:history.back()" class="btn btn-secondary">
-                <i class="fas fa-arrow-right"></i>
-                صفحه قبلی
-            </a>
-        </div>
+    <!-- Background Layers -->
+    <div class="np-bg-grid"></div>
+    <div class="np-bg-glow"></div>
+
+    <!-- Animated Particles & Rings -->
+    <div class="np-fx-layer">
+        <div class="np-dot"></div><div class="np-dot"></div><div class="np-dot"></div>
+        <div class="np-dot"></div><div class="np-dot"></div><div class="np-dot"></div>
+        <div class="np-dot"></div><div class="np-dot"></div><div class="np-dot"></div>
+        <div class="np-dot"></div><div class="np-dot"></div><div class="np-dot"></div>
+        <div class="np-ring"></div><div class="np-ring"></div><div class="np-ring"></div>
     </div>
 
+    <!-- Main Content -->
+    <main class="np-container" id="js-target">
+        <div class="np-code" id="js-parallax">404</div>
+        <h1 class="np-title">صفحه پیدا نشد</h1>
+        <p class="np-desc">این صفحه وجود ندارد یا ممکن است جابه‌جا شده باشد.</p>
+        <a href="/" class="np-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            بازگشت به صفحه اصلی
+        </a>
+    </main>
+
     <script>
-        // تشخیص دارک مود از localStorage یا سیستم
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-            document.documentElement.classList.add('dark');
-        }
+        // Parallax ظریف فقط برای دسکتاپ — بدون کتابخانه
+        (function() {
+            const el = document.getElementById('js-parallax');
+            if (!el || window.innerWidth < 768) return;
+
+            let cx = 0, cy = 0, tx = 0, ty = 0;
+            const INTENSITY = 8; // حداکثر جابه‌جایی پیکسل
+
+            document.addEventListener('mousemove', function(e) {
+                tx = (e.clientX / window.innerWidth - 0.5) * 2;
+                ty = (e.clientY / window.innerHeight - 0.5) * 2;
+            });
+
+            (function loop() {
+                cx += (tx - cx) * 0.06;
+                cy += (ty - cy) * 0.06;
+                el.style.transform = 'translate(' + (cx * INTENSITY) + 'px,' + (cy * INTENSITY) + 'px)';
+                requestAnimationFrame(loop);
+            })();
+        })();
     </script>
 </body>
 </html>
