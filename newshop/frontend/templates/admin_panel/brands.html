@@ -1,561 +1,616 @@
 {% extends "admin_panel/base.html" %}
 {% load static %}
 
-{% block data_page %}brands{% endblock %}
-{% block data_title %}مدیریت برندها{% endblock %}
-{% block data_subtitle %}افزودن، ویرایش و سازماندهی برندهای فروشگاه{% endblock %}
+{% block data_root %}../../{% endblock %}
+{% block data_page %}homepage-sections{% endblock %}
+{% block data_title %}مدیریت صفحه اصلی{% endblock %}
+{% block data_subtitle %}کنترل ترتیب، محتوا و وضعیت بخش‌های صفحه اصلی فروشگاه{% endblock %}
 
 {% block content %}
 
-<main class="page-content" data-app-shell>
-    
-    <!-- ۱- کارت‌های آماری -->
-    <div class="grid grid-2 mb-2">
-        <div class="card lift reveal">
-            <div class="stat">
-                <div>
-                    <div class="stat-label">تعداد برندها</div>
-                    <div class="stat-value en-num" id="totalBrands">0</div>
-                </div>
-                <div class="stat-icon"><i class="fa fa-tags"></i></div>
-            </div>
+  <main class="page-content" data-app-shell>
+
+    <!-- کارت‌های آماری -->
+    <div class="grid grid-3 mb-2">
+      <div class="card lift reveal" style="--delay:0ms">
+        <div class="stat">
+          <div><span class="stat-label">کل بخش‌ها</span><div class="stat-value en-num" id="statTotal">0</div></div>
+          <span class="stat-icon"><i class="fa fa-layer-group"></i></span>
         </div>
-        <div class="card lift reveal">
-            <div class="stat">
-                <div>
-                    <div class="stat-label">برندهای فعال</div>
-                    <div class="stat-value en-num" id="totalActive">0</div>
-                </div>
-                <div class="stat-icon"><i class="fa fa-check-circle"></i></div>
-            </div>
+      </div>
+      <div class="card lift reveal" style="--delay:80ms">
+        <div class="stat">
+          <div><span class="stat-label">بخش‌های فعال</span><div class="stat-value en-num" id="statActive">0</div></div>
+          <span class="stat-icon" style="color:var(--success)"><i class="fa fa-check-circle"></i></span>
         </div>
+      </div>
+      <div class="card lift reveal" style="--delay:160ms">
+        <div class="stat">
+          <div><span class="stat-label">بخش‌های غیرفعال</span><div class="stat-value en-num" id="statInactive">0</div></div>
+          <span class="stat-icon" style="color:var(--danger)"><i class="fa fa-ban"></i></span>
+        </div>
+      </div>
     </div>
 
-    <!-- ۲- Toolbar -->
-    <div class="card reveal mb-2">
-        <div class="toolbar">
-            <button class="btn btn-primary" onclick="openBrandModal()">
-                <i class="fa fa-plus"></i> ایجاد برند
-            </button>
-            <div class="field" style="flex: 1 1 12rem;">
-                <input type="text" class="input" id="searchInput" placeholder="جستجو در نام برند...">
-            </div>
-            <div class="field" style="flex: 0 0 auto;">
-                <select class="select" id="statusFilter">
-                    <option value="">همه وضعیت‌ها</option>
-                    <option value="true">فعال</option>
-                    <option value="false">غیرفعال</option>
-                </select>
-            </div>
+    <!-- Toolbar -->
+    <div class="card reveal mb-2" style="--delay:240ms">
+      <div class="toolbar">
+        <button class="btn btn-primary" onclick="openSectionModal()">
+          <i class="fa fa-plus"></i> ایجاد بخش
+        </button>
+        <div class="field" style="flex:1 1 12rem;">
+          <input type="text" class="input" id="sectionSearch" placeholder="جستجو در نام بخش...">
         </div>
+        <button class="btn btn-secondary" id="toggleOrderModeBtn" onclick="toggleOrderMode()">
+          <i class="fa fa-sort-amount-down"></i> <span class="hide-mobile">ویرایش ترتیب</span>
+        </button>
+      </div>
     </div>
 
-    <!-- ۳- جدول برندها -->
-    <div class="card reveal">
-        <div class="table-wrap">
-            <table class="data-table responsive">
-                <thead>
-                    <tr>
-                        <th>لوگو</th>
-                        <th>نام برند</th>
-                        <th>نام انگلیسی</th>
-                        <th>اسلاگ</th>
-                        <th>تعداد محصولات</th>
-                        <th>وضعیت</th>
-                        <th>عملیات</th>
-                    </tr>
-                </thead>
-                <tbody id="brandsTableBody"></tbody>
-            </table>
-            <div class="empty-state" id="emptyState" style="display: none;">
-                <i class="fa fa-tags"></i>
-                <p>هیچ برندی یافت نشد</p>
-            </div>
-        </div>
+    <!-- لیست بخش‌ها -->
+    <div class="card reveal" style="--delay:320ms">
+      <div id="sectionsList" class="sections-list"></div>
+      <div class="empty-state" id="emptyState" style="display:none;padding:3rem 1rem;text-align:center;">
+        <i class="fa fa-layer-group" style="font-size:2.5rem;color:var(--muted);margin-bottom:1rem;"></i>
+        <p style="margin-bottom:1rem;">هنوز بخشی برای صفحه اصلی تعریف نشده است.</p>
+        <button class="btn btn-primary" onclick="openSectionModal()"><i class="fa fa-plus"></i> ایجاد بخش</button>
+      </div>
     </div>
-</main>
 
-<!-- Modal ایجاد/ویرایش -->
-<div class="modal-backdrop" id="brandModal">
-    <div class="modal" style="width: min(100%, 36rem); max-height: 92vh; display: flex; flex-direction: column;">
-        <div class="modal-head">
-            <h2 id="brandModalTitle">ایجاد برند</h2>
-            <button class="action-btn" onclick="closeModal('brandModal')"><i class="fa fa-times"></i></button>
-        </div>
-        
-        <form id="brandForm" onsubmit="event.preventDefault(); saveBrand();" style="display: flex; flex-direction: column; flex: 1; min-height: 0;">
-            <input type="hidden" id="brandId">
-            
-            <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 1rem;">
-                <div class="form-grid">
-                    
-                    <div class="field field-full">
-                        <label>نام برند <span style="color: var(--danger);">*</span></label>
-                        <input type="text" class="input" id="brandName" required placeholder="مثلاً: سامسونگ">
-                    </div>
+  </main>
 
-                    <div class="field">
-                        <label>نام انگلیسی</label>
-                        <input type="text" class="input" id="brandNameEn" placeholder="Samsung" dir="ltr">
-                    </div>
+  <!-- Modal ایجاد / ویرایش بخش -->
+  <div class="modal-backdrop" id="sectionModal">
+    <div class="modal section-modal-responsive">
+      <div class="modal-head">
+        <h2 id="sectionModalTitle">ایجاد بخش</h2>
+        <button class="action-btn" onclick="closeModal('sectionModal')"><i class="fa fa-times"></i></button>
+      </div>
 
-                    <div class="field">
-                        <label>اسلاگ (URL)</label>
-                        <input type="text" class="input" id="brandSlug" placeholder="samsung" dir="ltr">
-                        <small style="color: var(--muted);">خالی بگذارید تا خودکار ساخته شود</small>
-                    </div>
+      <div class="modal-body-scroll">
+        <form id="sectionForm" onsubmit="event.preventDefault(); saveSection();">
+          <input type="hidden" id="secId">
+          <div class="form-grid">
 
-                    <div class="field">
-                        <label>وضعیت</label>
-                        <select class="select" id="brandStatus">
-                            <option value="true">فعال</option>
-                            <option value="false">غیرفعال</option>
-                        </select>
-                    </div>
+            <!-- نوع بخش -->
+            <div class="field field-full-mobile" id="fieldType">
+              <label>نوع بخش <span style="color:var(--danger)">*</span></label>
+              <select class="select" id="secType" required onchange="onTypeChange()">
+                <option value="">انتخاب کنید</option>
+                <!-- ✅ تغییر ۲: پرفروش‌ترین‌ها هم در لیست ایجاد قرار گرفت -->
+                <option value="bestsellers">پرفروش‌ترین‌ها</option>
+                <option value="newest">جدیدترین‌ها</option>
+                <option value="discounted">محصولات تخفیف‌دار</option>
+                <option value="featured">محصولات منتخب</option>
+                <option value="custom">بخش سفارشی</option>
+              </select>
+            </div>
 
-                    <!-- آپلود لوگو -->
-                    <div class="field field-full">
-                        <label>لوگو (تصویر)</label>
-                        <small style="color: var(--muted); display: block; margin-bottom: 0.5rem;">
-                            فرمت مجاز: PNG, JPG, WEBP — حداکثر 2 مگابایت
-                        </small>
+            <!-- عنوان -->
+            <div class="field field-full-mobile">
+              <label>عنوان بخش <span style="color:var(--danger)">*</span></label>
+              <input type="text" class="input" id="secTitle" required placeholder="مثلاً: پیشنهاد نیوشاپ">
+            </div>
 
-                        <div id="logoPreview" style="margin-bottom: 0.5rem;"></div>
+            <!-- وضعیت -->
+            <div class="field field-full-mobile">
+              <label>وضعیت نمایش</label>
+              <label class="switch">
+                <input type="checkbox" id="secActive" checked>
+                <span class="switch-track"></span>
+                <span id="secActiveLabel">فعال — در صفحه اصلی نمایش داده می‌شود</span>
+              </label>
+            </div>
 
-                        <div class="card svg-upload-box" onclick="document.getElementById('logoInput').click()" id="logoUploadBox">
-                            <div class="entity" style="gap: 1rem;">
-                                <div class="entity-avatar" style="width: 2.5rem; height: 2.5rem; flex-shrink: 0;">
-                                    <i class="fa fa-cloud-upload" style="font-size: 1.1rem;"></i>
-                                </div>
-                                <div class="list-copy" style="flex: 1; min-width: 0;">
-                                    <strong id="logoFileName">انتخاب فایل</strong>
-                                    <small style="overflow-wrap: anywhere; word-break: break-word; display: block; margin-top: 0.25rem;">
-                                        کلیک کنید برای انتخاب تصویر لوگو
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="file" id="logoInput" accept="image/png, image/jpeg, image/jpg, image/webp" 
-                               style="display: none;" onchange="handleLogoUpload(event)">
-                    </div>
+            <!-- ===== تنظیمات بنرها ===== -->
+            <div class="field field-full sec-config" id="cfgBanners" style="display:none;">
+              <label>انتخاب بنرها</label>
+              <small style="color:var(--muted);display:block;margin-bottom:0.5rem;">بنرهای موردنظر را انتخاب کنید.</small>
+              <div id="bannerSelector" class="item-selector"></div>
+            </div>
 
+            <!-- ===== تنظیمات دسته‌بندی‌ها ===== -->
+            <div class="field field-full sec-config" id="cfgCategories" style="display:none;">
+              <label>انتخاب دسته‌بندی‌ها</label>
+              <small style="color:var(--muted);display:block;margin-bottom:0.5rem;">دسته‌بندی‌های موردنظر را انتخاب کنید.</small>
+              <div id="categorySelector" class="item-selector"></div>
+            </div>
+
+            <!-- ===== تنظیمات برندها ===== -->
+            <div class="field field-full sec-config" id="cfgBrands" style="display:none;">
+              <label>انتخاب برندها</label>
+              <small style="color:var(--muted);display:block;margin-bottom:0.5rem;">برندهای موردنظر را انتخاب کنید.</small>
+              <div id="brandSelector" class="item-selector"></div>
+            </div>
+
+            <!-- ===== تنظیمات محصولات ===== -->
+            <div class="field field-full sec-config" id="cfgProducts" style="display:none;">
+              <label>تنظیمات محصولات</label>
+
+              <div id="autoModeBlock" style="margin-bottom:1rem;">
+                <label class="switch">
+                  <input type="checkbox" id="secAutoMode" checked>
+                  <span class="switch-track"></span>
+                  <span>انتخاب خودکار محصولات</span>
+                </label>
+                <small id="autoModeDesc" style="color:var(--muted);display:block;margin-top:0.35rem;font-size:0.78rem;"></small>
+              </div>
+
+              <div style="border-top:1px solid var(--line);padding-top:1rem;">
+                <label style="font-weight:600;margin-bottom:0.5rem;display:block;">محصولات دستی</label>
+                <small style="color:var(--muted);display:block;margin-bottom:0.75rem;">
+                  این محصولات علاوه بر محصولات خودکار نمایش داده می‌شوند.
+                </small>
+
+                <div style="position:relative;margin-bottom:0.75rem;">
+                  <input type="text" class="input" id="productSearchInput" placeholder="جستجوی محصول (مثلاً: iphone, galaxy, کتاب)..." autocomplete="off">
+                  <div id="productSearchResults" class="search-results-dropdown" style="display:none;"></div>
                 </div>
+
+                <div id="manualProductsList" class="manual-products-list"></div>
+              </div>
             </div>
 
-            <div style="display: flex; gap: 0.5rem; justify-content: flex-end; padding: 1rem; border-top: 1px solid var(--line);">
-                <button type="button" class="btn btn-secondary" onclick="closeModal('brandModal')">انصراف</button>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-save"></i> ذخیره
-                </button>
-            </div>
+          </div>
         </form>
+      </div>
+
+      <div class="modal-footer-sticky">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('sectionModal')">انصراف</button>
+        <button type="submit" form="sectionForm" class="btn btn-primary">ذخیره</button>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- Modal تأیید حذف -->
-<div class="modal-backdrop" id="deleteModal">
-    <div class="modal" style="width: min(100%, 32rem);">
-        <div class="modal-head">
-            <h2>تأیید حذف</h2>
-            <button class="action-btn" onclick="closeModal('deleteModal')"><i class="fa fa-times"></i></button>
-        </div>
-        <p id="deleteMessage" style="margin-bottom: 1.5rem; color: var(--muted);">آیا از حذف این برند مطمئن هستید؟</p>
-        <div class="toolbar" style="justify-content: flex-end;">
-            <button class="btn btn-secondary" onclick="closeModal('deleteModal')">انصراف</button>
-            <button class="btn btn-danger" id="confirmDeleteBtn">
-                <i class="fa fa-trash"></i> حذف
-            </button>
-        </div>
+  <!-- Modal تأیید حذف -->
+  <div class="modal-backdrop" id="deleteModal">
+    <div class="modal" style="width:min(100%,32rem);">
+      <div class="modal-head">
+        <h2>تأیید حذف بخش</h2>
+        <button class="action-btn" onclick="closeModal('deleteModal')"><i class="fa fa-times"></i></button>
+      </div>
+      <p id="deleteMessage" style="margin-bottom:1.5rem;color:var(--muted);"></p>
+      <div class="toolbar" style="justify-content:flex-end;">
+        <button class="btn btn-secondary" onclick="closeModal('deleteModal')">انصراف</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="toast-stack" id="toastStack"></div>
+  <div class="toast-stack" id="toastStack"></div>
 
-<style>
-    .en-num {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-        letter-spacing: 0.5px;
+  <style>
+    .en-num{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;letter-spacing:.5px}
+    .sections-list{display:flex;flex-direction:column;}
+    .section-item{display:flex;align-items:center;gap:0.75rem;padding:0.85rem 1rem;border-bottom:1px solid var(--line);background:var(--surface);transition:all 0.15s;}
+    .section-item:last-child{border-bottom:none;}
+    .section-item:hover{background:var(--surface-2);}
+    .section-item.inactive-row{opacity:0.55;}
+    .section-item.dragging{opacity:0.35;background:rgba(0,191,255,0.06);}
+    .section-item.drag-over{box-shadow:inset 0 2px 0 var(--accent);}
+    .drag-handle{cursor:grab;color:var(--muted);font-size:1.1rem;padding:0.25rem;touch-action:none;user-select:none;flex-shrink:0;display:none;}
+    .drag-handle.visible{display:block;}
+    .drag-handle:active{cursor:grabbing;}
+    .section-info{flex:1;min-width:0;}
+    .section-info strong{display:block;font-size:0.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .section-info small{color:var(--muted);font-size:0.78rem;}
+    .section-actions{display:flex;align-items:center;gap:0.5rem;flex-shrink:0;}
+    .item-selector{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.5rem;max-height:14rem;overflow-y:auto;padding:0.25rem;}
+    .selector-card{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.75rem;border:1px solid var(--line);border-radius:0.5rem;cursor:pointer;transition:all 0.15s;background:var(--surface);font-size:0.85rem;}
+    .selector-card:hover{border-color:var(--accent);}
+    .selector-card.selected{border-color:var(--accent);background:rgba(0,191,255,0.08);}
+    .selector-card .check-icon{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.65rem;color:transparent;transition:all 0.15s;}
+    .selector-card.selected .check-icon{border-color:var(--accent);background:var(--accent);color:white;}
+    .manual-products-list{display:flex;flex-direction:column;gap:0.35rem;}
+    .manual-product-item{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;background:var(--surface-2);border:1px solid var(--line);border-radius:0.5rem;font-size:0.85rem;}
+    .manual-product-item .mp-drag{cursor:grab;color:var(--muted);touch-action:none;flex-shrink:0;}
+    .manual-product-item .mp-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .manual-product-item .mp-remove{color:var(--danger);cursor:pointer;padding:0.2rem;flex-shrink:0;opacity:0.6;transition:opacity 0.15s;}
+    .manual-product-item .mp-remove:hover{opacity:1;}
+    .search-results-dropdown{position:absolute;top:100%;left:0;right:0;z-index:100;background:var(--surface);border:1px solid var(--line);border-radius:0.5rem;box-shadow:var(--shadow);max-height:12rem;overflow-y:auto;margin-top:0.25rem;}
+    .search-result-item{padding:0.6rem 0.75rem;cursor:pointer;font-size:0.85rem;border-bottom:1px solid var(--line);transition:background 0.1s;}
+    .search-result-item:last-child{border-bottom:none;}
+    .search-result-item:hover{background:var(--surface-2);}
+    .search-result-item small{color:var(--muted);font-size:0.75rem;display:block;}
+    .section-modal-responsive{width:min(100%,44rem);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
+    .modal-body-scroll{flex:1;overflow-y:auto;padding:1rem;min-height:0;}
+    .modal-footer-sticky{display:flex;gap:0.5rem;justify-content:flex-end;padding:1rem;border-top:1px solid var(--line);background:var(--surface);flex-shrink:0;}
+    @media(max-width:640px){
+      .field-full-mobile{grid-column:1/-1!important;}
+      .section-item{flex-wrap:wrap;gap:0.5rem;}
+      .section-actions{width:100%;justify-content:flex-end;padding-top:0.25rem;}
+      .item-selector{grid-template-columns:1fr;}
     }
-    .svg-upload-box {
-        cursor: pointer;
-        transition: all 0.2s;
-        border: 2px dashed var(--line);
-        background: var(--surface-2);
-        padding: 1rem 1.25rem;
-        border-radius: 0.75rem;
-    }
-    .svg-upload-box:hover {
-        border-color: var(--accent);
-        background: rgba(0, 191, 255, 0.05);
-    }
-    .svg-upload-box.has-file {
-        border-style: solid;
-        border-color: var(--accent);
-        background: rgba(0, 191, 255, 0.08);
-    }
-    .logo-preview {
-        position: relative;
-        display: inline-block;
-        width: 100px;
-        height: 100px;
-        border: 2px solid var(--line);
-        border-radius: 0.75rem;
-        overflow: hidden;
-        background: var(--surface-2);
-    }
-    .logo-preview img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-    .logo-preview .remove-btn {
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        border: none;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-</style>
+  </style>
 
-<script>
-    // ============ API Endpoints ============
-    const API_LIST = "{% url 'admin_panel:brands:api_list' %}";
-    const API_SAVE = "{% url 'admin_panel:brands:api_save' %}";
-    const API_DELETE = "{% url 'admin_panel:brands:api_delete' %}";
+  <script src="../../assets/js/app.js"></script>
+  <script>
+  // ======================== CONSTANTS & STATE ========================
+  const STORAGE_KEY = 'admin_homepage_sections_v3';
+  
+  // ✅ تغییر ۱: محصولات نمونه برای تست بدون Backend
+  const SAMPLE_PRODUCTS = [
+    { id: 101, name: 'گوشی سامسونگ Galaxy A55', sku: 'SAM-A55', salePrice: 22890000 },
+    { id: 102, name: 'گوشی اپل iPhone 15 Pro', sku: 'IP15PRO', salePrice: 75000000 },
+    { id: 103, name: 'گوشی شیائومی Redmi Note 13', sku: 'XIA-RN13', salePrice: 12500000 },
+    { id: 104, name: 'هدفون بی‌سیم انکر Q45', sku: 'ANK-Q45', salePrice: 8490000 },
+    { id: 105, name: 'اسپرسوساز دلونگی EC685', sku: 'DLG-EC685', salePrice: 14750000 },
+    { id: 106, name: 'کتاب اثر مرکب', sku: 'BK-CMP', salePrice: 365000 },
+    { id: 107, name: 'کفش دویدن اسیکس Novablast 4', sku: 'ASC-NV4', salePrice: 9980000 },
+    { id: 108, name: 'لپ‌تاپ مک‌بوک ایر M3', sku: 'MBA-M3', salePrice: 68000000 },
+    { id: 109, name: 'ساعت هوشمند اپل واچ Ultra 2', sku: 'AW-U2', salePrice: 42000000 },
+    { id: 110, name: 'تبلت آیپد پرو 12.9', sku: 'IPP-129', salePrice: 55000000 },
+  ];
 
-    let brands = [];
-    let currentEditId = null;
-    let pendingDeleteId = null;
-    let tempLogoData = null;     // base64 (جدید) یا null
-    let logoRemoved = false;
-    let existingLogo = null;     // URL لوگوی موجود
+  // ✅ تغییر ۲: پرفروش‌ترین‌ها دیگر جزو DEFAULT_TYPES نیست و قابل حذف است
+  const DEFAULT_TYPES = ['banners', 'categories', 'brands'];
+  
+  const CREATABLE_TYPES = {
+    bestsellers: { label: 'پرفروش‌ترین‌ها', autoLabel: 'محصولات بر اساس بیشترین فروش', defaultTitle: 'پرفروش‌ترین‌ها' },
+    newest:      { label: 'جدیدترین‌ها',     autoLabel: 'محصولات بر اساس تاریخ افزودن',   defaultTitle: 'جدیدترین‌ها' },
+    discounted:  { label: 'محصولات تخفیف‌دار', autoLabel: 'محصولاتی که دارای تخفیف فعال هستند', defaultTitle: 'تخفیف‌های ویژه' },
+    featured:    { label: 'محصولات منتخب',   autoLabel: 'محصولات علامت‌گذاری شده به عنوان منتخب', defaultTitle: 'منتخب نیوشاپ' },
+    custom:      { label: 'بخش سفارشی',      autoLabel: null, defaultTitle: '' },
+  };
 
-    // ============ CSRF Token ============
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+  const ALL_TYPE_LABELS = {
+    banners: 'بنرها', categories: 'دسته‌بندی‌ها', brands: 'برندها',
+    ...Object.fromEntries(Object.entries(CREATABLE_TYPES).map(([k, v]) => [k, v.label]))
+  };
+
+  let sections = [];
+  let isOrderMode = false;
+  let currentEditId = null;
+  let tempManualProducts = [];
+  let tempSelectedItems = {};
+
+  function toEnDigits(s) { return s ? String(s).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)) : ''; }
+  function genId() { return Date.now().toString(36) + Math.random().toString(36).substr(2, 5); }
+
+  function loadSections() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) { sections = JSON.parse(stored); }
+      else { sections = getDefaultSections(); saveSections(); }
+    } catch (e) { sections = getDefaultSections(); }
+  }
+
+  function saveSections() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(sections)); } catch (e) { console.warn('خطا در ذخیره', e); } }
+
+  function getDefaultSections() {
+    return [
+      { id: genId(), type: 'banners', title: 'بنرها', isActive: true, order: 1, selectedItems: [], autoMode: false, manualProducts: [] },
+      { id: genId(), type: 'categories', title: 'دسته‌بندی‌ها', isActive: true, order: 2, selectedItems: [], autoMode: false, manualProducts: [] },
+      { id: genId(), type: 'brands', title: 'برندها', isActive: true, order: 3, selectedItems: [], autoMode: false, manualProducts: [] },
+      // ✅ پرفروش‌ترین‌ها هنوز پیش‌فرض هست ولی چون در DEFAULT_TYPES نیست، قابل حذف خواهد بود
+      { id: genId(), type: 'bestsellers', title: 'پرفروش‌ترین‌ها', isActive: true, order: 4, selectedItems: [], autoMode: true, manualProducts: [] },
+    ];
+  }
+
+  // ======================== INIT ========================
+  document.addEventListener('DOMContentLoaded', () => {
+    loadSections(); renderSections(); updateStats();
+    document.getElementById('sectionSearch').addEventListener('input', renderSections);
+    document.getElementById('secActive').addEventListener('change', e => {
+      document.getElementById('secActiveLabel').textContent = e.target.checked ? 'فعال — در صفحه اصلی نمایش داده می‌شود' : 'غیرفعال — مخفی از صفحه اصلی';
+    });
+    let st; document.getElementById('productSearchInput').addEventListener('input', function () { clearTimeout(st); st = setTimeout(() => searchProducts(this.value.trim()), 200); });
+    document.addEventListener('click', e => { if (!e.target.closest('#productSearchInput') && !e.target.closest('#productSearchResults')) document.getElementById('productSearchResults').style.display = 'none'; });
+    document.querySelectorAll('.modal-backdrop').forEach(bd => bd.addEventListener('click', e => { if (e.target === bd) closeModal(bd.id); }));
+  });
+
+  // ======================== STATS ========================
+  function updateStats() {
+    document.getElementById('statTotal').textContent = sections.length.toLocaleString('en-US');
+    document.getElementById('statActive').textContent = sections.filter(s => s.isActive).length.toLocaleString('en-US');
+    document.getElementById('statInactive').textContent = sections.filter(s => !s.isActive).length.toLocaleString('en-US');
+  }
+
+  // ======================== ORDER MODE ========================
+  function toggleOrderMode() {
+    isOrderMode = !isOrderMode;
+    const btn = document.getElementById('toggleOrderModeBtn');
+    btn.innerHTML = isOrderMode ? '<i class="fa fa-save"></i> <span class="hide-mobile">ذخیره ترتیب</span>' : '<i class="fa fa-sort-amount-down"></i> <span class="hide-mobile">ویرایش ترتیب</span>';
+    btn.className = isOrderMode ? 'btn btn-primary' : 'btn btn-secondary';
+    renderSections();
+  }
+
+  // ======================== RENDER ========================
+  function renderSections() {
+    const container = document.getElementById('sectionsList');
+    const emptyState = document.getElementById('emptyState');
+    const search = (document.getElementById('sectionSearch')?.value || '').trim().toLowerCase();
+    
+    // ✅ همیشه اول بر اساس order مرتب کن
+    let filtered = sections.filter(s => !search || s.title.toLowerCase().includes(search));
+    filtered.sort((a, b) => a.order - b.order);
+
+    if (filtered.length === 0) { container.innerHTML = ''; emptyState.style.display = 'block'; return; }
+    emptyState.style.display = 'none';
+
+    container.innerHTML = filtered.map(s => {
+      const isDefault = DEFAULT_TYPES.includes(s.type);
+      const statusBadge = s.isActive ? '<span class="badge success">فعال</span>' : '<span class="badge danger">غیرفعال</span>';
+      const productCount = s.manualProducts ? s.manualProducts.length : 0;
+      const extraInfo = ['bestsellers', 'newest', 'discounted', 'featured', 'custom'].includes(s.type) && productCount > 0 ? ` · ${toEnDigits(productCount)} محصول دستی` : '';
+      
+      // ✅ تغییر ۲: فقط بنرها، دسته‌بندی‌ها و برندها غیرقابل حذف هستند
+      const deleteBtn = !isDefault ? `<button class="action-btn" style="color:var(--danger)" title="حذف" onclick="requestDeleteSection('${s.id}')"><i class="fa fa-trash"></i></button>` : '';
+      const inactiveClass = !s.isActive ? 'inactive-row' : '';
+      const handleVisible = isOrderMode ? 'visible' : '';
+      const draggable = isOrderMode ? 'true' : 'false';
+
+      return `<div class="section-item ${inactiveClass}" draggable="${draggable}" data-id="${s.id}">
+        <span class="drag-handle ${handleVisible}" title="کشیدن برای جابه‌جایی"><i class="fa fa-bars"></i></span>
+        <div class="section-info"><strong>${s.title}</strong><small>${ALL_TYPE_LABELS[s.type] || s.type}${extraInfo}</small></div>
+        <div class="section-actions">${statusBadge}
+          <button class="action-btn" title="ویرایش" onclick="openSectionModal('${s.id}')"><i class="fa fa-edit"></i></button>
+          ${deleteBtn}
+        </div>
+      </div>`;
+    }).join('');
+
+    if (isOrderMode) initDragAndDrop();
+  }
+
+  // ======================== ✅ DRAG & DROP (الگوی دقیق دسته‌بندی) ========================
+  function initDragAndDrop() {
+    const items = document.querySelectorAll('.section-item');
+    let dragSrc = null;
+
+    items.forEach(item => {
+      // Desktop HTML5 DnD
+      item.addEventListener('dragstart', e => {
+        dragSrc = item;
+        item.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', item.dataset.id);
+      });
+
+      item.addEventListener('dragover', e => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (dragSrc && dragSrc !== item) item.classList.add('drag-over');
+      });
+
+      item.addEventListener('dragleave', () => item.classList.remove('drag-over'));
+
+      item.addEventListener('drop', e => {
+        e.preventDefault();
+        item.classList.remove('drag-over');
+        if (dragSrc && dragSrc !== item) {
+          // ✅ منطق دقیق جابه‌جایی آرایه‌ای (مثل دسته‌بندی)
+          reorderSections(dragSrc.dataset.id, item.dataset.id);
         }
-        return cookieValue;
-    }
+      });
 
-    // ============ بارگذاری برندها ============
-    async function loadBrands() {
-        try {
-            const res = await fetch(API_LIST);
-            const data = await res.json();
-            if (data.success) {
-                brands = data.brands || [];
-                renderBrands();
-                updateStats();
-            }
-        } catch (e) {
-            console.error('خطا در بارگذاری:', e);
-            showToast('خطا در بارگذاری برندها', 'error');
-        }
-    }
+      item.addEventListener('dragend', () => {
+        if (dragSrc) dragSrc.classList.remove('dragging');
+        items.forEach(i => i.classList.remove('drag-over'));
+        dragSrc = null;
+      });
 
-    function updateStats() {
-        document.getElementById('totalBrands').textContent = brands.length.toLocaleString('en-US');
-        document.getElementById('totalActive').textContent = brands.filter(b => b.isActive).length.toLocaleString('en-US');
-    }
+      // Mobile Touch DnD
+      const handle = item.querySelector('.drag-handle');
+      let touchClone = null, touchTarget = null;
+      handle.addEventListener('touchstart', e => {
+        e.preventDefault(); dragSrc = item; item.classList.add('dragging');
+        touchClone = item.cloneNode(true);
+        touchClone.style.cssText = 'position:fixed;z-index:9999;pointer-events:none;opacity:0.85;width:' + item.offsetWidth + 'px;left:' + item.getBoundingClientRect().left + 'px;top:' + item.getBoundingClientRect().top + 'px;';
+        document.body.appendChild(touchClone);
+      }, { passive: false });
+      handle.addEventListener('touchmove', e => {
+        e.preventDefault(); if (!touchClone) return;
+        touchClone.style.top = (e.touches[0].clientY - 20) + 'px';
+        touchClone.style.display = 'none';
+        const el = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+        touchClone.style.display = '';
+        const row = el?.closest('.section-item');
+        if (row && row !== dragSrc) { items.forEach(i => i.classList.remove('drag-over')); row.classList.add('drag-over'); touchTarget = row; }
+      }, { passive: false });
+      handle.addEventListener('touchend', () => {
+        if (touchClone) { touchClone.remove(); touchClone = null; }
+        if (dragSrc) dragSrc.classList.remove('dragging');
+        items.forEach(i => i.classList.remove('drag-over'));
+        if (touchTarget && dragSrc && touchTarget !== dragSrc) reorderSections(dragSrc.dataset.id, touchTarget.dataset.id);
+        dragSrc = null; touchTarget = null;
+      });
+    });
+  }
 
-    function renderBrands() {
-        const tbody = document.getElementById('brandsTableBody');
-        const search = document.getElementById('searchInput').value.toLowerCase();
-        const statusVal = document.getElementById('statusFilter').value;
+  // ✅ تابع کلیدی Reorder: جایگزینی واقعی در آرایه + شماره‌گذاری مجدد
+  function reorderSections(fromId, toId) {
+    // ۱. آرایه را بر اساس order فعلی مرتب کن
+    const sorted = [...sections].sort((a, b) => a.order - b.order);
+    
+    // ۲. ایندکس مبدا و مقصد را پیدا کن
+    const fromIdx = sorted.findIndex(s => s.id === fromId);
+    const toIdx = sorted.findIndex(s => s.id === toId);
+    if (fromIdx < 0 || toIdx < 0) return;
 
-        const filtered = brands.filter(b =>
-            (!search || (b.name || '').toLowerCase().includes(search) || (b.nameEn || '').toLowerCase().includes(search)) &&
-            (!statusVal || b.isActive.toString() === statusVal)
-        );
+    // ۳. آیتم را از مبدا بردار و در مقصد قرار بده (Splice واقعی)
+    const [moved] = sorted.splice(fromIdx, 1);
+    sorted.splice(toIdx, 0, moved);
 
-        if (!filtered.length) {
-            tbody.innerHTML = '';
-            document.getElementById('emptyState').style.display = 'block';
-            return;
-        }
-        document.getElementById('emptyState').style.display = 'none';
-
-        tbody.innerHTML = filtered.map(b => {
-            const logoHtml = b.logo
-                ? `<img src="${b.logo}" alt="${b.name}" style="width:40px;height:40px;border-radius:8px;object-fit:contain;background:var(--surface-2);padding:4px;">`
-                : '<i class="fa fa-image" style="color: var(--muted); font-size: 1.5rem;"></i>';
-            
-            const statusBadge = b.isActive
-                ? '<span class="badge success"><i class="fa fa-circle"></i> فعال</span>'
-                : '<span class="badge danger">غیرفعال</span>';
-
-            return `
-                <tr>
-                    <td>${logoHtml}</td>
-                    <td><strong>${b.name}</strong></td>
-                    <td class="en-num" dir="ltr" style="color: var(--muted);">${b.nameEn || '-'}</td>
-                    <td class="en-num" dir="ltr" style="color: var(--muted); font-size: 0.85rem;">${b.slug || '-'}</td>
-                    <td class="en-num">${b.productsCount || 0} محصول</td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        <div class="actions">
-                            <button class="action-btn" onclick="openBrandModal(${b.id})" title="ویرایش">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button class="action-btn" style="color: var(--danger);" onclick="requestDelete(${b.id})" title="حذف">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    }
-
-    // ============ مدیریت لوگو ============
-    function renderLogoPreview() {
-        const container = document.getElementById('logoPreview');
-        const uploadBox = document.getElementById('logoUploadBox');
-        const fileName = document.getElementById('logoFileName');
-        
-        const src = tempLogoData || existingLogo;
-        
-        if (!src) {
-            container.innerHTML = '';
-            uploadBox.classList.remove('has-file');
-            fileName.textContent = 'انتخاب فایل';
-            return;
-        }
-
-        uploadBox.classList.add('has-file');
-        fileName.textContent = 'فایل انتخاب شد';
-        container.innerHTML = `
-            <div class="logo-preview">
-                <img src="${src}" alt="لوگو">
-                <button type="button" class="remove-btn" onclick="event.stopPropagation(); removeLogo()">
-                    <i class="fa fa-times"></i>
-                </button>
-            </div>
-        `;
-    }
-
-    function handleLogoUpload(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        // بررسی حجم (حداکثر 2MB)
-        if (file.size > 2 * 1024 * 1024) {
-            showToast('حجم فایل نباید بیشتر از 2 مگابایت باشد', 'error');
-            e.target.value = '';
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-            tempLogoData = ev.target.result;
-            logoRemoved = false;
-            renderLogoPreview();
-        };
-        reader.readAsDataURL(file);
-        e.target.value = '';
-    }
-
-    function removeLogo() {
-        tempLogoData = null;
-        existingLogo = null;
-        logoRemoved = true;
-        document.getElementById('logoInput').value = '';
-        renderLogoPreview();
-    }
-
-    // ============ اسلاگ خودکار ============
-    function toSlug(str) {
-        return str.trim().toLowerCase()
-            .replace(/[^\w\s-]/g, '')
-            .replace(/\s+/g, '-')
-            .replace(/-+/g, '-');
-    }
-
-    document.getElementById('brandNameEn').addEventListener('input', (e) => {
-        const slugInput = document.getElementById('brandSlug');
-        if (!slugInput.dataset.manual) {
-            slugInput.value = toSlug(e.target.value);
-        }
+    // ۴. شماره ترتیب همه آیتم‌ها را از اول تنظیم کن
+    sorted.forEach((s, i) => {
+      const orig = sections.find(x => x.id === s.id);
+      if (orig) orig.order = i + 1;
     });
 
-    document.getElementById('brandSlug').addEventListener('input', (e) => {
-        e.target.dataset.manual = 'true';
+    // ۵. ذخیره و رندر مجدد
+    saveSections();
+    renderSections();
+    showToast('ترتیب بخش‌ها به‌روز شد', 'success');
+  }
+
+  // ======================== MODAL ========================
+  function openSectionModal(id = null) {
+    const form = document.getElementById('sectionForm'); form.reset();
+    currentEditId = id; tempManualProducts = []; tempSelectedItems = {};
+    document.querySelectorAll('.sec-config').forEach(el => el.style.display = 'none');
+    document.getElementById('fieldType').style.display = '';
+
+    if (id) {
+      const sec = sections.find(s => s.id === id); if (!sec) return;
+      document.getElementById('sectionModalTitle').textContent = 'ویرایش بخش';
+      document.getElementById('secId').value = sec.id;
+      document.getElementById('secTitle').value = sec.title;
+      document.getElementById('secActive').checked = sec.isActive;
+      document.getElementById('secActiveLabel').textContent = sec.isActive ? 'فعال — در صفحه اصلی نمایش داده می‌شود' : 'غیرفعال — مخفی از صفحه اصلی';
+      document.getElementById('fieldType').style.display = 'none';
+      tempManualProducts = JSON.parse(JSON.stringify(sec.manualProducts || []));
+      tempSelectedItems = {}; (sec.selectedItems || []).forEach(itemId => tempSelectedItems[itemId] = true);
+      showConfigForType(sec.type);
+    } else {
+      document.getElementById('sectionModalTitle').textContent = 'ایجاد بخش جدید';
+      document.getElementById('secId').value = '';
+      document.getElementById('secActive').checked = true;
+      document.getElementById('secActiveLabel').textContent = 'فعال — در صفحه اصلی نمایش داده می‌شود';
+      document.getElementById('fieldType').style.display = '';
+      document.getElementById('secType').value = '';
+    }
+    document.getElementById('sectionModal').classList.add('open');
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); if (id === 'sectionModal') { currentEditId = null; tempManualProducts = []; tempSelectedItems = {}; } }
+
+  function onTypeChange() {
+    const type = document.getElementById('secType').value;
+    if (type && CREATABLE_TYPES[type]) {
+      const def = CREATABLE_TYPES[type].defaultTitle;
+      if (def && !currentEditId) document.getElementById('secTitle').value = def;
+    }
+    showConfigForType(type);
+  }
+
+  function showConfigForType(type) {
+    document.querySelectorAll('.sec-config').forEach(el => el.style.display = 'none');
+    if (type === 'banners') { document.getElementById('cfgBanners').style.display = ''; renderBannerSelector(); }
+    else if (type === 'categories') { document.getElementById('cfgCategories').style.display = ''; renderCategorySelector(); }
+    else if (type === 'brands') { document.getElementById('cfgBrands').style.display = ''; renderBrandSelector(); }
+    else if (['bestsellers', 'newest', 'discounted', 'featured', 'custom'].includes(type)) {
+      document.getElementById('cfgProducts').style.display = '';
+      const ab = document.getElementById('autoModeBlock'), ad = document.getElementById('autoModeDesc');
+      if (type === 'custom') { ab.style.display = 'none'; }
+      else { ab.style.display = ''; ad.textContent = CREATABLE_TYPES[type]?.autoLabel || ''; }
+      renderManualProducts();
+    }
+  }
+
+  // ======================== SELECTORS ========================
+  function renderBannerSelector() {
+    const c = document.getElementById('bannerSelector');
+    // داده‌های نمونه بنر برای تست
+    const sampleBanners = [{id:'b1',title:'بنر جشنواره تابستانی'},{id:'b2',title:'بنر ارسال رایگان'},{id:'b3',title:'بنر محصولات جدید'}];
+    c.innerHTML = sampleBanners.map(b => `<div class="selector-card ${tempSelectedItems[b.id]?'selected':''}" onclick="toggleSelectorItem(this,'${b.id}')"><span class="check-icon"><i class="fa fa-check"></i></span><span>${b.title}</span></div>`).join('');
+  }
+  function renderCategorySelector() {
+    const c = document.getElementById('categorySelector');
+    const sampleCats = [{id:'c1',title:'موبایل و تبلت'},{id:'c2',title:'لپ‌تاپ و کامپیوتر'},{id:'c3',title:'صوتی و تصویری'},{id:'c4',title:'ورزش و سفر'}];
+    c.innerHTML = sampleCats.map(cat => `<div class="selector-card ${tempSelectedItems[cat.id]?'selected':''}" onclick="toggleSelectorItem(this,'${cat.id}')"><span class="check-icon"><i class="fa fa-check"></i></span><span>${cat.title}</span></div>`).join('');
+  }
+  function renderBrandSelector() {
+    const c = document.getElementById('brandSelector');
+    const sampleBrands = [{id:'br1',title:'سامسونگ'},{id:'br2',title:'اپل'},{id:'br3',title:'شیائومی'},{id:'br4',title:'انکر'}];
+    c.innerHTML = sampleBrands.map(b => `<div class="selector-card ${tempSelectedItems[b.id]?'selected':''}" onclick="toggleSelectorItem(this,'${b.id}')"><span class="check-icon"><i class="fa fa-check"></i></span><span>${b.title}</span></div>`).join('');
+  }
+  function toggleSelectorItem(el, id) { if (tempSelectedItems[id]) { delete tempSelectedItems[id]; el.classList.remove('selected'); } else { tempSelectedItems[id] = true; el.classList.add('selected'); } }
+
+  // ======================== ✅ PRODUCT SEARCH (با داده‌های نمونه) ========================
+  function searchProducts(q) {
+    const dd = document.getElementById('productSearchResults');
+    if (!q) { dd.style.display = 'none'; return; }
+    
+    // جستجو در محصولات نمونه
+    const res = SAMPLE_PRODUCTS.filter(p =>
+      (p.name || '').toLowerCase().includes(q.toLowerCase()) ||
+      (p.sku || '').toLowerCase().includes(q.toLowerCase())
+    ).slice(0, 10);
+
+    if (!res.length) { dd.innerHTML = '<div style="padding:0.75rem;color:var(--muted);font-size:0.85rem;text-align:center;">محصولی یافت نشد</div>'; dd.style.display = 'block'; return; }
+    
+    dd.innerHTML = res.map(p => {
+      const added = tempManualProducts.some(mp => mp.id == p.id);
+      return `<div class="search-result-item" style="${added ? 'opacity:0.4;pointer-events:none;' : ''}" onclick="addManualProduct(${p.id})"><strong>${p.name}</strong>${added ? ' <small>(اضافه شده)</small>' : ''}<small>${p.sku || '-'} · ${(p.salePrice || 0).toLocaleString('en-US')} تومان</small></div>`;
+    }).join('');
+    dd.style.display = 'block';
+  }
+
+  function addManualProduct(pid) {
+    const p = SAMPLE_PRODUCTS.find(x => x.id == pid); if (!p || tempManualProducts.some(mp => mp.id == p.id)) return;
+    tempManualProducts.push({ id: p.id, name: p.name, sku: p.sku || '', price: p.salePrice || 0 });
+    renderManualProducts(); document.getElementById('productSearchInput').value = ''; document.getElementById('productSearchResults').style.display = 'none';
+  }
+
+  function removeManualProduct(idx) { tempManualProducts.splice(idx, 1); renderManualProducts(); }
+
+  function renderManualProducts() {
+    const c = document.getElementById('manualProductsList');
+    if (!tempManualProducts.length) { c.innerHTML = '<small style="color:var(--muted);padding:0.5rem 0;">محصول دستی اضافه نشده</small>'; return; }
+    c.innerHTML = tempManualProducts.map((p, i) => `<div class="manual-product-item" draggable="true" data-mp-idx="${i}"><span class="mp-drag" title="جابجایی"><i class="fa fa-bars"></i></span><span class="mp-name"><strong>${p.name}</strong> <small style="color:var(--muted)">· ${toEnDigits(p.price.toLocaleString('en-US'))} تومان</small></span><span class="mp-remove" onclick="removeManualProduct(${i})" title="حذف"><i class="fa fa-times"></i></span></div>`).join('');
+    initManualProductsDnD();
+  }
+
+  function initManualProductsDnD() {
+    const items = document.querySelectorAll('.manual-product-item'); let src = null;
+    items.forEach(item => {
+      item.addEventListener('dragstart', e => { src = item; item.style.opacity = '0.4'; e.dataTransfer.effectAllowed = 'move'; });
+      item.addEventListener('dragover', e => e.preventDefault());
+      item.addEventListener('drop', e => { e.preventDefault(); if (src && src !== item) { const f = parseInt(src.dataset.mpIdx), t = parseInt(item.dataset.mpIdx); const [m] = tempManualProducts.splice(f, 1); tempManualProducts.splice(t, 0, m); renderManualProducts(); } });
+      item.addEventListener('dragend', () => { if (src) { src.style.opacity = '1'; src = null; } });
     });
+  }
 
-    // ============ Modal ============
-    function openBrandModal(id = null) {
-        const form = document.getElementById('brandForm');
-        form.reset();
-        currentEditId = id;
+  // ======================== SAVE ========================
+  function saveSection() {
+    const type = currentEditId ? sections.find(s => s.id === currentEditId)?.type : document.getElementById('secType').value;
+    const title = document.getElementById('secTitle').value.trim();
+    const isActive = document.getElementById('secActive').checked;
+    if (!type) return showToast('نوع بخش را انتخاب کنید', 'error');
+    if (!title) return showToast('عنوان بخش الزامی است', 'error');
 
-        tempLogoData = null;
-        logoRemoved = false;
-        existingLogo = null;
+    const selectedItems = Object.keys(tempSelectedItems);
+    const autoMode = document.getElementById('secAutoMode')?.checked ?? false;
 
-        if (id) {
-            const b = brands.find(x => x.id === id);
-            if (!b) return;
-
-            document.getElementById('brandModalTitle').textContent = 'ویرایش برند';
-            document.getElementById('brandId').value = b.id;
-            document.getElementById('brandName').value = b.name || '';
-            document.getElementById('brandNameEn').value = b.nameEn || '';
-            document.getElementById('brandSlug').value = b.slug || '';
-            document.getElementById('brandSlug').dataset.manual = 'true';
-            document.getElementById('brandStatus').value = b.isActive.toString();
-
-            if (b.logo) {
-                existingLogo = b.logo;
-            }
-        } else {
-            document.getElementById('brandModalTitle').textContent = 'ایجاد برند';
-            document.getElementById('brandSlug').dataset.manual = '';
-        }
-
-        renderLogoPreview();
-        document.getElementById('brandModal').classList.add('open');
+    if (currentEditId) {
+      const idx = sections.findIndex(s => s.id === currentEditId);
+      if (idx > -1) sections[idx] = { ...sections[idx], title, isActive, selectedItems, autoMode, manualProducts: tempManualProducts };
+      showToast('بخش ویرایش شد', 'success');
+    } else {
+      // ✅ بخش جدید همیشه در آخرین جایگاه قرار می‌گیرد
+      const maxOrder = sections.length > 0 ? Math.max(...sections.map(s => s.order)) : 0;
+      sections.push({ id: genId(), type, title, isActive, order: maxOrder + 1, selectedItems, autoMode, manualProducts: tempManualProducts });
+      showToast('بخش ایجاد شد', 'success');
     }
+    saveSections(); closeModal('sectionModal'); renderSections(); updateStats();
+  }
 
-    function closeModal(id) {
-        document.getElementById(id).classList.remove('open');
-        if (id === 'brandModal') {
-            currentEditId = null;
-            tempLogoData = null;
-            existingLogo = null;
-        }
-    }
-
-    // ============ ذخیره ============
-    async function saveBrand() {
-        const name = document.getElementById('brandName').value.trim();
-        if (!name) {
-            showToast('نام برند الزامی است', 'error');
-            return;
-        }
-
-        const formData = new FormData();
-        if (currentEditId) formData.append('id', currentEditId);
-        formData.append('name', name);
-        formData.append('nameEn', document.getElementById('brandNameEn').value.trim());
-        formData.append('slug', document.getElementById('brandSlug').value.trim());
-        formData.append('isActive', document.getElementById('brandStatus').value);
-
-        if (tempLogoData) {
-            formData.append('logoData', tempLogoData);
-        }
-        if (logoRemoved) {
-            formData.append('logoRemove', 'true');
-        }
-
-        try {
-            const res = await fetch(API_SAVE, {
-                method: 'POST',
-                body: formData,
-                headers: { 'X-CSRFToken': getCookie('csrftoken') }
-            });
-            const data = await res.json();
-
-            if (data.success) {
-                showToast(currentEditId ? 'برند ویرایش شد' : 'برند ایجاد شد', 'success');
-                closeModal('brandModal');
-                await loadBrands();
-            } else {
-                showToast(data.error || 'خطا در ذخیره', 'error');
-            }
-        } catch (err) {
-            console.error(err);
-            showToast('خطای شبکه', 'error');
-        }
-    }
-
-    // ============ حذف ============
-    function requestDelete(id) {
-        const b = brands.find(x => x.id === id);
-        if (!b) return;
-
-        pendingDeleteId = id;
-        document.getElementById('deleteMessage').textContent = `آیا از حذف برند "${b.name}" مطمئن هستید؟`;
-        document.getElementById('deleteModal').classList.add('open');
-    }
-
-    document.getElementById('confirmDeleteBtn').onclick = async () => {
-        if (!pendingDeleteId) return;
-
-        try {
-            const formData = new FormData();
-            formData.append('id', pendingDeleteId);
-
-            const res = await fetch(API_DELETE, {
-                method: 'POST',
-                body: formData,
-                headers: { 'X-CSRFToken': getCookie('csrftoken') }
-            });
-            const data = await res.json();
-
-            if (data.success) {
-                showToast('برند حذف شد', 'success');
-                pendingDeleteId = null;
-                closeModal('deleteModal');
-                await loadBrands();
-            } else {
-                showToast(data.error || 'خطا در حذف', 'error');
-            }
-        } catch (err) {
-            console.error(err);
-            showToast('خطای شبکه', 'error');
-        }
+  // ======================== DELETE ========================
+  function requestDeleteSection(id) {
+    const sec = sections.find(s => s.id === id); 
+    // ✅ تغییر ۲: فقط بنرها، دسته‌بندی‌ها و برندها محافظت می‌شوند
+    if (!sec || DEFAULT_TYPES.includes(sec.type)) return;
+    
+    document.getElementById('deleteMessage').textContent = `آیا از حذف بخش «${sec.title}» مطمئن هستید؟ این عملیات غیرقابل بازگشت است.`;
+    document.getElementById('confirmDeleteBtn').onclick = () => {
+      sections = sections.filter(s => s.id !== id);
+      // ✅ بعد از حذف، ترتیب بخش‌های باقی‌مانده دوباره مرتب می‌شود
+      sections.sort((a, b) => a.order - b.order).forEach((s, i) => s.order = i + 1);
+      saveSections(); closeModal('deleteModal'); renderSections(); updateStats(); showToast('بخش حذف شد', 'success');
     };
+    document.getElementById('deleteModal').classList.add('open');
+  }
 
-    // ============ جستجو و فیلتر ============
-    document.getElementById('searchInput').addEventListener('input', renderBrands);
-    document.getElementById('statusFilter').addEventListener('change', renderBrands);
-
-    // ============ Modalهای عمومی ============
-    document.querySelectorAll('.modal-backdrop').forEach(bd => {
-        bd.addEventListener('click', e => {
-            if (e.target === bd) closeModal(bd.id);
-        });
-    });
-
-    // ============ Toast ============
-    function showToast(msg, type = 'success') {
-        const s = document.getElementById('toastStack');
-        if (!s) return;
-        const t = document.createElement('div');
-        t.className = 'toast';
-        const c = type === 'success' ? 'var(--success)' : (type === 'error' ? 'var(--danger)' : 'var(--info)');
-        const i = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle');
-        t.innerHTML = `<i class="fa ${i}" style="color:${c};margin-left:8px"></i><span>${msg}</span>`;
-        t.style.cssText = `background:var(--surface);color:var(--text);padding:1rem;border-radius:0.5rem;margin-bottom:0.5rem;box-shadow:var(--shadow);border-right:4px solid ${c};display:flex;align-items:center;`;
-        s.appendChild(t);
-        setTimeout(() => {
-            t.style.opacity = '0';
-            t.style.transform = 'translateX(-15px)';
-            setTimeout(() => t.remove(), 300);
-        }, 3000);
-    }
-
-    // ============ شروع ============
-    document.addEventListener('DOMContentLoaded', () => {
-        loadBrands();
-    });
-</script>
-
+  // ======================== TOAST ========================
+  function showToast(msg, type = 'success') {
+    const s = document.getElementById('toastStack'); if (!s) return;
+    const t = document.createElement('div'); t.className = 'toast';
+    const c = type === 'success' ? 'var(--success)' : (type === 'error' ? 'var(--danger)' : 'var(--info)');
+    const i = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle');
+    t.innerHTML = `<i class="fa ${i}" style="color:${c};margin-left:8px"></i><span>${msg}</span>`;
+    t.style.cssText = `background:var(--surface);color:var(--text);padding:1rem;border-radius:0.5rem;margin-bottom:0.5rem;box-shadow:var(--shadow);border-right:4px solid ${c};display:flex;align-items:center;`;
+    s.appendChild(t); setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-15px)'; setTimeout(() => t.remove(), 300); }, 3000);
+  }
+  </script>
 {% endblock %}

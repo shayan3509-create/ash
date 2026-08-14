@@ -15,7 +15,7 @@ my edit
   .\venv\Scripts\activate      
   .\aradvenv\Scripts\activate 
 pip install django --timeout 120
-
+python -m pip install django-jazzmin
    python manage.py runserver 
 
 
