@@ -21,4 +21,5 @@ urlpatterns = [
     path("settings/backup/", views.settings_backup, name="settings_backup"),
     path("analytics/", views.analytics, name="analytics"),
     path("homepage/", views.homepage_sections, name="homepage"),
+    path("products/", views.products, name="products"),
 ]

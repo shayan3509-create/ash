@@ -1,0 +1,869 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block data_root %}../../{% endblock %}
+{% block data_page %}products-categories{% endblock %}
+{% block data_title %}دسته‌بندی محصولات{% endblock %}
+{% block data_subtitle %}مدیریت و سازماندهی دسته‌بندی‌های فروشگاه{% endblock %}
+
+{% block content %}
+
+<!-- دریافت داده‌ها از بک‌اند جنگو -->
+{{ categories_data|json_script:"categories-data" }}
+
+    <main class="page-content" data-app-shell>
+        
+        <!-- ۱- کارت‌های آماری -->
+        <div class="grid grid-2 mb-2">
+            <div class="card lift reveal" style="--delay: 0ms">
+                <div class="stat">
+                    <div>
+                        <div class="stat-label">تعداد دسته‌بندی‌ها</div>
+                        <div class="stat-value" id="totalCategories">0</div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa fa-folder"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card lift reveal" style="--delay: 100ms">
+                <div class="stat">
+                    <div>
+                        <div class="stat-label">دسته‌بندی‌های فعال</div>
+                        <div class="stat-value" id="totalActive">0</div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa fa-check-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ۲- Toolbar -->
+        <div class="card reveal mb-2" style="--delay: 200ms">
+            <div class="toolbar">
+                <button class="btn btn-primary" onclick="openCategoryModal()">
+                    <i class="fa fa-plus"></i>
+                    ایجاد دسته‌بندی
+                </button>
+                <div class="field" style="flex: 1 1 12rem;">
+                    <input type="text" class="input" id="searchInput" placeholder="جستجو در نام...">
+                </div>
+                <div class="field" style="flex: 0 0 auto;">
+                    <select class="select" id="statusFilter">
+                        <option value="">همه وضعیت‌ها</option>
+                        <option value="true">فعال</option>
+                        <option value="false">غیرفعال</option>
+                    </select>
+                </div>
+                <button class="btn btn-secondary" id="toggleOrderModeBtn" onclick="toggleOrderMode()">
+                    <i class="fa fa-sort-amount-down"></i>
+                    <span class="hide-mobile">ویرایش ترتیب</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ۳- جدول دسته‌بندی‌ها -->
+        <div class="card reveal" style="--delay: 300ms">
+            <div class="table-wrap">
+                <table class="data-table responsive">
+                    <thead>
+                        <tr>
+                            <th style="width:50px">ترتیب</th>
+                            <th>آیکون</th>
+                            <th>نام</th>
+                            <th>رنگ</th>
+                            <th>وضعیت</th>
+                            <th>آخرین ویرایش</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoriesTableBody">
+                        <!-- داده‌ها توسط JavaScript بارگذاری می‌شوند -->
+                    </tbody>
+                </table>
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <i class="fa fa-folder-open"></i>
+                    <p>هیچ دسته‌بندی یافت نشد</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal ایجاد و ویرایش دسته‌بندی -->
+    <div class="modal-backdrop" id="categoryModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h2 id="categoryModalTitle">ایجاد دسته‌بندی</h2>
+                <button class="action-btn" onclick="closeModal('categoryModal')">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <form id="categoryForm" onsubmit="event.preventDefault(); saveCategory();">
+                <input type="hidden" id="categoryId">
+                <input type="hidden" id="svgRaw" value="">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>نام دسته <span style="color: var(--danger);">*</span></label>
+                        <input type="text" class="input" id="categoryName" required>
+                    </div>
+
+                    <div class="field">
+                        <label>اسلاگ (URL)</label>
+                        <input type="text" class="input" id="categorySlug" placeholder="خالی بگذارید تا خودکار ساخته شود" dir="ltr" style="text-align: left;">
+                    </div>
+
+                    <!-- ✅ فیلد link به صورت readonly -->
+                    <div class="field">
+                        <label>لینک مقصد (خودکار)</label>
+                        <input type="text" class="input" id="categoryLink" readonly dir="ltr" 
+                            style="text-align: left; background: var(--surface-2); color: var(--muted); cursor: not-allowed;"
+                            placeholder="پس از ذخیره، خودکار ساخته می‌شود">
+                    </div>
+
+                    <!-- آپلود فایل SVG / تصویر -->
+                    <div class="field field-full">
+                        <label>آپلود فایل آیکون (SVG یا تصویر)</label>
+                        <div class="card svg-upload-box" onclick="document.getElementById('svgFile').click()" id="svgUploadBox">
+                            <div class="entity" style="gap: 1rem;">
+                                <div class="entity-avatar" style="width: 2.5rem; height: 2.5rem; flex-shrink: 0;">
+                                    <i class="fa fa-cloud-upload" style="font-size: 1.1rem;"></i>
+                                </div>
+                                <div class="list-copy" style="flex: 1; min-width: 0;">
+                                    <strong id="svgFileName">انتخاب فایل</strong>
+                                    <small id="svgFileHint" style="overflow-wrap: anywhere; word-break: break-word; display: block; margin-top: 0.25rem;">
+                                        فرمت مجاز: SVG, PNG, JPG — روی این بخش کلیک کنید یا فایل را انتخاب نمایید.
+                                    </small>
+                                </div>
+                                <button type="button" class="btn btn-secondary btn-sm" style="flex-shrink: 0;">
+                                    <i class="fa fa-folder-open"></i>
+                                    انتخاب
+                                </button>
+                            </div>
+                        </div>
+                        <input type="file" id="svgFile" accept="image/svg+xml, image/png, image/jpeg" style="display: none;" onchange="handleFileSelect(event)">
+                        
+                        <div class="entity" id="svgPreview" style="display: none; margin-top: 0.5rem; padding: 0.75rem; background: var(--surface-2); border-radius: 0.75rem; border: 1px solid var(--line);">
+                            <div id="svgPreviewAvatar" class="svg-container svg-container-lg"></div>
+                            <div class="list-copy" style="flex: 1; min-width: 0;">
+                                <strong>پیش‌نمایش</strong>
+                                <small id="svgPreviewName" style="overflow-wrap: anywhere; word-break: break-word;"></small>
+                            </div>
+                            <button type="button" class="action-btn" onclick="event.stopPropagation(); removeSvgFile();" title="حذف فایل" style="color: var(--danger);">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Color Picker -->
+                    <div class="field field-full">
+                        <label>رنگ آیکون</label>
+                        <div style="display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <div id="colorSquare" style="width: 100%; aspect-ratio: 1; position: relative; cursor: crosshair; border-radius: 0.5rem; overflow: hidden; touch-action: none;">
+                                    <div id="colorSquareMarker" style="position: absolute; width: 16px; height: 16px; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 3px rgba(0,0,0,0.6); transform: translate(-50%, -50%); pointer-events: none;"></div>
+                                </div>
+                                <div id="hueBar" style="width: 100%; height: 16px; position: relative; cursor: pointer; border-radius: 0.5rem; margin-top: 0.75rem; background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); touch-action: none;">
+                                    <div id="hueMarker" style="position: absolute; width: 6px; height: 20px; background: white; border: 1px solid #333; border-radius: 3px; top: -2px; transform: translateX(-50%); pointer-events: none; box-shadow: 0 0 3px rgba(0,0,0,0.4);"></div>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; align-items: center;">
+                                    <div id="colorPreview" style="width: 36px; height: 36px; border-radius: 0.5rem; border: 1px solid var(--line); flex-shrink: 0;"></div>
+                                    <input type="text" id="hexInput" class="input" style="flex: 1; min-width: 0; min-height: 2.2rem; font-family: monospace; text-align: center;" placeholder="#000000" maxlength="7">
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="copyHexColor()" title="کپی HEX" style="flex-shrink: 0;">
+                                        <i class="fa fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="flex: 1; min-width: 150px;">
+                                <div style="margin-bottom: 0.5rem; color: var(--muted); font-size: 0.82rem;">پیش‌نمایش با رنگ انتخابی:</div>
+                                <div id="colorPreviewSvg" class="svg-container svg-container-lg" style="background: var(--surface-2);">
+                                    <span style="color: var(--muted); font-size: 0.8rem;">فایلی آپلود نشده</span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="svgColor" value="#00bfff">
+                    </div>
+
+                    <!-- وضعیت -->
+                    <div class="field">
+                        <label>وضعیت</label>
+                        <select class="select" id="categoryStatus">
+                            <option value="true">فعال</option>
+                            <option value="false">غیرفعال</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="toolbar" style="margin-top: 1.5rem; justify-content: flex-end;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('categoryModal')">انصراف</button>
+                    <button type="submit" class="btn btn-primary">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal تأیید حذف -->
+    <div class="modal-backdrop" id="deleteModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h2>تأیید حذف</h2>
+                <button class="action-btn" onclick="closeModal('deleteModal')">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <p id="deleteMessage" style="margin-bottom: 1.5rem; color: var(--muted);">آیا از حذف این دسته‌بندی مطمئن هستید؟</p>
+            <div class="toolbar" style="justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeModal('deleteModal')">انصراف</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Stack -->
+    <div class="toast-stack" id="toastStack"></div>
+
+    <style>
+        .svg-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: transparent;
+            vertical-align: middle;
+        }
+        .svg-container img, .svg-container svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            display: block !important;
+            object-fit: contain;
+        }
+        .svg-container-sm { width: 2.2rem; height: 2.2rem; }
+        .svg-container-md { width: 3rem; height: 3rem; }
+        .svg-container-lg { width: 5rem; height: 5rem; }
+
+        .svg-upload-box {
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+            border: 2px dashed var(--line);
+            background: var(--surface-2);
+            padding: 1rem 1.25rem;
+            border-radius: 0.75rem;
+        }
+        .svg-upload-box:hover {
+            border-color: var(--accent);
+            background: rgba(0, 191, 255, 0.05);
+            transform: translateY(-1px);
+        }
+        .svg-upload-box.has-file {
+            border-style: solid;
+            border-color: var(--accent);
+            background: rgba(0, 191, 255, 0.08);
+        }
+    </style>
+
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        // ================= DATA INITIALIZATION =================
+        let categories = [];
+        try {
+            const dataEl = document.getElementById('categories-data');
+            if (dataEl && dataEl.textContent) {
+                categories = JSON.parse(dataEl.textContent);
+            }
+        } catch (e) {
+            console.warn('خطا در خواندن داده‌های دسته‌بندی:', e);
+            categories = [];
+        }
+
+        let currentHue = 191, currentSaturation = 1, currentValue = 1;
+        let activePicker = null;
+        let currentEditingId = null;
+        let tempSvgFile = null;
+        let isOrderMode = false;
+        let draggedRow = null;
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCategories();
+            updateStats();
+            initColorPicker();
+            
+            document.getElementById('searchInput').addEventListener('input', renderCategories);
+            document.getElementById('statusFilter').addEventListener('change', renderCategories);
+
+            document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+                backdrop.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('open');
+                });
+            });
+        });
+
+        // ================= RENDERING =================
+        function updateStats() {
+            document.getElementById('totalCategories').textContent = categories.length;
+            document.getElementById('totalActive').textContent = categories.filter(c => c.isActive).length;
+        }
+
+        function renderCategories() {
+            const tbody = document.getElementById('categoriesTableBody');
+            const emptyState = document.getElementById('emptyState');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilterValue = document.getElementById('statusFilter').value;
+
+            let filtered = categories.filter(c => {
+                const matchesSearch = (c.title || '').toLowerCase().includes(searchTerm);
+                const matchesStatus = !statusFilterValue || c.isActive.toString() === statusFilterValue;
+                return matchesSearch && matchesStatus;
+            });
+
+            filtered.sort((a, b) => a.order - b.order);
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            tbody.innerHTML = filtered.map(cat => {
+                const statusClass = cat.isActive ? 'success' : 'danger';
+                const statusText = cat.isActive ? 'فعال' : 'غیرفعال';
+                
+                let iconHtml = `<div class="svg-container svg-container-sm"><i class="fa fa-folder" style="color: var(--accent); font-size: 1.2rem;"></i></div>`;
+
+                if (cat.svgRaw && cat.svgRaw.trim() !== '') {
+                    const coloredSvg = applyColorToSVG(cat.svgRaw, cat.color);
+                    iconHtml = `<div class="svg-container svg-container-sm">${coloredSvg}</div>`;
+                } else if (cat.icon) {
+                    iconHtml = `<div class="svg-container svg-container-sm"><img src="${cat.icon}" alt="${cat.title}"></div>`;
+                }
+
+                return `
+                    <tr draggable="${isOrderMode}" data-id="${cat.id}" class="${isOrderMode ? 'draggable-row' : ''}" style="${isOrderMode ? 'cursor:grab' : ''}">
+                        <td>${cat.order}</td>
+                        <td>${iconHtml}</td>
+                        <td><strong>${cat.title || 'بدون نام'}</strong></td>
+                        <td><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:${cat.color};vertical-align:middle; border: 1px solid var(--line);"></span> <small style="margin-right:5px">${cat.color}</small></td>
+                        <td><span class="badge ${statusClass}">${statusText}</span></td>
+                        <td>${cat.updatedAt ? new Date(cat.updatedAt).toLocaleDateString('fa-IR') : '-'}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-btn" title="ویرایش" onclick="openCategoryModal(${cat.id})"><i class="fa fa-edit"></i></button>
+                                <button class="action-btn" title="حذف" onclick="deleteCategory(${cat.id})"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            if (isOrderMode) {
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    row.addEventListener('dragstart', e => { 
+                        draggedRow = row; 
+                        row.style.opacity = '0.5'; 
+                    });
+                    row.addEventListener('dragend', e => { 
+                        row.style.opacity = '1'; 
+                        draggedRow = null; 
+                    });
+                    row.addEventListener('dragover', e => { 
+                        e.preventDefault(); 
+                    });
+                    row.addEventListener('drop', e => {
+                        e.preventDefault();
+                        if (draggedRow !== row) {
+                            const draggedId = parseInt(draggedRow.dataset.id);
+                            const targetId = parseInt(row.dataset.id);
+
+                            const draggedIndex = categories.findIndex(c => c.id === draggedId);
+                            const targetIndex = categories.findIndex(c => c.id === targetId);
+
+                            const [movedItem] = categories.splice(draggedIndex, 1);
+                            categories.splice(targetIndex, 0, movedItem);
+
+                            categories.forEach((c, i) => c.order = i + 1);
+                            renderCategories();
+                            saveOrderToServer();
+                        }
+                    });
+                });
+            }
+        }
+
+        function toggleOrderMode() {
+            isOrderMode = !isOrderMode;
+            const btn = document.getElementById('toggleOrderModeBtn');
+            btn.innerHTML = isOrderMode 
+                ? '<i class="fa fa-save"></i> <span class="hide-mobile">ذخیره و خروج</span>' 
+                : '<i class="fa fa-sort-amount-down"></i> <span class="hide-mobile">ویرایش ترتیب</span>';
+            btn.className = isOrderMode ? 'btn btn-primary' : 'btn btn-secondary';
+            renderCategories();
+        }
+
+        function saveOrderToServer() {
+            const formData = new FormData();
+            formData.append('action', 'save_order');
+            formData.append('order', JSON.stringify(categories.map(c => c.id)));
+
+            fetch(window.location.pathname, {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-CSRFToken': getCookie('csrftoken') }
+            }).then(res => res.json()).then(data => {
+                if (data.success) showToast('ترتیب دسته‌بندی‌ها با موفقیت ذخیره شد', 'success');
+            });
+        }
+
+        // ================= COLOR PICKER LOGIC =================
+        function initColorPicker() {
+            const colorSquare = document.getElementById('colorSquare');
+            const hueBar = document.getElementById('hueBar');
+            const hexInput = document.getElementById('hexInput');
+            if (!colorSquare || !hueBar || !hexInput) return;
+
+            colorSquare.addEventListener('pointerdown', function(e) { e.preventDefault(); activePicker = 'square'; colorSquare.setPointerCapture(e.pointerId); updateSquareFromEvent(e); });
+            colorSquare.addEventListener('pointermove', function(e) { if (activePicker === 'square') { e.preventDefault(); updateSquareFromEvent(e); } });
+            colorSquare.addEventListener('pointerup', () => activePicker = null);
+            colorSquare.addEventListener('pointercancel', () => activePicker = null);
+
+            hueBar.addEventListener('pointerdown', function(e) { e.preventDefault(); activePicker = 'hue'; hueBar.setPointerCapture(e.pointerId); updateHueFromEvent(e); });
+            hueBar.addEventListener('pointermove', function(e) { if (activePicker === 'hue') { e.preventDefault(); updateHueFromEvent(e); } });
+            hueBar.addEventListener('pointerup', () => activePicker = null);
+            hueBar.addEventListener('pointercancel', () => activePicker = null);
+
+            hexInput.addEventListener('input', function() {
+                const hex = this.value.trim();
+                if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+                    const rgb = hexToRgb(hex);
+                    if (rgb) {
+                        const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+                        currentHue = hsv.h; currentSaturation = hsv.s; currentValue = hsv.v;
+                        updateColorPickerUI();
+                    }
+                }
+            });
+            updateColorPickerUI();
+        }
+
+        function updateSquareFromEvent(e) {
+            const colorSquare = document.getElementById('colorSquare');
+            if (!colorSquare) return;
+            const rect = colorSquare.getBoundingClientRect();
+            const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+            const y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
+            currentSaturation = x / rect.width;
+            currentValue = 1 - (y / rect.height);
+            updateColorPickerUI();
+        }
+
+        function updateHueFromEvent(e) {
+            const hueBar = document.getElementById('hueBar');
+            if (!hueBar) return;
+            const rect = hueBar.getBoundingClientRect();
+            const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+            currentHue = (x / rect.width) * 360;
+            updateColorPickerUI();
+        }
+
+        function updateColorPickerUI() {
+            const colorSquare = document.getElementById('colorSquare');
+            const colorSquareMarker = document.getElementById('colorSquareMarker');
+            const hueMarker = document.getElementById('hueMarker');
+            const colorPreview = document.getElementById('colorPreview');
+            const hexInput = document.getElementById('hexInput');
+            const svgColorInput = document.getElementById('svgColor');
+
+            if (!colorSquare || !colorSquareMarker || !hueMarker) return;
+
+            colorSquare.style.background = `linear-gradient(to top, black, transparent), linear-gradient(to right, white, transparent), hsl(${currentHue}, 100%, 50%)`;
+            colorSquareMarker.style.left = (currentSaturation * 100) + '%';
+            colorSquareMarker.style.top = ((1 - currentValue) * 100) + '%';
+            hueMarker.style.left = ((currentHue / 360) * 100) + '%';
+
+            const rgb = hsvToRgb(currentHue, currentSaturation, currentValue);
+            const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+
+            if (colorPreview) colorPreview.style.background = hex;
+            if (hexInput && document.activeElement !== hexInput) hexInput.value = hex;
+            if (svgColorInput) svgColorInput.value = hex;
+
+            updateColorPreviewSvg(hex);
+        }
+
+        function updateColorPreviewSvg(hex) {
+            const previewContainer = document.getElementById('colorPreviewSvg');
+            const previewAvatar = document.getElementById('svgPreviewAvatar');
+            const svgRawInput = document.getElementById('svgRaw');
+            
+            if (svgRawInput && svgRawInput.value && svgRawInput.value.trim() !== '') {
+                const coloredSvg = applyColorToSVG(svgRawInput.value, hex);
+                
+                if (previewAvatar) {
+                    previewAvatar.innerHTML = coloredSvg;
+                }
+                
+                if (previewContainer) {
+                    previewContainer.innerHTML = coloredSvg;
+                }
+            } else if (previewContainer) {
+                previewContainer.innerHTML = '<span style="color: var(--muted); font-size: 0.8rem;">ابتدا SVG آپلود کنید</span>';
+            }
+        }
+
+        function applyColorToSVG(svgString, color) {
+            if (!svgString || !color) return svgString;
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgString, 'image/svg+xml');
+                const svg = doc.querySelector('svg');
+                if (!svg) return svgString;
+                
+                const allElements = svg.querySelectorAll('*');
+                
+                svg.removeAttribute('fill');
+                svg.removeAttribute('color');
+                
+                allElements.forEach(el => {
+                    if (el.closest('mask') || el.closest('defs') || el.closest('clipPath')) {
+                        return;
+                    }
+                    
+                    const fill = el.getAttribute('fill');
+                    const stroke = el.getAttribute('stroke');
+                    
+                    if (fill === 'currentColor') {
+                        el.setAttribute('fill', color);
+                    }
+                    if (stroke === 'currentColor') {
+                        el.setAttribute('stroke', color);
+                    }
+                    
+                    if (!el.getAttribute('fill') && !el.getAttribute('stroke')) {
+                        let parent = el.parentElement;
+                        while (parent && parent !== svg) {
+                            if (parent.closest('mask') || parent.closest('defs') || parent.closest('clipPath')) break;
+                            
+                            const parentFill = parent.getAttribute('fill');
+                            const parentStroke = parent.getAttribute('stroke');
+                            
+                            if (parentFill === 'currentColor') {
+                                el.setAttribute('fill', color);
+                            }
+                            if (parentStroke === 'currentColor') {
+                                el.setAttribute('stroke', color);
+                            }
+                            
+                            if (parentFill !== 'currentColor' && parentStroke !== 'currentColor') {
+                                break;
+                            }
+                            
+                            parent = parent.parentElement;
+                        }
+                    }
+                });
+                
+                return new XMLSerializer().serializeToString(svg);
+            } catch (e) {
+                return svgString;
+            }
+        }
+
+        function copyHexColor() {
+            const hexInput = document.getElementById('hexInput');
+            if (hexInput) {
+                navigator.clipboard.writeText(hexInput.value).then(() => showToast('HEX کپی شد', 'success')).catch(() => showToast('خطا در کپی', 'error'));
+            }
+        }
+
+        function hsvToRgb(h, s, v) {
+            h /= 360; let r, g, b;
+            const i = Math.floor(h * 6), f = h * 6 - i, p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
+            switch (i % 6) {
+                case 0: r = v, g = t, b = p; break; case 1: r = q, g = v, b = p; break;
+                case 2: r = p, g = v, b = t; break; case 3: r = p, g = q, b = v; break;
+                case 4: r = t, g = p, b = v; break; case 5: r = v, g = p, b = q; break;
+            }
+            return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
+        }
+
+        function rgbToHsv(r, g, b) {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+            let h, s, v = max;
+            s = max === 0 ? 0 : d / max;
+            if (max === min) { h = 0; } 
+            else {
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+            return { h: Math.round(h * 360), s: s, v: v };
+        }
+
+        function rgbToHex(r, g, b) {
+            return '#' + [r, g, b].map(x => { const hex = x.toString(16); return hex.length === 1 ? '0' + hex : hex; }).join('');
+        }
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null;
+        }
+
+        // ================= MODAL & FORM HANDLING =================
+        function openCategoryModal(id = null) {
+            const modal = document.getElementById('categoryModal');
+            const title = document.getElementById('categoryModalTitle');
+            const form = document.getElementById('categoryForm');
+            if (!modal || !title || !form) return;
+            
+            form.reset();
+            tempSvgFile = null;
+            
+            const preview = document.getElementById('svgPreview');
+            const previewAvatar = document.getElementById('svgPreviewAvatar');
+            const uploadBox = document.getElementById('svgUploadBox');
+            const fileName = document.getElementById('svgFileName');
+            const fileHint = document.getElementById('svgFileHint');
+            const svgFileInput = document.getElementById('svgFile');
+            const svgRawInput = document.getElementById('svgRaw');
+            
+            preview.style.display = 'none';
+            previewAvatar.innerHTML = '';
+            uploadBox.classList.remove('has-file');
+            fileName.textContent = 'انتخاب فایل';
+            fileHint.textContent = 'فرمت مجاز: SVG, PNG, JPG — روی این بخش کلیک کنید یا فایل را انتخاب نمایید.';
+            svgFileInput.value = '';
+            if (svgRawInput) svgRawInput.value = '';
+            
+            if (id) {
+                const cat = categories.find(c => c.id === id);
+                if (!cat) return;
+                currentEditingId = cat.id;
+                title.textContent = 'ویرایش دسته‌بندی';
+                
+                document.getElementById('categoryId').value = cat.id;
+                document.getElementById('categoryName').value = cat.title || '';
+                document.getElementById('categorySlug').value = cat.slug || '';
+                document.getElementById('categoryLink').value = cat.link || '';
+                document.getElementById('categoryStatus').value = cat.isActive.toString();
+                
+                if (cat.color) {
+                    const rgb = hexToRgb(cat.color);
+                    if (rgb) {
+                        const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+                        currentHue = hsv.h; currentSaturation = hsv.s; currentValue = hsv.v;
+                    }
+                }
+                document.getElementById('svgColor').value = cat.color || '#00bfff';
+                updateColorPickerUI();
+                
+                if (svgRawInput) {
+                    svgRawInput.value = cat.svgRaw || '';
+                    
+                    if (cat.svgRaw && cat.svgRaw.trim() !== '') {
+                        preview.style.display = 'flex';
+                        const coloredSvg = applyColorToSVG(cat.svgRaw, cat.color || '#00bfff');
+                        previewAvatar.innerHTML = coloredSvg;
+                        
+                        if (uploadBox) uploadBox.classList.add('has-file');
+                        if (fileName) fileName.textContent = 'فایل SVG فعلی';
+                        if (fileHint) fileHint.textContent = 'برای تغییر، فایل جدید انتخاب کنید';
+                        
+                        updateColorPreviewSvg(cat.color || '#00bfff');
+                    }
+                }
+            } else {
+                currentEditingId = null;
+                title.textContent = 'ایجاد دسته‌بندی';
+                document.getElementById('categoryId').value = '';
+                currentHue = 191; currentSaturation = 1; currentValue = 1;
+                document.getElementById('svgColor').value = '#00bfff';
+                updateColorPickerUI();
+            }
+            openModal('categoryModal');
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            tempSvgFile = file;
+            
+            const preview = document.getElementById('svgPreview');
+            const previewAvatar = document.getElementById('svgPreviewAvatar');
+            const uploadBox = document.getElementById('svgUploadBox');
+            const fileName = document.getElementById('svgFileName');
+            const fileHint = document.getElementById('svgFileHint');
+            const svgRawInput = document.getElementById('svgRaw');
+            
+            preview.style.display = 'flex';
+            
+            if (file.type === 'image/svg+xml') {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const svgContent = e.target.result;
+                    
+                    const currentColor = document.getElementById('svgColor').value || '#00bfff';
+                    const coloredSvg = applyColorToSVG(svgContent, currentColor);
+                    
+                    previewAvatar.innerHTML = coloredSvg;
+                    
+                    if (svgRawInput) svgRawInput.value = svgContent;
+                    
+                    updateColorPreviewSvg(currentColor);
+                };
+                reader.readAsText(file);
+            } else {
+                previewAvatar.innerHTML = `<img src="${URL.createObjectURL(file)}" style="width:100%;height:100%;object-fit:contain;">`;
+                if (svgRawInput) svgRawInput.value = '';
+            }
+            
+            uploadBox.classList.add('has-file');
+            fileName.textContent = 'فایل انتخاب شد';
+            fileHint.textContent = file.name;
+        }
+
+        function removeSvgFile() {
+            tempSvgFile = null;
+            document.getElementById('svgPreview').style.display = 'none';
+            document.getElementById('svgPreviewAvatar').innerHTML = '';
+            document.getElementById('svgFile').value = '';
+            document.getElementById('svgUploadBox').classList.remove('has-file');
+            document.getElementById('svgFileName').textContent = 'انتخاب فایل';
+            document.getElementById('svgFileHint').textContent = 'فرمت مجاز: SVG, PNG, JPG — روی این بخش کلیک کنید یا فایل را انتخاب نمایید.';
+            document.getElementById('colorPreviewSvg').innerHTML = '<span style="color: var(--muted); font-size: 0.8rem;">فایلی آپلود نشده</span>';
+            const svgRawInput = document.getElementById('svgRaw');
+            if (svgRawInput) svgRawInput.value = '';
+        }
+
+        async function saveCategory() {
+            const id = document.getElementById('categoryId').value;
+            const title = document.getElementById('categoryName').value.trim();
+            
+            if (!title) {
+                showToast('لطفاً نام دسته‌بندی را وارد کنید', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('action', id ? 'update' : 'create');
+            if (id) formData.append('id', id);
+            formData.append('title', title);
+            formData.append('slug', document.getElementById('categorySlug').value.trim());
+            
+            formData.append('color', document.getElementById('svgColor').value);
+            formData.append('is_active', document.getElementById('categoryStatus').value);
+            
+            if (tempSvgFile) {
+                formData.append('icon', tempSvgFile);
+            }
+
+            try {
+                showToast('در حال ذخیره...', 'info');
+                const res = await fetch(window.location.pathname, { 
+                    method: 'POST', 
+                    body: formData, 
+                    headers: { 'X-CSRFToken': getCookie('csrftoken') } 
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    showToast(id ? 'دسته‌بندی ویرایش شد' : 'دسته‌بندی ایجاد شد', 'success');
+                    closeModal('categoryModal');
+                    setTimeout(() => window.location.reload(), 500);
+                } else {
+                    showToast(data.error || 'خطا در ذخیره', 'error');
+                }
+            } catch (e) { 
+                showToast('خطای شبکه', 'error'); 
+            }
+        }
+
+        async function deleteCategory(id) {
+            const cat = categories.find(c => c.id === id);
+            if (!cat) return;
+            
+            document.getElementById('deleteMessage').textContent = `آیا از حذف دسته‌بندی "${cat.title}" مطمئن هستید؟`;
+            
+            document.getElementById('confirmDeleteBtn').onclick = async () => {
+                try {
+                    const formData = new FormData();
+                    formData.append('action', 'delete');
+                    formData.append('id', id);
+                    
+                    const res = await fetch(window.location.pathname, { 
+                        method: 'POST', 
+                        body: formData, 
+                        headers: { 'X-CSRFToken': getCookie('csrftoken') } 
+                    });
+                    const data = await res.json();
+                    
+                    if (data.success) {
+                        showToast('دسته‌بندی حذف شد', 'success');
+                        closeModal('deleteModal');
+                        setTimeout(() => window.location.reload(), 500);
+                    } else {
+                        showToast(data.error || 'خطا در حذف', 'error');
+                    }
+                } catch (e) {
+                    showToast('خطای شبکه', 'error');
+                }
+            };
+            openModal('deleteModal');
+        }
+
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.add('open');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('open');
+            if (id === 'categoryModal') {
+                currentEditingId = null;
+                tempSvgFile = null;
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const stack = document.getElementById('toastStack');
+            if (!stack) return;
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            const iconClass = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle');
+            const color = type === 'success' ? 'var(--success)' : (type === 'error' ? 'var(--danger)' : 'var(--info)');
+            
+            toast.innerHTML = `<i class="fa ${iconClass}" style="color: ${color}; margin-left: 8px;"></i><span>${message}</span>`;
+            toast.style.cssText = `background:var(--surface); color:var(--text); padding:1rem; border-radius:0.5rem; margin-bottom:0.5rem; box-shadow:var(--shadow); border-right: 4px solid ${color}; display: flex; align-items: center;`;
+            
+            stack.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-15px)';
+                setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
+            }, 3000);
+        }
+    </script>
+{% endblock %}
