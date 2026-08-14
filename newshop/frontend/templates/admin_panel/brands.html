@@ -1,652 +1,561 @@
 {% extends "admin_panel/base.html" %}
 {% load static %}
 
-{% block data_root %}../../{% endblock %}
 {% block data_page %}brands{% endblock %}
 {% block data_title %}مدیریت برندها{% endblock %}
 {% block data_subtitle %}افزودن، ویرایش و سازماندهی برندهای فروشگاه{% endblock %}
 
 {% block content %}
 
-  <main class="page-content" data-app-shell>
+<main class="page-content" data-app-shell>
+    
+    <!-- ۱- کارت‌های آماری -->
+    <div class="grid grid-2 mb-2">
+        <div class="card lift reveal">
+            <div class="stat">
+                <div>
+                    <div class="stat-label">تعداد برندها</div>
+                    <div class="stat-value en-num" id="totalBrands">0</div>
+                </div>
+                <div class="stat-icon"><i class="fa fa-tags"></i></div>
+            </div>
+        </div>
+        <div class="card lift reveal">
+            <div class="stat">
+                <div>
+                    <div class="stat-label">برندهای فعال</div>
+                    <div class="stat-value en-num" id="totalActive">0</div>
+                </div>
+                <div class="stat-icon"><i class="fa fa-check-circle"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ۲- Toolbar -->
+    <div class="card reveal mb-2">
+        <div class="toolbar">
+            <button class="btn btn-primary" onclick="openBrandModal()">
+                <i class="fa fa-plus"></i> ایجاد برند
+            </button>
+            <div class="field" style="flex: 1 1 12rem;">
+                <input type="text" class="input" id="searchInput" placeholder="جستجو در نام برند...">
+            </div>
+            <div class="field" style="flex: 0 0 auto;">
+                <select class="select" id="statusFilter">
+                    <option value="">همه وضعیت‌ها</option>
+                    <option value="true">فعال</option>
+                    <option value="false">غیرفعال</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- ۳- جدول برندها -->
+    <div class="card reveal">
+        <div class="table-wrap">
+            <table class="data-table responsive">
+                <thead>
+                    <tr>
+                        <th>لوگو</th>
+                        <th>نام برند</th>
+                        <th>نام انگلیسی</th>
+                        <th>اسلاگ</th>
+                        <th>تعداد محصولات</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody id="brandsTableBody"></tbody>
+            </table>
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fa fa-tags"></i>
+                <p>هیچ برندی یافت نشد</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal ایجاد/ویرایش -->
+<div class="modal-backdrop" id="brandModal">
+    <div class="modal" style="width: min(100%, 36rem); max-height: 92vh; display: flex; flex-direction: column;">
+        <div class="modal-head">
+            <h2 id="brandModalTitle">ایجاد برند</h2>
+            <button class="action-btn" onclick="closeModal('brandModal')"><i class="fa fa-times"></i></button>
+        </div>
         
-        <!-- ۱- کارت‌های آماری -->
-        <div class="grid grid-2 mb-2">
-            <div class="card lift reveal" style="--delay: 0ms">
-                <div class="stat">
-                    <div>
-                        <div class="stat-label">تعداد برندها</div>
-                        <div class="stat-value en-num" id="totalBrands">0</div>
-                    </div>
-                    <div class="stat-icon"><i class="fa fa-tags"></i></div>
-                </div>
-            </div>
-            <div class="card lift reveal" style="--delay: 100ms">
-                <div class="stat">
-                    <div>
-                        <div class="stat-label">برندهای فعال</div>
-                        <div class="stat-value en-num" id="totalActive">0</div>
-                    </div>
-                    <div class="stat-icon"><i class="fa fa-check-circle"></i></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ۲- Toolbar -->
-        <div class="card reveal mb-2" style="--delay: 200ms">
-            <div class="toolbar">
-                <button class="btn btn-primary" onclick="openBrandModal()">
-                    <i class="fa fa-plus"></i> ایجاد برند
-                </button>
-                <div class="field" style="flex: 1 1 12rem;">
-                    <input type="text" class="input" id="searchInput" placeholder="جستجو در نام برند...">
-                </div>
-                <div class="field" style="flex: 0 0 auto;">
-                    <select class="select" id="statusFilter">
-                        <option value="">همه وضعیت‌ها</option>
-                        <option value="true">فعال</option>
-                        <option value="false">غیرفعال</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- ۳- جدول برندها -->
-        <div class="card reveal" style="--delay: 300ms">
-            <div class="table-wrap">
-                <table class="data-table responsive">
-                    <thead>
-                        <tr>
-                            <th>لوگو</th>
-                            <th>نام برند</th>
-                            <th>اسلاگ</th>
-                            <th>رنگ</th>
-                            <th>وضعیت</th>
-                            <th>آخرین ویرایش</th>
-                            <th>عملیات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="brandsTableBody"></tbody>
-                </table>
-                <div class="empty-state" id="emptyState" style="display: none;">
-                    <i class="fa fa-tags"></i>
-                    <p>هیچ برندی یافت نشد</p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- ✅ Modal با ساختار کاملاً ریسپانسیو -->
-    <div class="modal-backdrop" id="brandModal">
-        <div class="modal brand-modal-responsive">
-            <div class="modal-head">
-                <h2 id="brandModalTitle">ایجاد برند</h2>
-                <button class="action-btn" onclick="closeModal('brandModal')"><i class="fa fa-times"></i></button>
-            </div>
+        <form id="brandForm" onsubmit="event.preventDefault(); saveBrand();" style="display: flex; flex-direction: column; flex: 1; min-height: 0;">
+            <input type="hidden" id="brandId">
             
-            <!-- ✅ بدنه اسکرول‌خور برای موبایل -->
-            <div class="modal-body-scroll">
-                <form id="brandForm" onsubmit="event.preventDefault(); saveBrand();">
-                    <input type="hidden" id="brandId">
-                    <input type="hidden" id="svgRaw" value="">
-                    <div class="form-grid">
-                        <div class="field field-full-mobile">
-                            <label>نام برند <span style="color: var(--danger);">*</span></label>
-                            <input type="text" class="input" id="brandName" required>
-                        </div>
+            <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 1rem;">
+                <div class="form-grid">
+                    
+                    <div class="field field-full">
+                        <label>نام برند <span style="color: var(--danger);">*</span></label>
+                        <input type="text" class="input" id="brandName" required placeholder="مثلاً: سامسونگ">
+                    </div>
 
-                        <div class="field field-full-mobile">
-                            <label>اسلاگ (URL)</label>
-                            <input type="text" class="input" id="brandSlug" 
-                                   placeholder="مثال: nike-shoes" 
-                                   dir="ltr" 
-                                   style="text-align: left; font-size: 0.8rem;">
-                        </div>
+                    <div class="field">
+                        <label>نام انگلیسی</label>
+                        <input type="text" class="input" id="brandNameEn" placeholder="Samsung" dir="ltr">
+                    </div>
 
-                        <!-- آپلود فایل SVG / تصویر -->
-                        <div class="field field-full">
-                            <label>آپلود لوگو (SVG یا تصویر)</label>
-                            <div class="card svg-upload-box" onclick="document.getElementById('svgFile').click()" id="svgUploadBox">
-                                <div class="entity" style="gap: 1rem;">
-                                    <div class="entity-avatar" style="width: 2.5rem; height: 2.5rem; flex-shrink: 0;">
-                                        <i class="fa fa-cloud-upload" style="font-size: 1.1rem;"></i>
-                                    </div>
-                                    <div class="list-copy" style="flex: 1; min-width: 0;">
-                                        <strong id="svgFileName">انتخاب فایل</strong>
-                                        <small id="svgFileHint" style="overflow-wrap: anywhere; word-break: break-word; display: block; margin-top: 0.25rem;">
-                                            فرمت مجاز: SVG, PNG, JPG — کلیک کنید یا فایل را رها نمایید.
-                                        </small>
-                                    </div>
-                                    <button type="button" class="btn btn-secondary btn-sm hide-mobile-btn" style="flex-shrink: 0;">
-                                        <i class="fa fa-folder-open"></i> انتخاب
-                                    </button>
+                    <div class="field">
+                        <label>اسلاگ (URL)</label>
+                        <input type="text" class="input" id="brandSlug" placeholder="samsung" dir="ltr">
+                        <small style="color: var(--muted);">خالی بگذارید تا خودکار ساخته شود</small>
+                    </div>
+
+                    <div class="field">
+                        <label>وضعیت</label>
+                        <select class="select" id="brandStatus">
+                            <option value="true">فعال</option>
+                            <option value="false">غیرفعال</option>
+                        </select>
+                    </div>
+
+                    <!-- آپلود لوگو -->
+                    <div class="field field-full">
+                        <label>لوگو (تصویر)</label>
+                        <small style="color: var(--muted); display: block; margin-bottom: 0.5rem;">
+                            فرمت مجاز: PNG, JPG, WEBP — حداکثر 2 مگابایت
+                        </small>
+
+                        <div id="logoPreview" style="margin-bottom: 0.5rem;"></div>
+
+                        <div class="card svg-upload-box" onclick="document.getElementById('logoInput').click()" id="logoUploadBox">
+                            <div class="entity" style="gap: 1rem;">
+                                <div class="entity-avatar" style="width: 2.5rem; height: 2.5rem; flex-shrink: 0;">
+                                    <i class="fa fa-cloud-upload" style="font-size: 1.1rem;"></i>
                                 </div>
-                            </div>
-                            <input type="file" id="svgFile" accept="image/svg+xml, image/png, image/jpeg" style="display: none;" onchange="handleFileSelect(event)">
-                            
-                            <div class="entity" id="svgPreview" style="display: none; margin-top: 0.5rem; padding: 0.75rem; background: var(--surface-2); border-radius: 0.75rem; border: 1px solid var(--line);">
-                                <div id="svgPreviewAvatar" class="svg-container svg-container-lg"></div>
                                 <div class="list-copy" style="flex: 1; min-width: 0;">
-                                    <strong>پیش‌نمایش</strong>
-                                    <small id="svgPreviewName" style="overflow-wrap: anywhere; word-break: break-word;"></small>
-                                </div>
-                                <button type="button" class="action-btn" onclick="event.stopPropagation(); removeSvgFile();" title="حذف فایل" style="color: var(--danger);">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- ✅ Color Picker کاملاً ریسپانسیو -->
-                        <div class="field field-full">
-                            <label>رنگ لوگو</label>
-                            <div class="color-picker-responsive">
-                                <!-- بخش انتخابگر رنگ -->
-                                <div class="cp-controls">
-                                    <div id="colorSquare" class="cp-square">
-                                        <div id="colorSquareMarker" class="cp-square-marker"></div>
-                                    </div>
-                                    <div id="hueBar" class="cp-hue-bar">
-                                        <div id="hueMarker" class="cp-hue-marker"></div>
-                                    </div>
-                                    
-                            <div class="cp-hex-section">
-                            
-                                <div class="cp-hex-row">
-                                    <div id="colorPreview" class="cp-preview-box"></div>
-                                    <input type="text" id="hexInput" class="input en-num cp-hex-input" placeholder="#000000" maxlength="7">
-                                </div>
-                                <button type="button" class="btn btn-sm btn-secondary" onclick="copyHexColor()" title="کپی HEX" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                                    <i class="fa fa-copy"></i>
-                                </button>
-                                                                
-                                <!-- بخش پیش‌نمایش SVG -->
-                                <div class="cp-preview-section">
-                                    <div class="cp-preview-label">پیش‌نمایش رنگ روی لوگو:</div>
-                                    <div id="colorPreviewSvg" class="svg-container svg-container-lg cp-svg-preview">
-                                        <span style="color: var(--muted); font-size: 0.8rem;">لوگویی انتخاب نشده</span>
-                                    </div>
+                                    <strong id="logoFileName">انتخاب فایل</strong>
+                                    <small style="overflow-wrap: anywhere; word-break: break-word; display: block; margin-top: 0.25rem;">
+                                        کلیک کنید برای انتخاب تصویر لوگو
+                                    </small>
                                 </div>
                             </div>
-                            <input type="hidden" id="svgColor" value="#00bfff">
                         </div>
-
-                        <div class="field field-full-mobile">
-                            <label>وضعیت</label>
-                            <select class="select" id="brandStatus">
-                                <option value="true">فعال</option>
-                                <option value="false">غیرفعال</option>
-                            </select>
-                        </div>
+                        <input type="file" id="logoInput" accept="image/png, image/jpeg, image/jpg, image/webp" 
+                               style="display: none;" onchange="handleLogoUpload(event)">
                     </div>
-                </form>
+
+                </div>
             </div>
 
-            <!-- ✅ فوتر چسبان پایین -->
-            <div class="modal-footer-sticky">
+            <div style="display: flex; gap: 0.5rem; justify-content: flex-end; padding: 1rem; border-top: 1px solid var(--line);">
                 <button type="button" class="btn btn-secondary" onclick="closeModal('brandModal')">انصراف</button>
-                <button type="submit" form="brandForm" class="btn btn-primary">ذخیره</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"></i> ذخیره
+                </button>
             </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal تأیید حذف -->
+<div class="modal-backdrop" id="deleteModal">
+    <div class="modal" style="width: min(100%, 32rem);">
+        <div class="modal-head">
+            <h2>تأیید حذف</h2>
+            <button class="action-btn" onclick="closeModal('deleteModal')"><i class="fa fa-times"></i></button>
+        </div>
+        <p id="deleteMessage" style="margin-bottom: 1.5rem; color: var(--muted);">آیا از حذف این برند مطمئن هستید؟</p>
+        <div class="toolbar" style="justify-content: flex-end;">
+            <button class="btn btn-secondary" onclick="closeModal('deleteModal')">انصراف</button>
+            <button class="btn btn-danger" id="confirmDeleteBtn">
+                <i class="fa fa-trash"></i> حذف
+            </button>
         </div>
     </div>
+</div>
 
-    <!-- Modal تأیید حذف -->
-    <div class="modal-backdrop" id="deleteModal">
-        <div class="modal">
-            <div class="modal-head">
-                <h2>تأیید حذف</h2>
-                <button class="action-btn" onclick="closeModal('deleteModal')"><i class="fa fa-times"></i></button>
-            </div>
-            <p id="deleteMessage" style="margin-bottom: 1.5rem; color: var(--muted);">آیا از حذف این برند مطمئن هستید؟</p>
-            <div class="toolbar" style="justify-content: flex-end;">
-                <button class="btn btn-secondary" onclick="closeModal('deleteModal')">انصراف</button>
-                <button class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
-            </div>
-        </div>
-    </div>
+<div class="toast-stack" id="toastStack"></div>
 
-    <div class="toast-stack" id="toastStack"></div>
+<style>
+    .en-num {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        letter-spacing: 0.5px;
+    }
+    .svg-upload-box {
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 2px dashed var(--line);
+        background: var(--surface-2);
+        padding: 1rem 1.25rem;
+        border-radius: 0.75rem;
+    }
+    .svg-upload-box:hover {
+        border-color: var(--accent);
+        background: rgba(0, 191, 255, 0.05);
+    }
+    .svg-upload-box.has-file {
+        border-style: solid;
+        border-color: var(--accent);
+        background: rgba(0, 191, 255, 0.08);
+    }
+    .logo-preview {
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        border: 2px solid var(--line);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        background: var(--surface-2);
+    }
+    .logo-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .logo-preview .remove-btn {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
 
-    <style>
-        /* ✅ اعداد انگلیسی */
-        .en-num {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-            letter-spacing: 0.5px;
-        }
+<script>
+    // ============ API Endpoints ============
+    const API_LIST = "{% url 'admin_panel:brands:api_list' %}";
+    const API_SAVE = "{% url 'admin_panel:brands:api_save' %}";
+    const API_DELETE = "{% url 'admin_panel:brands:api_delete' %}";
 
-        /* ✅ استایل‌های پایه SVG */
-        .svg-container { display: inline-flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; background: transparent; vertical-align: middle; }
-        .svg-container img, .svg-container svg { width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; display: block !important; object-fit: contain; }
-        .svg-container-sm { width: 2.2rem; height: 2.2rem; }
-        .svg-container-lg { width: 5rem; height: 5rem; }
-        .svg-upload-box { cursor: pointer; transition: all 0.2s; border: 2px dashed var(--line); background: var(--surface-2); padding: 1rem 1.25rem; border-radius: 0.75rem; }
-        .svg-upload-box:hover { border-color: var(--accent); background: rgba(0, 191, 255, 0.05); transform: translateY(-1px); }
-        .svg-upload-box.has-file { border-style: solid; border-color: var(--accent); background: rgba(0, 191, 255, 0.08); }
+    let brands = [];
+    let currentEditId = null;
+    let pendingDeleteId = null;
+    let tempLogoData = null;     // base64 (جدید) یا null
+    let logoRemoved = false;
+    let existingLogo = null;     // URL لوگوی موجود
 
-        /* ============================================
-           ✅ ریسپانسیو مودال برند
-           ============================================ */
-        
-        /* مودال ریسپانسیو */
-        .brand-modal-responsive {
-            width: min(100%, 42rem);
-            max-height: 92vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* بدنه اسکرول‌خور */
-        .modal-body-scroll {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-            min-height: 0;
-        }
-
-        /* فوتر چسبان */
-        .modal-footer-sticky {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: flex-end;
-            padding: 1rem;
-            border-top: 1px solid var(--line);
-            background: var(--surface);
-            flex-shrink: 0;
-        }
-
-        /* فیلدهای تمام‌عرض در موبایل */
-        @media (max-width: 640px) {
-            .field-full-mobile {
-                grid-column: 1 / -1 !important;
-            }
-            .hide-mobile-btn {
-                display: none !important;
-            }
-        }
-
-        /* ============================================
-           ✅ Color Picker ریسپانسیو
-           ============================================ */
-        .color-picker-responsive {
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .cp-controls {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .cp-square {
-            width: 100%;
-            aspect-ratio: 1;
-            position: relative;
-            cursor: crosshair;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            touch-action: none;
-        }
-
-        .cp-square-marker {
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            border: 2px solid white;
-            border-radius: 50%;
-            box-shadow: 0 0 3px rgba(0,0,0,0.6);
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
-
-        .cp-hue-bar {
-            width: 100%;
-            height: 16px;
-            position: relative;
-            cursor: pointer;
-            border-radius: 0.5rem;
-            margin-top: 0.75rem;
-            background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
-            touch-action: none;
-        }
-
-        .cp-hue-marker {
-            position: absolute;
-            width: 6px;
-            height: 20px;
-            background: white;
-            border: 1px solid #333;
-            border-radius: 3px;
-            top: -2px;
-            transform: translateX(-50%);
-            pointer-events: none;
-            box-shadow: 0 0 3px rgba(0,0,0,0.4);
-        }
-
-        .cp-hex-row {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-            align-items: center;
-        }
-
-        .cp-preview-box {
-            width: 36px;
-            height: 36px;
-            border-radius: 0.5rem;
-            border: 1px solid var(--line);
-            flex-shrink: 0;
-        }
-
-        .cp-hex-input {
-            flex: 1;
-            min-width: 0;
-            min-height: 2.2rem;
-            font-family: monospace;
-            text-align: center;
-        }
-
-        .cp-preview-section {
-            flex: 0 0 auto;
-            min-width: 140px;
-        }
-
-        .cp-preview-label {
-            margin-bottom: 0.5rem;
-            color: var(--muted);
-            font-size: 0.82rem;
-        }
-
-        .cp-svg-preview {
-            background: var(--surface-2);
-            border: 1px dashed var(--line);
-        }
-
-        /* ✅ شکستن Color Picker در موبایل */
-        @media (max-width: 520px) {
-            .color-picker-responsive {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .cp-controls {
-                min-width: 100%;
-            }
-            .cp-preview-section {
-                min-width: 100%;
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-            }
-            .cp-preview-label {
-                margin-bottom: 0;
-                flex: 1;
-                font-size: 0.78rem;
-            }
-            .cp-svg-preview {
-                width: 4rem;
-                height: 4rem;
-                flex-shrink: 0;
+    // ============ CSRF Token ============
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
-    </style>
+        return cookieValue;
+    }
 
-    <script src="../../assets/js/app.js"></script>
-    <script>
-        const STORAGE_KEY = 'admin_brands_v1';
-        let brands = [];
-        let currentHue = 191, currentSaturation = 1, currentValue = 1;
-        let activePicker = null;
-        let currentEditingId = null;
-        let tempSvgFile = null;
-
-        // ✅ تبدیل ارقام فارسی/عربی به انگلیسی
-        function toEnDigits(str) {
-            if (!str) return '';
-            return String(str)
-                .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
-                .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+    // ============ بارگذاری برندها ============
+    async function loadBrands() {
+        try {
+            const res = await fetch(API_LIST);
+            const data = await res.json();
+            if (data.success) {
+                brands = data.brands || [];
+                renderBrands();
+                updateStats();
+            }
+        } catch (e) {
+            console.error('خطا در بارگذاری:', e);
+            showToast('خطا در بارگذاری برندها', 'error');
         }
+    }
 
-        function loadBrands() { try { brands = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { brands = []; } }
-        function saveBrandsToStorage() { localStorage.setItem(STORAGE_KEY, JSON.stringify(brands)); }
+    function updateStats() {
+        document.getElementById('totalBrands').textContent = brands.length.toLocaleString('en-US');
+        document.getElementById('totalActive').textContent = brands.filter(b => b.isActive).length.toLocaleString('en-US');
+    }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadBrands(); renderBrands(); updateStats(); initColorPicker();
-            document.getElementById('searchInput').addEventListener('input', renderBrands);
-            document.getElementById('statusFilter').addEventListener('change', renderBrands);
-            document.querySelectorAll('.modal-backdrop').forEach(bd => bd.addEventListener('click', e => { if(e.target === bd) closeModal(bd.id); }));
-        });
+    function renderBrands() {
+        const tbody = document.getElementById('brandsTableBody');
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const statusVal = document.getElementById('statusFilter').value;
 
-        function updateStats() {
-            document.getElementById('totalBrands').textContent = brands.length.toLocaleString('en-US');
-            document.getElementById('totalActive').textContent = brands.filter(b => b.isActive).length.toLocaleString('en-US');
+        const filtered = brands.filter(b =>
+            (!search || (b.name || '').toLowerCase().includes(search) || (b.nameEn || '').toLowerCase().includes(search)) &&
+            (!statusVal || b.isActive.toString() === statusVal)
+        );
+
+        if (!filtered.length) {
+            tbody.innerHTML = '';
+            document.getElementById('emptyState').style.display = 'block';
+            return;
         }
+        document.getElementById('emptyState').style.display = 'none';
 
-        function renderBrands() {
-            const tbody = document.getElementById('brandsTableBody');
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            const statusVal = document.getElementById('statusFilter').value;
+        tbody.innerHTML = filtered.map(b => {
+            const logoHtml = b.logo
+                ? `<img src="${b.logo}" alt="${b.name}" style="width:40px;height:40px;border-radius:8px;object-fit:contain;background:var(--surface-2);padding:4px;">`
+                : '<i class="fa fa-image" style="color: var(--muted); font-size: 1.5rem;"></i>';
+            
+            const statusBadge = b.isActive
+                ? '<span class="badge success"><i class="fa fa-circle"></i> فعال</span>'
+                : '<span class="badge danger">غیرفعال</span>';
 
-            const filtered = brands.filter(b => 
-                (!search || (b.title||'').toLowerCase().includes(search)) && 
-                (!statusVal || b.isActive.toString() === statusVal)
-            );
-
-            if(!filtered.length) { tbody.innerHTML=''; document.getElementById('emptyState').style.display='block'; return; }
-            document.getElementById('emptyState').style.display='none';
-
-            tbody.innerHTML = filtered.map(b => {
-                let icon = `<div class="svg-container svg-container-sm"><i class="fa fa-tag" style="color:var(--accent);font-size:1.2rem"></i></div>`;
-                if(b.svgRaw) icon = `<div class="svg-container svg-container-sm">${applyColorToSVG(b.svgRaw, b.color)}</div>`;
-                else if(b.icon) icon = `<div class="svg-container svg-container-sm"><img src="${b.icon}" alt="${b.title}"></div>`;
-
-                return `<tr>
-                    <td>${icon}</td>
-                    <td><strong>${b.title}</strong></td>
-                    <td dir="ltr" style="text-align:left;font-size:0.85rem;color:var(--muted)" class="en-num">${b.slug||'-'}</td>
+            return `
+                <tr>
+                    <td>${logoHtml}</td>
+                    <td><strong>${b.name}</strong></td>
+                    <td class="en-num" dir="ltr" style="color: var(--muted);">${b.nameEn || '-'}</td>
+                    <td class="en-num" dir="ltr" style="color: var(--muted); font-size: 0.85rem;">${b.slug || '-'}</td>
+                    <td class="en-num">${b.productsCount || 0} محصول</td>
+                    <td>${statusBadge}</td>
                     <td>
-                        <span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:${b.color};border:1px solid var(--line);vertical-align:middle"></span> 
-                        <small class="en-num" style="margin-right:5px">${b.color}</small>
+                        <div class="actions">
+                            <button class="action-btn" onclick="openBrandModal(${b.id})" title="ویرایش">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="action-btn" style="color: var(--danger);" onclick="requestDelete(${b.id})" title="حذف">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
                     </td>
-                    <td><span class="badge ${b.isActive?'success':'danger'}">${b.isActive?'فعال':'غیرفعال'}</span></td>
-                    <td style="font-size:0.85rem" class="en-num">${toEnDigits(b.updatedAt)||'-'}</td>
-                    <td><div class="actions">
-                        <button class="action-btn" onclick="openBrandModal(${b.id})"><i class="fa fa-edit"></i></button>
-                        <button class="action-btn" style="color:var(--danger)" onclick="deleteBrand(${b.id})"><i class="fa fa-trash"></i></button>
-                    </div></td>
-                </tr>`;
-            }).join('');
-        }
+                </tr>
+            `;
+        }).join('');
+    }
 
-        // ================= COLOR PICKER & SVG LOGIC =================
-        function initColorPicker() {
-            const sq = document.getElementById('colorSquare'), hb = document.getElementById('hueBar'), hi = document.getElementById('hexInput');
-            if(!sq||!hb||!hi) return;
-
-            const bindDrag = (el, type) => {
-                el.addEventListener('pointerdown', e => { e.preventDefault(); activePicker=type; el.setPointerCapture(e.pointerId); type==='square'?updateSquareFromEvent(e):updateHueFromEvent(e); });
-                el.addEventListener('pointermove', e => { if(activePicker===type){e.preventDefault(); type==='square'?updateSquareFromEvent(e):updateHueFromEvent(e);} });
-                el.addEventListener('pointerup', ()=>activePicker=null);
-                el.addEventListener('pointercancel', ()=>activePicker=null);
-            };
-            bindDrag(sq,'square'); bindDrag(hb,'hue');
-
-            hi.addEventListener('input', function(){
-                if(/^#[0-9A-Fa-f]{6}$/.test(this.value.trim())){
-                    const rgb=hexToRgb(this.value.trim()); if(rgb){const hsv=rgbToHsv(rgb.r,rgb.g,rgb.b); currentHue=hsv.h;currentSaturation=hsv.s;currentValue=hsv.v; updateColorPickerUI();}
-                }
-            });
-            updateColorPickerUI();
-        }
-
-        function updateSquareFromEvent(e){const r=document.getElementById('colorSquare').getBoundingClientRect(); currentSaturation=Math.max(0,Math.min(e.clientX-r.left,r.width))/r.width; currentValue=1-Math.max(0,Math.min(e.clientY-r.top,r.height))/r.height; updateColorPickerUI();}
-        function updateHueFromEvent(e){const r=document.getElementById('hueBar').getBoundingClientRect(); currentHue=(Math.max(0,Math.min(e.clientX-r.left,r.width))/r.width)*360; updateColorPickerUI();}
-
-        function updateColorPickerUI() {
-            const rgb=hsvToRgb(currentHue,currentSaturation,currentValue), hex=rgbToHex(rgb.r,rgb.g,rgb.b);
-            document.getElementById('colorSquare').style.background=`linear-gradient(to top,black,transparent),linear-gradient(to right,white,transparent),hsl(${currentHue},100%,50%)`;
-            document.getElementById('colorSquareMarker').style.cssText=`left:${currentSaturation*100}%;top:${(1-currentValue)*100}%`;
-            document.getElementById('hueMarker').style.left=`${(currentHue/360)*100}%`;
-            document.getElementById('colorPreview').style.background=hex;
-            if(document.activeElement!==document.getElementById('hexInput')) document.getElementById('hexInput').value=hex;
-            document.getElementById('svgColor').value=hex;
-            updateColorPreviewSvg(hex);
-        }
-
-        function applyColorToSVG(svgString, color) {
-            if(!svgString || !color) return svgString;
-            try {
-                const doc = new DOMParser().parseFromString(svgString, 'image/svg+xml');
-                const svg = doc.querySelector('svg');
-                if(!svg) return svgString;
-                svg.removeAttribute('fill');
-                svg.querySelectorAll('*').forEach(el => {
-                    if(el.closest('defs') || el.closest('clipPath') || el.closest('mask')) return;
-                    const fill = el.getAttribute('fill');
-                    const stroke = el.getAttribute('stroke');
-                    if(fill && fill !== 'none') el.setAttribute('fill', color);
-                    if(stroke && stroke !== 'none') el.setAttribute('stroke', color);
-                    if(!fill && !stroke && el.tagName !== 'g' && el.tagName !== 'svg') el.setAttribute('fill', color);
-                });
-                return new XMLSerializer().serializeToString(svg);
-            } catch(e) { return svgString; }
-        }
-
-        function updateColorPreviewSvg(hex) {
-            const container = document.getElementById('colorPreviewSvg');
-            const raw = document.getElementById('svgRaw').value;
-            if(raw && raw.trim()) container.innerHTML = applyColorToSVG(raw, hex);
-            else container.innerHTML = '<span style="color:var(--muted);font-size:0.6rem">لوگویی انتخاب نشده</span>';
-        }
-
-        function copyHexColor(){navigator.clipboard.writeText(document.getElementById('hexInput').value).then(()=>showToast('HEX کپی شد','success'));}
-        function hsvToRgb(h,s,v){h/=360;let r,g,b;const i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);switch(i%6){case 0:r=v,g=t,b=p;break;case 1:r=q,g=v,b=p;break;case 2:r=p,g=v,b=t;break;case 3:r=p,g=q,b=v;break;case 4:r=t,g=p,b=v;break;case 5:r=v,g=p,b=q;break;}return{r:Math.round(r*255),g:Math.round(g*255),b:Math.round(b*255)};}
-        function rgbToHsv(r,g,b){r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min;let h,s,v=max;s=max===0?0:d/max;if(max===min)h=0;else{switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;case b:h=(r-g)/d+4;break;}h/=6;}return{h:Math.round(h*360),s,v};}
-        function rgbToHex(r,g,b){return '#'+[r,g,b].map(x=>{const h=x.toString(16);return h.length===1?'0'+h:h;}).join('');}
-        function hexToRgb(hex){const r=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);return r?{r:parseInt(r[1],16),g:parseInt(r[2],16),b:parseInt(r[3],16)}:null;}
-
-        // ================= CRUD OPERATIONS =================
-        function openBrandModal(id=null) {
-            const form=document.getElementById('brandForm'); form.reset(); tempSvgFile=null;
-            document.getElementById('svgPreview').style.display='none';
-            document.getElementById('svgUploadBox').classList.remove('has-file');
-            document.getElementById('svgFileName').textContent='انتخاب فایل';
-            document.getElementById('svgRaw').value='';
-            updateColorPreviewSvg('#00bfff');
-
-            if(id) {
-                const b=brands.find(x=>x.id==id); if(!b)return;
-                currentEditingId=b.id;
-                document.getElementById('brandModalTitle').textContent='ویرایش برند';
-                document.getElementById('brandId').value=b.id;
-                document.getElementById('brandName').value=b.title;
-                document.getElementById('brandSlug').value=b.slug||'';
-                document.getElementById('brandStatus').value=b.isActive.toString();
-                
-                if(b.color){const rgb=hexToRgb(b.color);if(rgb){const hsv=rgbToHsv(rgb.r,rgb.g,rgb.b);currentHue=hsv.h;currentSaturation=hsv.s;currentValue=hsv.v;}}
-                document.getElementById('svgColor').value=b.color||'#00bfff';
-                document.getElementById('svgRaw').value=b.svgRaw||'';
-                
-                if(b.svgRaw){
-                    document.getElementById('svgPreview').style.display='flex';
-                    document.getElementById('svgPreviewAvatar').innerHTML=applyColorToSVG(b.svgRaw, b.color);
-                    document.getElementById('svgUploadBox').classList.add('has-file');
-                    document.getElementById('svgFileName').textContent='فایل فعلی';
-                }
-                updateColorPickerUI();
-            } else {
-                currentEditingId=null;
-                document.getElementById('brandModalTitle').textContent='ایجاد برند';
-                currentHue=191;currentSaturation=1;currentValue=1;
-                document.getElementById('svgColor').value='#00bfff';
-                updateColorPickerUI();
-            }
-            document.getElementById('brandModal').classList.add('open');
-        }
-
-        function handleFileSelect(e) {
-            const file=e.target.files[0]; if(!file)return; tempSvgFile=file;
-            document.getElementById('svgPreview').style.display='flex';
-            document.getElementById('svgUploadBox').classList.add('has-file');
-            document.getElementById('svgFileName').textContent=file.name;
-
-            if(file.type==='image/svg+xml'){
-                const reader=new FileReader();
-                reader.onload=ev=>{
-                    document.getElementById('svgRaw').value=ev.target.result;
-                    const col=document.getElementById('svgColor').value;
-                    document.getElementById('svgPreviewAvatar').innerHTML=applyColorToSVG(ev.target.result,col);
-                    updateColorPreviewSvg(col);
-                };
-                reader.readAsText(file);
-            } else {
-                const url=URL.createObjectURL(file);
-                document.getElementById('svgPreviewAvatar').innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:contain">`;
-                document.getElementById('svgRaw').value='';
-                document.getElementById('colorPreviewSvg').innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:contain">`;
-            }
-        }
-
-        function removeSvgFile() {
-            tempSvgFile=null;
-            document.getElementById('svgPreview').style.display='none';
-            document.getElementById('svgPreviewAvatar').innerHTML='';
-            document.getElementById('svgFile').value='';
-            document.getElementById('svgUploadBox').classList.remove('has-file');
-            document.getElementById('svgFileName').textContent='انتخاب فایل';
-            document.getElementById('svgRaw').value='';
-            updateColorPreviewSvg(null);
-        }
-
-        function saveBrand() {
-            const title=document.getElementById('brandName').value.trim();
-            if(!title) return showToast('نام برند الزامی است','error');
-            
-            // ✅ تاریخ شمسی با اعداد انگلیسی
-            const dateStr = toEnDigits(new Date().toLocaleDateString('fa-IR'));
-            
-            const data={
-                title,
-                slug: document.getElementById('brandSlug').value.trim() || title.toLowerCase().replace(/\s+/g,'-'),
-                color: document.getElementById('svgColor').value,
-                isActive: document.getElementById('brandStatus').value==='true',
-                svgRaw: document.getElementById('svgRaw').value,
-                updatedAt: dateStr
-            };
-
-            if(currentEditingId){
-                const idx=brands.findIndex(b=>b.id==currentEditingId);
-                if(idx>-1) brands[idx]={...brands[idx], ...data};
-                showToast('برند ویرایش شد','success');
-            } else {
-                data.id=Date.now(); data.createdAt=dateStr;
-                brands.push(data);
-                showToast('برند ایجاد شد','success');
-            }
-            saveBrandsToStorage(); closeModal('brandModal'); renderBrands(); updateStats();
-        }
-
-        function deleteBrand(id) {
-            const b=brands.find(x=>x.id==id); if(!b)return;
-            document.getElementById('deleteMessage').textContent=`حذف برند "${b.title}"؟`;
-            document.getElementById('confirmDeleteBtn').onclick=()=>{
-                brands=brands.filter(x=>x.id!=id);
-                saveBrandsToStorage(); closeModal('deleteModal'); renderBrands(); updateStats(); showToast('برند حذف شد','success');
-            };
-            document.getElementById('deleteModal').classList.add('open');
-        }
-
-        function closeModal(id){document.getElementById(id).classList.remove('open'); if(id==='brandModal'){currentEditingId=null;tempSvgFile=null;}}
+    // ============ مدیریت لوگو ============
+    function renderLogoPreview() {
+        const container = document.getElementById('logoPreview');
+        const uploadBox = document.getElementById('logoUploadBox');
+        const fileName = document.getElementById('logoFileName');
         
-        function showToast(msg,type='success'){
-            const s=document.getElementById('toastStack');if(!s)return;
-            const t=document.createElement('div');t.className='toast';
-            const c=type==='success'?'var(--success)':(type==='error'?'var(--danger)':'var(--info)');
-            const i=type==='success'?'fa-check-circle':(type==='error'?'fa-exclamation-circle':'fa-info-circle');
-            t.innerHTML=`<i class="fa ${i}" style="color:${c};margin-left:8px"></i><span>${msg}</span>`;
-            t.style.cssText=`background:var(--surface);color:var(--text);padding:1rem;border-radius:0.5rem;margin-bottom:0.5rem;box-shadow:var(--shadow);border-right:4px solid ${c};display:flex;align-items:center;`;
-            s.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(-15px)';setTimeout(()=>t.remove(),300);},3000);
+        const src = tempLogoData || existingLogo;
+        
+        if (!src) {
+            container.innerHTML = '';
+            uploadBox.classList.remove('has-file');
+            fileName.textContent = 'انتخاب فایل';
+            return;
         }
-    </script>
+
+        uploadBox.classList.add('has-file');
+        fileName.textContent = 'فایل انتخاب شد';
+        container.innerHTML = `
+            <div class="logo-preview">
+                <img src="${src}" alt="لوگو">
+                <button type="button" class="remove-btn" onclick="event.stopPropagation(); removeLogo()">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        `;
+    }
+
+    function handleLogoUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // بررسی حجم (حداکثر 2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            showToast('حجم فایل نباید بیشتر از 2 مگابایت باشد', 'error');
+            e.target.value = '';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            tempLogoData = ev.target.result;
+            logoRemoved = false;
+            renderLogoPreview();
+        };
+        reader.readAsDataURL(file);
+        e.target.value = '';
+    }
+
+    function removeLogo() {
+        tempLogoData = null;
+        existingLogo = null;
+        logoRemoved = true;
+        document.getElementById('logoInput').value = '';
+        renderLogoPreview();
+    }
+
+    // ============ اسلاگ خودکار ============
+    function toSlug(str) {
+        return str.trim().toLowerCase()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+    }
+
+    document.getElementById('brandNameEn').addEventListener('input', (e) => {
+        const slugInput = document.getElementById('brandSlug');
+        if (!slugInput.dataset.manual) {
+            slugInput.value = toSlug(e.target.value);
+        }
+    });
+
+    document.getElementById('brandSlug').addEventListener('input', (e) => {
+        e.target.dataset.manual = 'true';
+    });
+
+    // ============ Modal ============
+    function openBrandModal(id = null) {
+        const form = document.getElementById('brandForm');
+        form.reset();
+        currentEditId = id;
+
+        tempLogoData = null;
+        logoRemoved = false;
+        existingLogo = null;
+
+        if (id) {
+            const b = brands.find(x => x.id === id);
+            if (!b) return;
+
+            document.getElementById('brandModalTitle').textContent = 'ویرایش برند';
+            document.getElementById('brandId').value = b.id;
+            document.getElementById('brandName').value = b.name || '';
+            document.getElementById('brandNameEn').value = b.nameEn || '';
+            document.getElementById('brandSlug').value = b.slug || '';
+            document.getElementById('brandSlug').dataset.manual = 'true';
+            document.getElementById('brandStatus').value = b.isActive.toString();
+
+            if (b.logo) {
+                existingLogo = b.logo;
+            }
+        } else {
+            document.getElementById('brandModalTitle').textContent = 'ایجاد برند';
+            document.getElementById('brandSlug').dataset.manual = '';
+        }
+
+        renderLogoPreview();
+        document.getElementById('brandModal').classList.add('open');
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+        if (id === 'brandModal') {
+            currentEditId = null;
+            tempLogoData = null;
+            existingLogo = null;
+        }
+    }
+
+    // ============ ذخیره ============
+    async function saveBrand() {
+        const name = document.getElementById('brandName').value.trim();
+        if (!name) {
+            showToast('نام برند الزامی است', 'error');
+            return;
+        }
+
+        const formData = new FormData();
+        if (currentEditId) formData.append('id', currentEditId);
+        formData.append('name', name);
+        formData.append('nameEn', document.getElementById('brandNameEn').value.trim());
+        formData.append('slug', document.getElementById('brandSlug').value.trim());
+        formData.append('isActive', document.getElementById('brandStatus').value);
+
+        if (tempLogoData) {
+            formData.append('logoData', tempLogoData);
+        }
+        if (logoRemoved) {
+            formData.append('logoRemove', 'true');
+        }
+
+        try {
+            const res = await fetch(API_SAVE, {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-CSRFToken': getCookie('csrftoken') }
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                showToast(currentEditId ? 'برند ویرایش شد' : 'برند ایجاد شد', 'success');
+                closeModal('brandModal');
+                await loadBrands();
+            } else {
+                showToast(data.error || 'خطا در ذخیره', 'error');
+            }
+        } catch (err) {
+            console.error(err);
+            showToast('خطای شبکه', 'error');
+        }
+    }
+
+    // ============ حذف ============
+    function requestDelete(id) {
+        const b = brands.find(x => x.id === id);
+        if (!b) return;
+
+        pendingDeleteId = id;
+        document.getElementById('deleteMessage').textContent = `آیا از حذف برند "${b.name}" مطمئن هستید؟`;
+        document.getElementById('deleteModal').classList.add('open');
+    }
+
+    document.getElementById('confirmDeleteBtn').onclick = async () => {
+        if (!pendingDeleteId) return;
+
+        try {
+            const formData = new FormData();
+            formData.append('id', pendingDeleteId);
+
+            const res = await fetch(API_DELETE, {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-CSRFToken': getCookie('csrftoken') }
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                showToast('برند حذف شد', 'success');
+                pendingDeleteId = null;
+                closeModal('deleteModal');
+                await loadBrands();
+            } else {
+                showToast(data.error || 'خطا در حذف', 'error');
+            }
+        } catch (err) {
+            console.error(err);
+            showToast('خطای شبکه', 'error');
+        }
+    };
+
+    // ============ جستجو و فیلتر ============
+    document.getElementById('searchInput').addEventListener('input', renderBrands);
+    document.getElementById('statusFilter').addEventListener('change', renderBrands);
+
+    // ============ Modalهای عمومی ============
+    document.querySelectorAll('.modal-backdrop').forEach(bd => {
+        bd.addEventListener('click', e => {
+            if (e.target === bd) closeModal(bd.id);
+        });
+    });
+
+    // ============ Toast ============
+    function showToast(msg, type = 'success') {
+        const s = document.getElementById('toastStack');
+        if (!s) return;
+        const t = document.createElement('div');
+        t.className = 'toast';
+        const c = type === 'success' ? 'var(--success)' : (type === 'error' ? 'var(--danger)' : 'var(--info)');
+        const i = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle');
+        t.innerHTML = `<i class="fa ${i}" style="color:${c};margin-left:8px"></i><span>${msg}</span>`;
+        t.style.cssText = `background:var(--surface);color:var(--text);padding:1rem;border-radius:0.5rem;margin-bottom:0.5rem;box-shadow:var(--shadow);border-right:4px solid ${c};display:flex;align-items:center;`;
+        s.appendChild(t);
+        setTimeout(() => {
+            t.style.opacity = '0';
+            t.style.transform = 'translateX(-15px)';
+            setTimeout(() => t.remove(), 300);
+        }, 3000);
+    }
+
+    // ============ شروع ============
+    document.addEventListener('DOMContentLoaded', () => {
+        loadBrands();
+    });
+</script>
+
 {% endblock %}

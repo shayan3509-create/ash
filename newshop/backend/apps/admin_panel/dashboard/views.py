@@ -44,11 +44,8 @@ def users_create(request):
 def users_roles(request):
     return render(request, "admin_panel/users/roles.html")
 
-
-@login_required
 def products(request):
-    return render(request, "admin_panel/products/index.html")
-
+    return render(request, "admin_panel/products.html")
 
 @login_required
 def products_create(request):
