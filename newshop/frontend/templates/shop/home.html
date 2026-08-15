@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+
 <!-- ==========================
      HERO BANNER (DYNAMIC)
 ========================== -->
@@ -9,7 +10,7 @@
 {{ home_banners|json_script:"banners-data" }}
 
 <section class="hero-banner">
-    <a href="{{ home_banners.0.link }}" class="banner-link" {% if home_banners.0.newTab %}target="_blank"{% endif %}>
+    <a href="{{ home_banners.0.link }}" class="banner-link" id="bannerLink" {% if home_banners.0.newTab %}target="_blank"{% endif %}>
         <div class="banner-slider" id="bannerSlider">
             <img 
                 src="{{ home_banners.0.src }}" 
@@ -21,20 +22,20 @@
         </div>
     </a>
 
-    <!-- فقط وقتی بیشتر از یک بنر داریم نمایش بده -->
     {% if home_banners|length > 1 %}
-    <button id="banner-prev" class="banner-btn prev" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
-        class="icon icon-tabler icons-tabler-filled icon-tabler-arrow-big-left">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path
-            d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z" />
-    </svg></button>
-    <button id="banner-next" class="banner-btn next" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
-        class="icon icon-tabler icons-tabler-filled icon-tabler-arrow-big-right">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path
-            d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z" />
-    </svg></button>
+    <!-- دکمه‌های قبلی/بعدی - فقط در دسکتاپ نمایش داده می‌شوند -->
+    <button id="banner-prev" class="banner-btn prev" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z" />
+        </svg>
+    </button>
+    <button id="banner-next" class="banner-btn next" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z" />
+        </svg>
+    </button>
 
     <div class="banner-progress">
         <span id="banner-progress-bar"></span>
@@ -43,12 +44,22 @@
     {% endif %}
 </section>
 
+<style>
+/* ✅ مخفی کردن دکمه‌های بنر در موبایل */
+@media (max-width: 768px) {
+    .banner-btn {
+        display: none !important;
+    }
+}
+</style>
+
 <script>
     window.DYNAMIC_BANNERS = JSON.parse(
         document.getElementById('banners-data').textContent
     );
 </script>
 {% endif %}
+
 <!-- ==========================
      CATEGORIES (DYNAMIC)
 ========================== -->
@@ -62,13 +73,10 @@
     </div>
 
     <div class="categories-wrapper">
-        <button class="category-arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-arrow-big-right"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z" /></svg></button>
-
+        <!-- ✅ دکمه‌های فلش حذف شدند -->
         <div class="categories-scroll" id="categories-scroll">
             <!-- دسته‌بندی‌ها توسط JavaScript رندر می‌شوند -->
         </div>
-
-        <button class="category-arrow left"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-arrow-big-left"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z" /></svg></button>
     </div>
 </section>
 
@@ -142,32 +150,29 @@
                 </a>
             `;
         }).join('');
+
+        // ✅ Drag to Scroll برای دسته‌بندی‌ها (Mouse + Touch)
+        initDragScroll(container);
     });
 </script>
 {% endif %}
-
 
 <!-- ==========================
      FLASH SALE
 ========================== -->
 <section class="flash-section">
     <div class="flash-bg">
-        <!-- Discount Icon -->
         <div class="flash-discount-icon">
             <img src="{% static 'icons/discount.png' %}" alt="پیشنهاد شگفت‌انگیز" draggable="false" ondragstart="return false;">
         </div>
 
-        <!-- Flash Header -->
         <div class="flash-header">
             <h2 class="flash-title">پیشنهاد شگفت‌انگیز</h2>
             <a href="#" class="flash-all">مشاهده همه</a>
         </div>
 
-        <!-- Flash Products -->
         <div class="flash-products-area">
             <div class="flash-products">
-                
-                <!-- Product 1 -->
                 <a href="/product/iphone-17-pro-max" class="flash-product-card">
                     <div class="product-image">
                         <img src="{% static 'images/products/17promax.png' %}" alt="آیفون 17 پرو مکس" loading="lazy">
@@ -183,7 +188,6 @@
                     </div>
                 </a>
 
-                <!-- Product 2 -->
                 <a href="/product/apple-watch-series-10" class="flash-product-card">
                     <div class="product-image">
                         <img src="{% static 'images/products/applewach.png' %}" alt="اپل واچ سری 10">
@@ -199,7 +203,6 @@
                     </div>
                 </a>
 
-                <!-- Product 3 -->
                 <a href="/product/galaxy-buds-4-pro" class="flash-product-card">
                     <div class="product-image">
                         <img src="{% static 'images/products/GalaxyBuds4Pro.png' %}" alt="Galaxy Buds 4 Pro">
@@ -215,7 +218,6 @@
                     </div>
                 </a>
 
-                <!-- Product 4 -->
                 <a href="/product/macbook-pro-m4" class="flash-product-card">
                     <div class="product-image">
                         <img src="{% static 'images/products/macbook.png' %}" alt="MacBook Pro M4">
@@ -231,7 +233,6 @@
                     </div>
                 </a>
 
-                <!-- Product 5 -->
                 <a href="/product/galaxy-s26-ultra" class="flash-product-card">
                     <div class="product-image">
                         <img src="{% static 'images/products/s26ultra.png' %}" alt="Galaxy S26 Ultra">
@@ -247,7 +248,6 @@
                     </div>
                 </a>
 
-                <!-- Product 6 -->
                 <a href="/product/airpods-pro-2" class="flash-product-card">
                     <div class="product-image">
                         <img src="{% static 'images/products/airpodspro2.png' %}" alt="AirPods Pro 2">
@@ -262,10 +262,329 @@
                         <span>تومان</span>
                     </div>
                 </a>
-
             </div>
         </div>
     </div>
 </section>
+
+<!-- ==========================
+     BRANDS
+========================== -->
+<section class="brands-box">
+    <div class="brands-header">
+        <div class="brands-header-left">
+            <h2>برندهای محبوب</h2>
+            <span class="brands-badge">{{ home_brands|length }} برند</span>
+        </div>
+        <a href="#" class="view-all-brands-btn">مشاهده همه</a>
+    </div>
+
+    <div class="brands-wrapper">
+        <!-- ✅ دکمه‌های فلش حذف شدند -->
+        <div class="brands-scroll" id="brands-scroll">
+            {% for brand in home_brands %}
+            <a href="#" class="brand-card" title="مشاهده محصولات {{ brand.name }}">
+                {% if brand.logo %}
+                    <div class="brand-logo-wrapper">
+                        <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" loading="lazy">
+                    </div>
+                {% else %}
+                    <div class="brand-logo-placeholder">{{ brand.name|first }}</div>
+                {% endif %}
+                
+                <div class="brand-info">
+                    <h3 class="brand-name">{{ brand.name }}</h3>
+                    {% if brand.name_en %}
+                        <p class="brand-name-en">{{ brand.name_en }}</p>
+                    {% endif %}
+                </div>
+            </a>
+            {% empty %}
+                <div class="brands-empty">
+                    <div class="brands-empty-icon">🏷️</div>
+                    <p>هنوز برندی اضافه نشده است</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ==========================
+     MAIN SCRIPT
+========================== -->
+<script>
+// ===== تابع عمومی Drag Scroll (برای دسته‌بندی و برندها) =====
+function initDragScroll(slider) {
+    if (!slider) return;
+    
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let hasMoved = false;
+
+    // Mouse Events
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        hasMoved = false;
+        slider.classList.add('dragging');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isDown) {
+            isDown = false;
+            slider.classList.remove('dragging');
+        }
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        hasMoved = true;
+        const x = e.pageX - slider.offsetLeft;
+        const walk = x - startX;
+        slider.scrollLeft = scrollLeft - walk;
+    });
+
+    // Touch Events (موبایل)
+    slider.addEventListener('touchstart', (e) => {
+        isDown = true;
+        hasMoved = false;
+        slider.classList.add('dragging');
+        startX = e.touches[0].pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    }, { passive: true });
+
+    slider.addEventListener('touchend', () => {
+        isDown = false;
+        slider.classList.remove('dragging');
+    }, { passive: true });
+
+    slider.addEventListener('touchcancel', () => {
+        isDown = false;
+        slider.classList.remove('dragging');
+    }, { passive: true });
+
+    slider.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        hasMoved = true;
+        const x = e.touches[0].pageX - slider.offsetLeft;
+        const walk = x - startX;
+        slider.scrollLeft = scrollLeft - walk;
+    }, { passive: true });
+
+    // جلوگیری از کلیک بعد از drag
+    slider.addEventListener('click', (e) => {
+        if (hasMoved) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }, true);
+}
+
+// ===== Banner Swipe در موبایل =====
+(function() {
+    if (!window.DYNAMIC_BANNERS || window.DYNAMIC_BANNERS.length <= 1) return;
+
+    const bannerImage = document.getElementById('banner-image');
+    const bannerLink = document.getElementById('bannerLink');
+    const bannerSlider = document.getElementById('bannerSlider');
+    
+    if (!bannerImage || !bannerSlider) return;
+
+    const banners = window.DYNAMIC_BANNERS;
+    let currentIndex = 0;
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let autoPlayInterval;
+    const AUTOPLAY_DELAY = 5000;
+    const SWIPE_THRESHOLD = 50;
+
+    // تغییر بنر
+    function showBanner(index) {
+        if (index < 0) index = banners.length - 1;
+        if (index >= banners.length) index = 0;
+        currentIndex = index;
+
+        const banner = banners[currentIndex];
+        
+        // افکت fade
+        bannerImage.style.opacity = '0';
+        bannerImage.style.transition = 'opacity 0.3s ease';
+        
+        setTimeout(() => {
+            bannerImage.src = banner.src;
+            bannerImage.alt = banner.title || '';
+            
+            if (bannerLink) {
+                bannerLink.href = banner.link || '#';
+                if (banner.newTab) {
+                    bannerLink.target = '_blank';
+                } else {
+                    bannerLink.removeAttribute('target');
+                }
+            }
+            
+            bannerImage.style.opacity = '1';
+        }, 150);
+
+        // به‌روزرسانی dots
+        updateDots();
+        
+        // ریست progress
+        resetProgress();
+    }
+
+    // ایجاد dots
+    function createDots() {
+        const dotsContainer = document.getElementById('banner-dots');
+        if (!dotsContainer) return;
+        
+        dotsContainer.innerHTML = '';
+        banners.forEach((_, i) => {
+            const dot = document.createElement('span');
+            dot.className = 'banner-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => {
+                showBanner(i);
+                resetAutoPlay();
+            };
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    // به‌روزرسانی dots
+    function updateDots() {
+        const dots = document.querySelectorAll('.banner-dot');
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+    }
+
+    // Progress Bar
+    function resetProgress() {
+        const progressBar = document.getElementById('banner-progress-bar');
+        if (!progressBar) return;
+        
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+        
+        setTimeout(() => {
+            progressBar.style.transition = `width ${AUTOPLAY_DELAY}ms linear`;
+            progressBar.style.width = '100%';
+        }, 50);
+    }
+
+    // Auto Play
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(() => {
+            showBanner(currentIndex + 1);
+        }, AUTOPLAY_DELAY);
+    }
+
+    function resetAutoPlay() {
+        clearInterval(autoPlayInterval);
+        startAutoPlay();
+    }
+
+    // دکمه‌های قبلی/بعدی (فقط دسکتاپ)
+    const prevBtn = document.getElementById('banner-prev');
+    const nextBtn = document.getElementById('banner-next');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            showBanner(currentIndex - 1);
+            resetAutoPlay();
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            showBanner(currentIndex + 1);
+            resetAutoPlay();
+        });
+    }
+
+    // ===== Swipe در موبایل =====
+    bannerSlider.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        currentX = startX;
+    }, { passive: true });
+
+    bannerSlider.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+    }, { passive: true });
+
+    bannerSlider.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const diff = currentX - startX;
+        
+        // Swipe به چپ → بنر بعدی
+        if (diff < -SWIPE_THRESHOLD) {
+            showBanner(currentIndex + 1);
+            resetAutoPlay();
+        }
+        // Swipe به راست → بنر قبلی
+        else if (diff > SWIPE_THRESHOLD) {
+            showBanner(currentIndex - 1);
+            resetAutoPlay();
+        }
+    }, { passive: true });
+
+    // Mouse drag برای دسکتاپ (اختیاری)
+    bannerSlider.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        currentX = startX;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX;
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const diff = currentX - startX;
+        
+        if (Math.abs(diff) > SWIPE_THRESHOLD) {
+            if (diff < 0) {
+                showBanner(currentIndex + 1);
+            } else {
+                showBanner(currentIndex - 1);
+            }
+            resetAutoPlay();
+        }
+    });
+
+    // متوقف کردن auto play وقتی کاربر روی بنر است
+    bannerSlider.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+    bannerSlider.addEventListener('mouseleave', () => startAutoPlay());
+
+    // شروع
+    createDots();
+    resetProgress();
+    startAutoPlay();
+})();
+
+// ===== Initialize Drag Scroll برای برندها =====
+document.addEventListener('DOMContentLoaded', function() {
+    const brandsSlider = document.getElementById('brands-scroll');
+    initDragScroll(brandsSlider);
+});
+</script>
 
 {% endblock %}
