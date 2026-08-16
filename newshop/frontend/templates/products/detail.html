@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }} | نیوشاپ{% endblock %}
+
+{% block extra_css %}
+<style>
+    .product-detail-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+    
+    .product-detail-placeholder {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 60px 40px;
+        text-align: center;
+    }
+    
+    .product-detail-placeholder h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+    }
+    
+    .product-detail-placeholder p {
+        color: var(--muted);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .product-info {
+        background: var(--surface-2);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 30px;
+        text-align: right;
+        direction: rtl;
+    }
+    
+    .product-info h3 {
+        color: var(--accent);
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+    }
+    
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .info-item {
+        background: var(--card);
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+    }
+    
+    .info-item strong {
+        color: var(--muted);
+        font-size: 0.85rem;
+        display: block;
+        margin-bottom: 4px;
+    }
+    
+    .info-item span {
+        color: var(--text-color);
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="product-detail-container">
+    <div class="product-detail-placeholder">
+        <h1>📦 صفحه جزئیات محصول</h1>
+        <p>این صفحه آماده است و منتظر طراحی فرانت‌اند شماست</p>
+        
+        <div class="product-info">
+            <h3>🎯 اطلاعات محصول دریافت شده از دیتابیس:</h3>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>نام محصول</strong>
+                    <span>{{ product.name }}</span>
+                </div>
+                
+                {% if product.name_en %}
+                <div class="info-item">
+                    <strong>نام انگلیسی</strong>
+                    <span>{{ product.name_en }}</span>
+                </div>
+                {% endif %}
+                
+                <div class="info-item">
+                    <strong>دسته‌بندی</strong>
+                    <span>{{ product.category.title }}</span>
+                </div>
+                
+                {% if product.brand %}
+                <div class="info-item">
+                    <strong>برند</strong>
+                    <span>{{ product.brand.name }}</span>
+                </div>
+                {% endif %}
+                
+                <div class="info-item">
+                    <strong>قیمت</strong>
+                    <span>{{ product.sale_price|default:product.original_price }} تومان</span>
+                </div>
+                
+                {% if product.discount_percent > 0 %}
+                <div class="info-item">
+                    <strong>تخفیف</strong>
+                    <span>{{ product.discount_percent }}%</span>
+                </div>
+                {% endif %}
+                
+                <div class="info-item">
+                    <strong>موجودی</strong>
+                    <span>{{ product.stock }} عدد</span>
+                </div>
+                
+                {% if product.sku %}
+                <div class="info-item">
+                    <strong>کد محصول</strong>
+                    <span>{{ product.sku }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if related_products %}
+        <div class="product-info" style="margin-top: 20px;">
+            <h3>🔗 محصولات مرتبط ({{ related_products|length }} محصول)</h3>
+            <div class="info-grid">
+                {% for related in related_products %}
+                <div class="info-item">
+                    <strong>{{ related.name }}</strong>
+                    <span>{{ related.sale_price|default:related.original_price }} تومان</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+    </div>
+</div>
+{% endblock %}

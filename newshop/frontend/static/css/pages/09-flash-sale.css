@@ -155,7 +155,7 @@
     direction: rtl;
     text-decoration: none;
     background: #ffffff;
-    border: 1px solid rgba(20, 30, 45, .08);
+    border: 1px solid rgba(13, 172, 196, 0.664) !important;
     border-radius: 20px;
     box-shadow: 0 5px 14px rgba(20, 30, 45, .05), 0 1px 3px rgba(20, 30, 45, .04);
     transition: transform .28s cubic-bezier(.2, .8, .2, 1), box-shadow .28s ease, border-color .28s ease;
@@ -371,7 +371,7 @@ html.dark .flash-product-card:hover {
 }
 
 html.dark .flash-product-card .product-image {
-    background: linear-gradient(145deg, #090909, #000000);
+    background: linear-gradient(150deg, #6e6e6e, #000000);
 }
 
 html.dark .flash-product-card .product-name {
@@ -560,12 +560,12 @@ html.dark .flash-product-card .product-discount {
     }
 
     html.dark .flash-product-card:hover {
-        border-color: rgba(255, 255, 255, .08);
+        border-color: rgba(4, 226, 255, 0.987);
         box-shadow: 0 6px 16px rgba(0, 0, 0, .5);
     }
 
     html.dark .flash-product-card .product-image {
-        background: linear-gradient(145deg, #090909, #000000);
+        background: linear-gradient(150deg, #6e6e6e, #000000);
     }
 
     html.dark .flash-product-card .product-name {

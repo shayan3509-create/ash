@@ -9,4 +9,5 @@ urlpatterns = [
         # محصولات
     path("products/", include("apps.admin_panel.products.urls")),
     path("brands/", include("apps.admin_panel.brands.urls")),
+    path("homepage/", include("apps.admin_panel.homepage.urls")),
 ]

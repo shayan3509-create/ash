@@ -1,319 +1,250 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}نیوشاپ | فروشگاه آنلاین{% endblock %}
+
 {% block content %}
 
-<!-- ==========================
-     HERO BANNER (DYNAMIC)
-========================== -->
-{% if home_banners %}
-{{ home_banners|json_script:"banners-data" }}
+{% for section in sections %}
 
-<section class="hero-banner">
-    <a href="{{ home_banners.0.link }}" class="banner-link" id="bannerLink" {% if home_banners.0.newTab %}target="_blank"{% endif %}>
-        <div class="banner-slider" id="bannerSlider">
-            <img 
-                src="{{ home_banners.0.src }}" 
-                id="banner-image"
-                class="banner-current"
-                draggable="false"
-                alt="{{ home_banners.0.title }}"
-            >
-        </div>
-    </a>
+    <!-- ==========================
+         HERO BANNER
+    ========================== -->
+    {% if section.type == 'banners' and section.banners %}
+    {{ section.banners|json_script:"banners-data" }}
+    <section class="hero-banner">
+        <a href="{{ section.banners.0.link }}" class="banner-link" id="bannerLink" {% if section.banners.0.newTab %}target="_blank"{% endif %}>
+            <picture class="banner-slider" id="bannerSlider">
+                <source media="(max-width: 768px)" srcset="{{ section.banners.0.srcMobile|default:section.banners.0.src }}" id="banner-source-mobile">
+                <img src="{{ section.banners.0.src }}" id="banner-image" class="banner-current" draggable="false" alt="{{ section.banners.0.title }}" loading="eager" fetchpriority="high">
+            </picture>
+        </a>
 
-    {% if home_banners|length > 1 %}
-    <!-- دکمه‌های قبلی/بعدی - فقط در دسکتاپ نمایش داده می‌شوند -->
-    <button id="banner-prev" class="banner-btn prev" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z" />
-        </svg>
-    </button>
-    <button id="banner-next" class="banner-btn next" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z" />
-        </svg>
-    </button>
-
-    <div class="banner-progress">
-        <span id="banner-progress-bar"></span>
-    </div>
-    <div class="banner-dots" id="banner-dots"></div>
+        {% if section.banners|length > 1 %}
+        <button id="banner-prev" class="banner-btn prev" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z" />
+            </svg>
+        </button>
+        <button id="banner-next" class="banner-btn next" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12.089 3.634a2 2 0 0 0 -1.089 1.78l-.001 2.586h-6.999a2 2 0 0 0 -2 2v4l.005 .15a2 2 0 0 0 1.995 1.85l6.999 -.001l.001 2.587a2 2 0 0 0 3.414 1.414l6.586 -6.586a2 2 0 0 0 0 -2.828l-6.586 -6.586a2 2 0 0 0 -2.18 -.434l-.145 .068z" />
+            </svg>
+        </button>
+        <div class="banner-progress"><span id="banner-progress-bar"></span></div>
+        <div class="banner-dots" id="banner-dots"></div>
+        {% endif %}
+    </section>
     {% endif %}
-</section>
 
-<style>
-/* ✅ مخفی کردن دکمه‌های بنر در موبایل */
-@media (max-width: 768px) {
-    .banner-btn {
-        display: none !important;
-    }
-}
-</style>
-
-<script>
-    window.DYNAMIC_BANNERS = JSON.parse(
-        document.getElementById('banners-data').textContent
-    );
-</script>
-{% endif %}
-
-<!-- ==========================
-     CATEGORIES (DYNAMIC)
-========================== -->
-{% if home_categories %}
-{{ home_categories|json_script:"categories-data" }}
-
-<section class="categories-box">
-    <div class="categories-header">
-        <h2>دسته بندی محصولات</h2>
-        <a href="#" class="view-all-btn">مشاهده همه</a>
-    </div>
-
-    <div class="categories-wrapper">
-        <!-- ✅ دکمه‌های فلش حذف شدند -->
-        <div class="categories-scroll" id="categories-scroll">
-            <!-- دسته‌بندی‌ها توسط JavaScript رندر می‌شوند -->
+    <!-- ==========================
+         CATEGORIES
+    ========================== -->
+    {% if section.type == 'categories' and section.categories %}
+    {{ section.categories|json_script:"categories-data" }}
+    <section class="categories-box">
+        <div class="categories-header">
+            <h2>{{ section.title }}</h2>
+            <a href="#" class="view-all-btn">مشاهده همه</a>
         </div>
-    </div>
-</section>
-
-<script>
-    window.DYNAMIC_CATEGORIES = JSON.parse(
-        document.getElementById('categories-data').textContent
-    );
-
-    function applyColorToSVG(svgString, color) {
-        if (!svgString || !color) return svgString;
-        try {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(svgString, 'image/svg+xml');
-            const svg = doc.querySelector('svg');
-            if (!svg) return svgString;
-            
-            const allElements = svg.querySelectorAll('*');
-            svg.removeAttribute('fill');
-            svg.removeAttribute('color');
-            
-            allElements.forEach(el => {
-                if (el.closest('mask') || el.closest('defs') || el.closest('clipPath')) return;
-                
-                const fill = el.getAttribute('fill');
-                const stroke = el.getAttribute('stroke');
-                
-                if (fill === 'currentColor') el.setAttribute('fill', color);
-                if (stroke === 'currentColor') el.setAttribute('stroke', color);
-                
-                if (!el.getAttribute('fill') && !el.getAttribute('stroke')) {
-                    let parent = el.parentElement;
-                    while (parent && parent !== svg) {
-                        if (parent.closest('mask') || parent.closest('defs') || parent.closest('clipPath')) break;
-                        const pFill = parent.getAttribute('fill');
-                        const pStroke = parent.getAttribute('stroke');
-                        if (pFill === 'currentColor') el.setAttribute('fill', color);
-                        if (pStroke === 'currentColor') el.setAttribute('stroke', color);
-                        if (pFill !== 'currentColor' && pStroke !== 'currentColor') break;
-                        parent = parent.parentElement;
-                    }
-                }
-            });
-            
-            return new XMLSerializer().serializeToString(svg);
-        } catch (e) {
-            return svgString;
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const container = document.getElementById('categories-scroll');
-        if (!container || !window.DYNAMIC_CATEGORIES) return;
-
-        container.innerHTML = window.DYNAMIC_CATEGORIES.map(cat => {
-            let iconHtml = '';
-            
-            if (cat.svgRaw && cat.svgRaw.trim() !== '') {
-                iconHtml = applyColorToSVG(cat.svgRaw, cat.color);
-            } else if (cat.icon) {
-                iconHtml = `<img src="${cat.icon}" alt="${cat.title}">`;
-            } else {
-                iconHtml = `<i class="fa fa-folder" style="color: ${cat.color}; font-size: 1.5rem;"></i>`;
-            }
-            
-            return `
-                <a href="${cat.link}" class="category-card" style="--cat-color: ${cat.color};">
-                    <div class="category-icon">
-                        ${iconHtml}
-                    </div>
-                    <span>${cat.title}</span>
-                </a>
-            `;
-        }).join('');
-
-        // ✅ Drag to Scroll برای دسته‌بندی‌ها (Mouse + Touch)
-        initDragScroll(container);
-    });
-</script>
-{% endif %}
-
-<!-- ==========================
-     FLASH SALE
-========================== -->
-<section class="flash-section">
-    <div class="flash-bg">
-        <div class="flash-discount-icon">
-            <img src="{% static 'icons/discount.png' %}" alt="پیشنهاد شگفت‌انگیز" draggable="false" ondragstart="return false;">
+        <div class="categories-wrapper">
+            <div class="categories-scroll" id="categories-scroll"></div>
         </div>
+    </section>
+    {% endif %}
 
-        <div class="flash-header">
-            <h2 class="flash-title">پیشنهاد شگفت‌انگیز</h2>
-            <a href="#" class="flash-all">مشاهده همه</a>
-        </div>
-
-        <div class="flash-products-area">
-            <div class="flash-products">
-                <a href="/product/iphone-17-pro-max" class="flash-product-card">
-                    <div class="product-image">
-                        <img src="{% static 'images/products/17promax.png' %}" alt="آیفون 17 پرو مکس" loading="lazy">
-                    </div>
-                    <h3 class="product-name">آیفون 17 پرو مکس</h3>
-                    <div class="product-old-row">
-                        <span class="product-old-price">۱۲۹,۹۰۰,۰۰۰ تومان</span>
-                        <span class="product-discount">۲۵٪</span>
-                    </div>
-                    <div class="product-price">
-                        <strong>۹۹,۹۰۰,۰۰۰</strong>
-                        <span>تومان</span>
-                    </div>
-                </a>
-
-                <a href="/product/apple-watch-series-10" class="flash-product-card">
-                    <div class="product-image">
-                        <img src="{% static 'images/products/applewach.png' %}" alt="اپل واچ سری 10">
-                    </div>
-                    <h3 class="product-name">اپل واچ سری 10</h3>
-                    <div class="product-old-row">
-                        <div class="product-old-price">۳۴,۹۰۰,۰۰۰ تومان</div>
-                        <span class="product-discount">18%</span>
-                    </div>
-                    <div class="product-price">
-                        <strong>۲۸,۵۰۰,۰۰۰</strong>
-                        <span>تومان</span>
-                    </div>
-                </a>
-
-                <a href="/product/galaxy-buds-4-pro" class="flash-product-card">
-                    <div class="product-image">
-                        <img src="{% static 'images/products/GalaxyBuds4Pro.png' %}" alt="Galaxy Buds 4 Pro">
-                    </div>
-                    <h3 class="product-name">Galaxy Buds 4 Pro</h3>
-                    <div class="product-old-row">
-                        <div class="product-old-price">۹,۹۰۰,۰۰۰ تومان</div>
-                        <span class="product-discount">25%</span>
-                    </div>
-                    <div class="product-price">
-                        <strong>۷,۴۰۰,۰۰۰</strong>
-                        <span>تومان</span>
-                    </div>
-                </a>
-
-                <a href="/product/macbook-pro-m4" class="flash-product-card">
-                    <div class="product-image">
-                        <img src="{% static 'images/products/macbook.png' %}" alt="MacBook Pro M4">
-                    </div>
-                    <h3 class="product-name">MacBook Pro M4</h3>
-                    <div class="product-old-row">
-                        <div class="product-old-price">۱۲۶,۹۰۰,۰۰۰ تومان</div>
-                        <span class="product-discount">12%</span>
-                    </div>
-                    <div class="product-price">
-                        <strong>۱۱۲,۴۰۰,۰۰۰</strong>
-                        <span>تومان</span>
-                    </div>
-                </a>
-
-                <a href="/product/galaxy-s26-ultra" class="flash-product-card">
-                    <div class="product-image">
-                        <img src="{% static 'images/products/s26ultra.png' %}" alt="Galaxy S26 Ultra">
-                    </div>
-                    <h3 class="product-name">Galaxy S26 Ultra</h3>
-                    <div class="product-old-row">
-                        <div class="product-old-price">۷۹,۹۰۰,۰۰۰ تومان</div>
-                        <span class="product-discount">15%</span>
-                    </div>
-                    <div class="product-price">
-                        <strong>۶۷,۹۰۰,۰۰۰</strong>
-                        <span>تومان</span>
-                    </div>
-                </a>
-
-                <a href="/product/airpods-pro-2" class="flash-product-card">
-                    <div class="product-image">
-                        <img src="{% static 'images/products/airpodspro2.png' %}" alt="AirPods Pro 2">
-                    </div>
-                    <h3 class="product-name">AirPods Pro 2</h3>
-                    <div class="product-old-row">
-                        <div class="product-old-price">۱۴,۹۰۰,۰۰۰ تومان</div>
-                        <span class="product-discount">20%</span>
-                    </div>
-                    <div class="product-price">
-                        <strong>۱۱,۹۰۰,۰۰۰</strong>
-                        <span>تومان</span>
-                    </div>
-                </a>
+    <!-- ==========================
+         FLASH SALE
+    ========================== -->
+    {% if section.type == 'flash_sale' and section.products %}
+    <section class="flash-section">
+        <div class="flash-bg">
+            <div class="flash-discount-icon">
+                <img src="{% static 'icons/discount.png' %}" alt="پیشنهاد شگفت‌انگیز" draggable="false" ondragstart="return false;">
+            </div>
+            <div class="flash-header">
+                <h2 class="flash-title">{{ section.title }}</h2>
+                <a href="#" class="flash-all">مشاهده همه</a>
+            </div>
+            <div class="flash-products-area">
+                <div class="flash-products">
+                    {% for product in section.products %}
+                    <a href="{% url 'products:detail' product.slug %}" class="flash-product-card">
+                        <div class="product-image">
+                            {% with main_img=product.images.all|first %}
+                                {% if main_img %}
+                                    <img src="{{ main_img.image.url }}" alt="{{ product.name }}" loading="lazy">
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        <h3 class="product-name">{{ product.name }}</h3>
+                        {% if product.discount_percent > 0 %}
+                        <div class="product-old-row">
+                            <span class="product-old-price">{{ product.original_price|floatformat:0 }} تومان</span>
+                            <span class="product-discount">{{ product.discount_percent }}٪</span>
+                        </div>
+                        {% endif %}
+                        <div class="product-price">
+                            <strong>{{ product.sale_price|floatformat:0 }}</strong>
+                            <span>تومان</span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    {% endif %}
 
-<!-- ==========================
-     BRANDS
-========================== -->
-<section class="brands-box">
-    <div class="brands-header">
-        <div class="brands-header-left">
-            <h2>برندهای محبوب</h2>
-            <span class="brands-badge">{{ home_brands|length }} برند</span>
+    <!-- ==========================
+         BRANDS
+    ========================== -->
+    {% if section.type == 'brands' and section.brands %}
+    <section class="brands-box">
+        <div class="brands-header">
+            <div class="brands-header-left">
+                <h2>{{ section.title }}</h2>
+                <span class="brands-badge">{{ section.brands|length }} برند</span>
+            </div>
+            <a href="#" class="view-all-brands-btn">
+                مشاهده همه
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </a>
         </div>
-        <a href="#" class="view-all-brands-btn">مشاهده همه</a>
-    </div>
-
-    <div class="brands-wrapper">
-        <!-- ✅ دکمه‌های فلش حذف شدند -->
-        <div class="brands-scroll" id="brands-scroll">
-            {% for brand in home_brands %}
-            <a href="#" class="brand-card" title="مشاهده محصولات {{ brand.name }}">
-                {% if brand.logo %}
-                    <div class="brand-logo-wrapper">
-                        <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" loading="lazy">
+        <div class="brands-wrapper">
+            <div class="brands-scroll" id="brands-scroll">
+                {% for brand in section.brands %}
+                <a href="#" class="brand-card" title="مشاهده محصولات {{ brand.name }}">
+                    {% if brand.logo %}
+                        <div class="brand-logo-wrapper">
+                            <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" loading="lazy">
+                        </div>
+                    {% else %}
+                        <div class="brand-logo-placeholder">{{ brand.name|first }}</div>
+                    {% endif %}
+                    <div class="brand-info">
+                        <h3 class="brand-name">{{ brand.name }}</h3>
+                        {% if brand.name_en %}
+                            <p class="brand-name-en">{{ brand.name_en }}</p>
+                        {% endif %}
                     </div>
-                {% else %}
-                    <div class="brand-logo-placeholder">{{ brand.name|first }}</div>
-                {% endif %}
-                
-                <div class="brand-info">
-                    <h3 class="brand-name">{{ brand.name }}</h3>
-                    {% if brand.name_en %}
-                        <p class="brand-name-en">{{ brand.name_en }}</p>
+                </a>
+                {% empty %}
+                    <div class="brands-empty">
+                        <div class="brands-empty-icon">🏷️</div>
+                        <p>هنوز برندی اضافه نشده است</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ==========================
+         PRODUCT SECTIONS (bestsellers, newest, discounted, manual, ...)
+    ========================== -->
+    {% if section.type in 'bestsellers newest most_discounted least_sellers discounted manual' and section.products %}
+    <section class="products-section">
+        <div class="products-section-header">
+            <h2>{{ section.title }}</h2>
+            <a href="#" class="view-all-btn">مشاهده همه</a>
+        </div>
+        <div class="products-grid">
+            {% for product in section.products %}
+            <a href="{% url 'products:detail' product.slug %}" class="product-card">
+                <div class="product-image">
+                    {% with main_img=product.images.all|first %}
+                        {% if main_img %}
+                            <img src="{{ main_img.image.url }}" alt="{{ product.name }}" loading="lazy">
+                        {% endif %}
+                    {% endwith %}
+                    {% if product.discount_percent > 0 %}
+                        <span class="discount-badge">{{ product.discount_percent }}%</span>
                     {% endif %}
                 </div>
-            </a>
-            {% empty %}
-                <div class="brands-empty">
-                    <div class="brands-empty-icon">🏷️</div>
-                    <p>هنوز برندی اضافه نشده است</p>
+                <div class="product-info">
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    <div class="product-price-row">
+                        {% if product.discount_percent > 0 %}
+                            <span class="old-price">{{ product.original_price|floatformat:0 }}</span>
+                        {% endif %}
+                        <span class="current-price">{{ product.sale_price|floatformat:0 }} تومان</span>
+                    </div>
                 </div>
+            </a>
             {% endfor %}
         </div>
+    </section>
+    {% endif %}
+
+{% empty %}
+    <div style="text-align: center; padding: 4rem; color: var(--muted);">
+        <h2>هنوز بخشی برای صفحه اصلی تعریف نشده است</h2>
+        <p>لطفاً از پنل مدیریت بخش‌ها را تنظیم کنید.</p>
     </div>
-</section>
+{% endfor %}
 
 <!-- ==========================
-     MAIN SCRIPT
+     SCRIPTS
 ========================== -->
 <script>
-// ===== تابع عمومی Drag Scroll (برای دسته‌بندی و برندها) =====
+// ===== Banner Data =====
+{% for section in sections %}
+    {% if section.type == 'banners' and section.banners %}
+        window.DYNAMIC_BANNERS = JSON.parse(document.getElementById('banners-data').textContent);
+    {% endif %}
+    {% if section.type == 'categories' and section.categories %}
+        window.DYNAMIC_CATEGORIES = JSON.parse(document.getElementById('categories-data').textContent);
+    {% endif %}
+{% endfor %}
+
+// ===== SVG Color Helper =====
+function applyColorToSVG(svgString, color) {
+    if (!svgString || !color) return svgString;
+    try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgString, 'image/svg+xml');
+        const svg = doc.querySelector('svg');
+        if (!svg) return svgString;
+        
+        const allElements = svg.querySelectorAll('*');
+        svg.removeAttribute('fill');
+        svg.removeAttribute('color');
+        
+        allElements.forEach(el => {
+            if (el.closest('mask') || el.closest('defs') || el.closest('clipPath')) return;
+            
+            const fill = el.getAttribute('fill');
+            const stroke = el.getAttribute('stroke');
+            
+            if (fill === 'currentColor') el.setAttribute('fill', color);
+            if (stroke === 'currentColor') el.setAttribute('stroke', color);
+            
+            if (!el.getAttribute('fill') && !el.getAttribute('stroke')) {
+                let parent = el.parentElement;
+                while (parent && parent !== svg) {
+                    if (parent.closest('mask') || parent.closest('defs') || parent.closest('clipPath')) break;
+                    const pFill = parent.getAttribute('fill');
+                    const pStroke = parent.getAttribute('stroke');
+                    if (pFill === 'currentColor') el.setAttribute('fill', color);
+                    if (pStroke === 'currentColor') el.setAttribute('stroke', color);
+                    if (pFill !== 'currentColor' && pStroke !== 'currentColor') break;
+                    parent = parent.parentElement;
+                }
+            }
+        });
+        
+        return new XMLSerializer().serializeToString(svg);
+    } catch (e) {
+        return svgString;
+    }
+}
+
+// ===== Drag Scroll =====
 function initDragScroll(slider) {
     if (!slider) return;
     
@@ -322,7 +253,6 @@ function initDragScroll(slider) {
     let scrollLeft;
     let hasMoved = false;
 
-    // Mouse Events
     slider.addEventListener('mousedown', (e) => {
         isDown = true;
         hasMoved = false;
@@ -348,7 +278,6 @@ function initDragScroll(slider) {
         slider.scrollLeft = scrollLeft - walk;
     });
 
-    // Touch Events (موبایل)
     slider.addEventListener('touchstart', (e) => {
         isDown = true;
         hasMoved = false;
@@ -375,7 +304,6 @@ function initDragScroll(slider) {
         slider.scrollLeft = scrollLeft - walk;
     }, { passive: true });
 
-    // جلوگیری از کلیک بعد از drag
     slider.addEventListener('click', (e) => {
         if (hasMoved) {
             e.preventDefault();
@@ -384,207 +312,350 @@ function initDragScroll(slider) {
     }, true);
 }
 
-// ===== Banner Swipe در موبایل =====
-(function() {
-    if (!window.DYNAMIC_BANNERS || window.DYNAMIC_BANNERS.length <= 1) return;
-
-    const bannerImage = document.getElementById('banner-image');
-    const bannerLink = document.getElementById('bannerLink');
-    const bannerSlider = document.getElementById('bannerSlider');
+// ===== Init on DOMContentLoaded =====
+document.addEventListener('DOMContentLoaded', function() {
     
-    if (!bannerImage || !bannerSlider) return;
-
-    const banners = window.DYNAMIC_BANNERS;
-    let currentIndex = 0;
-    let startX = 0;
-    let currentX = 0;
-    let isDragging = false;
-    let autoPlayInterval;
-    const AUTOPLAY_DELAY = 5000;
-    const SWIPE_THRESHOLD = 50;
-
-    // تغییر بنر
-    function showBanner(index) {
-        if (index < 0) index = banners.length - 1;
-        if (index >= banners.length) index = 0;
-        currentIndex = index;
-
-        const banner = banners[currentIndex];
-        
-        // افکت fade
-        bannerImage.style.opacity = '0';
-        bannerImage.style.transition = 'opacity 0.3s ease';
-        
-        setTimeout(() => {
-            bannerImage.src = banner.src;
-            bannerImage.alt = banner.title || '';
-            
-            if (bannerLink) {
-                bannerLink.href = banner.link || '#';
-                if (banner.newTab) {
-                    bannerLink.target = '_blank';
-                } else {
-                    bannerLink.removeAttribute('target');
-                }
+    // Render Categories
+    const catContainer = document.getElementById('categories-scroll');
+    if (catContainer && window.DYNAMIC_CATEGORIES) {
+        catContainer.innerHTML = window.DYNAMIC_CATEGORIES.map(cat => {
+            let iconHtml = '';
+            if (cat.svgRaw && cat.svgRaw.trim() !== '') {
+                iconHtml = applyColorToSVG(cat.svgRaw, cat.color);
+            } else if (cat.icon) {
+                iconHtml = `<img src="${cat.icon}" alt="${cat.title}">`;
+            } else {
+                iconHtml = `<i class="fa fa-folder" style="color: ${cat.color}; font-size: 1.5rem;"></i>`;
             }
+            return `
+                <a href="${cat.link}" class="category-card" style="--cat-color: ${cat.color};">
+                    <div class="category-icon">${iconHtml}</div>
+                    <span>${cat.title}</span>
+                </a>
+            `;
+        }).join('');
+        initDragScroll(catContainer);
+    }
+    
+    // Brands drag
+    const brandsSlider = document.getElementById('brands-scroll');
+    if (brandsSlider) initDragScroll(brandsSlider);
+    
+    // Banner Slider
+    if (window.DYNAMIC_BANNERS && window.DYNAMIC_BANNERS.length > 1) {
+        const bannerImage = document.getElementById('banner-image');
+        const bannerSourceMobile = document.getElementById('banner-source-mobile');
+        const bannerLink = document.getElementById('bannerLink');
+        const bannerSlider = document.getElementById('bannerSlider');
+        
+        if (!bannerImage || !bannerSlider) return;
+
+        const banners = window.DYNAMIC_BANNERS;
+        let currentIndex = 0;
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        let autoPlayInterval;
+        const AUTOPLAY_DELAY = 5000;
+        const SWIPE_THRESHOLD = 50;
+
+        function showBanner(index) {
+            if (index < 0) index = banners.length - 1;
+            if (index >= banners.length) index = 0;
+            currentIndex = index;
+
+            const banner = banners[currentIndex];
             
-            bannerImage.style.opacity = '1';
-        }, 150);
+            bannerImage.style.opacity = '0';
+            bannerImage.style.transition = 'opacity 0.3s ease';
+            
+            setTimeout(() => {
+                bannerImage.src = banner.src;
+                bannerImage.alt = banner.title || '';
+                
+                if (bannerSourceMobile) {
+                    bannerSourceMobile.srcset = banner.srcMobile || banner.src;
+                }
+                
+                if (bannerLink) {
+                    bannerLink.href = banner.link || '#';
+                    if (banner.newTab) {
+                        bannerLink.target = '_blank';
+                    } else {
+                        bannerLink.removeAttribute('target');
+                    }
+                }
+                
+                bannerImage.style.opacity = '1';
+            }, 150);
 
-        // به‌روزرسانی dots
-        updateDots();
-        
-        // ریست progress
-        resetProgress();
-    }
+            updateDots();
+            resetProgress();
+        }
 
-    // ایجاد dots
-    function createDots() {
-        const dotsContainer = document.getElementById('banner-dots');
-        if (!dotsContainer) return;
+        function createDots() {
+            const dotsContainer = document.getElementById('banner-dots');
+            if (!dotsContainer) return;
+            
+            dotsContainer.innerHTML = '';
+            banners.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.className = 'banner-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => {
+                    showBanner(i);
+                    resetAutoPlay();
+                };
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.banner-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function resetProgress() {
+            const progressBar = document.getElementById('banner-progress-bar');
+            if (!progressBar) return;
+            
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '0%';
+            
+            setTimeout(() => {
+                progressBar.style.transition = `width ${AUTOPLAY_DELAY}ms linear`;
+                progressBar.style.width = '100%';
+            }, 50);
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                showBanner(currentIndex + 1);
+            }, AUTOPLAY_DELAY);
+        }
+
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        const prevBtn = document.getElementById('banner-prev');
+        const nextBtn = document.getElementById('banner-next');
         
-        dotsContainer.innerHTML = '';
-        banners.forEach((_, i) => {
-            const dot = document.createElement('span');
-            dot.className = 'banner-dot' + (i === 0 ? ' active' : '');
-            dot.onclick = () => {
-                showBanner(i);
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                showBanner(currentIndex - 1);
                 resetAutoPlay();
-            };
-            dotsContainer.appendChild(dot);
-        });
-    }
-
-    // به‌روزرسانی dots
-    function updateDots() {
-        const dots = document.querySelectorAll('.banner-dot');
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
-        });
-    }
-
-    // Progress Bar
-    function resetProgress() {
-        const progressBar = document.getElementById('banner-progress-bar');
-        if (!progressBar) return;
+            });
+        }
         
-        progressBar.style.transition = 'none';
-        progressBar.style.width = '0%';
-        
-        setTimeout(() => {
-            progressBar.style.transition = `width ${AUTOPLAY_DELAY}ms linear`;
-            progressBar.style.width = '100%';
-        }, 50);
-    }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                showBanner(currentIndex + 1);
+                resetAutoPlay();
+            });
+        }
 
-    // Auto Play
-    function startAutoPlay() {
-        autoPlayInterval = setInterval(() => {
-            showBanner(currentIndex + 1);
-        }, AUTOPLAY_DELAY);
-    }
+        bannerSlider.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            currentX = startX;
+        }, { passive: true });
 
-    function resetAutoPlay() {
-        clearInterval(autoPlayInterval);
+        bannerSlider.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+        }, { passive: true });
+
+        bannerSlider.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diff = currentX - startX;
+            
+            if (diff < -SWIPE_THRESHOLD) {
+                showBanner(currentIndex + 1);
+                resetAutoPlay();
+            } else if (diff > SWIPE_THRESHOLD) {
+                showBanner(currentIndex - 1);
+                resetAutoPlay();
+            }
+        }, { passive: true });
+
+        bannerSlider.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+        bannerSlider.addEventListener('mouseleave', () => startAutoPlay());
+
+        createDots();
+        resetProgress();
         startAutoPlay();
     }
-
-    // دکمه‌های قبلی/بعدی (فقط دسکتاپ)
-    const prevBtn = document.getElementById('banner-prev');
-    const nextBtn = document.getElementById('banner-next');
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            showBanner(currentIndex - 1);
-            resetAutoPlay();
-        });
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            showBanner(currentIndex + 1);
-            resetAutoPlay();
-        });
-    }
-
-    // ===== Swipe در موبایل =====
-    bannerSlider.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        startX = e.touches[0].clientX;
-        currentX = startX;
-    }, { passive: true });
-
-    bannerSlider.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        currentX = e.touches[0].clientX;
-    }, { passive: true });
-
-    bannerSlider.addEventListener('touchend', () => {
-        if (!isDragging) return;
-        isDragging = false;
-        
-        const diff = currentX - startX;
-        
-        // Swipe به چپ → بنر بعدی
-        if (diff < -SWIPE_THRESHOLD) {
-            showBanner(currentIndex + 1);
-            resetAutoPlay();
-        }
-        // Swipe به راست → بنر قبلی
-        else if (diff > SWIPE_THRESHOLD) {
-            showBanner(currentIndex - 1);
-            resetAutoPlay();
-        }
-    }, { passive: true });
-
-    // Mouse drag برای دسکتاپ (اختیاری)
-    bannerSlider.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.clientX;
-        currentX = startX;
-        e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        currentX = e.clientX;
-    });
-
-    document.addEventListener('mouseup', () => {
-        if (!isDragging) return;
-        isDragging = false;
-        
-        const diff = currentX - startX;
-        
-        if (Math.abs(diff) > SWIPE_THRESHOLD) {
-            if (diff < 0) {
-                showBanner(currentIndex + 1);
-            } else {
-                showBanner(currentIndex - 1);
-            }
-            resetAutoPlay();
-        }
-    });
-
-    // متوقف کردن auto play وقتی کاربر روی بنر است
-    bannerSlider.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
-    bannerSlider.addEventListener('mouseleave', () => startAutoPlay());
-
-    // شروع
-    createDots();
-    resetProgress();
-    startAutoPlay();
-})();
-
-// ===== Initialize Drag Scroll برای برندها =====
-document.addEventListener('DOMContentLoaded', function() {
-    const brandsSlider = document.getElementById('brands-scroll');
-    initDragScroll(brandsSlider);
 });
 </script>
+
+<style>
+/* ===== Products Section ===== */
+.products-section {
+    max-width: 1430px;
+    width: calc(100% - 40px);
+    margin: 40px auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
+}
+
+.products-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.products-section-header h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--text-color);
+}
+
+.products-section-header .view-all-btn {
+    padding: 10px 22px;
+    border-radius: 9999px;
+    border: 1px solid #00BFFF;
+    color: #00BFFF;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    transition: .3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.products-section-header .view-all-btn:hover {
+    background: #00BFFF;
+    color: white;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 191, 255, 0.15);
+    border-color: #00BFFF;
+}
+
+.product-card .product-image {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    background: var(--surface);
+    overflow: hidden;
+}
+
+.product-card .product-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-card .discount-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--danger);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.product-card .product-info {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card .product-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.product-card .product-price-row {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.product-card .old-price {
+    text-decoration: line-through;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.product-card .current-price {
+    font-size: 15px;
+    font-weight: 800;
+    color: #00BFFF;
+}
+
+/* Banner responsive */
+@media (max-width: 768px) {
+    .banner-btn {
+        display: none !important;
+    }
+    
+    .products-section {
+        width: calc(100% - 20px);
+        padding: 15px;
+        border-radius: 22px;
+    }
+    
+    .products-section-header h2 {
+        font-size: 20px;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+</style>
 
 {% endblock %}

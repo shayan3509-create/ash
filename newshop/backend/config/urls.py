@@ -24,6 +24,8 @@ urlpatterns = [
     path("", include("apps.core.urls")),
     path("admin-panel/", include("apps.admin_panel.urls")),
     path('test-404/', test_404, name='test_404'),
+    path('product/', include('apps.products.urls')),
+    
 ]
 
 if settings.DEBUG:

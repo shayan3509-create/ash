@@ -1,0 +1,632 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.seo_title|default:product.name }} | نیوشاپ{% endblock %}
+{% block description %}{{ product.seo_description|default:product.short_description }}{% endblock %}
+
+{% block extra_head %}
+<!-- SEO Meta Tags -->
+<meta name="keywords" content="{{ product.seo_keywords|default:'' }}">
+<meta name="description" content="{{ product.seo_description|default:product.short_description }}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="product">
+<meta property="og:title" content="{{ product.seo_title|default:product.name }}">
+<meta property="og:description" content="{{ product.seo_description|default:product.short_description }}">
+{% if images %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ images.0.image.url }}">
+{% endif %}
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="product:price:amount" content="{{ product.sale_price }}">
+<meta property="product:price:currency" content="IRR">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="{{ product.seo_title|default:product.name }}">
+<meta property="twitter:description" content="{{ product.seo_description|default:product.short_description }}">
+{% if images %}
+<meta property="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ images.0.image.url }}">
+{% endif %}
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "{{ product.name|escapejs }}",
+    "image": [
+        {% for img in images %}"{{ request.scheme }}://{{ request.get_host }}{{ img.image.url }}"{% if not forloop.last %},{% endif %}{% endfor %}
+    ],
+    "description": "{{ product.short_description|escapejs }}",
+    {% if product.brand %}
+    "brand": {
+        "@type": "Brand",
+        "name": "{{ product.brand.name|escapejs }}"
+    },
+    {% endif %}
+    "sku": "{{ product.sku|default:''|escapejs }}",
+    "offers": {
+        "@type": "Offer",
+        "url": "{{ request.build_absolute_uri }}",
+        "priceCurrency": "IRR",
+        "price": "{{ product.sale_price }}",
+        "availability": "{% if product.stock > 0 %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+    }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="product-detail-page">
+    
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="/" class="breadcrumb-link">خانه</a>
+        <span class="breadcrumb-separator">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </span>
+        <a href="{% url 'category' product.category.slug %}" class="breadcrumb-link">{{ product.category.title }}</a>
+        <span class="breadcrumb-separator">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </span>
+        <span class="breadcrumb-current">{{ product.name }}</span>
+    </nav>
+
+    <!-- Main Product Section -->
+    <div class="product-main">
+        
+        <!-- Image Gallery -->
+        <div class="product-gallery">
+            <div class="main-image-wrapper">
+                {% if product.discount_percent > 0 %}
+                <div class="discount-badge-main">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <span>{{ product.discount_percent }}% تخفیف</span>
+                </div>
+                {% endif %}
+                
+                {% if images %}
+                    <img src="{{ images.0.image.url }}" alt="{{ product.name }}" id="mainImage" class="main-image">
+                {% else %}
+                    <img src="{% static 'images/placeholder.png' %}" alt="{{ product.name }}" id="mainImage" class="main-image">
+                {% endif %}
+            </div>
+            
+            {% if images|length > 1 %}
+            <div class="thumbnails">
+                {% for img in images %}
+                <div class="thumbnail {% if forloop.first %}active{% endif %}" 
+                     onclick="changeImage(this, '{{ img.image.url }}')">
+                    <img src="{{ img.image.url }}" alt="تصویر {{ forloop.counter }}">
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+            
+            <!-- Title -->
+            <h1 class="product-title">{{ product.name }}</h1>
+            {% if product.name_en %}
+            <p class="product-title-en" dir="ltr">{{ product.name_en }}</p>
+            {% endif %}
+            
+            <!-- Meta Info -->
+            <div class="product-meta">
+                {% if product.brand %}
+                <div class="product-meta-item">
+                    <svg class="meta-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <strong>برند:</strong> 
+                    <span>{{ product.brand.name }}</span>
+                </div>
+                {% endif %}
+                
+                <div class="product-meta-item">
+                    <svg class="meta-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                    </svg>
+                    <strong>دسته‌بندی:</strong> 
+                    <span>{{ product.category.title }}</span>
+                </div>
+                
+                {% if product.sku %}
+                <div class="product-meta-item">
+                    <svg class="meta-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                    </svg>
+                    <strong>کد محصول:</strong> 
+                    <span class="sku-code" dir="ltr">{{ product.sku }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Price Section -->
+            <div class="price-section">
+                <div class="price-label">قیمت محصول</div>
+                <div class="price-row">
+                    <span class="price-current">{{ product.sale_price|floatformat:0 }}</span>
+                    {% if product.discount_percent > 0 %}
+                        <span class="price-old">{{ product.original_price|floatformat:0 }}</span>
+                        <span class="price-discount">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            {{ product.discount_percent }}%
+                        </span>
+                    {% endif %}
+                    <span class="price-currency">تومان</span>
+                </div>
+                
+                {% if product.discount_percent > 0 %}
+                <div class="price-savings">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                    </svg>
+                    <span>شما {{ product.original_price|add:product.sale_price|floatformat:0 }} تومان صرفه‌جویی می‌کنید</span>
+                </div>
+                {% endif %}
+                
+                {% if product.stock > 10 %}
+                    <div class="stock-status in-stock">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                        </svg>
+                        <span>موجود در انبار ({{ product.stock }} عدد)</span>
+                    </div>
+                {% elif product.stock > 0 %}
+                    <div class="stock-status low-stock">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                        </svg>
+                        <span>فقط {{ product.stock }} عدد باقی‌مانده!</span>
+                    </div>
+                {% else %}
+                    <div class="stock-status out-of-stock">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+                        </svg>
+                        <span>ناموجود</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Short Description -->
+            {% if product.short_description %}
+            <div class="product-short-description">
+                {{ product.short_description }}
+            </div>
+            {% endif %}
+
+            <!-- Options -->
+            <div class="options-section">
+                {% if colors %}
+                <div class="option-group">
+                    <label class="option-label">
+                        <span>رنگ:</span> 
+                        <span class="selected-option-name" id="selectedColorName">{{ colors.0.name }}</span>
+                    </label>
+                    <div class="color-options">
+                        {% for color in colors %}
+                        <button type="button" class="color-option {% if forloop.first %}active{% endif %}" 
+                                onclick="selectColor(this, '{{ color.name }}')"
+                                title="{{ color.name }}">
+                            <span class="color-swatch" data-color="{{ color.hex_code }}"></span>
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if sizes %}
+                <div class="option-group">
+                    <label class="option-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                        <span>سایز:</span>
+                    </label>
+                    <div class="size-options">
+                        {% for size in sizes %}
+                        <button type="button" class="size-option {% if forloop.first %}active{% endif %}" 
+                                onclick="selectSize(this)">
+                            <span>{{ size.size }}</span>
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="option-group">
+                    <label class="option-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        <span>تعداد:</span>
+                    </label>
+                    <div class="quantity-selector">
+                        <button type="button" class="quantity-btn" onclick="changeQuantity(-1)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 13H5v-2h14v2z"/>
+                            </svg>
+                        </button>
+                        <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="{{ product.stock }}">
+                        <button type="button" class="quantity-btn" onclick="changeQuantity(1)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button type="button" class="btn-add-to-cart" {% if product.stock == 0 %}disabled{% endif %}>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                    <span>افزودن به سبد خرید</span>
+                </button>
+                <button type="button" class="btn-wishlist" title="افزودن به علاقه‌مندی‌ها" onclick="this.classList.toggle('active')">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </button>
+                <button type="button" class="btn-share" title="اشتراک‌گذاری" onclick="shareProduct()">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Features Bar -->
+            <div class="features-bar">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5 .67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5 .67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">ارسال رایگان</div>
+                        <div class="feature-desc">سفارش بالای ۵۰۰ هزار</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">ضمانت اصالت</div>
+                        <div class="feature-desc">۱۰۰٪ اورجینال</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">پرداخت امن</div>
+                        <div class="feature-desc">درگاه معتبر بانکی</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">۷ روز بازگشت</div>
+                        <div class="feature-desc">ضمانت بازگشت وجه</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info: Weight & Dimensions -->
+            {% if product.weight or product.length or product.width or product.height %}
+            <div class="physical-info">
+                <h3 class="physical-info-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                    <span>اطلاعات فیزیکی</span>
+                </h3>
+                <div class="physical-info-grid">
+                    {% if product.weight %}
+                    <div class="physical-info-item">
+                        <div class="physical-info-label">وزن</div>
+                        <div class="physical-info-value">{{ product.weight }} گرم</div>
+                    </div>
+                    {% endif %}
+                    {% if product.length %}
+                    <div class="physical-info-item">
+                        <div class="physical-info-label">طول</div>
+                        <div class="physical-info-value">{{ product.length }} سانتی‌متر</div>
+                    </div>
+                    {% endif %}
+                    {% if product.width %}
+                    <div class="physical-info-item">
+                        <div class="physical-info-label">عرض</div>
+                        <div class="physical-info-value">{{ product.width }} سانتی‌متر</div>
+                    </div>
+                    {% endif %}
+                    {% if product.height %}
+                    <div class="physical-info-item">
+                        <div class="physical-info-label">ارتفاع</div>
+                        <div class="physical-info-value">{{ product.height }} سانتی‌متر</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Product Dates -->
+            <div class="product-dates">
+                <span class="product-date-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                    </svg>
+                    <span>اضافه شده: {{ product.created_at|date:"Y/m/d" }}</span>
+                </span>
+                {% if product.updated_at %}
+                <span class="product-date-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                    </svg>
+                    <span>آخرین ویرایش: {{ product.updated_at|date:"Y/m/d" }}</span>
+                </span>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="product-tabs">
+        <div class="tabs-header">
+            <button type="button" class="tab-btn active" onclick="showTab('description', this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                </svg>
+                <span>توضیحات</span>
+            </button>
+            {% if specs or product.weight or product.length or product.width or product.height %}
+            <button type="button" class="tab-btn" onclick="showTab('specs', this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22 9V7h-2V5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2v-2h-2V9h2zm-4 10H4V5h14v14zM6 13h5v4H6zm6-6h4v3h-4zM6 7h5v5H6zm6 4h4v6h-4z"/>
+                </svg>
+                <span>مشخصات فنی</span>
+            </button>
+            {% endif %}
+            {% if product.video %}
+            <button type="button" class="tab-btn" onclick="showTab('video', this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                </svg>
+                <span>ویدیو محصول</span>
+            </button>
+            {% endif %}
+            {% if product.seo_keywords %}
+            <button type="button" class="tab-btn" onclick="showTab('keywords', this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+                </svg>
+                <span>کلمات کلیدی</span>
+            </button>
+            {% endif %}
+        </div>
+
+        <!-- Tab: Description -->
+        <div class="tab-content active" id="tab-description">
+            <div class="product-description">
+                {% if product.full_description %}
+                    {{ product.full_description|linebreaks }}
+                {% elif product.short_description %}
+                    {{ product.short_description|linebreaks }}
+                {% else %}
+                    <p class="empty-tab-message">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                        </svg>
+                        <span>هنوز توضیحاتی برای این محصول ثبت نشده است.</span>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Tab: Specifications -->
+        {% if specs or product.weight or product.length or product.width or product.height %}
+        <div class="tab-content" id="tab-specs">
+            <table class="specs-table">
+                <tbody>
+                    {% for spec in specs %}
+                    <tr>
+                        <td class="spec-key">{{ spec.key }}</td>
+                        <td class="spec-value">{{ spec.value }}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                    {% if product.weight %}
+                    <tr>
+                        <td class="spec-key">وزن</td>
+                        <td class="spec-value">{{ product.weight }} گرم</td>
+                    </tr>
+                    {% endif %}
+                    
+                    {% if product.length %}
+                    <tr>
+                        <td class="spec-key">طول</td>
+                        <td class="spec-value">{{ product.length }} سانتی‌متر</td>
+                    </tr>
+                    {% endif %}
+                    
+                    {% if product.width %}
+                    <tr>
+                        <td class="spec-key">عرض</td>
+                        <td class="spec-value">{{ product.width }} سانتی‌متر</td>
+                    </tr>
+                    {% endif %}
+                    
+                    {% if product.height %}
+                    <tr>
+                        <td class="spec-key">ارتفاع</td>
+                        <td class="spec-value">{{ product.height }} سانتی‌متر</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        <!-- Tab: Video -->
+        {% if product.video %}
+        <div class="tab-content" id="tab-video">
+            <div class="video-container">
+                <video controls class="product-video" poster="{% if images %}{{ images.0.image.url }}{% endif %}">
+                    <source src="{{ product.video.url }}" type="video/mp4">
+                    مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+                </video>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Tab: Keywords -->
+        {% if product.seo_keywords %}
+        <div class="tab-content" id="tab-keywords">
+            <div class="keywords-container">
+                {% for keyword in product.seo_keywords.split %}
+                <span class="keyword-tag">{{ keyword }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Related Products -->
+    {% if related_products %}
+    <div class="related-products">
+        <div class="section-header">
+            <h2 class="section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"/>
+                </svg>
+                <span>محصولات مرتبط</span>
+            </h2>
+            <a href="{% url 'category' product.category.slug %}" class="view-all-link">
+                <span>مشاهده همه</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </a>
+        </div>
+        <div class="related-grid">
+            {% for related in related_products %}
+            <a href="{% url 'product_detail' related.slug %}" class="related-card">
+                <div class="related-image">
+                    {% if related.images.first %}
+                        <img src="{{ related.images.first.image.url }}" alt="{{ related.name }}" loading="lazy">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.png' %}" alt="{{ related.name }}" loading="lazy">
+                    {% endif %}
+                </div>
+                <div class="related-info">
+                    {% if related.brand %}
+                    <div class="related-brand">{{ related.brand.name }}</div>
+                    {% endif %}
+                    <h3 class="related-name">{{ related.name }}</h3>
+                    <div class="related-price-row">
+                        <span class="related-price">{{ related.sale_price|floatformat:0 }}</span>
+                        <span class="related-currency">تومان</span>
+                        {% if related.discount_percent > 0 %}
+                            <span class="related-discount">{{ related.discount_percent }}%</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+// تغییر تصویر اصلی
+function changeImage(thumbnail, src) {
+    document.getElementById('mainImage').src = src;
+    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+    thumbnail.classList.add('active');
+}
+
+// انتخاب رنگ
+function selectColor(element, colorName) {
+    document.querySelectorAll('.color-option').forEach(c => c.classList.remove('active'));
+    element.classList.add('active');
+    document.getElementById('selectedColorName').textContent = colorName;
+}
+
+// انتخاب سایز
+function selectSize(element) {
+    document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
+    element.classList.add('active');
+}
+
+// تغییر تعداد
+function changeQuantity(delta) {
+    const input = document.getElementById('quantity');
+    const max = parseInt(input.max);
+    let value = parseInt(input.value) + delta;
+    if (value < 1) value = 1;
+    if (value > max) value = max;
+    input.value = value;
+}
+
+// نمایش تب
+function showTab(tabName, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabName).classList.add('active');
+    btn.classList.add('active');
+}
+
+// اشتراک‌گذاری
+function shareProduct() {
+    if (navigator.share) {
+        navigator.share({
+            title: '{{ product.name|escapejs }}',
+            text: '{{ product.short_description|escapejs }}',
+            url: window.location.href
+        });
+    } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('لینک کپی شد!');
+    }
+}
+
+// اعمال رنگ به color swatch ها
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.color-swatch').forEach(swatch => {
+        const color = swatch.getAttribute('data-color');
+        if (color) {
+            swatch.style.backgroundColor = color;
+        }
+    });
+});
+</script>
+
+{% endblock %}
